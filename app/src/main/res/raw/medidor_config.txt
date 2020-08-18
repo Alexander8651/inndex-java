@@ -1,0 +1,361 @@
+#
+# generated on 2020/08/15 02:58:53
+#
+# --table-start--
+dataClass=com.inndex.car.personas.model.Estaciones
+tableName=estaciones
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nombre
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=distancia
+# --field-end--
+# --field-start--
+fieldName=direccion
+# --field-end--
+# --field-start--
+fieldName=horario
+# --field-end--
+# --field-start--
+fieldName=calificacion
+# --field-end--
+# --field-start--
+fieldName=latitud
+# --field-end--
+# --field-start--
+fieldName=longitud
+# --field-end--
+# --field-start--
+fieldName=marca
+# --field-end--
+# --field-start--
+fieldName=departamento
+# --field-end--
+# --field-start--
+fieldName=municipio
+# --field-end--
+# --field-start--
+fieldName=certificada
+# --field-end--
+# --field-start--
+fieldName=descripcionCertificado
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Estados
+tableName=estados
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.HistorialEstadoVehiculos
+tableName=historial_vehiculos_estado
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=fechaFin
+# --field-end--
+# --field-start--
+fieldName=fechaInicio
+# --field-end--
+# --field-start--
+fieldName=uploaded
+# --field-end--
+# --field-start--
+fieldName=idEstado
+# --field-end--
+# --field-start--
+fieldName=idVehiculo
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.MarcaCarros
+tableName=marcas_carros
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.ModeloCarros
+tableName=modelos_carros
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=linea
+# --field-end--
+# --field-start--
+fieldName=idMarca
+# --field-end--
+# --field-start--
+fieldName=galones
+# --field-end--
+# --field-start--
+fieldName=modelo
+# --field-end--
+# --field-start--
+fieldName=valoresAdq
+# --field-end--
+# --field-start--
+fieldName=flujo
+# --field-end--
+# --field-start--
+fieldName=hasTwoTanks
+# --field-end--
+# --field-start--
+fieldName=tipoCombustible
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Recorrido
+tableName=recorrido
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=fechaInicio
+# --field-end--
+# --field-start--
+fieldName=fechaFin
+# --field-end--
+# --field-start--
+fieldName=distanciaRecorrida
+# --field-end--
+# --field-start--
+fieldName=galonesPerdidos
+# --field-end--
+# --field-start--
+fieldName=recorridoCode
+unique=true
+# --field-end--
+# --field-start--
+fieldName=uploaded
+# --field-end--
+# --field-start--
+fieldName=completed
+# --field-end--
+# --field-start--
+fieldName=fecha
+# --field-end--
+# --field-start--
+fieldName=stFechaInicio
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Tanqueadas
+tableName=tanqueadas
+# --table-fields-start--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --field-start--
+fieldName=direccion
+# --field-end--
+# --field-start--
+fieldName=galones
+# --field-end--
+# --field-start--
+fieldName=total
+# --field-end--
+# --field-start--
+fieldName=fecha
+# --field-end--
+# --field-start--
+fieldName=latitud
+# --field-end--
+# --field-start--
+fieldName=longitud
+# --field-end--
+# --field-start--
+fieldName=cantDeseada
+# --field-end--
+# --field-start--
+fieldName=galDeseados
+# --field-end--
+# --field-start--
+fieldName=flagCantidadDeseada
+# --field-end--
+# --field-start--
+fieldName=calificacion
+# --field-end--
+# --field-start--
+fieldName=comentarios
+# --field-end--
+# --field-start--
+fieldName=precioGalon
+# --field-end--
+# --field-start--
+fieldName=idEstacion
+# --field-end--
+# --field-start--
+fieldName=idUsuario
+# --field-end--
+# --field-start--
+fieldName=idRecorrido
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.UnidadRecorrido
+tableName=unidad_recorrido
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id
+generatedId=true
+unique=true
+# --field-end--
+# --field-start--
+fieldName=latitud
+# --field-end--
+# --field-start--
+fieldName=longitud
+# --field-end--
+# --field-start--
+fieldName=altitud
+# --field-end--
+# --field-start--
+fieldName=galones
+# --field-end--
+# --field-start--
+fieldName=galonesTankTwo
+# --field-end--
+# --field-start--
+fieldName=valorBluetooh
+# --field-end--
+# --field-start--
+fieldName=valorBluetoothTankTwo
+# --field-end--
+# --field-start--
+fieldName=hora
+# --field-end--
+# --field-start--
+fieldName=fecha
+# --field-end--
+# --field-start--
+fieldName=idRecorrido
+# --field-end--
+# --field-start--
+fieldName=estado
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Usuario
+tableName=usuarios
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=email
+# --field-end--
+# --field-start--
+fieldName=password
+# --field-end--
+# --field-start--
+fieldName=nombres
+# --field-end--
+# --field-start--
+fieldName=apellidos
+# --field-end--
+# --field-start--
+fieldName=celular
+# --field-end--
+# --field-start--
+fieldName=tipo
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Vehiculo
+tableName=usuarios_has_modelos_carros
+# --table-fields-start--
+# --field-start--
+fieldName=id
+id=true
+# --field-end--
+# --field-start--
+fieldName=modelosCarrosId
+# --field-end--
+# --field-start--
+fieldName=usuariosId
+# --field-end--
+# --field-start--
+fieldName=bluetoothNombre
+# --field-end--
+# --field-start--
+fieldName=bluetoothMac
+# --field-end--
+# --field-start--
+fieldName=valoresAdq
+# --field-end--
+# --field-start--
+fieldName=placa
+# --field-end--
+# --field-start--
+fieldName=modeloCarros
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=hasTwoTanks
+# --field-end--
+# --field-start--
+fieldName=tipoCombustible
+# --field-end--
+# --field-start--
+fieldName=marca
+# --field-end--
+# --field-start--
+fieldName=linea
+# --field-end--
+# --field-start--
+fieldName=anio
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

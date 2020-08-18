@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="5dp"
+    tools:context=".fragments.InicioFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/btn_menu_content_desc"
+            android:src="@drawable/ic_menu" />
+
+        <EditText
+            android:id="@+id/edt_look_for_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="20dp"
+            android:background="@color/cardview_light_background"
+            android:drawableStart="@drawable/ic_search"
+            android:gravity="center_horizontal"
+            android:paddingEnd="25dp"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="2dp"
+            android:hint="¿A dónde vas?"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <!-- Menú Oculto -->
+
+    <LinearLayout
+        android:id="@+id/lay_menu_secundario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lay_menu_principal"
+        android:background="@color/sombra"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/img_btn_ocultar_menu_secundario"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/bajar"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:id="@+id/btn_reportar_accidente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_start_btn_menu_secundario"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
+            android:background="@drawable/round_white_border"
+            android:text="Accidente"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
+
+        <Button
+            android:id="@+id/btn_reportar_estado_via"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_start_btn_menu_secundario"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
+            android:background="@drawable/round_white_border"
+            android:text="Estado de la vía"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
+
+        <Button
+            android:id="@+id/btn_reportar_eds_no_registrada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_start_btn_menu_secundario"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
+            android:background="@drawable/round_white_border"
+            android:text="EDS no registrada"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
+
+        <Button
+            android:id="@+id/btn_reportar_peaje_no_registrado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_start_btn_menu_secundario"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
+            android:background="@drawable/round_white_border"
+            android:text="Peaje no registrado"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
+
+        <Button
+            android:id="@+id/btn_reportar_otro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_start_btn_menu_secundario"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/round_white_border"
+            android:text="Otro"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/fabRuta"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_box"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="@dimen/margin_box"
+        android:layout_marginBottom="15dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <!--LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvGalones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text"
+                android:text="@string/txt_galones"/>
+
+            <TextView
+                android:id="@+id/tvDistancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/size_text"
+                android:text="@string/txt_distancia"
+                />
+
+        </LinearLayout-->
+
+    </LinearLayout>
+
+    <!--Button
+        android:id="@+id/btnDefaultState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80sp"
+        android:layout_marginTop="40sp"
+        android:text="@string/tanquear"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:paddingHorizontal="20dp"
+        android:background="@drawable/redondeado"
+        android:layout_centerHorizontal="true"/-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRuta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fabUbicacion"
+        android:layout_alignStart="@+id/fabUbicacion"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_ruta"
+        android:visibility="invisible"
+        app:backgroundTint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabUbicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lay_menu_principal"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_ubicacion"
+        app:backgroundTint="@color/white" />
+
+    <!-- Menú Inferior -->
+    <LinearLayout
+        android:id="@+id/lay_menu_principal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/fondo_menu_inferior_inicio"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/img_btn_abrir_dialogo_reportar_accidente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/btn_menu_content_desc"
+                android:src="@drawable/reportar_negro"
+                app:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_reportar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_btn_abrir_dialogo_reportar_accidente"
+                android:layout_centerHorizontal="true"
+                android:text="Reportar"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_menu_principal"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/width_menu_item_separator"
+            android:layout_height="@dimen/height_menu_item_separator"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/img_btn_eds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/btn_menu_content_desc"
+                android:src="@drawable/eds_negro"
+                app:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_eds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_btn_eds"
+                android:layout_centerHorizontal="true"
+                android:text="EDS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_menu_principal"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/width_menu_item_separator"
+            android:layout_height="@dimen/height_menu_item_separator"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/img_btn_tienda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/btn_menu_content_desc"
+                android:src="@drawable/tienda_negro"
+                app:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_tienda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_btn_tienda"
+                android:layout_centerHorizontal="true"
+                android:text="Tienda"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_menu_principal"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--Button
+        android:id="@+id/btnRecorrido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text_btn_iniciar"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:background="@color/colorPrimaryDark"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/margin_box"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/iniciar2"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:layout_alignEnd="@id/fabRuta"-->
+
+</RelativeLayout>
