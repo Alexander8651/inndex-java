@@ -12,15 +12,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/btn_menu_content_desc"
-            android:src="@drawable/ic_menu" />
+            android:src="@drawable/ic_menu"
+            app:backgroundTint="@color/white" />
 
         <EditText
             android:id="@+id/edt_look_for_place"
@@ -36,8 +36,8 @@
             android:paddingTop="3dp"
             android:paddingBottom="2dp"
             android:hint="¿A dónde vas?"
-            android:textSize="28sp" />
-
+            android:textSize="28sp"
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
     <!-- Menú Oculto -->
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/lay_menu_principal"
-        android:background="@color/sombra"
+        android:background="@drawable/round_shadow_border"
         android:orientation="vertical"
         android:visibility="invisible">
 
@@ -72,7 +72,8 @@
             android:background="@drawable/round_white_border"
             android:text="Accidente"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario" />
+            android:textSize="@dimen/size_text_btn_menu_secundario"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn_reportar_estado_via"
@@ -85,7 +86,8 @@
             android:background="@drawable/round_white_border"
             android:text="Estado de la vía"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario" />
+            android:textSize="@dimen/size_text_btn_menu_secundario"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn_reportar_eds_no_registrada"
@@ -98,7 +100,8 @@
             android:background="@drawable/round_white_border"
             android:text="EDS no registrada"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario" />
+            android:textSize="@dimen/size_text_btn_menu_secundario"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn_reportar_peaje_no_registrado"
@@ -111,7 +114,8 @@
             android:background="@drawable/round_white_border"
             android:text="Peaje no registrado"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario" />
+            android:textSize="@dimen/size_text_btn_menu_secundario"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn_reportar_otro"
@@ -125,7 +129,8 @@
             android:background="@drawable/round_white_border"
             android:text="Otro"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario" />
+            android:textSize="@dimen/size_text_btn_menu_secundario"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -169,20 +174,6 @@
         </LinearLayout-->
 
     </LinearLayout>
-
-    <!--Button
-        android:id="@+id/btnDefaultState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80sp"
-        android:layout_marginTop="40sp"
-        android:text="@string/tanquear"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:paddingHorizontal="20dp"
-        android:background="@drawable/redondeado"
-        android:layout_centerHorizontal="true"/-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabRuta"

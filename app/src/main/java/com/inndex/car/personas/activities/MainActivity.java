@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences myPreferences;
     private List<Estaciones> estaciones;
     private DataBaseHelper helper;
-    private ImageButton btnBack, btnMenu;
+    private ImageButton btnBack;
     private Typeface bold;
     private View viewMap;
     private Estaciones estacionMasCercana;
@@ -117,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String values;
 
     private String placa;
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -230,16 +228,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mi.setTitle(mNewTitle);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         Toast.makeText(this, "BACK BUTTON PRESSED", Toast.LENGTH_SHORT).show();
-        /*DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }*/
-    }
+        Fragment fragment = new InicioFragment(bold, this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
+        btnBack.setVisibility(View.GONE);
+        viewMap.setVisibility(View.VISIBLE);
+
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -250,28 +247,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         miFragment = null;
         boolean fragmentSeleccionado = false;
 
-        if (id == R.id.nav_combustible) {
-
-            miFragment = new IngresadoFragment(this);
-            fragmentSeleccionado = true;
-            btnMenu.setVisibility(View.GONE);
-
-        } else if (id == R.id.nav_historial) {
-            miFragment = new HistorialTabs();
-            fragmentSeleccionado = true;
-            viewMap.setVisibility(View.GONE);
-            btnMenu.setVisibility(View.GONE);
-
-        } else if (id == R.id.nav_config) {
+        if (id == R.id.nav_config) {
             miFragment = new ConfiguracionTabs(MainActivity.this);
             fragmentSeleccionado = true;
             viewMap.setVisibility(View.GONE);
-            btnMenu.setVisibility(View.GONE);
 
-        }  else if (id == R.id.logout) {
+        } else if (id == R.id.logout) {
             //logout();
         }
-
         if (fragmentSeleccionado) {
             btnBack.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
@@ -290,17 +273,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapService.mostrarUbicacion();
         }
         if (estaciones.size() > 0) {
-            for (Estaciones estacion :
-                    estaciones) {
-                LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
-
-                if (!estacion.isCertificada())
-                    mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
-                            .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado)));
-                else
-                    mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
-                            .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada)));
-            }
+            mapService.setEstaciones(estaciones);
+            mapService.addStations();
         }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -405,7 +379,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
             btnBack.setVisibility(View.GONE);
             viewMap.setVisibility(View.VISIBLE);
-            btnMenu.setVisibility(View.VISIBLE);
         });
     }
 
@@ -590,6 +563,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //fireBaseRecorridosHelper.init();
         initRecorrido();
     }
+
     public RecorridoService getRecorridoService() {
         return recorridoService;
     }
@@ -609,6 +583,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onMapPositionChange() {
         inicioFragment.onMapPositionChange();
     }
+
     public void onMapMarkerSelected() {
         inicioFragment.onMapMarkerSelected();
     }

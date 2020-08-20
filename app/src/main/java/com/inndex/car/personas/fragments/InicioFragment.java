@@ -156,8 +156,6 @@ public class InicioFragment extends Fragment  {
             if (data != null) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 edtLookPlaces.setText(place.getAddress());
-                Log.e("1", place.getName());
-                Log.e("2", place.getAddress());
             } else {
                 Log.e("ERROR", "EN INICIO FRAGMENT");
             }
@@ -223,6 +221,9 @@ public class InicioFragment extends Fragment  {
         Typeface thin = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Thin.ttf");
         Typeface robotoRegular = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Regular.ttf");
 
+        //edtLookPlaces.setTypeface(thin);
+        //edtLookPlaces.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+
         tvEds.setTypeface(robotoRegular);
         tvReportar.setTypeface(robotoRegular);
         tvTienda.setTypeface(robotoRegular);
@@ -237,13 +238,14 @@ public class InicioFragment extends Fragment  {
         btnReportarAccidente.setTextColor(getResources().getColor(R.color.colorPrimary, null));
         btnReportarEstadoVia.setTextColor(getResources().getColor(R.color.colorPrimary, null));
 
-
         btnReportarAccidente.setOnClickListener(vReportarAccidente -> {
             layMenuSecundario.setVisibility(View.GONE);
             abrirDialogoReportarAccidente();
         });
         imgOcultarMenuSecundario.setOnClickListener(vOcultar -> {
             layMenuSecundario.setVisibility(View.GONE);
+            imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
+            tvReportar.setTextColor(getResources().getColor(R.color.colorPrimary,null));
         });
         edtLookPlaces.setFocusable(false);
         Places.initialize(mainActivity, "AIzaSyCRfWREv6YQGU8OBG0lOmXMOT16wjS2sC4");
@@ -274,9 +276,17 @@ public class InicioFragment extends Fragment  {
                 if (!menuItemSelectedFlag) {
                     layMenuSecundario.setVisibility(View.VISIBLE);
                     imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_rojo);
+                    tvReportar.setTextColor(getResources().getColor(R.color.colorAccent,null));
+                    btnReportarOtro.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                    btnReportarEdsNoRegistrada.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                    btnReportarPeajeNoRegistrado.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                    btnReportarAccidente.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                    btnReportarEstadoVia.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+
                 } else {
                     layMenuSecundario.setVisibility(View.GONE);
                     imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
+                    tvReportar.setTextColor(getResources().getColor(R.color.colorPrimary,null));
                 }
                 break;
             case ITEM_EDS_SELECCIONADO:

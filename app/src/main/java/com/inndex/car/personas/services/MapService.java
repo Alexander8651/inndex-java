@@ -14,10 +14,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.clustering.ClusterManager;
 import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.renderer.EstacionRenderer;
 import com.inndex.car.personas.rutas.DirectionFinder;
 import com.inndex.car.personas.rutas.PasarUbicacion;
 import com.inndex.car.personas.rutas.Route;
+import com.inndex.car.personas.to.InndexMarkerItem;
 import com.inndex.car.personas.utils.Constantes;
 
 import java.util.ArrayList;
@@ -31,7 +35,8 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     private Location myLocation;
     private Context context;
     private MainActivity mainActivity;
-
+    private List<Estaciones> estaciones;
+    private ClusterManager<InndexMarkerItem> mClusterManager;
     public MapService(GoogleMap mMap, Context context) {
         this.mMap = mMap;
         this.context = context;
@@ -113,7 +118,29 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         uiSettings.setAllGesturesEnabled(true);
         uiSettings.setMapToolbarEnabled(false);
         uiSettings.setMyLocationButtonEnabled(false);
-        this.mMap.setOnMarkerClickListener(this);
+        //this.mMap.setOnMarkerClickListener(this);
+    }
+
+    public void addStations() {
+        mClusterManager = new ClusterManager<>(context, mMap);
+        mClusterManager.setRenderer(new EstacionRenderer(context, mMap, mClusterManager));
+        this.mMap.setOnMarkerClickListener(mClusterManager);
+        this.mMap.setOnCameraIdleListener(mClusterManager);
+        for (Estaciones estacion :
+                estaciones) {
+            LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
+            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(),latLng, estacion.getMarca(), estacion.getDireccion());
+
+            mClusterManager.addItem(item);
+            /*
+            if (!estacion.isCertificada())
+                mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
+                        .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado)));
+            else
+                mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
+                        .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada)));*/
+        }
+        mClusterManager.cluster();
     }
 
     public void updateMyPosition() {
@@ -145,9 +172,23 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         this.myLocation = myLocation;
     }
 
+    /*@Override
+    public void onCameraIdle() {
+        Log.e("CAMERA","Cmaera changed");
+        mainActivity.onMapPositionChange();
+    }*/
+
     @Override
     public void onCameraMove() {
         Log.e("CAMERA","Cmaera changed");
         mainActivity.onMapPositionChange();
+    }
+
+    public List<Estaciones> getEstaciones() {
+        return estaciones;
+    }
+
+    public void setEstaciones(List<Estaciones> estaciones) {
+        this.estaciones = estaciones;
     }
 }
