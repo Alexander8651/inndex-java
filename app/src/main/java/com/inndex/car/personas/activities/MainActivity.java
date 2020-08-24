@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
@@ -24,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -117,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String values;
 
     private String placa;
+    private Toolbar toolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -125,6 +130,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.BLACK);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            //setStatusBarTranslucent(true);
+        }
+
         helper = OpenHelperManager.getHelper(MainActivity.this, DataBaseHelper.class);
         bold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
         viewMap = findViewById(R.id.map);
@@ -134,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         mapService = new MapService(MainActivity.this, this);
         mCustomProgressDialog = new CustomProgressDialog(this);
         mCustomProgressDialog.setCanceledOnTouchOutside(false);
@@ -204,7 +229,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Gson gson = new Gson();
         JsonArray jsonArray = gson.fromJson(values, JsonArray.class);
-
         JsonObject jsonValues = jsonArray.get(0).getAsJsonObject();
         List<Integer> listValues = new ArrayList<>();
 
@@ -213,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (listValues.size() > 0) {
-
             return Collections.max(listValues);
         } else {
             return 10;
@@ -246,12 +269,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         miFragment = null;
         boolean fragmentSeleccionado = false;
-
         if (id == R.id.nav_config) {
             miFragment = new ConfiguracionTabs(MainActivity.this);
             fragmentSeleccionado = true;
             viewMap.setVisibility(View.GONE);
-
+            toolbar.setVisibility(View.VISIBLE);
         } else if (id == R.id.logout) {
             //logout();
         }
@@ -259,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnBack.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -321,7 +342,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         inndexLocationService.setLocationManager(null);
         //unregisterReceiver(startReceiver);
         //unregisterReceiver(stopReceiver);
@@ -350,12 +370,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         View headerLayout = navigationView.getHeaderView(0);
+        toolbar = findViewById(R.id.toolbar);
 
         TextView tvUsuario = headerLayout.findViewById(R.id.tvUsuario);
         tvDefaultPlaca = headerLayout.findViewById(R.id.tvDefaultPlaca);
         //tvDefaultState = headerLayout.findViewById(R.id.tvDefaultState);
         tvDefaultPlaca.setText(placa);
-        tvUsuario.setText(myPreferences.getString("nombres", "") + myPreferences.getString("apellidos", ""));
+        tvUsuario.setText(myPreferences.getString("nombres", "") + " " +
+                myPreferences.getString("apellidos", ""));
         navigationView.setNavigationItemSelectedListener(this);
         Menu m = navigationView.getMenu();
 
@@ -379,6 +401,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
             btnBack.setVisibility(View.GONE);
             viewMap.setVisibility(View.VISIBLE);
+            toolbar.setVisibility(View.GONE);
         });
     }
 
@@ -588,4 +611,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inicioFragment.onMapMarkerSelected();
     }
 
+    public void onChangeRouteButtonIcon() {
+        inicioFragment.onChangeRouteButtonIcon();
+    }
 }

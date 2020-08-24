@@ -11,14 +11,14 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp">
+        android:layout_marginTop="@dimen/margin_top_to_toolbar_nuevo_vehiculo">
 
         <ImageView
             android:id="@+id/img_mi_vehiculo_nuevo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:contentDescription="@string/aceptar"
-            android:src="@drawable/carro"
+            android:src="@drawable/ic_car"
             android:layout_marginEnd="20dp"/>
 
         <LinearLayout
@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_marca"/>
+
             <Spinner
                 android:id="@+id/sp_anio_mi_vehiculo_nuevo"
                 android:layout_width="match_parent"
@@ -85,15 +86,6 @@
             android:layout_marginEnd="20dp"
             android:contentDescription="@string/cal_aceptar"/>
 
-        <Spinner
-            android:id="@+id/sp_edit_bluetooth_device"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:padding="10dp"
-            android:layout_below="@+id/img_borrar_vehiculo"/>
-
         <Button
             android:id="@+id/btn_add_bluetooth_aceptar"
             android:layout_width="match_parent"
@@ -101,12 +93,13 @@
             android:text="@string/cal_aceptar"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:layout_below="@id/sp_edit_bluetooth_device"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="20sp"
             android:background="@color/colorPrimary"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_agregar_vehiculo"/>
     </RelativeLayout>
 
 </LinearLayout>

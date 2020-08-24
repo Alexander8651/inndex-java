@@ -21,4 +21,7 @@
     <dimen name="size_text_menu_principal">20sp</dimen>
     <dimen name="height_menu_item_separator">40dp</dimen>
     <dimen name="width_menu_item_separator">2dp</dimen>
+    <!-- Nuevo vehículo fragment -->
+    <dimen name="margin_top_to_toolbar_nuevo_vehiculo">120dp</dimen>
+
 </resources>

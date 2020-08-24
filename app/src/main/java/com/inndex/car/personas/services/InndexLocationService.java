@@ -45,11 +45,11 @@ public class InndexLocationService {
             public void onLocationResult(LocationResult locationResult) {
 
                 if (locationResult == null) {
-                    Log.e("LOCTION","RESULT NUUULLLL");
+                    Log.e("LOCTION", "RESULT NUUULLLL");
                     return;
                 }
 
-                if(myLocation == null) {
+                if (myLocation == null) {
                     myLocation = locationResult.getLastLocation();
                     return;
                 }
@@ -66,7 +66,7 @@ public class InndexLocationService {
                     //Log.e("LL5",String.valueOf(locationResult.getLastLocation().getLongitude()));
                     mainActivity.getMapService().updateMyPosition();
                     mainActivity.getMapService().setMyLocation(myLocation);
-                    if(distancia_temp > 2) {
+                    if (distancia_temp > 2) {
 
                         myLocation = locationResult.getLastLocation();
                         distancia += distancia_temp;
@@ -104,13 +104,10 @@ public class InndexLocationService {
             // already permission granted
 
             mFusedLocationClient.getLastLocation().addOnSuccessListener(mainActivity, location -> {
-
-                if(location != null) {
+                if (location != null) {
                     myLocation = location;
                     mainActivity.updateLocation(myLocation);
                 }
-                else
-                    Toast.makeText(mainActivity, "ESA VAINA ES NULL", Toast.LENGTH_LONG).show();
             });
             mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
             //Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

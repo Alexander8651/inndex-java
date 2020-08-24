@@ -23,8 +23,11 @@ public class EstacionRenderer extends DefaultClusterRenderer<InndexMarkerItem> {
 
         if(item.isCertificada()) {
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada));
+
         } else {
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado));
         }
+        markerOptions.title(item.getTitle());
+        markerOptions.snippet(item.getSnippet());
     }
 }

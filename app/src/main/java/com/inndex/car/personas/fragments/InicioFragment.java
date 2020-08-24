@@ -315,4 +315,8 @@ public class InicioFragment extends Fragment  {
     public void onMapMarkerSelected() {
         fabRuta.show();
     }
+
+    public void onChangeRouteButtonIcon() {
+        fabRuta.setBackgroundDrawable(getResources().getDrawable(R.drawable.navegacion, null));
+    }
 }

@@ -90,6 +90,9 @@ public class Constantes {
 
     public static final long TIMEOUT = 500;
 
+    public static final String TEST_MAC_ADDRESS = "00:11:00:00:22";
+
+
     public static final SimpleDateFormat SDF_FOR_BACKEND = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
     public static final SimpleDateFormat SDF_DATE_ONLY = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -141,6 +144,8 @@ public class Constantes {
 
         return years;
     }
+
+
 
     /**
      * Constants for FetchAddressIntentService

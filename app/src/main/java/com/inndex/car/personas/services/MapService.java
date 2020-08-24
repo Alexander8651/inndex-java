@@ -30,13 +30,15 @@ import java.util.List;
 public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListener , GoogleMap.OnCameraMoveListener{
 
     private GoogleMap mMap;
-    private Marker markerStation, markerMyPosition;
+    private Marker markerMyPosition;
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Location myLocation;
     private Context context;
     private MainActivity mainActivity;
     private List<Estaciones> estaciones;
     private ClusterManager<InndexMarkerItem> mClusterManager;
+    private InndexMarkerItem itemStationSelected;
+
     public MapService(GoogleMap mMap, Context context) {
         this.mMap = mMap;
         this.context = context;
@@ -49,13 +51,13 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
 
     public void drawSationRoute(){
 
-        if(markerStation == null){
+        if(itemStationSelected == null){
             Toast.makeText(context, "DEBE SELECCIONAR UNA ESTACIÓN!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (myLocation != null) {
             LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-            LatLng destino = new LatLng(markerStation.getPosition().latitude, markerStation.getPosition().longitude);
+            LatLng destino = new LatLng(itemStationSelected.getPosition().latitude, itemStationSelected.getPosition().longitude);
             DirectionFinder buscador = new DirectionFinder(this, latLng, destino,
                     Constantes.API_KEY_PLACES);
             buscador.peticionRutas();
@@ -67,26 +69,28 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     @Override
     public void trazarRutas(List<Route> rutas) {
 
-        if(polylinePaths != null && polylinePaths.size() > 0) {
-            polylinePaths.forEach(Polyline::remove);
-        }
-        polylinePaths = new ArrayList<>();
-        for (Route route : rutas) {
-            PolylineOptions polylineOptions = new PolylineOptions().
-                    geodesic(true).
-                    color(Color.BLACK).
-                    width(6);
+        if(rutas != null && rutas.size() > 0) {
+            if(polylinePaths != null && polylinePaths.size() > 0) {
+                polylinePaths.forEach(Polyline::remove);
+            }
+            polylinePaths = new ArrayList<>();
+            for (Route route : rutas) {
+                PolylineOptions polylineOptions = new PolylineOptions().
+                        geodesic(true).
+                        color(Color.BLACK).
+                        width(6);
 
-            for (int i = 0; i < route.points.size(); i++)
-                polylineOptions.add(route.points.get(i));
-            polylinePaths.add(mMap.addPolyline(polylineOptions));
+                for (int i = 0; i < route.points.size(); i++)
+                    polylineOptions.add(route.points.get(i));
+                polylinePaths.add(mMap.addPolyline(polylineOptions));
+            }
+        mainActivity.onChangeRouteButtonIcon();
         }
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        markerStation = marker;
-        mainActivity.onMapMarkerSelected();
+
         return false;
     }
 
@@ -141,10 +145,19 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
                         .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada)));*/
         }
         mClusterManager.cluster();
+        mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<InndexMarkerItem>() {
+            @Override
+            public boolean onClusterItemClick(InndexMarkerItem item) {
+
+                itemStationSelected = item;
+                mainActivity.onMapMarkerSelected();
+                Log.e("HUBO","UN CLICK EN " + item.getSnippet());
+                return false;
+            }
+        });
     }
 
     public void updateMyPosition() {
-
         if(myLocation == null) {
             return;
         }
@@ -154,14 +167,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         } else {
             markerMyPosition.setPosition(newPosition);
         }
-    }
-
-    public Marker getMarkerStation() {
-        return markerStation;
-    }
-
-    public void setMarkerStation(Marker markerStation) {
-        this.markerStation = markerStation;
     }
 
     public Location getMyLocation() {

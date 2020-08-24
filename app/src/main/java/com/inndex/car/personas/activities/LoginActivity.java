@@ -40,7 +40,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etPassword, etEmail;
-    private String email ;
+    private String email;
     public static final int LOCATION_REQUEST_CODE = 1;
 
     private CustomProgressDialog mCustomProgressDialog;
@@ -59,15 +59,15 @@ public class LoginActivity extends AppCompatActivity {
 
         checkGPSState();
 
-        Typeface light=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
-        Typeface bold=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Bold.ttf");
+        Typeface light = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+        Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
         mCustomProgressDialog = new CustomProgressDialog(this);
         mCustomProgressDialog.setCanceledOnTouchOutside(false);
         mCustomProgressDialog.setCancelable(false);
 
-        etEmail =  findViewById(R.id.etEmail);
+        etEmail = findViewById(R.id.etEmail);
         etEmail.setTypeface(light);
-        etPassword =  findViewById(R.id.etPassword);
+        etPassword = findViewById(R.id.etPassword);
         etPassword.setTypeface(light);
         Button btnIngresar = findViewById(R.id.btnIngresar);
         btnIngresar.setTypeface(bold);
@@ -76,22 +76,22 @@ public class LoginActivity extends AppCompatActivity {
             email = etEmail.getText().toString().toLowerCase();
             String password = etPassword.getText().toString();
 
-            if (!email.isEmpty() && !password.isEmpty() && isEmailValid(email)){
+            if (!email.isEmpty() && !password.isEmpty() && isEmailValid(email)) {
                 Usuario user = new Usuario();
                 user.setEmail(email);
                 user.setPassword(password);
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected()){
+                if (networkInfo != null && networkInfo.isConnected()) {
                     //login(user);
                     mCustomProgressDialog.show("");
                     login(user);
                     //Toast.makeText(LoginActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getBaseContext(),"No hay conexion a internet", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "No hay conexion a internet", Toast.LENGTH_LONG).show();
                 }
-            }else{
-                Toast.makeText(getBaseContext(),"Por favor ingrese Correo y Contraseña válidos.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getBaseContext(), "Por favor ingrese Correo y Contraseña válidos.", Toast.LENGTH_LONG).show();
             }
         });
         Button btnRegistrar = findViewById(R.id.btnRegistrar);
@@ -108,20 +108,20 @@ public class LoginActivity extends AppCompatActivity {
         myPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
-    private void login(Usuario user){
-
-
+    private void login(Usuario user) {
         Call<Usuario> login = MedidorApiAdapter.getApiService().postLogin(Constantes.CONTENT_TYPE_JSON, user);
         login.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if (response.isSuccessful()){
-                    irMain(user);
-                }else{
+                if (response.isSuccessful()) {
+                    if (response.body() != null)
+                        irMain(response.body());
+                } else {
                     mCustomProgressDialog.dismiss("");
                     Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 mCustomProgressDialog.dismiss("");
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void irMain(Usuario user){
+    private void irMain(Usuario user) {
         SharedPreferences.Editor infoUsuario = myPreferences.edit();
         infoUsuario.putBoolean(Constantes.SESION_ACTIVE, true);
         infoUsuario.putString("email", user.getEmail());
@@ -140,37 +140,38 @@ public class LoginActivity extends AppCompatActivity {
         infoUsuario.putString("apellidos", user.getApellidos());
 
         infoUsuario.apply();
+        infoUsuario.commit();
         mCustomProgressDialog.dismiss("");
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public boolean isEmailValid(String email){
+    public boolean isEmailValid(String email) {
         String regExpn =
                 "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-                        +"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                        +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                        +"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                        +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-                        +"([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
 
         CharSequence inputStr = email;
-        Pattern pattern = Pattern.compile(regExpn,Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);
         return matcher.matches();
     }
 
-    private void setDefaultState(Estados estados){
-        if(estados !=  null){
+    private void setDefaultState(Estados estados) {
+        if (estados != null) {
             myPreferences.edit().putString(Constantes.DEFAULT_STATE, estados.getNombre()).apply();
             myPreferences.edit().putInt(Constantes.DEFAULT_STATE_ID, estados.getId()).apply();
         }
     }
 
     private void checkGPSState() {
-        if ( !(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) ) {
+        if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(
                     this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
