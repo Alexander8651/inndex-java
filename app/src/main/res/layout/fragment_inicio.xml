@@ -133,48 +133,6 @@
             android:textAllCaps="false"/>
     </LinearLayout>
 
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/fabRuta"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_box"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="@dimen/margin_box"
-        android:layout_marginBottom="15dp"
-        android:background="@android:color/white"
-        android:orientation="vertical">
-
-        <!--LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="10sp"
-            android:paddingBottom="10sp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvGalones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/size_text"
-                android:text="@string/txt_galones"/>
-
-            <TextView
-                android:id="@+id/tvDistancia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/size_text"
-                android:text="@string/txt_distancia"
-                />
-
-        </LinearLayout-->
-
-    </LinearLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabRuta"
         android:layout_width="wrap_content"
@@ -183,7 +141,7 @@
         android:layout_alignStart="@+id/fabUbicacion"
         android:layout_marginBottom="10dp"
         android:src="@drawable/ic_ruta"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:backgroundTint="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

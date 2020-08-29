@@ -20,14 +20,14 @@
                 android:id="@+id/tvNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvDistancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textSecond"/>
+                android:textColor="@color/textSecond" />
 
             <TextView
                 android:id="@+id/tvDireccion"
@@ -43,30 +43,29 @@
                     android:id="@+id/tvHorario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textSecond"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/textSecond" />
 
                 <TextView
                     android:id="@+id/tvClasificacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorPrimary"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf="@id/rbClasificacion"/>
+                    android:layout_toStartOf="@id/rbClasificacion"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
 
                 <RatingBar
                     android:id="@+id/rbClasificacion"
+                    style="?android:attr/ratingBarStyleIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:backgroundTint="@color/gris"
-                    android:progressTint="@color/star"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:theme="@style/MyRatingBar"
                     android:layout_alignParentEnd="true"
-                    />
+                    android:backgroundTint="@color/gris"
+                    android:numStars="5"
+                    android:progressTint="@color/star"
+                    android:stepSize="0.1"
+                    android:theme="@style/MyRatingBar" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -76,24 +75,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:background="@android:color/transparent"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_ruta" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@id/img_irEstacion"
-            android:layout_alignParentEnd="true">
-
-
-
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
 
         </LinearLayout>
-
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
