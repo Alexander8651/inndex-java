@@ -4,13 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -44,15 +43,6 @@ public class ConfiguracionTabs extends Fragment {
         this.mainActivity = mainActivity;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConfiguracionTabs.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ConfiguracionTabs newInstance(String param1, String param2) {
         ConfiguracionTabs fragment = new ConfiguracionTabs();
         Bundle args = new Bundle();
@@ -72,20 +62,18 @@ public class ConfiguracionTabs extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_configuracion_tabs, container, false);
         if (Constantes.ROTATION == 0) {
-
-            View parent = (View)container.getParent();
-            if (appBar == null){
-
+            View parent = (View) container.getParent();
+            if (appBar == null) {
                 appBar = parent.findViewById(R.id.app_bar);
                 tabs = new TabLayout(Objects.requireNonNull(getActivity()));
-                tabs.setTabTextColors(Color.parseColor("#FFFFFF"),Color.parseColor("#FFFFFF"));
+                tabs.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
                 tabs.setSelectedTabIndicatorColor(Color.parseColor("#4A86E8"));
                 tabs.setSelectedTabIndicator(R.drawable.custom_indicator);
                 appBar.addView(tabs);
 
                 ViewPager viewPager = v.findViewById(R.id.vp_configuracion_tabs);
                 llenarViewPager(viewPager);
-                viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+                viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -94,10 +82,9 @@ public class ConfiguracionTabs extends Fragment {
 
                 });
                 tabs.setupWithViewPager(viewPager);
-            }else{
+            } else {
                 Constantes.ROTATION = 1;
             }
-
         }
         return v;
     }
@@ -126,10 +113,9 @@ public class ConfiguracionTabs extends Fragment {
         adapter.addFragment(new InfoPersonal(mainActivity), "Info. Personal");
         adapter.addFragment(new MiVehiculo(mainActivity), "Mis vehículos");
         adapter.addFragment(new NuevoVehiculo(mainActivity), "Nuevo Vehículo");
-
         viewPager.setAdapter(adapter);
-
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -144,7 +130,7 @@ public class ConfiguracionTabs extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (Constantes.ROTATION == 0){
+        if (Constantes.ROTATION == 0) {
             appBar.removeView(tabs);
         }
     }

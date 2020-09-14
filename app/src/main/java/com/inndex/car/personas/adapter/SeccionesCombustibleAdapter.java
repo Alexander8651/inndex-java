@@ -18,12 +18,11 @@ public class SeccionesCombustibleAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
 
-    public void addFragment(Fragment fragment, String titulo){
+    public void addFragment(Fragment fragment, String titulo) {
 
         fragmentList.add(fragment);
         titulosList.add(titulo);
     }
-
 
     @Nullable
     @Override

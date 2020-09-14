@@ -6,19 +6,15 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.adapter.EstacionesAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Estaciones;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -55,8 +51,8 @@ public class EstacionesActivity extends AppCompatActivity {
         final LinearLayoutManager llm = new LinearLayoutManager(EstacionesActivity.this);
         rv.setLayoutManager(llm);
 
-        RecyclerView.Adapter adapter = new EstacionesAdapter(listEstaciones, EstacionesActivity.this);
-        rv.setAdapter(adapter);
+        //RecyclerView.Adapter adapter = new EstacionesAdapter(listEstaciones, EstacionesActivity.this);
+        //rv.setAdapter(adapter);
         init();
     }
 

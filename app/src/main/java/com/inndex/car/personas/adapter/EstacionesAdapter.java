@@ -5,12 +5,14 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Estaciones;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class EstacionesAdapter  extends RecyclerView.Adapter<EstacionesAdapter.E
 
     private List<Estaciones>items;
     private Context context;
+    private DataBaseHelper helper;
 
     public class EstacionesViewHolder extends RecyclerView.ViewHolder {
         public TextView tvNombre;
@@ -27,6 +30,9 @@ public class EstacionesAdapter  extends RecyclerView.Adapter<EstacionesAdapter.E
         public TextView tvHorario;
         public TextView tvCalificacion;
         public RatingBar rbClasificacion;
+        public ImageView imgCertificado;
+
+
 
         public EstacionesViewHolder(View itemView) {
             super(itemView);
@@ -36,6 +42,7 @@ public class EstacionesAdapter  extends RecyclerView.Adapter<EstacionesAdapter.E
             tvHorario =  itemView.findViewById(R.id.tvHorario);
             tvCalificacion = itemView.findViewById(R.id.tvClasificacion);
             rbClasificacion =  itemView.findViewById(R.id.rbClasificacion);
+            imgCertificado = itemView.findViewById(R.id.img_estacion_certificado);
             Typeface light=Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Light.ttf");
 
             tvCalificacion.setTypeface(light);
@@ -43,13 +50,13 @@ public class EstacionesAdapter  extends RecyclerView.Adapter<EstacionesAdapter.E
             tvDistancia.setTypeface(light);
             tvHorario.setTypeface(light);
             tvNombre.setTypeface(light);
-
         }
     }
 
-    public EstacionesAdapter(List<Estaciones> items, Context context) {
+    public EstacionesAdapter(List<Estaciones> items, Context context, DataBaseHelper helper) {
         this.items = items;
         this.context = context;
+        this.helper = helper;
     }
 
     @Override
@@ -69,6 +76,9 @@ public class EstacionesAdapter  extends RecyclerView.Adapter<EstacionesAdapter.E
             holder.tvDistancia.setText(String.format("%.1f",distancia)+" m");
         }
 
+        if (items.get(position).isCertificada()) {
+            holder.imgCertificado.setVisibility(View.VISIBLE);
+        }
         holder.tvDireccion.setText(items.get(position).getDireccion());
         holder.tvHorario.setText(items.get(position).getHorario());
         holder.tvCalificacion.setText(String.valueOf(items.get(position).getCalificacion()));

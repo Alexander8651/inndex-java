@@ -50,5 +50,7 @@ dependencies {
     implementation 'com.google.guava:guava:27.0.1-android'
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
     implementation 'com.google.maps.android:android-maps-utils:2.0.3'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 }
 apply plugin: 'com.google.gms.google-services'

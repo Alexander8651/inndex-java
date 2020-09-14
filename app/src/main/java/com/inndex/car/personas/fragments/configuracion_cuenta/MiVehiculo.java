@@ -1,6 +1,6 @@
 package com.inndex.car.personas.fragments.configuracion_cuenta;
 
-        import android.net.Uri;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,18 +23,8 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MiVehiculo.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MiVehiculo#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MiVehiculo extends Fragment {
 
-
-    // TODO: Rename and change types of parameters
     private MainActivity mainActivity;
 
     private OnFragmentInteractionListener mListener;
@@ -44,18 +34,9 @@ public class MiVehiculo extends Fragment {
     }
 
     public MiVehiculo(MainActivity mainActivity) {
-
         this.mainActivity = mainActivity;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MiVehiculo.
-     */
     // TODO: Rename and change types and number of parameters
     public static MiVehiculo newInstance(String param1, String param2) {
         MiVehiculo fragment = new MiVehiculo();
@@ -67,7 +48,6 @@ public class MiVehiculo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

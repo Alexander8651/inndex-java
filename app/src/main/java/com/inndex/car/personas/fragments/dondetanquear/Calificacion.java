@@ -1,21 +1,16 @@
 package com.inndex.car.personas.fragments.dondetanquear;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.EstacionesActivity;
 import com.inndex.car.personas.activities.MainActivity;
-import com.inndex.car.personas.adapter.EstacionesAdapter;
 import com.inndex.car.personas.model.Estaciones;
 
 import java.util.List;
@@ -67,17 +62,13 @@ public class Calificacion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_calificacion, container, false);
-
         List<Estaciones> listEstaciones = mainActivity.getEstaciones();
-
         RecyclerView rv = v.findViewById(R.id.rv_dt_calificacion);
         final LinearLayoutManager llm = new LinearLayoutManager(mainActivity);
         rv.setLayoutManager(llm);
-
-        RecyclerView.Adapter adapter = new EstacionesAdapter(listEstaciones, mainActivity);
-        rv.setAdapter(adapter);
+        //RecyclerView.Adapter adapter = new EstacionesAdapter(listEstaciones, mainActivity);
+        //rv.setAdapter(adapter);
         return v;
     }
 

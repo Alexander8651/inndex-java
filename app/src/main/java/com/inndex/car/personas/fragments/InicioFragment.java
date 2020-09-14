@@ -267,6 +267,9 @@ public class InicioFragment extends Fragment  {
             fabRuta.hide();
         });
         btnMenu.setOnClickListener(vMenu -> mainActivity.openSideMenu());
+        imgBtnEds.setOnClickListener(click -> {
+            mainActivity.goToEstaciones();
+        });
     }
 
     private void updateMenuIcons(int selectedItem) {
@@ -291,11 +294,12 @@ public class InicioFragment extends Fragment  {
                 break;
             case ITEM_EDS_SELECCIONADO:
                 layMenuSecundario.setVisibility(View.GONE);
-                if (!menuItemSelectedFlag)
+
+                /*if (!menuItemSelectedFlag)
                     imgBtnEds.setImageResource(R.drawable.eds_rojo);
                 else
                     imgBtnEds.setImageResource(R.drawable.eds_negro);
-                break;
+                break;*/
             case ITEM_TIENDA_SELECCIONADO:
                 layMenuSecundario.setVisibility(View.GONE);
                 if (!menuItemSelectedFlag)

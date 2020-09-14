@@ -24,4 +24,10 @@
     <!-- Nuevo vehículo fragment -->
     <dimen name="margin_top_to_toolbar_nuevo_vehiculo">120dp</dimen>
 
+    <!-- Filtros estaciones fragment -->
+    <dimen name="padding_top_opcion_filtro">10dp</dimen>
+    <dimen name="padding_bottom_opcion_filtro">10dp</dimen>
+    <dimen name="size_text_opt_filter">20sp</dimen>
+
+
 </resources>

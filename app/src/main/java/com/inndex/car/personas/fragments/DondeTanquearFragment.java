@@ -1,29 +1,19 @@
 package com.inndex.car.personas.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.EstacionesActivity;
-import com.inndex.car.personas.activities.MainActivity;
-import com.inndex.car.personas.adapter.EstacionesAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Estaciones;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -32,7 +22,6 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,8 +85,8 @@ public class DondeTanquearFragment extends Fragment {
         final LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-        RecyclerView.Adapter adapter = new EstacionesAdapter(listEstaciones, getActivity());
-        rv.setAdapter(adapter);
+//        RecyclerView.Adapter adapter = new EstacionesAdapter(listEstaciones, getActivity());
+ //       rv.setAdapter(adapter);
         return v;
     }
 

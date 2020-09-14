@@ -60,6 +60,7 @@ import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
 import com.inndex.car.personas.fragments.configuracion_cuenta.ConfiguracionTabs;
 import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
 import com.inndex.car.personas.fragments.dondetanquear.DondeTanquearTabs;
+import com.inndex.car.personas.fragments.estaciones.EstacionesTabsFragment;
 import com.inndex.car.personas.fragments.estados.EstadosFragment;
 import com.inndex.car.personas.fragments.historial.HistorialTabs;
 import com.inndex.car.personas.fragments.recorridos.RecorridosDatos;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         HistorialTabs.OnFragmentInteractionListener, DondeTanquearFragment.OnFragmentInteractionListener,
         ConfiguracionTabs.OnFragmentInteractionListener, IngresadoFragment.OnFragmentInteractionListener,
         NuevoVehiculo.OnFragmentInteractionListener, EstadosFragment.OnFragmentInteractionListener,
-        RecorridosDatos.OnFragmentInteractionListener {
+        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -401,7 +402,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment miFragment = null;
         boolean fragmentSeleccionado = false;
-
         miFragment = new DondeTanquearTabs(this);
         fragmentSeleccionado = true;
         //tvTitulo.setText("¿Donde Tanquear?");
@@ -409,14 +409,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //tvTitulo.setVisibility(View.VISIBLE);
         viewMap.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
-        /*
-        tvTitulo.setVisibility(View.VISIBLE);
-        tvTitulo.setText("¿Donde Tanquear?");
-        viewMap.setVisibility(View.GONE);
-
-        Fragment miFragment = new DondeTanquearFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
-        btnBack.setVisibility(View.VISIBLE);*/
 
     }
 
@@ -470,7 +462,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public List<Estaciones> getEstacionesCercanas() throws SQLException {
-
         return estacionesPlaces.getEstacionesCercanas(new LatLng(Double.valueOf(myPreferences.getString("latitud", "0")),
                 Double.valueOf(myPreferences.getString("longitud", "0"))), helper);
     }
@@ -484,7 +475,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
         mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca()).snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker)));
     }
-
 
     public void cancelTimers() {
         if (timerInndexDeviceListener != null) {
@@ -566,11 +556,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
 //            this.registerReceiver(mReceiver, filter);
         }
-        //fireBaseRecorridosHelper = null;
-        //fireBaseRecorridosHelper = new FireBaseRecorridosHelper(MainActivity.this,
-        //      newPlaca);
-        //fireBaseRecorridosHelper.setPlaca(newPlaca);
-        //fireBaseRecorridosHelper.init();
         initRecorrido();
     }
 
@@ -600,5 +585,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onChangeRouteButtonIcon() {
         inicioFragment.onChangeRouteButtonIcon();
+    }
+
+    public void goToEstaciones() {
+        miFragment = new EstacionesTabsFragment(this);
+        //tvTitulo.setText("¿Donde Tanquear?");
+        btnBack.setVisibility(View.VISIBLE);
+        //tvTitulo.setVisibility(View.VISIBLE);
+        viewMap.setVisibility(View.GONE);
+        toolbar.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
     }
 }
