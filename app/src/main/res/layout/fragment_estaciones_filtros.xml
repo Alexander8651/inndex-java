@@ -49,6 +49,7 @@
                 android:background="@color/gris" />
 
             <RelativeLayout
+                android:id="@+id/rel_filter_cerificados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro"
@@ -81,6 +82,7 @@
                 android:background="@color/gris" />
 
             <RelativeLayout
+                android:id="@+id/rel_filter_marcas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro"
@@ -113,6 +115,7 @@
                 android:background="@color/gris" />
 
             <RelativeLayout
+                android:id="@+id/rel_filter_distancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro"
@@ -180,6 +183,7 @@
                 android:background="@color/gris" />
 
             <RelativeLayout
+                android:id="@+id/rel_filter_calificacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro"
