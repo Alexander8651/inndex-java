@@ -60,6 +60,7 @@ import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
 import com.inndex.car.personas.fragments.configuracion_cuenta.ConfiguracionTabs;
 import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
 import com.inndex.car.personas.fragments.dondetanquear.DondeTanquearTabs;
+import com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesTabsFragment;
 import com.inndex.car.personas.fragments.estados.EstadosFragment;
 import com.inndex.car.personas.fragments.historial.HistorialTabs;
@@ -587,13 +588,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inicioFragment.onChangeRouteButtonIcon();
     }
 
-    public void goToEstaciones() {
+    public void goToEstacionesFiltros() {
+        miFragment = new EstacionesFiltrosFragment(this, helper);
+        viewMap.setVisibility(View.GONE);
+//        toolbar.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+
+        /*
         miFragment = new EstacionesTabsFragment(this);
-        //tvTitulo.setText("¿Donde Tanquear?");
         btnBack.setVisibility(View.VISIBLE);
-        //tvTitulo.setVisibility(View.VISIBLE);
         viewMap.setVisibility(View.GONE);
         toolbar.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+        */
     }
 }

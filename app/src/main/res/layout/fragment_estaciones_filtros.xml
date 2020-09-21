@@ -62,7 +62,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:textSize="@dimen/size_text_opt_filter"
-                    android:text="¿Con qué certificados de calidad?"
+                    android:text="@string/con_que_certificados_de_calidad"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorPrimary"/>
 
@@ -95,7 +95,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:textSize="@dimen/size_text_opt_filter"
-                    android:text="¿Qué marcas prefieres?"
+                    android:text="@string/que_marcas_prefieres"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorPrimary"/>
 
@@ -114,6 +114,41 @@
                 android:layout_height="2dp"
                 android:background="@color/gris" />
 
+
+            <RelativeLayout
+                android:id="@+id/rel_filter_tipo_combustible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_bottom_opcion_filtro"
+                android:paddingTop="@dimen/padding_top_opcion_filtro">
+
+                <TextView
+                    android:id="@+id/tv_filtro_tipo_combustible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/size_text_opt_filter"
+                    android:text="@string/con_que_tipo_de_combustible"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorPrimary"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_right"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/gris" />
+
+
             <RelativeLayout
                 android:id="@+id/rel_filter_distancia"
                 android:layout_width="wrap_content"
@@ -128,7 +163,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:textSize="@dimen/size_text_opt_filter"
-                    android:text="¿Qué tan cerca de ti?"
+                    android:text="@string/que_tan_cerca_de_ti"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorPrimary"/>
 
@@ -196,7 +231,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:textSize="@dimen/size_text_opt_filter"
-                    android:text="¿Con qué calificación?"
+                    android:text="@string/con_que_calificacion"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorPrimary"/>
 
@@ -215,11 +250,7 @@
                 android:layout_height="2dp"
                 android:background="@color/gris" />
 
-
-
         </LinearLayout>
-
-
 
         <Button
             android:id="@+id/btn_buscar_estaciones"
@@ -231,7 +262,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/colorPrimary"
-            android:text="@string/buscar"
+            android:text="@string/filtrar"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

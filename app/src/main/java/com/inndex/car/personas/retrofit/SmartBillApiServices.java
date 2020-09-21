@@ -1,5 +1,6 @@
 package com.inndex.car.personas.retrofit;
 
+import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
@@ -39,7 +40,7 @@ public interface SmartBillApiServices {
 
     @POST(Constantes.POST_REGISTER_STATION)
     Call<ResponseServices> postRegisterStation(@Header("Content-Type") String headerContentType,
-                                                 @Body Estaciones estaciones);
+                                               @Body Estaciones estaciones);
 
     //TANQUEADAS
     @POST(Constantes.POST_REGISTRAR_TANQUEADA)
@@ -70,7 +71,7 @@ public interface SmartBillApiServices {
      */
     @POST(Constantes.POST_REGISTER_MODELO_CARRO)
     Call<ModeloCarros> postRegisterModelo(@Header("Content-Type") String headerContentType,
-                                                 @Body ModeloCarros modeloCarros);
+                                          @Body ModeloCarros modeloCarros);
 
     @GET(Constantes.GET_MODELOS_CARROS_BY_MARCA + "{idMarca}")
     Call<List<ModeloCarros>> getModelosCarrosByMarca(@Path("idMarca") String idMarca);
@@ -86,7 +87,7 @@ public interface SmartBillApiServices {
      */
     @POST(Constantes.POST_RECORRIDOS_BULK)
     Call<UnidadRecorrido> postRecorridosBulk(@Header("Content-Type") String headerContentType,
-                                       @Body List<UnidadRecorrido> lUnidadRecorridos, @Query("placa") String placa);
+                                             @Body List<UnidadRecorrido> lUnidadRecorridos, @Query("placa") String placa);
 
     /**
      * ESTADOS
@@ -100,4 +101,11 @@ public interface SmartBillApiServices {
     @POST(Constantes.POST_SAVE_HISTORIAL_ESTADO)
     Call<HistorialEstadoVehiculos> postHistorialEstadosSave(@Header("Content-Type") String headerContentType,
                                                             @Body HistorialEstadoVehiculos historialEstadoVehiculos);
+
+    /**
+     * ESTADOS
+     */
+    @GET(Constantes.GET_CERTIFICADOS)
+    Call<List<Certificados>> getCertificados();
+
 }

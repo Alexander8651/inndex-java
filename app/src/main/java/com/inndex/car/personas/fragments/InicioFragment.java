@@ -268,7 +268,7 @@ public class InicioFragment extends Fragment  {
         });
         btnMenu.setOnClickListener(vMenu -> mainActivity.openSideMenu());
         imgBtnEds.setOnClickListener(click -> {
-            mainActivity.goToEstaciones();
+            mainActivity.goToEstacionesFiltros();
         });
     }
 

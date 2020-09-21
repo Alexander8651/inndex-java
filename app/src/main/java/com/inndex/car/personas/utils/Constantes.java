@@ -47,6 +47,10 @@ public class Constantes {
     public static final String URL_PLACES = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{long}&radius=1200&type=gas_station&key=";
     public static final String URL_HTTP = "https://maps.googleapis.com/maps/api/directions/json?origin=";
 
+    //CERTIFICADOS
+    public static final String GET_CERTIFICADOS = "certificados/getAll";
+
+
     /**
      * MODELOS CARROS
      */

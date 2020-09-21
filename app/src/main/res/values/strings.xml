@@ -117,26 +117,26 @@
     </string-array>
 
     <string-array name="marcas_estaciones">
-        <item>TERPEL</item>
-        <item>BIOMAX</item>
-        <item>MOBIL</item>
-        <item>TEXACO</item>
-        <item>PETROMIL</item>
-        <item>ZEUS</item>
         <item>AYATAWACOOP</item>
-        <item>PETROBRAS</item>
-        <item>ECOS</item>
-        <item>COOMULPINORT</item>
-        <item>PUMA</item>
-        <item>ESSO</item>
-        <item>CASAMOTOR</item>
-        <item>SAVE</item>
-        <item>OCTANO</item>
-        <item>ZAP Y VELASQUEZ</item>
-        <item>DISCOWACOOP</item>
+        <item>BIOMAX</item>
         <item>BRIO</item>
-        <item>PROXXON</item>
+        <item>CASAMOTOR</item>
+        <item>COOMULPINORT</item>
+        <item>ECOS</item>
+        <item>ESSO</item>
+        <item>DISCOWACOOP</item>
         <item>GULF</item>
+        <item>MOBIL</item>
+        <item>OCTANO</item>
+        <item>PETROBRAS</item>
+        <item>PETROMIL</item>
+        <item>PROXXON</item>
+        <item>PUMA</item>
+        <item>SAVE</item>
+        <item>TERPEL</item>
+        <item>TEXACO</item>
+        <item>ZAP Y VELASQUEZ</item>
+        <item>ZEUS</item>
     </string-array>
 
     <string-array name="opciones_filtro_distancia">
@@ -151,7 +151,20 @@
         <item>&lt; 100 km</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="opciones_filtro_calificacion">
+        <item>Todas</item>
+        <item>&lt; 1</item>
+        <item>&lt; 2</item>
+        <item>&lt; 3</item>
+        <item>&lt; 4</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="buscar">Buscar</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="con_que_certificados_de_calidad">¿Con qué certificados de calidad?</string>
+    <string name="que_marcas_prefieres">¿Qué marcas prefieres?</string>
+    <string name="con_que_tipo_de_combustible">¿Con qué tipo de combustible?</string>
+    <string name="que_tan_cerca_de_ti">¿Qué tan cerca de ti?</string>
+    <string name="con_que_calificacion">¿Con qué calificación?</string>
 </resources>
