@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,9 +62,9 @@ public class InicioFragment extends Fragment  {
     private double combustibleInicial, galonesPerdidos;
     private Recorrido recorrido;
     private CustomProgressDialog mCustomProgressDialog;
-    private FloatingActionButton imgBtnAbrirDialogoReportar;
-    private FloatingActionButton imgBtnEds;
-    private FloatingActionButton imgBtnTienda;
+    private ImageView imgBtnHome;
+    private ImageView imgBtnEds;
+    private ImageView imgBtnTienda;
     private ImageButton imgOcultarMenuSecundario;
     private EditText edtLookPlaces;
     private LinearLayout layMenuSecundario;
@@ -127,7 +128,7 @@ public class InicioFragment extends Fragment  {
         //Button btnTanquear = v.findViewById(R.id.btnTanquear);
         Typeface light = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), "fonts/Roboto-Light.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Bold.ttf");
-        imgBtnAbrirDialogoReportar = v.findViewById(R.id.img_btn_abrir_dialogo_reportar_accidente);
+        //imgBtnAbrirDialogoReportar = v.findViewById(R.id.img_btn_abrir_dialogo_reportar_accidente);
         imgBtnEds = v.findViewById(R.id.img_btn_eds);
         imgBtnTienda = v.findViewById(R.id.img_btn_tienda);
         edtLookPlaces = v.findViewById(R.id.edt_look_for_place);
@@ -244,7 +245,7 @@ public class InicioFragment extends Fragment  {
         });
         imgOcultarMenuSecundario.setOnClickListener(vOcultar -> {
             layMenuSecundario.setVisibility(View.GONE);
-            imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
+            //imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
             tvReportar.setTextColor(getResources().getColor(R.color.colorPrimary,null));
         });
         edtLookPlaces.setFocusable(false);
@@ -254,9 +255,9 @@ public class InicioFragment extends Fragment  {
             Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, lPlacesFields).build(mainActivity);
             startActivityForResult(intent, AUTO_COMPLETE_PLACES_REQUEST_CODE);
         });
-        imgBtnAbrirDialogoReportar.setOnClickListener(v13 -> {
+        /*imgBtnAbrirDialogoReportar.setOnClickListener(v13 -> {
             updateMenuIcons(ITEM_REPORTAR_SELECCIONADO);
-        });
+        });*/
         recorrido = new Recorrido();
         fabUbicacion.setOnClickListener(v2 -> {
             this.mainActivity.getMapService().mostrarUbicacion();
@@ -278,7 +279,7 @@ public class InicioFragment extends Fragment  {
             case ITEM_REPORTAR_SELECCIONADO:
                 if (!menuItemSelectedFlag) {
                     layMenuSecundario.setVisibility(View.VISIBLE);
-                    imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_rojo);
+                    //imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_rojo);
                     tvReportar.setTextColor(getResources().getColor(R.color.colorAccent,null));
                     btnReportarOtro.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                     btnReportarEdsNoRegistrada.setTextColor(getResources().getColor(R.color.colorPrimary, null));
@@ -288,7 +289,7 @@ public class InicioFragment extends Fragment  {
 
                 } else {
                     layMenuSecundario.setVisibility(View.GONE);
-                    imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
+                    //imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
                     tvReportar.setTextColor(getResources().getColor(R.color.colorPrimary,null));
                 }
                 break;
@@ -303,7 +304,7 @@ public class InicioFragment extends Fragment  {
             case ITEM_TIENDA_SELECCIONADO:
                 layMenuSecundario.setVisibility(View.GONE);
                 if (!menuItemSelectedFlag)
-                    imgBtnTienda.setImageResource(R.drawable.tienda_rojo);
+                    imgBtnTienda.setImageResource(R.drawable.tienda_negro);
                 else
                     imgBtnTienda.setImageResource(R.drawable.tienda_negro);
                 break;

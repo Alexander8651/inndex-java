@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
@@ -25,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -132,14 +130,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
 
-        getWindow().setNavigationBarColor(Color.BLACK);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        //getWindow().setNavigationBarColor(Color.BLACK);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        //getWindow().getDecorView().setSystemUiVisibility(
+        //       View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        //getWindow().setStatusBarColor(Color.TRANSPARENT);
         //setStatusBarTranslucent(true);
-
         helper = OpenHelperManager.getHelper(MainActivity.this, DataBaseHelper.class);
         bold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
         viewMap = findViewById(R.id.map);

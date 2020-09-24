@@ -167,4 +167,5 @@
     <string name="con_que_tipo_de_combustible">¿Con qué tipo de combustible?</string>
     <string name="que_tan_cerca_de_ti">¿Qué tan cerca de ti?</string>
     <string name="con_que_calificacion">¿Con qué calificación?</string>
+    <string name="filtros">Filtros</string>
 </resources>

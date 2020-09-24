@@ -39,7 +39,12 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
                     android:layout_toEndOf="@id/tv_mostrar_estaciones"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:shadowColor="@color/colorPrimaryDark"
+                    android:checked="true"
+                    android:theme="@style/BlackSwitch"/>
 
             </RelativeLayout>
 

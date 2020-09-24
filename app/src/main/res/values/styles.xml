@@ -56,9 +56,11 @@
         <item name="android:minHeight">1dp</item>
         <item name="android:maxHeight">1dp</item>
     </style>
+
     <style name="FullHeightDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
     </style>
+
     <style name="ImageRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar_selector</item>
         <item name="android:minHeight">50dp</item>
@@ -76,7 +78,7 @@
     </style>
 
     <style name="ThemeActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background"> @null </item>
+        <item name="android:background">@null</item>
         <!-- Support library compatibility -->
         <item name="background">@null</item>
         <item name="android:displayOptions">showHome|useLogo</item>
@@ -85,6 +87,20 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <!-- Style for black radio color in station filters -->
+    <style name="BlackDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorAlertDialogListItem">@color/colorPrimaryDark
+        </item>
+        <item name="android:buttonTint">@color/colorPrimaryDark</item>
+        <item name="android:button">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:tintMode">@color/colorPrimaryDark</item>
+        <item name="android:strokeColor">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
 
+    <style name="BlackSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
 
+    </style>
 </resources>

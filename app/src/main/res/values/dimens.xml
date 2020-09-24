@@ -18,7 +18,7 @@
     <dimen name="size_text_btn_menu_secundario">20sp</dimen>
     <dimen name="margin_end_btn_menu_secundario">40dp</dimen>
     <dimen name="margin_start_btn_menu_secundario">40dp</dimen>
-    <dimen name="size_text_menu_principal">20sp</dimen>
+    <dimen name="size_text_menu_principal">18sp</dimen>
     <dimen name="height_menu_item_separator">40dp</dimen>
     <dimen name="width_menu_item_separator">2dp</dimen>
     <!-- Nuevo vehículo fragment -->

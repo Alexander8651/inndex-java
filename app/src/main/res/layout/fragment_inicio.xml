@@ -31,13 +31,13 @@
             android:background="@color/cardview_light_background"
             android:drawableStart="@drawable/ic_search"
             android:gravity="center_horizontal"
-            android:paddingEnd="25dp"
+            android:hint="¿A dónde vas?"
             android:paddingStart="10dp"
             android:paddingTop="3dp"
+            android:paddingEnd="25dp"
             android:paddingBottom="2dp"
-            android:hint="¿A dónde vas?"
-            android:textSize="28sp"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:textSize="28sp" />
     </LinearLayout>
 
     <!-- Menú Oculto -->
@@ -56,10 +56,10 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/bajar"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:src="@drawable/bajar" />
 
         <Button
             android:id="@+id/btn_reportar_accidente"
@@ -71,9 +71,9 @@
             android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
             android:background="@drawable/round_white_border"
             android:text="Accidente"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
 
         <Button
             android:id="@+id/btn_reportar_estado_via"
@@ -85,9 +85,9 @@
             android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
             android:background="@drawable/round_white_border"
             android:text="Estado de la vía"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
 
         <Button
             android:id="@+id/btn_reportar_eds_no_registrada"
@@ -99,9 +99,9 @@
             android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
             android:background="@drawable/round_white_border"
             android:text="EDS no registrada"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
 
         <Button
             android:id="@+id/btn_reportar_peaje_no_registrado"
@@ -113,9 +113,9 @@
             android:layout_marginEnd="@dimen/margin_end_btn_menu_secundario"
             android:background="@drawable/round_white_border"
             android:text="Peaje no registrado"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
 
         <Button
             android:id="@+id/btn_reportar_otro"
@@ -128,9 +128,9 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/round_white_border"
             android:text="Otro"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_text_btn_menu_secundario"
-            android:textAllCaps="false"/>
+            android:textSize="@dimen/size_text_btn_menu_secundario" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -140,7 +140,7 @@
         android:layout_above="@id/fabUbicacion"
         android:layout_alignStart="@+id/fabUbicacion"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_ruta"
+        android:src="@drawable/ic_navegacion"
         android:visibility="gone"
         app:backgroundTint="@color/white" />
 
@@ -159,61 +159,27 @@
     <LinearLayout
         android:id="@+id/lay_menu_principal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:background="@color/fondo_menu_inferior_inicio"
         android:orientation="horizontal"
-        android:paddingBottom="4dp">
+        android:paddingBottom="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/img_btn_abrir_dialogo_reportar_accidente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:contentDescription="@string/btn_menu_content_desc"
-                android:src="@drawable/reportar_negro"
-                app:backgroundTint="@color/white" />
-
-            <TextView
-                android:id="@+id/tv_reportar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/img_btn_abrir_dialogo_reportar_accidente"
-                android:layout_centerHorizontal="true"
-                android:text="Reportar"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/size_text_menu_principal"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="@dimen/width_menu_item_separator"
-            android:layout_height="@dimen/height_menu_item_separator"
-            android:layout_gravity="center_vertical"
-            android:background="@color/colorPrimary" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageView
                 android:id="@+id/img_btn_eds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="20sp"
-                android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/btn_menu_content_desc"
-                android:src="@drawable/eds_negro"
+                android:src="@drawable/gasolinera"
                 app:backgroundTint="@color/white" />
 
             <TextView
@@ -222,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_btn_eds"
                 android:layout_centerHorizontal="true"
-                android:text="EDS"
+                android:text="@string/filtros"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_text_menu_principal"
                 android:textStyle="bold" />
@@ -236,19 +202,54 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/img_btn_tienda"
+            <ImageView
+                android:id="@+id/img_btn_abrir_dialogo_reportar_accidente"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/btn_menu_content_desc"
+                android:src="@drawable/casa"
+                app:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_reportar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/img_btn_abrir_dialogo_reportar_accidente"
                 android:layout_centerHorizontal="true"
+                android:text="Home"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_menu_principal"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/width_menu_item_separator"
+            android:layout_height="@dimen/height_menu_item_separator"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/img_btn_tienda"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="20sp"
                 android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/btn_menu_content_desc"
-                android:src="@drawable/tienda_negro"
+                android:src="@drawable/almacenar"
                 app:backgroundTint="@color/white" />
 
             <TextView
@@ -261,6 +262,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_text_menu_principal"
                 android:textStyle="bold" />
+
 
         </RelativeLayout>
 

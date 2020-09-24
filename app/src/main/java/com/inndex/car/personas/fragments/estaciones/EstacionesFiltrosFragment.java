@@ -121,7 +121,7 @@ public class EstacionesFiltrosFragment extends Fragment {
             Toast.makeText(mainActivity, "NO EXISTEN CERTIFICADOS", Toast.LENGTH_SHORT).show();
             return;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Certificados");
         builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {
             if(checkedCertificados == null)
@@ -156,7 +156,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     @OnClick(R.id.rel_filter_marcas)
     public void showBrandFilters() {
         String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Marcas");
         builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {
             if(checkedBrands == null)
@@ -193,7 +193,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     public void showDistanceFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_distancia);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Distancia");
         builder.setSingleChoiceItems(opciones, opcionDistanciaSelected, (dialog, which) -> {
             opcionDistanciaSelected = which;
@@ -215,7 +215,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     public void showCalificacionFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_calificacion);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Calificación");
         builder.setSingleChoiceItems(opciones, opcionCalificacionSelected, (dialog, which) -> {
             opcionCalificacionSelected = which;
@@ -236,7 +236,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     @OnClick(R.id.tv_filtro_tipo_combustible)
     public void showTipoCombustiblesFilters() {
         String[] opciones = getResources().getStringArray(R.array.tipos_combustibles);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Combustibles");
         builder.setMultiChoiceItems(opciones, checkedTipoCombustibles, (dialog, which, isChecked) -> {
             if(checkedTipoCombustibles == null)
