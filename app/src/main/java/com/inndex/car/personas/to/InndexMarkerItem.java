@@ -12,19 +12,18 @@ public class InndexMarkerItem implements ClusterItem {
     private LatLng mPosition;
     private String mTitle;
     private String mSnippet;
+    private int positionInList;
+    private int idEstacion;
 
 
-    public InndexMarkerItem(LatLng mPosition, String mTitle, String mSnippet) {
-        this.mPosition = mPosition;
-        this.mTitle = mTitle;
-        this.mSnippet = mSnippet;
-    }
 
-    public InndexMarkerItem(boolean certificada, LatLng mPosition, String mTitle, String mSnippet) {
+    public InndexMarkerItem(boolean certificada, LatLng mPosition, String mTitle, String mSnippet, int idEstacion, int position) {
         this.certificada = certificada;
         this.mPosition = mPosition;
         this.mTitle = mTitle;
         this.mSnippet = mSnippet;
+        this.idEstacion = idEstacion;
+        this.positionInList = position;
     }
 
     @NonNull
@@ -51,5 +50,21 @@ public class InndexMarkerItem implements ClusterItem {
 
     public void setCertificada(boolean certificada) {
         this.certificada = certificada;
+    }
+
+    public int getPositionInList() {
+        return positionInList;
+    }
+
+    public void setPositionInList(int positionInList) {
+        this.positionInList = positionInList;
+    }
+
+    public int getIdEstacion() {
+        return idEstacion;
+    }
+
+    public void setIdEstacion(int idEstacion) {
+        this.idEstacion = idEstacion;
     }
 }

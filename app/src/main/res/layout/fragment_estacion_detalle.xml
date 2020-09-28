@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.estaciones.EstacionDetalleFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_rectangular_background_with_shadow"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_drag_estacion_detalle"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/aceptar"
+                android:src="@drawable/bajar" />
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_marca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_drag_estacion_detalle"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_estacion_detalle_marca"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/img_estacion_detalle_certificado"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/img_drag_estacion_detalle"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/tv_estacion_detalle_marca"
+                android:contentDescription="@string/aceptar"
+                android:src="@drawable/pqua" />
+
+            <CheckBox
+                android:id="@+id/cb_estacion_detalle_favorita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:button="@drawable/favourite_estacion_selector"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/more_horiz_24" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_direccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="direccion"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_distancia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/img_estacion_detalle_ruta"
+                android:text="distancia"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/img_estacion_detalle_ruta"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/aceptar"
+                android:background="@drawable/circular_button_shape"
+                android:drawableTop="@drawable/ic_ruta"
+                android:paddingTop="10dp"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_precio_actualizado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Precios actulizados hace 2 días"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_horarios_contacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Horarios y contacto"
+                android:textColor="@color/azul_texto_enlace"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@id/tv_estacion_detalle_horarios_contacto"
+                android:contentDescription="@string/aceptar"
+                android:src="@drawable/arrow_down_24_blue" />
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_horario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/azul_texto_enlace"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_calificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="4.3"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="36sp" />
+
+            <RatingBar
+                android:id="@+id/rtb_estacion_detalle_calificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/tv_estacion_detalle_calificacion" />
+
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_ver_opiniones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_estacion_detalle_calificacion"
+                android:layout_marginEnd="5dp"
+                android:text="Ver opiniones"
+                android:textColor="@color/azul_texto_enlace"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/tv_estacion_detalle_calificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:text="Calificar"
+                android:textColor="@color/azul_texto_enlace"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -24,7 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,19 +48,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
-import com.inndex.car.personas.fragments.DondeTanquearFragment;
 import com.inndex.car.personas.fragments.InicioFragment;
 import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
 import com.inndex.car.personas.fragments.configuracion_cuenta.ConfiguracionTabs;
 import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
 import com.inndex.car.personas.fragments.dondetanquear.DondeTanquearTabs;
+import com.inndex.car.personas.fragments.estaciones.EstacionDetalleFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesTabsFragment;
-import com.inndex.car.personas.fragments.estados.EstadosFragment;
 import com.inndex.car.personas.fragments.historial.HistorialTabs;
 import com.inndex.car.personas.fragments.recorridos.RecorridosDatos;
 import com.inndex.car.personas.model.Estaciones;
@@ -77,18 +74,19 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback, SetArrayValuesForInndex,
-        DondeTanquearTabs.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener,
-        HistorialTabs.OnFragmentInteractionListener, DondeTanquearFragment.OnFragmentInteractionListener,
-        ConfiguracionTabs.OnFragmentInteractionListener, IngresadoFragment.OnFragmentInteractionListener,
-        NuevoVehiculo.OnFragmentInteractionListener, EstadosFragment.OnFragmentInteractionListener,
-        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener {
+        OnMapReadyCallback, SetArrayValuesForInndex, InicioFragment.OnFragmentInteractionListener,
+        HistorialTabs.OnFragmentInteractionListener, ConfiguracionTabs.OnFragmentInteractionListener,
+        IngresadoFragment.OnFragmentInteractionListener, NuevoVehiculo.OnFragmentInteractionListener,
+        RecorridosDatos.OnFragmentInteractionListener,
+        EstacionesTabsFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -99,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences myPreferences;
     private List<Estaciones> estaciones;
     private DataBaseHelper helper;
-    private ImageButton btnBack;
     private Typeface bold;
     private View viewMap;
     private Estaciones estacionMasCercana;
@@ -121,6 +118,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private String placa;
     private Toolbar toolbar;
+    private Typeface light;
+
+    private static final int HOME_CLICKED = 1;
+    private static final int EDS_CLICKED = 2;
+    private static final int STORE_CLICKED = 3;
+
+    @BindView(R.id.img_btn_home)
+    public ImageView imgBtnHome;
+    @BindView(R.id.img_btn_eds)
+    public ImageView imgBtnEds;
+    @BindView(R.id.img_btn_tienda)
+    public ImageView imgBtnTienda;
+
+    @BindView(R.id.tv_home)
+    public TextView tvHome;
+    @BindView(R.id.tv_eds)
+    public TextView tvEds;
+    @BindView(R.id.tv_tienda)
+    public TextView tvTienda;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -172,8 +189,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
 //            this.registerReceiver(mReceiver, filter);
         }
-        inicioFragment = new InicioFragment(bold, this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, inicioFragment).commit();
+        //inicioFragment = new InicioFragment(bold, this);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, inicioFragment).commit();
         initControls();
 
         try {
@@ -209,24 +226,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myInstance = this;
         if (idVehiculo != null && idVehiculo > 0)
             initRecorrido();
-    }
 
-    private Integer getMaxValueFromAdquisitionArray() {
+        ButterKnife.bind(this);
+        imgBtnHome.setImageResource(R.drawable.home_gris);
+        Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
 
-        Gson gson = new Gson();
-        JsonArray jsonArray = gson.fromJson(values, JsonArray.class);
-        JsonObject jsonValues = jsonArray.get(0).getAsJsonObject();
-        List<Integer> listValues = new ArrayList<>();
+        tvEds.setTypeface(robotoRegular);
+        tvHome.setTypeface(robotoRegular);
+        tvHome.setTextColor(R.color.gris_menu_main);
 
-        for (String key : jsonValues.keySet()) {
-            listValues.add((int) jsonValues.get(key).getAsDouble());
-        }
-
-        if (listValues.size() > 0) {
-            return Collections.max(listValues);
-        } else {
-            return 10;
-        }
+        tvTienda.setTypeface(robotoRegular);
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
@@ -264,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //logout();
         }
         if (fragmentSeleccionado) {
-            btnBack.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -351,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("SetTextI18n")
     private void initControls() {
-        Typeface light = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+        light = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -380,15 +388,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //the method we have create in activity
             applyFontToMenuItem(mi);
         }
-        btnBack = findViewById(R.id.btnBack2);
-        btnBack.setVisibility(View.GONE);
-        btnBack.setOnClickListener(v -> {
-            Fragment fragment = new InicioFragment(bold, this);
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
-            btnBack.setVisibility(View.GONE);
-            viewMap.setVisibility(View.VISIBLE);
-            toolbar.setVisibility(View.GONE);
-        });
     }
 
     private void getAllStations() throws SQLException {
@@ -403,11 +402,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         miFragment = new DondeTanquearTabs(this);
         fragmentSeleccionado = true;
         //tvTitulo.setText("¿Donde Tanquear?");
-        btnBack.setVisibility(View.VISIBLE);
         //tvTitulo.setVisibility(View.VISIBLE);
         viewMap.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
-
     }
 
     @Override
@@ -479,10 +476,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             timerInndexDeviceListener.cancel();
             timerInndexDeviceListener.purge();
         }
-    }
-
-    public ImageButton getBtnBack() {
-        return btnBack;
     }
 
     public MapService getMapService() {
@@ -577,20 +570,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inicioFragment.onMapPositionChange();
     }
 
-    public void onMapMarkerSelected() {
-        inicioFragment.onMapMarkerSelected();
+    public void onMapMarkerSelected(int position) {
+        Estaciones estacionSelected = this.estaciones.get(position);
+
+        miFragment = new EstacionDetalleFragment(estacionSelected, this, light);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+
+        //inicioFragment.onMapMarkerSelected();
     }
 
     public void onChangeRouteButtonIcon() {
         inicioFragment.onChangeRouteButtonIcon();
     }
 
+    @OnClick(R.id.img_btn_eds)
     public void goToEstacionesFiltros() {
         miFragment = new EstacionesFiltrosFragment(this, helper);
         viewMap.setVisibility(View.GONE);
-//        toolbar.setVisibility(View.VISIBLE);
+        //        toolbar.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
-
+        onItemMenuClick(EDS_CLICKED);
         /*
         miFragment = new EstacionesTabsFragment(this);
         btnBack.setVisibility(View.VISIBLE);
@@ -598,5 +597,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
         */
+    }
+
+    public void filtrarEstaciones() {
+
+        viewMap.setVisibility(View.VISIBLE);
+        //miFragment.onDestroy();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+        getSupportFragmentManager().beginTransaction().remove(miFragment).commit();
+//        toolbar.setVisibility(View.VISIBLE);
+        onItemMenuClick(HOME_CLICKED);
+    }
+
+    private void onItemMenuClick(int itemClicked) {
+
+        switch (itemClicked) {
+            case HOME_CLICKED:
+                imgBtnHome.setImageResource(R.drawable.home_gris);
+                imgBtnEds.setImageResource(R.drawable.eds_negro);
+                imgBtnTienda.setImageResource(R.drawable.tienda_negro);
+                tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                break;
+            case EDS_CLICKED:
+                imgBtnHome.setImageResource(R.drawable.casa);
+                imgBtnEds.setImageResource(R.drawable.eds_gris);
+                imgBtnTienda.setImageResource(R.drawable.tienda_negro);
+                tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                break;
+
+            case STORE_CLICKED:
+                imgBtnHome.setImageResource(R.drawable.casa);
+                imgBtnEds.setImageResource(R.drawable.eds_negro);
+                imgBtnTienda.setImageResource(R.drawable.tienda_gris);
+                tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                break;
+        }
+    }
+
+    @OnClick(R.id.img_btn_home)
+    public void clickHome() {
+
+        if (miFragment != null)
+            getSupportFragmentManager().beginTransaction().remove(miFragment).commit();
+
+        if (viewMap.getVisibility() != View.VISIBLE)
+            viewMap.setVisibility(View.VISIBLE);
+
+        onItemMenuClick(HOME_CLICKED);
     }
 }

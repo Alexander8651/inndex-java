@@ -14,9 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -48,7 +46,7 @@ import java.util.Timer;
  * Use the {@link InicioFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InicioFragment extends Fragment  {
+public class InicioFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private MainActivity mainActivity;
@@ -62,9 +60,7 @@ public class InicioFragment extends Fragment  {
     private double combustibleInicial, galonesPerdidos;
     private Recorrido recorrido;
     private CustomProgressDialog mCustomProgressDialog;
-    private ImageView imgBtnHome;
-    private ImageView imgBtnEds;
-    private ImageView imgBtnTienda;
+
     private ImageButton imgOcultarMenuSecundario;
     private EditText edtLookPlaces;
     private LinearLayout layMenuSecundario;
@@ -76,9 +72,7 @@ public class InicioFragment extends Fragment  {
     private Button btnReportarEstadoVia;
     private Button btnReportarOtro;
 
-    private TextView tvReportar;
-    private TextView tvEds;
-    private TextView tvTienda;
+
 
     private AlertDialog dialogReportar;
     private AlertDialog.Builder dialogBuilder;
@@ -129,9 +123,7 @@ public class InicioFragment extends Fragment  {
         Typeface light = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), "fonts/Roboto-Light.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Bold.ttf");
         //imgBtnAbrirDialogoReportar = v.findViewById(R.id.img_btn_abrir_dialogo_reportar_accidente);
-        imgBtnEds = v.findViewById(R.id.img_btn_eds);
-        imgBtnTienda = v.findViewById(R.id.img_btn_tienda);
-        edtLookPlaces = v.findViewById(R.id.edt_look_for_place);
+          edtLookPlaces = v.findViewById(R.id.edt_look_for_place);
         btnReportarAccidente = v.findViewById(R.id.btn_reportar_accidente);
         btnReportarEdsNoRegistrada = v.findViewById(R.id.btn_reportar_eds_no_registrada);
         btnReportarEstadoVia = v.findViewById(R.id.btn_reportar_estado_via);
@@ -142,9 +134,6 @@ public class InicioFragment extends Fragment  {
         fabUbicacion = v.findViewById(R.id.fabUbicacion);
         fabRuta = v.findViewById(R.id.fabRuta);
         btnMenu = v.findViewById(R.id.btnMenu);
-        tvEds = v.findViewById(R.id.tv_eds);
-        tvReportar = v.findViewById(R.id.tv_reportar);
-        tvTienda = v.findViewById(R.id.tv_tienda);
         init();
 
         return v;
@@ -220,14 +209,11 @@ public class InicioFragment extends Fragment  {
 
     private void init() {
         Typeface thin = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Thin.ttf");
-        Typeface robotoRegular = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Regular.ttf");
 
         //edtLookPlaces.setTypeface(thin);
         //edtLookPlaces.setTextColor(getResources().getColor(R.color.colorPrimary, null));
 
-        tvEds.setTypeface(robotoRegular);
-        tvReportar.setTypeface(robotoRegular);
-        tvTienda.setTypeface(robotoRegular);
+
         btnReportarAccidente.setTypeface(thin);
         btnReportarPeajeNoRegistrado.setTypeface(thin);
         btnReportarEdsNoRegistrada.setTypeface(thin);
@@ -246,7 +232,6 @@ public class InicioFragment extends Fragment  {
         imgOcultarMenuSecundario.setOnClickListener(vOcultar -> {
             layMenuSecundario.setVisibility(View.GONE);
             //imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
-            tvReportar.setTextColor(getResources().getColor(R.color.colorPrimary,null));
         });
         edtLookPlaces.setFocusable(false);
         Places.initialize(mainActivity, "AIzaSyCRfWREv6YQGU8OBG0lOmXMOT16wjS2sC4");
@@ -268,9 +253,6 @@ public class InicioFragment extends Fragment  {
             fabRuta.hide();
         });
         btnMenu.setOnClickListener(vMenu -> mainActivity.openSideMenu());
-        imgBtnEds.setOnClickListener(click -> {
-            mainActivity.goToEstacionesFiltros();
-        });
     }
 
     private void updateMenuIcons(int selectedItem) {
@@ -280,7 +262,6 @@ public class InicioFragment extends Fragment  {
                 if (!menuItemSelectedFlag) {
                     layMenuSecundario.setVisibility(View.VISIBLE);
                     //imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_rojo);
-                    tvReportar.setTextColor(getResources().getColor(R.color.colorAccent,null));
                     btnReportarOtro.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                     btnReportarEdsNoRegistrada.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                     btnReportarPeajeNoRegistrado.setTextColor(getResources().getColor(R.color.colorPrimary, null));
@@ -290,24 +271,10 @@ public class InicioFragment extends Fragment  {
                 } else {
                     layMenuSecundario.setVisibility(View.GONE);
                     //imgBtnAbrirDialogoReportar.setImageResource(R.drawable.reportar_negro);
-                    tvReportar.setTextColor(getResources().getColor(R.color.colorPrimary,null));
                 }
                 break;
             case ITEM_EDS_SELECCIONADO:
                 layMenuSecundario.setVisibility(View.GONE);
-
-                /*if (!menuItemSelectedFlag)
-                    imgBtnEds.setImageResource(R.drawable.eds_rojo);
-                else
-                    imgBtnEds.setImageResource(R.drawable.eds_negro);
-                break;*/
-            case ITEM_TIENDA_SELECCIONADO:
-                layMenuSecundario.setVisibility(View.GONE);
-                if (!menuItemSelectedFlag)
-                    imgBtnTienda.setImageResource(R.drawable.tienda_negro);
-                else
-                    imgBtnTienda.setImageResource(R.drawable.tienda_negro);
-                break;
         }
         menuItemSelectedFlag = !menuItemSelectedFlag;
     }

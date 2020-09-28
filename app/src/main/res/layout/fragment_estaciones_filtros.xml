@@ -258,14 +258,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_buscar_estaciones"
+            android:id="@+id/btn_filtrar_estaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="120dp"
             android:background="@color/colorPrimary"
             android:text="@string/filtrar"
             android:textColor="@color/white"

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,9 @@ public class EstacionesFiltrosFragment extends Fragment {
     public TextView tvFiltroDistancia;
     @BindView(R.id.tv_filtro_tipo_combustible)
     public TextView tvFiltroTipoCombustible;
+
+    @BindView(R.id.btn_filtrar_estaciones)
+    public Button btnFiltrarEstaciones;
 
     private MainActivity mainActivity;
     private DataBaseHelper helper;
@@ -268,4 +272,11 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.create();
         builder.show();
     }
-}
+
+    @OnClick(R.id.btn_filtrar_estaciones)
+    public void filtrarEstaciones() {
+        mainActivity.filtrarEstaciones();
+    }
+
+
+    }

@@ -130,10 +130,12 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         mClusterManager.setRenderer(new EstacionRenderer(context, mMap, mClusterManager));
         this.mMap.setOnMarkerClickListener(mClusterManager);
         this.mMap.setOnCameraIdleListener(mClusterManager);
+        int sum = 0;
         for (Estaciones estacion :
                 estaciones) {
             LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
-            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(),latLng, estacion.getMarca(), estacion.getDireccion());
+            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(),latLng, estacion.getMarca(), estacion.getDireccion(),
+                    estacion.getId(), sum);
 
             mClusterManager.addItem(item);
             /*
@@ -143,17 +145,15 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
             else
                 mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
                         .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada)));*/
+        sum++;
         }
         mClusterManager.cluster();
-        mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<InndexMarkerItem>() {
-            @Override
-            public boolean onClusterItemClick(InndexMarkerItem item) {
+        mClusterManager.setOnClusterItemClickListener(item -> {
 
-                itemStationSelected = item;
-                mainActivity.onMapMarkerSelected();
-                Log.e("HUBO","UN CLICK EN " + item.getSnippet());
-                return false;
-            }
+            itemStationSelected = item;
+            mainActivity.onMapMarkerSelected(item.getPositionInList());
+            Log.e("HUBO","UN CLICK EN " + item.getSnippet());
+            return false;
         });
     }
 

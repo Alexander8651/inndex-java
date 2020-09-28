@@ -7,10 +7,12 @@
     <color name="textSecond">#000000</color>
     <color name="star">#FFFD38</color>
     <color name="gris">#CCCCCC</color>
+    <color name="gris_menu_main">#666666</color>
     <color name="valorToTal">#CCCCCC</color>
     <color name="yellow_soft">#FFFECE</color>
     <color name="blue">#4A86E8</color>
     <color name="fondo_mapa">#3392949e</color>
     <color name="fondo_menu_inferior_inicio">#F3F3F3</color>
     <color name="sombra">#60000000</color>
+    <color name="azul_texto_enlace">#0000FF</color>
 </resources>

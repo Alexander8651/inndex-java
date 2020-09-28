@@ -57,7 +57,7 @@ public class IngresadoFragment extends Fragment {
     private CurrencyEditText edtCantDeseadaNum;
     private CurrencyEditText edtValor;          //precio combustible
     private Spinner spOtraEstacion;
-    private boolean estado=false;
+    private boolean estado = false;
     private boolean flagCantidadDeseada; // true = cantidad deseada en dinero, false = galones
     private boolean reset = false;
     private double combustible = 0.0, combustibleInicial;
@@ -76,10 +76,10 @@ public class IngresadoFragment extends Fragment {
     private Estaciones estacionTanquea;
     private Tanqueadas t;
 
-    public IngresadoFragment(MainActivity m){
+    public IngresadoFragment(MainActivity m) {
         this.mainActivity = m;
     }
-    
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -87,9 +87,9 @@ public class IngresadoFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingresado, container, false);
 
-        light=Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(),"fonts/Roboto-Light.ttf");
-        Typeface bold=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto-Bold.ttf");
-        estado=true;
+        light = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), "fonts/Roboto-Light.ttf");
+        Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Bold.ttf");
+        estado = true;
         init(view, bold);
         initDialog();
 
@@ -101,16 +101,16 @@ public class IngresadoFragment extends Fragment {
         valor = edtValor.getCleanDoubleValue();
         cantDeseada = edtCantDeseadaNum.getCleanDoubleValue();
 
-        if(!flagCantidadDeseada)
+        if (!flagCantidadDeseada)
             galonesDeseados = edtCantDeseadaNum.getCleanDoubleValue();
 
         //validar precio galon
-        if (valor <= 100){
+        if (valor <= 100) {
 
             Toast.makeText(mainActivity, "Por favor ingrese un precio de galón válido.", Toast.LENGTH_SHORT).show();
             edtValor.requestFocus();
-        }else{
-            estado=false;
+        } else {
+            estado = false;
 
             btnMedicion.setText(R.string.detener);
 
@@ -139,17 +139,17 @@ public class IngresadoFragment extends Fragment {
         }
     }
 
-    private void detenerMedicion(){
+    private void detenerMedicion() {
         //mCustomProgressDialog.show("");
-        if(mTimer1 != null){
+        if (mTimer1 != null) {
             mTimer1.cancel();
             mTimer1.purge();
-            estado=true;
+            estado = true;
         }
 
         try {
             estacionesCercanas = mainActivity.getEstacionesCercanas();
-            if (estacionesCercanas != null && estacionesCercanas.size() > 0){
+            if (estacionesCercanas != null && estacionesCercanas.size() > 0) {
 
                 estacionTanquea = estacionesCercanas.get(0);
                 tvNombreEstacion.setText(estacionTanquea.getMarca());
@@ -158,22 +158,21 @@ public class IngresadoFragment extends Fragment {
                 dialogCal.show();
 
                 String[] estacionesMarcas = new String[estacionesCercanas.size()];
-                for (int i = 0; i < estacionesCercanas.size(); i++ ) {
+                for (int i = 0; i < estacionesCercanas.size(); i++) {
 
                     estacionesMarcas[i] = estacionesCercanas.get(i).getMarca();
                 }
 
-                if(spOtraEstacion != null){
+                if (spOtraEstacion != null) {
                     spOtraEstacion.setAdapter(new ArrayAdapter<>(mainActivity,
                             android.R.layout.simple_spinner_dropdown_item,
                             estacionesMarcas));
-                }else{
-                    Log.e("ESA","VAINA ES NULA");
+                } else {
+                    Log.e("ESA", "VAINA ES NULA");
                 }
 
 
-                
-            }else{
+            } else {
 
                 tvNombreEstacion.setText("");
                 tvDirEstacion.setText("No se encontró ninguna estación registrada en esta ubicación, por favor seleccione la marca de la estación a registrar.");
@@ -189,7 +188,7 @@ public class IngresadoFragment extends Fragment {
 
     }
 
-    private void init(View view,  Typeface bold){
+    private void init(View view, Typeface bold) {
 
         mHandler = new Handler();
         btnMedicion = view.findViewById(R.id.btnMedicion);
@@ -202,23 +201,23 @@ public class IngresadoFragment extends Fragment {
         spCantDeseada.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0){             //cop
+                if (position == 0) {             //cop
                     flagCantidadDeseada = true;
                     edtCantDeseadaNum.setText("");
                     cantDeseada = 0;
                     tvSignoPeso.setVisibility(View.VISIBLE);
 
-                    String cantDeseadaPrefs = mainActivity.getMyPreferences().getString("cantDeseada","0");
+                    String cantDeseadaPrefs = mainActivity.getMyPreferences().getString("cantDeseada", "0");
                     Log.e("Ingresado", "lo que viene de shared preferences cd " + cantDeseadaPrefs);
 
-                    if (!cantDeseadaPrefs.equals("0")){
+                    if (!cantDeseadaPrefs.equals("0")) {
 
                         cantDeseada = Double.valueOf(cantDeseadaPrefs);
                         edtCantDeseadaNum.setText(cantDeseadaPrefs);
 
                     }
 
-                }else{                          //cantidad
+                } else {                          //cantidad
                     flagCantidadDeseada = false;
                     edtCantDeseadaNum.setText("");
                     galonesDeseados = 0;
@@ -233,18 +232,17 @@ public class IngresadoFragment extends Fragment {
         });
 
 
-
         btnMedicion.setTypeface(bold);
         btnMedicion.setOnClickListener(v -> {
 
-        if(estado){                 //si estado es tru inicia medicion
-            reset=true;
-            iniciarMedicion();
+            if (estado) {                 //si estado es tru inicia medicion
+                reset = true;
+                iniciarMedicion();
 
-        }else{
-            detenerMedicion();
-            btnMedicion.setText(R.string.iniciar);
-        }
+            } else {
+                detenerMedicion();
+                btnMedicion.setText(R.string.iniciar);
+            }
 
         });
         TextView tvcantDeseada = view.findViewById(R.id.tvCantDeseada);
@@ -274,11 +272,11 @@ public class IngresadoFragment extends Fragment {
         edtCantDeseadaNum.setSpacing(false);
         edtCantDeseadaNum.setDecimals(false);
 
-        String precioGalonPrefs = mainActivity.getMyPreferences().getString("precioGalon","0");
+        String precioGalonPrefs = mainActivity.getMyPreferences().getString("precioGalon", "0");
 
         Log.e("Ingresado", "lo que viene de shared preferences " + precioGalonPrefs);
 
-        if(!precioGalonPrefs.equals("0")){
+        if (!precioGalonPrefs.equals("0")) {
 
             //precioGalonPrefs = precioGalonPrefs.replace(".",",");
             valor = Double.valueOf(precioGalonPrefs);
@@ -287,7 +285,7 @@ public class IngresadoFragment extends Fragment {
 
         ImageButton btnRefresh = view.findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(v -> {
-            if (!estado){
+            if (!estado) {
                 tvGalones.setText("0.0 Gal. /");
                 tvTotal.setText("$0");
             }
@@ -296,7 +294,7 @@ public class IngresadoFragment extends Fragment {
 
     }
 
-    private void guardarMedicion(Tanqueadas tanqueada){
+    private void guardarMedicion(Tanqueadas tanqueada) {
 
         DataBaseHelper helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
         try {
@@ -305,9 +303,7 @@ public class IngresadoFragment extends Fragment {
             Toast.makeText(mainActivity, "TANQUEADA REGISTRADA DE MANERA EXITOSA.", Toast.LENGTH_SHORT).show();
 
             saveOnPreferences();
-
-            mainActivity.getBtnBack().performClick();
-
+            
             //mCustomProgressDialog.dismiss("");
             //Toast.makeText(mainActivity, "Medición registrada de forma exitosa.", Toast.LENGTH_SHORT).show();
         } catch (SQLException e) {
@@ -317,15 +313,15 @@ public class IngresadoFragment extends Fragment {
 
     }
 
-    private void setCantidadDeseada(){
-        if (flagCantidadDeseada){
+    private void setCantidadDeseada() {
+        if (flagCantidadDeseada) {
             cantDeseada = Double.valueOf(edtCantDeseadaNum.getText().toString());
-        }else{
-           galonesDeseados = Double.valueOf(edtCantDeseadaNum.getText().toString());
+        } else {
+            galonesDeseados = Double.valueOf(edtCantDeseadaNum.getText().toString());
         }
     }
 
-    private void initDialog(){
+    private void initDialog() {
 
         dialog = new AlertDialog.Builder(mainActivity);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -344,9 +340,9 @@ public class IngresadoFragment extends Fragment {
 
         calRatingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             tvTxtCal.setVisibility(View.VISIBLE);
-            int ratingInt = (int)rating;
+            int ratingInt = (int) rating;
 
-            switch (ratingInt){
+            switch (ratingInt) {
                 case 1:
                     tvTxtCal.setText("Pésimo");
                     break;
@@ -380,19 +376,19 @@ public class IngresadoFragment extends Fragment {
         dialogCal = dialog.create();
     }
 
-    private void setTanqueada(){
+    private void setTanqueada() {
 
         t = new Tanqueadas();
 
-        t.setCalificacion((int)calRatingBar.getRating());
+        t.setCalificacion((int) calRatingBar.getRating());
 
-        if (calRatingBar.getRating() > 0){
+        if (calRatingBar.getRating() > 0) {
             // TODO : UPDATE CALIFICACION DE ESTACION
         }
 
-        if(estacionTanquea == null){
+        if (estacionTanquea == null) {
             String marca = spOtraEstacion.getSelectedItem().toString();
-            if(marca.equals("")){
+            if (marca.equals("")) {
 
                 spOtraEstacion.requestFocus();
                 Toast.makeText(mainActivity, "POR FAVOR SELECCIONES UNA ESTACIÓN", Toast.LENGTH_SHORT).show();
@@ -409,12 +405,12 @@ public class IngresadoFragment extends Fragment {
             estacionTanquea.setLongitud(mainActivity.getMapService().getMyLocation().getLongitude());
 
             guardarNuevaEstacion(estacionTanquea);
-        }else{
+        } else {
             guardarTanqueada();
         }
     }
 
-    private void guardarTanqueada(){
+    private void guardarTanqueada() {
 
         t.setDireccion(estacionTanquea.getDireccion());
         t.setNombre(estacionTanquea.getMarca());
@@ -436,7 +432,7 @@ public class IngresadoFragment extends Fragment {
         enviarTanqueada(t);
     }
 
-    private void guardarNuevaEstacion(Estaciones nuevaEstacion)  {
+    private void guardarNuevaEstacion(Estaciones nuevaEstacion) {
 
         Call<ResponseServices> callRegisterStation = MedidorApiAdapter.getApiService()
                 .postRegisterStation(Constantes.CONTENT_TYPE_JSON, nuevaEstacion);
@@ -445,7 +441,7 @@ public class IngresadoFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     try {
                         DataBaseHelper helper = OpenHelperManager.getHelper(mainActivity, DataBaseHelper.class);
@@ -464,7 +460,7 @@ public class IngresadoFragment extends Fragment {
                         e.printStackTrace();
                         return;
                     }
-                }else{
+                } else {
                     Log.e("ON ELSE", response.message());
                     Toast.makeText(mainActivity, "NO SE PUDO REGISTRAR LA ESTACIÓN", Toast.LENGTH_SHORT).show();
                 }
@@ -480,7 +476,7 @@ public class IngresadoFragment extends Fragment {
 
     }
 
-    private void enviarTanqueada(Tanqueadas tanqueada){
+    private void enviarTanqueada(Tanqueadas tanqueada) {
 
         Call<ResponseServices> callRegistrarTanqueada = MedidorApiAdapter.getApiService()
                 .postRegisterTanqueada(Constantes.CONTENT_TYPE_JSON, tanqueada);
@@ -489,11 +485,11 @@ public class IngresadoFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     guardarMedicion(t);
 
-                }else {
+                } else {
 
                     Toast.makeText(mainActivity, "NO SE PUDO REGISTRAR LA TANQUEADA.", Toast.LENGTH_SHORT).show();
                 }
@@ -508,10 +504,10 @@ public class IngresadoFragment extends Fragment {
         });
     }
 
-    private void saveOnPreferences(){
+    private void saveOnPreferences() {
 
-        this.mainActivity.getMyPreferences().edit().putString("precioGalon", String.valueOf((int)this.valor)).apply();
-        this.mainActivity.getMyPreferences().edit().putString("cantDeseada", String.valueOf((int)this.cantDeseada)).apply();
+        this.mainActivity.getMyPreferences().edit().putString("precioGalon", String.valueOf((int) this.valor)).apply();
+        this.mainActivity.getMyPreferences().edit().putString("cantDeseada", String.valueOf((int) this.cantDeseada)).apply();
     }
 
     public interface OnFragmentInteractionListener {
