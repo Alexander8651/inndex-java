@@ -13,7 +13,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -100,8 +99,6 @@ public class CombustibleActivity extends AppCompatActivity implements OnMapReady
                 .findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
-        } else {
-            Log.e("MAPA", "NULO");
         }
 
         init();
@@ -323,7 +320,6 @@ public class CombustibleActivity extends AppCompatActivity implements OnMapReady
         locationCallback = new LocationCallback(){
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                Log.e("LOCATION","ON LOCATION RESULT");
                 // do work here
                 myLoc = locationResult.getLastLocation();
                 myLatLng = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());

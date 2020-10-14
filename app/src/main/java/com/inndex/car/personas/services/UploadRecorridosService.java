@@ -99,7 +99,6 @@ public class UploadRecorridosService {
         //Toast.makeText(context, "Subiendo PLACA: " + listUnidadRecorrido.size(), Toast.LENGTH_LONG).show();
         Toast.makeText(context, "Subiendo PLACA: " + this.placa, Toast.LENGTH_LONG).show();
 
-        Log.e("PLACA",this.placa);
         //mCustomProgressDialog.show("");
         uploadAll.enqueue(new Callback<UnidadRecorrido>() {
             @Override
@@ -114,7 +113,6 @@ public class UploadRecorridosService {
                         inUploadingProccess = false;
                 } else {
                     Toast.makeText(context, "ERROR, NO SE PUDO SUBIR TODA LA INFORMACIÓN " + response.code(), Toast.LENGTH_LONG).show();
-                    Log.e("RESPPONSE", "IS NOT SUCCESSFUL " + response.code());
                 }
             }
 
@@ -122,7 +120,6 @@ public class UploadRecorridosService {
             public void onFailure(Call<UnidadRecorrido> call, Throwable t) {
                 //mCustomProgressDialog.dismiss("");
                 Toast.makeText(context, "ERROR, NO SE PUDO SUBIR TODA LA INFORMACIÓN " + t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("ERROR 3", t.getMessage());
                 inUploadingProccess = false;
             }
         });
@@ -147,7 +144,6 @@ public class UploadRecorridosService {
 
             @Override
             public void onFailure(Call<HistorialEstadoVehiculos> call, Throwable t) {
-                Log.e("UPLOAD","historial response failed " + t.getMessage());
             }
         });
     }
@@ -169,7 +165,6 @@ public class UploadRecorridosService {
                 }
             }
         } catch (SQLException e) {
-            Log.e("6.1", "EX " + e.getErrorCode() + " " + e.getMessage());
             e.printStackTrace();
         }
     }

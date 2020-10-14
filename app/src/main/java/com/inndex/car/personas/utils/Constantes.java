@@ -1,7 +1,6 @@
 package com.inndex.car.personas.utils;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.database.DataBaseHelper;
@@ -123,16 +122,10 @@ public class Constantes {
 
         final Dao<MarcaCarros, Integer> dao = helper.getDaoMarcas();
         List<MarcaCarros> listMarcas = dao.queryForAll();
-        if (listMarcas != null && listMarcas.size() > 0) {
-            Log.e("marcas", String.valueOf(listMarcas.size()));
-        }
         String[] marcas = new String[listMarcas.size()];
-
         for (int i = 0; i < listMarcas.size(); i++) {
-
             marcas[i] = listMarcas.get(i).getNombre();
         }
-
         return marcas;
     }
 

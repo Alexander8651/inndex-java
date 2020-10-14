@@ -8,11 +8,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.inndex.car.personas.R;
 import com.inndex.car.personas.utils.Constantes;
 
 import java.io.IOException;
@@ -65,21 +63,15 @@ public class FetchAddressIntentService extends IntentService {
         } catch (IOException ioException) {
             // Catch network or other I/O problems.
             errorMessage = "Ocurrió una excepcion";
-            Log.e("Error", errorMessage, ioException);
         } catch (IllegalArgumentException illegalArgumentException) {
             // Catch invalid latitude or longitude values.
             errorMessage = "Lat Lng invalida";
-            Log.e("Error", errorMessage + ". " +
-                    "Latitude = " + location.getLatitude() +
-                    ", Longitude = " +
-                    location.getLongitude(), illegalArgumentException);
         }
 
         // Handle case where no address was found.
         if (addresses == null || addresses.size()  == 0) {
             if (errorMessage.isEmpty()) {
                 errorMessage = "No se encontró dirección";
-                Log.e("Error", errorMessage);
             }
             deliverResultToReceiver(Constantes.FAILURE_RESULT, errorMessage);
         } else {
@@ -91,7 +83,6 @@ public class FetchAddressIntentService extends IntentService {
             for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
-            Log.i("Error", "Direcci'on encontrada");
             deliverResultToReceiver(Constantes.SUCCESS_RESULT,
                     TextUtils.join(System.getProperty("line.separator"),
                             addressFragments));

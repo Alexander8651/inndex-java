@@ -18,13 +18,13 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,9 +43,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.inndex.car.personas.R;
@@ -137,7 +136,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public TextView tvEds;
     @BindView(R.id.tv_tienda)
     public TextView tvTienda;
+    @BindView(R.id.menu_main_first_division)
+    public View viewFirstDivision;
+    @BindView(R.id.menu_main_second_division)
+    public View viewSecondDivision;
 
+    @BindView(R.id.fab_ubicacion)
+    public FloatingActionButton fabUbicacion;
+    @BindView(R.id.btn_menu)
+    public FloatingActionButton btnMenu;
+
+    @BindView(R.id.lay_menu_inferior)
+    public LinearLayout layMenuInferior;
+    @BindView(R.id.lay_buttons_station_selected)
+    public LinearLayout layButtonsStationSelected;
+    @BindView(R.id.lay_lista)
+    public LinearLayout layLista;
+    @BindView(R.id.lay_btn_comprar_aqui)
+    public LinearLayout layBtnComprarAqui;
+    @BindView(R.id.lay_btn_indicaciones)
+    public LinearLayout layBtnIndicaciones;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -169,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mCustomProgressDialog.setCancelable(false);
         inndexLocationService = new InndexLocationService(MainActivity.this);
         inndexLocationService.init();
-
         checkGPSState();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -231,11 +248,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imgBtnHome.setImageResource(R.drawable.home_gris);
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
 
-        tvEds.setTypeface(robotoRegular);
-        tvHome.setTypeface(robotoRegular);
-        tvHome.setTextColor(R.color.gris_menu_main);
-
         tvTienda.setTypeface(robotoRegular);
+        tvHome.setTypeface(robotoRegular);
+        tvEds.setTypeface(robotoRegular);
+
+        onItemMenuClick(HOME_CLICKED);
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
@@ -315,12 +332,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Gson gson = new Gson();
 
                 } catch (SQLException e) {
-                    Log.e("EXCEPCION", "No se pudo obtener la estacion mas cercana");
                     e.printStackTrace();
                 }
             }
         } else {
-            Log.e("PERMISOS", "HACE FALTA ALGUN PERMISO");
             ActivityCompat.requestPermissions(
                     MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -438,7 +453,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
                 && keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0) {
-            Log.d("CDA", "onKeyDown Called");
             onBackPressed();
             return true;
         }
@@ -468,7 +482,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void addNewStationToMap(Estaciones estacion) {
         estaciones.add(estacion);
         LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
-        mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca()).snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker)));
+        /*mapService.getmMap().addMarker(new MarkerOptions().position(latLng)
+                .title(estacion.getMarca()).snippet(estacion.getDireccion())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker)));
+        */
     }
 
     public void cancelTimers() {
@@ -562,6 +579,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return mCustomProgressDialog;
     }
 
+    @OnClick(R.id.btn_menu)
     public void openSideMenu() {
         this.getDrawer().openDrawer(this.getNavigationView());
     }
@@ -572,11 +590,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onMapMarkerSelected(int position) {
         Estaciones estacionSelected = this.estaciones.get(position);
-
         miFragment = new EstacionDetalleFragment(estacionSelected, this, light);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+        fabUbicacion.hide();
+        layMenuInferior.setVisibility(View.GONE);
+        layButtonsStationSelected.setVisibility(View.VISIBLE);
 
-        //inicioFragment.onMapMarkerSelected();
     }
 
     public void onChangeRouteButtonIcon() {
@@ -613,42 +632,66 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (itemClicked) {
             case HOME_CLICKED:
-                imgBtnHome.setImageResource(R.drawable.home_gris);
-                imgBtnEds.setImageResource(R.drawable.eds_negro);
-                imgBtnTienda.setImageResource(R.drawable.tienda_negro);
-                tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                break;
-            case EDS_CLICKED:
-                imgBtnHome.setImageResource(R.drawable.casa);
+                imgBtnHome.setImageResource(R.drawable.home_negro);
                 imgBtnEds.setImageResource(R.drawable.eds_gris);
-                imgBtnTienda.setImageResource(R.drawable.tienda_negro);
+                imgBtnTienda.setImageResource(R.drawable.tienda_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                btnMenu.show();
+                fabUbicacion.show();
+                layLista.setVisibility(View.VISIBLE);
                 break;
-
-            case STORE_CLICKED:
-                imgBtnHome.setImageResource(R.drawable.casa);
+            case EDS_CLICKED:
+                imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.eds_negro);
                 imgBtnTienda.setImageResource(R.drawable.tienda_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                btnMenu.hide();
+                fabUbicacion.hide();
+                layLista.setVisibility(View.GONE);
+                break;
+
+            case STORE_CLICKED:
+                imgBtnHome.setImageResource(R.drawable.home_gris);
+                imgBtnEds.setImageResource(R.drawable.eds_gris);
+                imgBtnTienda.setImageResource(R.drawable.tienda_negro);
+                tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                btnMenu.show();
+                fabUbicacion.show();
+                layLista.setVisibility(View.VISIBLE);
                 break;
         }
     }
 
     @OnClick(R.id.img_btn_home)
     public void clickHome() {
-
         if (miFragment != null)
             getSupportFragmentManager().beginTransaction().remove(miFragment).commit();
 
         if (viewMap.getVisibility() != View.VISIBLE)
             viewMap.setVisibility(View.VISIBLE);
-
         onItemMenuClick(HOME_CLICKED);
     }
+
+    @OnClick(R.id.lay_btn_indicaciones)
+    public void drawRoute() {
+        this.mapService.drawSationRoute();
+    }
+
+    @OnClick(R.id.fab_ubicacion)
+    public void clickUbicacion() {
+        this.mapService.mostrarUbicacion();
+    }
+
 }

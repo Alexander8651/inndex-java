@@ -1,6 +1,5 @@
 package com.inndex.car.personas.services;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -28,9 +27,7 @@ public class FireBaseRecorridosHelper {
 
     public void init() {
 
-        Log.e("1","1");
         if(placa != null && !placa.equals("")){
-            Log.e("2","2");
             /*documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {

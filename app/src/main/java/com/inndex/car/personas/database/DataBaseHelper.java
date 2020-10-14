@@ -78,7 +78,6 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Vehiculo.class);
 
         } catch (SQLException e) {
-            Log.e("Error ","Creating tables");
             e.printStackTrace();
             throw new RuntimeException(e);
         }

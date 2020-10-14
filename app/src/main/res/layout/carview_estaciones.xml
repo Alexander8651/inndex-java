@@ -24,7 +24,7 @@
             android:layout_height="40dp"
             android:layout_toEndOf="@id/tvNombre"
             android:layout_marginStart="5dp"
-            android:src="@drawable/pqua"
+            android:src="@drawable/logo_pqua"
             android:visibility="gone"/>
 
         <LinearLayout
@@ -89,7 +89,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_ruta" />
+            android:src="@drawable/direccion_negro" />
 
         <LinearLayout
             android:layout_width="wrap_content"

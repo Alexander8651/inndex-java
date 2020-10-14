@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -74,7 +73,6 @@ public class InicioActivity extends AppCompatActivity {
         if (!(dao.queryForAll().size() > 0)) {
 
             Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().getEstaciones();
-            Log.e("Inicio", "descargando estaciones");
             callGetStations.enqueue(new Callback<List<Estaciones>>() {
                 @Override
                 public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
@@ -91,14 +89,12 @@ public class InicioActivity extends AppCompatActivity {
                             }
                         }
                     } else {
-                        Log.e("ERROR", String.valueOf(response));
                         Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
-                    Log.e("ERROR", t.getMessage());
                     Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
                 }
             });

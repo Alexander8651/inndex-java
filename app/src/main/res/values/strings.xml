@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InndexCar People</string>
+    <string name="app_name">InndexCar</string>
     <string name="tab1">Ingresado</string>
     <string name="tab2">Rendimiento</string>
     <string name="title_activity_combustible">Medir Combustible</string>

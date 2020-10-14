@@ -3,7 +3,6 @@ package com.inndex.car.personas.fragments.configuracion_cuenta;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -235,8 +234,6 @@ public class NuevoVehiculo extends Fragment {
             callRegisterUsuariosHasModeloCarro.enqueue(new Callback<Vehiculo>() {
                 @Override
                 public void onResponse(Call<Vehiculo> call, Response<Vehiculo> response) {
-
-                    Log.e("ERROR", String.valueOf(response.code()));
                     if (response.isSuccessful() && response.body() != null) {
                         try {
                             nuevoVehiculo.setId(response.body().getId());
@@ -261,12 +258,9 @@ public class NuevoVehiculo extends Fragment {
 
                 @Override
                 public void onFailure(Call<Vehiculo> call, Throwable t) {
-
                     Toast.makeText(mainActivity, "NO SE PUDO REGISTRAR EL VEHÍCULO." + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("reg beh", t.getMessage());
                 }
             });
-
         } else {
             Toast.makeText(mainActivity, "ESTE USUARIO NO EXISTE", Toast.LENGTH_SHORT).show();
         }

@@ -2,7 +2,6 @@ package com.inndex.car.personas.places;
 
 import android.location.Location;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.database.DataBaseHelper;
@@ -97,7 +96,6 @@ public class EstacionesPlaces {
             try {
                 URL url = new URL(params[0]);
                 InputStream is = url.openConnection().getInputStream();
-                Log.e("se abrio la ","conexion");
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
@@ -105,8 +103,6 @@ public class EstacionesPlaces {
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
                 }
-                Log.e("json: ",buffer.toString());
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -116,8 +112,6 @@ public class EstacionesPlaces {
 
         @Override
         protected void onPostExecute(String res) {
-
-                Log.e("ir a parse","JSON");
         }
     }
 

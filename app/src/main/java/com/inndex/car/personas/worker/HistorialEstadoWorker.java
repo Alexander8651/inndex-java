@@ -1,7 +1,6 @@
 package com.inndex.car.personas.worker;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -34,7 +33,6 @@ public class HistorialEstadoWorker extends Worker {
 
         DataBaseHelper helper = OpenHelperManager.getHelper(getApplicationContext(), DataBaseHelper.class);
         try {
-            Log.e("DOING","MY work");
             Dao<HistorialEstadoVehiculos, Integer> daoHistorial = helper.getDaoHistorialEstados();
             List<HistorialEstadoVehiculos> lHistorialEstados = daoHistorial.queryForEq("uploaded", false);
 

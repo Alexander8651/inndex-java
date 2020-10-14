@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,7 +166,6 @@ public class VehiculosAdapter extends RecyclerView.Adapter<VehiculosAdapter.Esta
                 public void onFailure(Call<Vehiculo> call, Throwable t) {
                     mainActivity.getmCustomProgressDialog().dismiss("");
                     Toast.makeText(mainActivity, "NO SE PUDO ACTUALIZAR EL VEHÍCULO.", Toast.LENGTH_SHORT).show();
-                    Log.e("ERR", t.getLocalizedMessage());
                 }
             });
 

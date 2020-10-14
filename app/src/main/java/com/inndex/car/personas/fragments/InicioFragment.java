@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,14 +63,12 @@ public class InicioFragment extends Fragment {
     private ImageButton imgOcultarMenuSecundario;
     private EditText edtLookPlaces;
     private LinearLayout layMenuSecundario;
-    FloatingActionButton fabUbicacion;
-    private ImageButton btnMenu;
+
     private Button btnReportarAccidente;
     private Button btnReportarEdsNoRegistrada;
     private Button btnReportarPeajeNoRegistrado;
     private Button btnReportarEstadoVia;
     private Button btnReportarOtro;
-
 
 
     private AlertDialog dialogReportar;
@@ -123,7 +120,7 @@ public class InicioFragment extends Fragment {
         Typeface light = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), "fonts/Roboto-Light.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Bold.ttf");
         //imgBtnAbrirDialogoReportar = v.findViewById(R.id.img_btn_abrir_dialogo_reportar_accidente);
-          edtLookPlaces = v.findViewById(R.id.edt_look_for_place);
+        edtLookPlaces = v.findViewById(R.id.edt_look_for_place);
         btnReportarAccidente = v.findViewById(R.id.btn_reportar_accidente);
         btnReportarEdsNoRegistrada = v.findViewById(R.id.btn_reportar_eds_no_registrada);
         btnReportarEstadoVia = v.findViewById(R.id.btn_reportar_estado_via);
@@ -131,9 +128,7 @@ public class InicioFragment extends Fragment {
         btnReportarOtro = v.findViewById(R.id.btn_reportar_otro);
         layMenuSecundario = v.findViewById(R.id.lay_menu_secundario);
         imgOcultarMenuSecundario = v.findViewById(R.id.img_btn_ocultar_menu_secundario);
-        fabUbicacion = v.findViewById(R.id.fabUbicacion);
-        fabRuta = v.findViewById(R.id.fabRuta);
-        btnMenu = v.findViewById(R.id.btnMenu);
+        //fabRuta = v.findViewById(R.id.fabRuta);
         init();
 
         return v;
@@ -146,12 +141,9 @@ public class InicioFragment extends Fragment {
             if (data != null) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 edtLookPlaces.setText(place.getAddress());
-            } else {
-                Log.e("ERROR", "EN INICIO FRAGMENT");
             }
         } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
             Status status = Autocomplete.getStatusFromIntent(data);
-            Log.e("STATUS", status.getStatusMessage());
             Toast.makeText(mainActivity, "ERROR EN PLACES ", Toast.LENGTH_SHORT).show();
         }
     }
@@ -244,15 +236,10 @@ public class InicioFragment extends Fragment {
             updateMenuIcons(ITEM_REPORTAR_SELECCIONADO);
         });*/
         recorrido = new Recorrido();
-        fabUbicacion.setOnClickListener(v2 -> {
-            this.mainActivity.getMapService().mostrarUbicacion();
-            fabUbicacion.hide();
-        });
         fabRuta.setOnClickListener(v1 -> {
             this.drawRouteToStation();
             fabRuta.hide();
         });
-        btnMenu.setOnClickListener(vMenu -> mainActivity.openSideMenu());
     }
 
     private void updateMenuIcons(int selectedItem) {
@@ -281,7 +268,6 @@ public class InicioFragment extends Fragment {
 
 
     public void onMapPositionChange() {
-        fabUbicacion.show();
     }
 
     public void onMapMarkerSelected() {

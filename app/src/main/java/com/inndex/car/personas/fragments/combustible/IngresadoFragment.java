@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,11 +166,7 @@ public class IngresadoFragment extends Fragment {
                     spOtraEstacion.setAdapter(new ArrayAdapter<>(mainActivity,
                             android.R.layout.simple_spinner_dropdown_item,
                             estacionesMarcas));
-                } else {
-                    Log.e("ESA", "VAINA ES NULA");
                 }
-
-
             } else {
 
                 tvNombreEstacion.setText("");
@@ -179,7 +174,6 @@ public class IngresadoFragment extends Fragment {
 
                 spOtraEstacion.setAdapter(new ArrayAdapter<>(mainActivity, android.R.layout.simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.marcas_estaciones)));
-
                 dialogCal.show();
             }
         } catch (SQLException e) {
@@ -208,15 +202,10 @@ public class IngresadoFragment extends Fragment {
                     tvSignoPeso.setVisibility(View.VISIBLE);
 
                     String cantDeseadaPrefs = mainActivity.getMyPreferences().getString("cantDeseada", "0");
-                    Log.e("Ingresado", "lo que viene de shared preferences cd " + cantDeseadaPrefs);
-
                     if (!cantDeseadaPrefs.equals("0")) {
-
                         cantDeseada = Double.valueOf(cantDeseadaPrefs);
                         edtCantDeseadaNum.setText(cantDeseadaPrefs);
-
                     }
-
                 } else {                          //cantidad
                     flagCantidadDeseada = false;
                     edtCantDeseadaNum.setText("");
@@ -273,25 +262,19 @@ public class IngresadoFragment extends Fragment {
         edtCantDeseadaNum.setDecimals(false);
 
         String precioGalonPrefs = mainActivity.getMyPreferences().getString("precioGalon", "0");
-
-        Log.e("Ingresado", "lo que viene de shared preferences " + precioGalonPrefs);
-
         if (!precioGalonPrefs.equals("0")) {
 
             //precioGalonPrefs = precioGalonPrefs.replace(".",",");
             valor = Double.valueOf(precioGalonPrefs);
             edtValor.setText(precioGalonPrefs);
         }
-
         ImageButton btnRefresh = view.findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(v -> {
             if (!estado) {
                 tvGalones.setText("0.0 Gal. /");
                 tvTotal.setText("$0");
             }
-
         });
-
     }
 
     private void guardarMedicion(Tanqueadas tanqueada) {
@@ -461,15 +444,12 @@ public class IngresadoFragment extends Fragment {
                         return;
                     }
                 } else {
-                    Log.e("ON ELSE", response.message());
                     Toast.makeText(mainActivity, "NO SE PUDO REGISTRAR LA ESTACIÓN", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseServices> call, Throwable t) {
-
-                Log.e("FAILURE", t.getMessage());
                 Toast.makeText(mainActivity, "NO SE PUDO REGISTRAR LA ESTACIÓN", Toast.LENGTH_SHORT).show();
             }
         });

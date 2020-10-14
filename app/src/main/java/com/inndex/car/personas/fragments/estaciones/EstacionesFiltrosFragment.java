@@ -2,7 +2,6 @@ package com.inndex.car.personas.fragments.estaciones;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,7 +165,6 @@ public class EstacionesFiltrosFragment extends Fragment {
             if(checkedBrands == null)
                 checkedBrands = new boolean[opciones.length];
             checkedBrands[which] = isChecked;
-            Log.e("Click", String.valueOf(isChecked));
         });
         builder.setPositiveButton("OK", (dialog, which) -> {
             if (checkedBrands.length > 0) {

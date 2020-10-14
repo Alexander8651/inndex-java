@@ -32,11 +32,12 @@ public class DirectionFinder {
         this.origen = origen;
         this.destino = destino;
         this.apiKey = apiKey;
-        Log.e("finder", "creado");
     }
 
     public void peticionRutas() {
         String link = crearUrl();
+        Log.e("CLICK", "peticionRutas");
+
         //String myurl = "https://maps.googleapis.com/maps/api/directions/json?origin=10.451655,-73.246534&destination=10.464147,-73.243916&key=AIzaSyDbCCm75pd-bS-UIuSxRADAmnyY62fyeNk";
         new DownloadRawData().execute(link);
     }
@@ -54,17 +55,11 @@ public class DirectionFinder {
             try {
                 URL url = new URL(params[0]);
                 InputStream is = url.openConnection().getInputStream();
-                Log.e("se abrio la ", "conexion");
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
                 String line;
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
                 }
-                Log.e("json: ", buffer.toString());
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -75,9 +70,7 @@ public class DirectionFinder {
         protected void onPostExecute(String res) {
             try {
                 parseJSon(res);
-                Log.e("ir a parse", "JSON");
             } catch (JSONException e) {
-                Log.e("Exception", "con JSON");
                 e.printStackTrace();
             }
         }
@@ -109,7 +102,6 @@ public class DirectionFinder {
             route.startLocation = new LatLng(jsonStartLocation.getDouble("lat"), jsonStartLocation.getDouble("lng"));
             route.endLocation = new LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng"));
             route.points = decodePolyLine(overview_polylineJson.getString("points"));
-            Log.e("Duracion ", route.duration.text);
             routes.add(route);
         }
         pasar.trazarRutas(routes);

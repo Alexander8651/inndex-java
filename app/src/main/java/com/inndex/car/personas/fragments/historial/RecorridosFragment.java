@@ -1,7 +1,6 @@
 package com.inndex.car.personas.fragments.historial;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,13 +42,8 @@ public class RecorridosFragment extends Fragment {
         try {
             Dao<Recorrido, Integer> recorridoDao = helper.getDaoRecorridos();
             Dao<UnidadRecorrido, Integer> unidadRecorridos = helper.getDaoUnidadRecorrido();
-
             listRecorridos = recorridoDao.queryForAll();
-
-            Log.e("SIZE","RECORRIDOS " + listRecorridos.size());
-            Log.e("SIZEU","UNIDAD RECORRIDOS " + listUnidades.size());
-
-        } catch (SQLException e) {
+     } catch (SQLException e) {
             e.printStackTrace();
         }
 

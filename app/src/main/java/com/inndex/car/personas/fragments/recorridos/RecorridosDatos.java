@@ -3,7 +3,6 @@ package com.inndex.car.personas.fragments.recorridos;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,6 @@ public class RecorridosDatos extends Fragment {
 
         try {
             lRecorridos = daoRecorrido.queryForAll();
-            lRecorridos.forEach(r -> Log.e("fe", r.getFechaInicio().toString()));
             RecorridosDataAdapter adapter = new RecorridosDataAdapter( mainActivity, lRecorridos, helper);
             rvRecorridos.setLayoutManager(new LinearLayoutManager(getContext()));
             rvRecorridos.setAdapter(adapter);

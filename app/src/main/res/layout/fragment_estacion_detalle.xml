@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/shape_rectangular_background_with_shadow"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,12 +18,12 @@
 
             <ImageView
                 android:id="@+id/img_drag_estacion_detalle"
-                android:layout_width="16dp"
+                android:layout_width="160dp"
                 android:layout_height="16dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/aceptar"
-                android:src="@drawable/bajar" />
+                android:src="@drawable/horizontal_drag" />
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_marca"
@@ -44,24 +44,24 @@
 
             <ImageView
                 android:id="@+id/img_estacion_detalle_certificado"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_below="@id/img_drag_estacion_detalle"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@id/tv_estacion_detalle_marca"
                 android:contentDescription="@string/aceptar"
-                android:src="@drawable/pqua" />
+                android:src="@drawable/logo_pqua" />
 
             <CheckBox
                 android:id="@+id/cb_estacion_detalle_favorita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:button="@drawable/favourite_estacion_selector"/>
+                android:button="@drawable/favourite_estacion_selector" />
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
@@ -71,7 +71,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/margin_start_separator"
+            android:layout_marginEnd="@dimen/margin_start_separator"
             android:background="@color/colorPrimaryDark" />
 
         <RelativeLayout
@@ -103,16 +105,18 @@
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:contentDescription="@string/aceptar"
                 android:background="@drawable/circular_button_shape"
-                android:drawableTop="@drawable/ic_ruta"
-                android:paddingTop="10dp"/>
+                android:contentDescription="@string/aceptar"
+                android:drawableTop="@drawable/direccion48"
+                android:paddingTop="13dp" />
 
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/margin_start_separator"
+            android:layout_marginEnd="@dimen/margin_start_separator"
             android:background="@color/colorPrimaryDark" />
 
         <RelativeLayout
@@ -132,7 +136,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/margin_start_separator"
+            android:layout_marginEnd="@dimen/margin_start_separator"
             android:background="@color/colorPrimaryDark" />
 
         <RelativeLayout
@@ -147,6 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
                 android:text="Horarios y contacto"
                 android:textColor="@color/azul_texto_enlace"
                 android:textSize="20sp" />
@@ -166,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="10dp"
                 android:textColor="@color/azul_texto_enlace"
                 android:textSize="20sp" />
 
@@ -174,7 +181,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/margin_start_separator"
+            android:layout_marginEnd="@dimen/margin_start_separator"
             android:background="@color/colorPrimaryDark" />
 
         <RelativeLayout

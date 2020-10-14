@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -45,10 +44,8 @@ public class InndexLocationService {
             public void onLocationResult(LocationResult locationResult) {
 
                 if (locationResult == null) {
-                    Log.e("LOCTION", "RESULT NUUULLLL");
                     return;
                 }
-
                 if (myLocation == null) {
                     myLocation = locationResult.getLastLocation();
                     return;

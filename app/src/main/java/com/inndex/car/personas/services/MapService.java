@@ -27,7 +27,7 @@ import com.inndex.car.personas.utils.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListener , GoogleMap.OnCameraMoveListener{
+public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListener, GoogleMap.OnCameraMoveListener {
 
     private GoogleMap mMap;
     private Marker markerMyPosition;
@@ -49,19 +49,20 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         this.mainActivity = mainActivity;
     }
 
-    public void drawSationRoute(){
+    public void drawSationRoute() {
 
-        if(itemStationSelected == null){
+        if (itemStationSelected == null) {
             Toast.makeText(context, "DEBE SELECCIONAR UNA ESTACIÓN!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (myLocation != null) {
+
             LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             LatLng destino = new LatLng(itemStationSelected.getPosition().latitude, itemStationSelected.getPosition().longitude);
             DirectionFinder buscador = new DirectionFinder(this, latLng, destino,
                     Constantes.API_KEY_PLACES);
             buscador.peticionRutas();
-        }else{
+        } else {
             Toast.makeText(context, "ERROR, No se pudo detectar tu ubicación", Toast.LENGTH_SHORT).show();
         }
     }
@@ -69,11 +70,19 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     @Override
     public void trazarRutas(List<Route> rutas) {
 
-        if(rutas != null && rutas.size() > 0) {
-            if(polylinePaths != null && polylinePaths.size() > 0) {
+        Log.e("Trazar","RUTAS");
+
+        if (rutas != null && rutas.size() > 0) {
+
+            Log.e("Trazar","RUTAS11111");
+            if (polylinePaths != null && polylinePaths.size() > 0) {
+
+                Log.e("Trazar","RUTAS2222222");
                 polylinePaths.forEach(Polyline::remove);
             }
             polylinePaths = new ArrayList<>();
+
+            Log.e("Trazar","RUTAS353453453");
             for (Route route : rutas) {
                 PolylineOptions polylineOptions = new PolylineOptions().
                         geodesic(true).
@@ -84,7 +93,9 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
                     polylineOptions.add(route.points.get(i));
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
-        mainActivity.onChangeRouteButtonIcon();
+
+            Log.e("Trazar","RUTAS999999");
+            mainActivity.onChangeRouteButtonIcon();
         }
     }
 
@@ -96,14 +107,14 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
 
     public void mostrarUbicacion() {
         //initLocation();
-        if (myLocation != null){
+        if (myLocation != null) {
 
             LatLng newPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             if (markerMyPosition == null)
                 markerMyPosition = mMap.addMarker(new MarkerOptions().position(newPosition));
-            if(mMap != null)
+            if (mMap != null)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 14));
-        }else{
+        } else {
             Toast.makeText(context, "NO SE PUEDE MOSTRAR TU UBICACIÓN. INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -134,7 +145,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         for (Estaciones estacion :
                 estaciones) {
             LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
-            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(),latLng, estacion.getMarca(), estacion.getDireccion(),
+            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(), latLng, estacion.getMarca(), estacion.getDireccion(),
                     estacion.getId(), sum);
 
             mClusterManager.addItem(item);
@@ -145,20 +156,19 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
             else
                 mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
                         .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada)));*/
-        sum++;
+            sum++;
         }
         mClusterManager.cluster();
         mClusterManager.setOnClusterItemClickListener(item -> {
 
             itemStationSelected = item;
             mainActivity.onMapMarkerSelected(item.getPositionInList());
-            Log.e("HUBO","UN CLICK EN " + item.getSnippet());
             return false;
         });
     }
 
     public void updateMyPosition() {
-        if(myLocation == null) {
+        if (myLocation == null) {
             return;
         }
         LatLng newPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
@@ -185,7 +195,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
 
     @Override
     public void onCameraMove() {
-        Log.e("CAMERA","Cmaera changed");
         mainActivity.onMapPositionChange();
     }
 

@@ -114,7 +114,7 @@ public class InfoPersonal extends Fragment {
                     Bitmap bitmap = decodeBase64(imagePath);
                     imgUsuario.setImageBitmap(bitmap);
             }else{
-                imgUsuario.setImageResource(R.mipmap.logo_inndex);
+                imgUsuario.setImageResource(R.mipmap.ic_launcher);
             }
             edtNombresApellidos.setText(nombres + " " + apellidos);
         }

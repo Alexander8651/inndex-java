@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.services.UploadRecorridosService;
@@ -34,10 +33,7 @@ public class UploadRecorridoReceiver extends BroadcastReceiver {
         if (placa == null){
             SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             placa = myPreferences.getString(Constantes.DEFAULT_PLACA, "");
-            Log.e("placa", placa);
         }
-
-
         if (uploadRecorridosService == null)
             uploadRecorridosService = new UploadRecorridosService(this.context, placa);
     }
