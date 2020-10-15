@@ -1,7 +1,6 @@
 package com.inndex.car.personas.rutas;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.utils.Constantes;
@@ -36,8 +35,6 @@ public class DirectionFinder {
 
     public void peticionRutas() {
         String link = crearUrl();
-        Log.e("CLICK", "peticionRutas");
-
         //String myurl = "https://maps.googleapis.com/maps/api/directions/json?origin=10.451655,-73.246534&destination=10.464147,-73.243916&key=AIzaSyDbCCm75pd-bS-UIuSxRADAmnyY62fyeNk";
         new DownloadRawData().execute(link);
     }

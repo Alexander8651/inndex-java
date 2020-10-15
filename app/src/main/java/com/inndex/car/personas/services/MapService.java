@@ -3,7 +3,6 @@ package com.inndex.car.personas.services;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,7 +49,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     }
 
     public void drawSationRoute() {
-
         if (itemStationSelected == null) {
             Toast.makeText(context, "DEBE SELECCIONAR UNA ESTACIÓN!", Toast.LENGTH_SHORT).show();
             return;
@@ -59,6 +57,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
 
             LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             LatLng destino = new LatLng(itemStationSelected.getPosition().latitude, itemStationSelected.getPosition().longitude);
+            //return;
             DirectionFinder buscador = new DirectionFinder(this, latLng, destino,
                     Constantes.API_KEY_PLACES);
             buscador.peticionRutas();
@@ -70,19 +69,11 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     @Override
     public void trazarRutas(List<Route> rutas) {
 
-        Log.e("Trazar","RUTAS");
-
         if (rutas != null && rutas.size() > 0) {
-
-            Log.e("Trazar","RUTAS11111");
             if (polylinePaths != null && polylinePaths.size() > 0) {
-
-                Log.e("Trazar","RUTAS2222222");
                 polylinePaths.forEach(Polyline::remove);
             }
             polylinePaths = new ArrayList<>();
-
-            Log.e("Trazar","RUTAS353453453");
             for (Route route : rutas) {
                 PolylineOptions polylineOptions = new PolylineOptions().
                         geodesic(true).
@@ -93,8 +84,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
                     polylineOptions.add(route.points.get(i));
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
-
-            Log.e("Trazar","RUTAS999999");
             mainActivity.onChangeRouteButtonIcon();
         }
     }

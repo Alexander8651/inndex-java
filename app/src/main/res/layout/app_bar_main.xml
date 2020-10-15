@@ -11,7 +11,7 @@
         android:layout_width="67dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/shape_button_lista_inicio"
         android:orientation="horizontal"

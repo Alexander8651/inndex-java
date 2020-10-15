@@ -12,7 +12,8 @@
         android:id="@+id/lay_menu_inferior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/fondo_menu_inferior_inicio"
+        android:background="@drawable/background_menu_main"
+        android:elevation="2dp"
         android:orientation="horizontal">
 
         <!-- Menú Inferior -->
@@ -133,7 +134,6 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/lay_buttons_station_selected"
         android:layout_width="match_parent"
@@ -141,13 +141,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/fondo_menu_inferior_inicio"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/lay_btn_indicaciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/selector_buton_indications"
@@ -155,8 +155,7 @@
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center_vertical">
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="25dp"
@@ -177,14 +176,14 @@
             android:id="@+id/lay_btn_comprar_aqui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/selector_buton_buy_here"
             android:orientation="horizontal"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center_vertical">
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="25dp"
