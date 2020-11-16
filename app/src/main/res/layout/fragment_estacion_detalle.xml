@@ -50,14 +50,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@id/tv_estacion_detalle_marca"
                 android:contentDescription="@string/aceptar"
-                android:src="@drawable/logo_pqua" />
+                 />
 
             <CheckBox
                 android:id="@+id/cb_estacion_detalle_favorita"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
-                android:button="@drawable/favourite_estacion_selector" />
+                android:button="@drawable/favourite_estacion_selector"
+                android:layout_marginStart="10dp"/>
 
             <ImageView
                 android:layout_width="30dp"
@@ -68,7 +69,7 @@
                 android:src="@drawable/more_horiz_24" />
 
         </RelativeLayout>
-
+m
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -86,8 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="direccion"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginStart="10dp"/>
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_distancia"

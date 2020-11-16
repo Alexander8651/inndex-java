@@ -1,6 +1,7 @@
 package com.inndex.car.personas.fragments.estaciones;
 
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,13 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.MainActivity;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.utils.Constantes;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +44,14 @@ public class EstacionDetalleFragment extends Fragment {
     private Estaciones estacion;
     private MainActivity mainActivity;
     private Typeface light;
+    private LatLng myPosition;
 
     public EstacionDetalleFragment(Estaciones estacion, MainActivity mainActivity,
-                                   Typeface light) {
+                                   Typeface light, Location position) {
         this.mainActivity = mainActivity;
         this.estacion = estacion;
         this.light = light;
+        this.myPosition = new LatLng(position.getLatitude(), position.getLongitude());
     }
 
     public EstacionDetalleFragment() {
@@ -82,8 +89,13 @@ public class EstacionDetalleFragment extends Fragment {
         //tvCalificacion.setText(estacion.getCa());
         tvNombre.setText(estacion.getNombre());
         tvHorario.setText(estacion.getHorario());
-
-
+        float distancia = Constantes.getDistance(myPosition, estacion.getCoordenadas());
+        if(distancia < 1000) {
+            tvDistancia.setText(String.format(Locale.ENGLISH,"%.2f m", distancia));
+        } else {
+            distancia = distancia / 1000;
+            tvDistancia.setText(String.format(Locale.ENGLISH,"%.2f km", distancia));
+        }
         return view;
     }
 }

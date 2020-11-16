@@ -567,10 +567,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initRecorrido();
     }
 
-    public RecorridoService getRecorridoService() {
-        return recorridoService;
-    }
-
     public static MainActivity getInstance() {
         return myInstance;
     }
@@ -590,12 +586,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onMapMarkerSelected(int position) {
         Estaciones estacionSelected = this.estaciones.get(position);
-        miFragment = new EstacionDetalleFragment(estacionSelected, this, light);
+        miFragment = new EstacionDetalleFragment(estacionSelected, this, light, this.inndexLocationService.getMyLocation());
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
         fabUbicacion.hide();
         layMenuInferior.setVisibility(View.GONE);
         layButtonsStationSelected.setVisibility(View.VISIBLE);
-
+        this.viewMap.setClickable(false);
     }
 
     public void onChangeRouteButtonIcon() {
@@ -687,6 +683,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @OnClick(R.id.lay_btn_indicaciones)
     public void drawRoute() {
         this.mapService.drawSationRoute();
+        this.viewMap.setClickable(true);
     }
 
     @OnClick(R.id.fab_ubicacion)
