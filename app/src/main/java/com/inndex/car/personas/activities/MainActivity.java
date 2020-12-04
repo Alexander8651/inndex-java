@@ -678,12 +678,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (viewMap.getVisibility() != View.VISIBLE)
             viewMap.setVisibility(View.VISIBLE);
         onItemMenuClick(HOME_CLICKED);
+        this.viewMap.setClickable(true);
     }
 
     @OnClick(R.id.lay_btn_indicaciones)
     public void drawRoute() {
         this.mapService.drawSationRoute();
-        this.viewMap.setClickable(true);
+        if (miFragment != null)
+            getSupportFragmentManager().beginTransaction().remove(miFragment).commit();
+        clickHome();
+        layButtonsStationSelected.setVisibility(View.GONE);
+        layMenuInferior.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.fab_ubicacion)

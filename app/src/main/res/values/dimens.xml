@@ -34,5 +34,8 @@
     <!-- Menu main -->
     <dimen name="margin_bottom_text">10dp</dimen>
 
+    <!-- Detalle estación fragment -->
+    <dimen name="text_combustible_precio_titulo">16sp</dimen>
+    <dimen name="text_combustible_precio">22sp</dimen>
 
 </resources>

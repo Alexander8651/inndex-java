@@ -39,6 +39,19 @@ public class EstacionDetalleFragment extends Fragment {
     public TextView tvNombre;
     @BindView(R.id.tv_estacion_detalle_ver_opiniones)
     public TextView tvVerOpiniones;
+    @BindView(R.id.tv_est_det_combustible_principal_titulo)
+    public TextView tvCombustiblePrincipalTitulo;
+    @BindView(R.id.tv_est_det_combustible_principal_precio)
+    public TextView tvCombustiblePrincipalPrecio;
+    @BindView(R.id.tv_est_det_combustible_second_titulo)
+    public TextView tvCombustibleSecondTitulo;
+    @BindView(R.id.tv_est_det_combustible_second_precio)
+    public TextView tvCombustibleSecondPrecio;
+    @BindView(R.id.tv_est_det_combustible_third_titulo)
+    public TextView tvCombustibleThirdTitulo;
+    @BindView(R.id.tv_est_det_combustible_third_precio)
+    public TextView tvCombustibleThirdPrecio;
+
 
 
     private Estaciones estacion;
@@ -83,7 +96,12 @@ public class EstacionDetalleFragment extends Fragment {
         tvMarca.setTypeface(light);
         tvNombre.setTypeface(light);
         tvVerOpiniones.setTypeface(light);
-
+        tvCombustiblePrincipalPrecio.setTypeface(light);
+        tvCombustiblePrincipalTitulo.setTypeface(light);
+        tvCombustibleSecondPrecio.setTypeface(light);
+        tvCombustibleSecondTitulo.setTypeface(light);
+        tvCombustibleThirdPrecio.setTypeface(light);
+        tvCombustibleThirdTitulo.setTypeface(light);
         tvDireciion.setText(estacion.getDireccion());
         tvMarca.setText(estacion.getMarca());
         //tvCalificacion.setText(estacion.getCa());

@@ -49,16 +49,15 @@
                 android:layout_below="@id/img_drag_estacion_detalle"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@id/tv_estacion_detalle_marca"
-                android:contentDescription="@string/aceptar"
-                 />
+                android:contentDescription="@string/aceptar" />
 
             <CheckBox
                 android:id="@+id/cb_estacion_detalle_favorita"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:button="@drawable/favourite_estacion_selector"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:button="@drawable/favourite_estacion_selector" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -69,7 +68,7 @@
                 android:src="@drawable/more_horiz_24" />
 
         </RelativeLayout>
-m
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -80,15 +79,17 @@ m
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_direccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="16sp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:lines="2"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_distancia"
@@ -109,7 +110,8 @@ m
                 android:background="@drawable/circular_button_shape"
                 android:contentDescription="@string/aceptar"
                 android:drawableTop="@drawable/direccion48"
-                android:paddingTop="13dp" />
+                android:paddingTop="13dp"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 
@@ -122,15 +124,108 @@ m
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_separator"
+            android:layout_marginEnd="@dimen/margin_start_separator">
+
+            <LinearLayout
+                android:id="@+id/lay_precios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/lay_combustible_principal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_est_det_combustible_principal_titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Corriente"
+                        android:textSize="@dimen/text_combustible_precio_titulo" />
+
+                    <TextView
+                        android:id="@+id/tv_est_det_combustible_principal_precio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="$8.740"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/text_combustible_precio" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lay_combustible_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_est_det_combustible_second_titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Extra"
+                        android:textSize="@dimen/text_combustible_precio_titulo" />
+
+                    <TextView
+                        android:id="@+id/tv_est_det_combustible_second_precio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="$9.940"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/text_combustible_precio" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lay_combustible_third"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_est_det_combustible_third_titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Diesel"
+                        android:textSize="@dimen/text_combustible_precio_titulo" />
+
+                    <TextView
+                        android:id="@+id/tv_est_det_combustible_third_precio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="$10.677"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/text_combustible_precio" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_precio_actualizado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/lay_precios"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="Precios actulizados hace 2 días"
+                android:text="Precios actualizados hace 2 días"
                 android:textSize="18sp" />
 
         </RelativeLayout>
@@ -157,7 +252,7 @@ m
                 android:layout_marginStart="10dp"
                 android:text="Horarios y contacto"
                 android:textColor="@color/azul_texto_enlace"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -175,8 +270,8 @@ m
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                android:textColor="@color/azul_texto_enlace"
-                android:textSize="20sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
 
         </RelativeLayout>
 
