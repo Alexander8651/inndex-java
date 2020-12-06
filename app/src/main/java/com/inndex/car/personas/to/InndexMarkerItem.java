@@ -15,8 +15,6 @@ public class InndexMarkerItem implements ClusterItem {
     private int positionInList;
     private int idEstacion;
 
-
-
     public InndexMarkerItem(boolean certificada, LatLng mPosition, String mTitle, String mSnippet, int idEstacion, int position) {
         this.certificada = certificada;
         this.mPosition = mPosition;

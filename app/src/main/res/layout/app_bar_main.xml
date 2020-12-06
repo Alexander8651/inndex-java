@@ -70,6 +70,27 @@
                     android:contentDescription="@string/back"
                     android:src="@drawable/ic_back" />
 
+                <TextView
+                    android:id="@+id/tv_toolbar_nombre_estacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btnBack2"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:contentDescription="@string/back"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="2dp"
+                    android:src="@drawable/carrocompras_blanco"
+                    android:layout_below="@id/btnBack2"
+                    android:layout_alignParentEnd="true"/>
+
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -95,6 +116,18 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="90dp"
         android:src="@drawable/location"
+        app:backgroundTint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_navegacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fab_ubicacion"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/navegacion"
+        android:visibility="gone"
         app:backgroundTint="@color/white" />
 
     <include layout="@layout/content_main" />

@@ -132,7 +132,7 @@ public class EstacionesFiltrosFragment extends Fragment {
             checkedCertificados[which] = isChecked;
         });
         builder.setPositiveButton("OK", (dialog, which) -> {
-            if (checkedCertificados.length > 0) {
+            if (checkedCertificados != null && checkedCertificados.length > 0) {
                 StringBuilder stBuilder = new StringBuilder("");
                 for (int i = 0; i < checkedCertificados.length; i++) {
                     if (checkedCertificados[i]) {

@@ -194,4 +194,12 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     public void setEstaciones(List<Estaciones> estaciones) {
         this.estaciones = estaciones;
     }
+
+    public Estaciones getEstacionSeleccionada() {
+        if (this.itemStationSelected != null) {
+            return this.estaciones.get(itemStationSelected.getPositionInList());
+        }
+        return null;
+    }
+
 }

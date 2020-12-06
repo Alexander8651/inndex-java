@@ -3,6 +3,7 @@ package com.inndex.car.personas.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -51,6 +52,7 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.InicioFragment;
 import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
+import com.inndex.car.personas.fragments.compra.CompraFragment;
 import com.inndex.car.personas.fragments.configuracion_cuenta.ConfiguracionTabs;
 import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
 import com.inndex.car.personas.fragments.dondetanquear.DondeTanquearTabs;
@@ -84,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         OnMapReadyCallback, SetArrayValuesForInndex, InicioFragment.OnFragmentInteractionListener,
         HistorialTabs.OnFragmentInteractionListener, ConfiguracionTabs.OnFragmentInteractionListener,
         IngresadoFragment.OnFragmentInteractionListener, NuevoVehiculo.OnFragmentInteractionListener,
-        RecorridosDatos.OnFragmentInteractionListener,
-        EstacionesTabsFragment.OnFragmentInteractionListener {
+        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -136,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public TextView tvEds;
     @BindView(R.id.tv_tienda)
     public TextView tvTienda;
+    @BindView(R.id.tv_toolbar_nombre_estacion)
+    public TextView tvToolbarNombreEstacion;
     @BindView(R.id.menu_main_first_division)
     public View viewFirstDivision;
     @BindView(R.id.menu_main_second_division)
@@ -143,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.fab_ubicacion)
     public FloatingActionButton fabUbicacion;
+    @BindView(R.id.fab_navegacion)
+    public FloatingActionButton fabNavegacion;
     @BindView(R.id.btn_menu)
     public FloatingActionButton btnMenu;
 
@@ -156,6 +161,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public LinearLayout layBtnComprarAqui;
     @BindView(R.id.lay_btn_indicaciones)
     public LinearLayout layBtnIndicaciones;
+    @BindView(R.id.lay_buttons_confirmar_compra)
+    public LinearLayout layButtonsConfirmarCompra;
+    @BindView(R.id.lay_btn_confirmar_compra)
+    public LinearLayout layBtnConfirmarCompra;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -247,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         imgBtnHome.setImageResource(R.drawable.home_gris);
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+        tvToolbarNombreEstacion.setTypeface(light);
 
         tvTienda.setTypeface(robotoRegular);
         tvHome.setTypeface(robotoRegular);
@@ -380,7 +391,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         View headerLayout = navigationView.getHeaderView(0);
         toolbar = findViewById(R.id.toolbar);
-
         TextView tvUsuario = headerLayout.findViewById(R.id.tvUsuario);
         tvDefaultPlaca = headerLayout.findViewById(R.id.tvDefaultPlaca);
         //tvDefaultState = headerLayout.findViewById(R.id.tvDefaultState);
@@ -689,6 +699,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         clickHome();
         layButtonsStationSelected.setVisibility(View.GONE);
         layMenuInferior.setVisibility(View.VISIBLE);
+        fabNavegacion.show();
+    }
+
+    @OnClick(R.id.lay_btn_comprar_aqui)
+    public void onClickComprarAqui() {
+        layBtnComprarAqui.setVisibility(View.GONE);
+        layBtnIndicaciones.setVisibility(View.GONE);
+        layButtonsConfirmarCompra.setVisibility(View.VISIBLE);
+        miFragment = new CompraFragment(this, this.light);
+        viewMap.setVisibility(View.GONE);
+        toolbar.setVisibility(View.VISIBLE);
+        Estaciones estacionSeleccionada = this.mapService.getEstacionSeleccionada();
+        if (estacionSeleccionada != null) {
+            tvToolbarNombreEstacion.setText(estacionSeleccionada.getNombre());
+        }
+        fabNavegacion.hide();
+        btnMenu.hide();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+    }
+
+    @OnClick(R.id.lay_btn_confirmar_compra)
+    public void onClickConfirmarCompra() {
+
+        layButtonsConfirmarCompra.setVisibility(View.GONE);
+        layBtnIndicaciones.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.fab_navegacion)
+    public void onClickNavegacion() {
+        Estaciones estacionSeleccionada = mapService.getEstacionSeleccionada();
+        if (estacionSeleccionada != null) {
+            try {
+                // Launch Waze to look for Hawaii:
+                String url = "https://waze.com/";
+                url += "ul?ll="+ estacionSeleccionada.getLatitud() + "%2C" + estacionSeleccionada.getLongitud() + "&navigate=yes";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            } catch (ActivityNotFoundException ex) {
+                // If Waze is not installed, open it in Google Play:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.waze"));
+                startActivity(intent);
+            }
+        }
     }
 
     @OnClick(R.id.fab_ubicacion)

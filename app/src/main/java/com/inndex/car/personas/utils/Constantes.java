@@ -35,8 +35,10 @@ public class Constantes {
     public static final String GET_USUARIO_HAS_MODELO_CARROS_BY_ID_USER = "usuarioHasModeloCarros/getAllByUser/";
 
     //API KEY DE PONTON
-    public static final String API_KEY_PLACES = "AIzaSyBHLkx2pOIKyoiTYjw-c78ValF4iHktcjc";
-    //public static final String API_KEY = "AIzaSyBVYoTTWhM_JZAlbUpJuTKTI5xcTJq7NFY";
+
+    //public static final String API_KEY_PLACES = "AIzaSyBHLkx2pOIKyoiTYjw-c78ValF4iHktcjc";
+    //public static final String API_KEY_PLACES = "AIzaSyBizdZCPln0q6WvLBJ4DGorvKgQ857k8qw";
+    public static final String API_KEY_PLACES = "AIzaSyCRfWREv6YQGU8OBG0lOmXMOT16wjS2sC4";
 
     //RECORRIDOS
     public static final String POST_RECORRIDOS_BULK = "recorridos/bulk";

@@ -168,4 +168,6 @@
     <string name="que_tan_cerca_de_ti">¿Qué tan cerca de ti?</string>
     <string name="con_que_calificacion">¿Con qué calificación?</string>
     <string name="filtros">Filtros</string>
+    <string name="tipo_de_combustible">Tipo de combustible</string>
+    <string name="ingresa_la_cantidad_o_valor">Ingresa la cantidad o valor</string>
 </resources>
