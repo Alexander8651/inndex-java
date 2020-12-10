@@ -23,7 +23,7 @@ public class Constantes {
     public static final String POST_REGISTER_USER = "users/postRegistrar";
 
     //ESTACIONES
-    public static final String GET_ALL_ESTACIONES = " ";
+    public static final String GET_ALL_ESTACIONES = "estaciones/getAll";
     public static final String POST_REGISTER_STATION = "estaciones/postRegistrar";
     //TANQUEADAS
     public static final String POST_REGISTRAR_TANQUEADA = "tanqueadas/postRegistrar";

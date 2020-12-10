@@ -116,6 +116,12 @@
         <item>GNV</item>
     </string-array>
 
+    <string-array name="tipos_combustibles_venta">
+        <item>Corriente</item>
+        <item>Extra</item>
+        <item>Diesel</item>
+    </string-array>
+
     <string-array name="marcas_estaciones">
         <item>AYATAWACOOP</item>
         <item>BIOMAX</item>

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.estaciones.EstacionDetalleFragment"
-    android:focusable="true">
+    android:focusable="true"
+    tools:context=".fragments.estaciones.EstacionDetalleFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_estacion_detalle_marca"
                 android:layout_centerHorizontal="true"
-                android:textSize="14sp"
-                android:layout_marginStart="@dimen/margin_start_separator"/>
+                android:layout_marginStart="@dimen/margin_start_separator"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/img_estacion_detalle_certificado"
@@ -107,12 +107,12 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/circular_button_shape"
                 android:contentDescription="@string/aceptar"
                 android:drawableTop="@drawable/direccion48"
-                android:paddingTop="13dp"
-                android:layout_centerVertical="true"/>
+                android:paddingTop="13dp" />
 
         </RelativeLayout>
 
@@ -328,10 +328,6 @@
                 android:textColor="@color/azul_texto_enlace"
                 android:textSize="20sp" />
 
-
         </RelativeLayout>
-
-
     </LinearLayout>
-
 </RelativeLayout>

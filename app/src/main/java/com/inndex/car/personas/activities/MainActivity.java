@@ -26,6 +26,7 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -131,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.img_btn_tienda)
     public ImageView imgBtnTienda;
 
+    @BindView(R.id.btnBack2)
+    public ImageView btnBack;
+
+
     @BindView(R.id.tv_home)
     public TextView tvHome;
     @BindView(R.id.tv_eds)
@@ -146,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.fab_ubicacion)
     public FloatingActionButton fabUbicacion;
-    @BindView(R.id.fab_navegacion)
-    public FloatingActionButton fabNavegacion;
+//    @BindView(R.id.fab_navegacion)
+//    public FloatingActionButton fabNavegacion;
     @BindView(R.id.btn_menu)
     public FloatingActionButton btnMenu;
 
@@ -163,9 +168,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public LinearLayout layBtnIndicaciones;
     @BindView(R.id.lay_buttons_confirmar_compra)
     public LinearLayout layButtonsConfirmarCompra;
-    @BindView(R.id.lay_btn_confirmar_compra)
-    public LinearLayout layBtnConfirmarCompra;
+    @BindView(R.id.lay_btn_reclamar_ahora)
+    public LinearLayout layBtnReclamarAhora;
 
+    @BindView(R.id.lay_btn_confirmar_compra)
+    public RelativeLayout layBtnConfirmarCompra;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -274,15 +281,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mi.setTitle(mNewTitle);
     }
 
-    /*@Override
+    @OnClick(R.id.btnBack2)
+    @Override
     public void onBackPressed() {
-        Toast.makeText(this, "BACK BUTTON PRESSED", Toast.LENGTH_SHORT).show();
-        Fragment fragment = new InicioFragment(bold, this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
-        btnBack.setVisibility(View.GONE);
+       toolbar.setVisibility(View.GONE);
         viewMap.setVisibility(View.VISIBLE);
-
-    }*/
+        clickHome();
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -601,6 +606,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fabUbicacion.hide();
         layMenuInferior.setVisibility(View.GONE);
         layButtonsStationSelected.setVisibility(View.VISIBLE);
+        layBtnIndicaciones.setVisibility(View.VISIBLE);
+        layBtnComprarAqui.setVisibility(View.VISIBLE);
         this.viewMap.setClickable(false);
     }
 
@@ -649,6 +656,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 btnMenu.show();
                 fabUbicacion.show();
                 layLista.setVisibility(View.VISIBLE);
+                layButtonsConfirmarCompra.setVisibility(View.GONE);
+                layMenuInferior.setVisibility(View.VISIBLE);
+                layBtnReclamarAhora.setVisibility(View.GONE);
                 break;
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
@@ -699,11 +709,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         clickHome();
         layButtonsStationSelected.setVisibility(View.GONE);
         layMenuInferior.setVisibility(View.VISIBLE);
-        fabNavegacion.show();
+        gotToWaze();
     }
 
     @OnClick(R.id.lay_btn_comprar_aqui)
     public void onClickComprarAqui() {
+        layButtonsStationSelected.setVisibility(View.GONE);
         layBtnComprarAqui.setVisibility(View.GONE);
         layBtnIndicaciones.setVisibility(View.GONE);
         layButtonsConfirmarCompra.setVisibility(View.VISIBLE);
@@ -714,25 +725,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (estacionSeleccionada != null) {
             tvToolbarNombreEstacion.setText(estacionSeleccionada.getNombre());
         }
-        fabNavegacion.hide();
         btnMenu.hide();
-
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
     }
 
     @OnClick(R.id.lay_btn_confirmar_compra)
     public void onClickConfirmarCompra() {
-
         layButtonsConfirmarCompra.setVisibility(View.GONE);
         layBtnIndicaciones.setVisibility(View.VISIBLE);
+        layButtonsStationSelected.setVisibility(View.VISIBLE);
+        layBtnReclamarAhora.setVisibility(View.VISIBLE);
+        ((CompraFragment)miFragment).showNumeroIslasDialog();
     }
 
-    @OnClick(R.id.fab_navegacion)
-    public void onClickNavegacion() {
+//    @OnClick(R.id.fab_navegacion)
+//    public void onClickNavegacion() {
+//    }
+
+    private void gotToWaze() {
         Estaciones estacionSeleccionada = mapService.getEstacionSeleccionada();
         if (estacionSeleccionada != null) {
             try {
-                // Launch Waze to look for Hawaii:
                 String url = "https://waze.com/";
                 url += "ul?ll="+ estacionSeleccionada.getLatitud() + "%2C" + estacionSeleccionada.getLongitud() + "&navigate=yes";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
