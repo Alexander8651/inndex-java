@@ -7,6 +7,7 @@
     <color name="textSecond">#000000</color>
     <color name="star">#FFFD38</color>
     <color name="gris">#CCCCCC</color>
+    <color name="gris_islas">#999999</color>
     <color name="gris_menu_main">#666666</color>
     <color name="valorToTal">#CCCCCC</color>
     <color name="yellow_soft">#FFFECE</color>

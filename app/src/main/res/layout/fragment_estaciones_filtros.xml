@@ -1,275 +1,627 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.estaciones.EstacionesFiltrosFragment"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    tools:context=".fragments.estaciones.EstacionesFiltrosFragment">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/lay_filter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/lay_filter"
-            android:layout_width="match_parent"
+        <!--RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tv_mostrar_estaciones"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Mostar estaciones"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_mostrar_estaciones"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Mostar estaciones"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <Switch
-                    android:id="@+id/sw_mostrar_estaciones"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_toEndOf="@id/tv_mostrar_estaciones"
-                    android:buttonTint="@color/colorPrimaryDark"
-                    android:checked="true"
-                    android:shadowColor="@color/colorPrimaryDark"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:theme="@style/BlackSwitch" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:id="@+id/rel_filter_cerificados"
+            <Switch
+                android:id="@+id/sw_mostrar_estaciones"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_mostrar_estaciones"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
 
-                <TextView
-                    android:id="@+id/tv_filtro_con_que_certificados"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/con_que_certificados_de_calidad"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
+        </RelativeLayout-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_right" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:id="@+id/rel_filter_marcas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
-
-                <TextView
-                    android:id="@+id/tv_filtro_que_marcas_prefieres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/que_marcas_prefieres"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_right" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:id="@+id/rel_filter_tipo_combustible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
-
-                <TextView
-                    android:id="@+id/tv_filtro_tipo_combustible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/con_que_tipo_de_combustible"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_right" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:id="@+id/rel_filter_distancia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
-
-                <TextView
-                    android:id="@+id/tv_filtro_que_tan_cerca_de_ti"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/que_tan_cerca_de_ti"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_right" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
-
-                <TextView
-                    android:id="@+id/tv_filtro_precio_hasta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Precio hasta: "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="30dp"
-                    android:layout_toEndOf="@id/tv_filtro_precio_hasta"
-                    android:ellipsize="start"
-                    android:hint="$"
-                    android:inputType="number" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:id="@+id/rel_filter_calificacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
-
-                <TextView
-                    android:id="@+id/tv_filtro_con_que_calificacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/con_que_calificacion"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_right" />
-
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/last_separator"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_filtrar_estaciones"
-            android:layout_below="@id/lay_filter"
+        <!--View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/colorPrimary"
-            android:text="@string/filtrar"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:layout_height="2dp"
+            android:background="@color/gris" /-->
 
-    </RelativeLayout>
-</FrameLayout>
+        <RelativeLayout
+            android:id="@+id/rel_filter_tipo_combustible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_tipo_combustible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/con_que_tipo_de_combustible"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <!--View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_cerificados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_con_que_certificados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/con_que_certificados_de_calidad"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_marcas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_que_marcas_prefieres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/que_marcas_prefieres"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_distancia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_que_tan_cerca_de_ti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/que_tan_cerca_de_ti"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_precio_hasta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Precio hasta: "
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:layout_toEndOf="@id/tv_filtro_precio_hasta"
+                android:ellipsize="start"
+                android:hint="$"
+                android:inputType="number" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_calificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_con_que_calificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/con_que_calificacion"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_cajeros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_cajeros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Cajeros electrónicos"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_corresponsales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_corresponsales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Corresponsales bancarios"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_puntos_pago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_puntos_pago"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Puntos de pagos"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:id="@+id/rel_filter_tiendas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filtro_tiendas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Tiendas de conveniencia"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_right" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filter_venta_soat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Venta de SOAT"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <Switch
+                android:id="@+id/sw_filter_cajeros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_filter_venta_soat"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filter_restaurantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Restaurantes"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <Switch
+                android:id="@+id/sw_filter_restaurantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_filter_restaurantes"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filter_hoteles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Hoteles"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <Switch
+                android:id="@+id/sw_filter_hoteles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_filter_hoteles"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filter_venta_lubricantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Venta de lubricantes"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <Switch
+                android:id="@+id/sw_filter_venta_lubricantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_filter_venta_lubricantes"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filter_llanterias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Llanterias"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <Switch
+                android:id="@+id/sw_filter_llanterias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_filter_llanterias"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_top_opcion_filtro"
+            android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+            <TextView
+                android:id="@+id/tv_filter_lavaderos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Lavaderos"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_opt_filter" />
+
+            <Switch
+                android:id="@+id/sw_filter_lavaderos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/tv_filter_lavaderos"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/BlackSwitch" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/last_separator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gris" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_filtrar_estaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lay_filter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/filtrar"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</RelativeLayout>

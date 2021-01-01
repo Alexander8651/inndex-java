@@ -1,15 +1,18 @@
 package com.inndex.car.personas.fragments.compra;
 
+import android.app.AlertDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -163,7 +166,51 @@ public class CompraFragment extends Fragment implements
     }
 
     public void showNumeroIslasDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mainActivity);
+// ...Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_compra_islas, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> {
+            dialogInterface.dismiss();
+        });
+        dialogBuilder.setNegativeButton("CANCELAR", (dialogInterface, i) -> {
+            dialogInterface.dismiss();
+        });
 
+        RelativeLayout layIslaUno = dialogView.findViewById(R.id.lay_isla_1);
+        RelativeLayout layIslaDos = dialogView.findViewById(R.id.lay_isla_2);
+        RelativeLayout layIslaTres = dialogView.findViewById(R.id.lay_isla_3);
+        RelativeLayout layIslaCuatro = dialogView.findViewById(R.id.lay_isla_4);
+
+        layIslaUno.setOnClickListener(v -> {
+            v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+            layIslaDos.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaTres.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaCuatro.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+        });
+        layIslaDos.setOnClickListener(v -> {
+            v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+            layIslaUno.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaTres.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaCuatro.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));       });
+        layIslaTres.setOnClickListener(v -> {
+            v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+            layIslaDos.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaUno.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaCuatro.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));       });
+        layIslaCuatro.setOnClickListener(v -> {
+            v.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+            layIslaDos.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaTres.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));
+            layIslaUno.setBackgroundColor(getResources().getColor(R.color.gris_islas, null));       });
+
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.setOnShowListener(arg0 -> {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary, null));
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary, null));
+        });
+        alertDialog.show();
     }
 
     @Override
@@ -190,7 +237,7 @@ public class CompraFragment extends Fragment implements
 
     private void callSetValCant() {
         try {
-            edtGalones.setText("1");
+            edtGalones.setText("1.0");
             setCantValor(SET_VALOR);
         } catch (Exception ex) {
             Toast.makeText(mainActivity, "OCURRIO UNA EXCEPCION", Toast.LENGTH_SHORT).show();
@@ -199,7 +246,7 @@ public class CompraFragment extends Fragment implements
 
     private void setCantValor(int setValorOGalones) {
 
-        double result = 0;
+        double result;
         double galones = 0;
         double valor = 0;
 
@@ -210,8 +257,11 @@ public class CompraFragment extends Fragment implements
             }
             if (setValorOGalones == SET_VALOR) {
                 if (!edtGalones.getEditableText().toString().equals(""))
-                    galones = Double.parseDouble(edtGalones.getEditableText().toString());
+                    galones = Double.parseDouble(edtGalones.getEditableText().toString().replace(",", "."));
             }
+            Log.e("RES", edtGalones.getEditableText().toString());
+
+            //Toast.makeText(mainActivity, "GALONES " + edtGalones.getEditableText().toString(), Toast.LENGTH_SHORT).show();
 
             if (corrienteSelected) {
                 switch (setValorOGalones) {
@@ -254,7 +304,6 @@ public class CompraFragment extends Fragment implements
             Toast.makeText(mainActivity, "EX " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     @Override

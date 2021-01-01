@@ -21,6 +21,8 @@
     <dimen name="size_text_menu_principal">18sp</dimen>
     <dimen name="height_menu_item_separator">40dp</dimen>
     <dimen name="width_menu_item_separator">2dp</dimen>
+    <dimen name="margin_top_inicio">30dp</dimen>
+
     <!-- Nuevo vehículo fragment -->
     <dimen name="margin_top_to_toolbar_nuevo_vehiculo">120dp</dimen>
 
@@ -41,5 +43,11 @@
     <!-- Resumen Compra fragment -->
     <dimen name="width_editText_galones">80dp</dimen>
     <dimen name="width_editText_valor">150dp</dimen>
+    <dimen name="text_compra_islas">22sp</dimen>
+    <dimen name="width_card_isla">46dp</dimen>
+    <dimen name="height_card_isla">46dp</dimen>
+    <dimen name="margin_top_card_isla">16dp</dimen>
+
+
 
 </resources>

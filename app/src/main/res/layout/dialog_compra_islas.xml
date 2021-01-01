@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_compra_en_que_isla_te_encuentras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="¿En qué isla te encuentras?"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="28dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_compra_en_que_isla_te_encuentras"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_top_card_isla"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/width_card_isla"
+            android:layout_height="@dimen/height_card_isla"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/margin_top_card_isla"
+            android:layout_marginEnd="10dp"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:id="@+id/lay_isla_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gris_islas">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_compra_islas"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="@dimen/width_card_isla"
+            android:layout_height="@dimen/height_card_isla"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/margin_top_card_isla"
+            android:layout_marginEnd="10dp"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:id="@+id/lay_isla_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gris_islas">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_compra_islas"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/width_card_isla"
+            android:layout_height="@dimen/height_card_isla"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/margin_top_card_isla"
+            android:layout_marginEnd="10dp"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:id="@+id/lay_isla_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gris_islas">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_compra_islas"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/width_card_isla"
+            android:layout_height="@dimen/height_card_isla"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/margin_top_card_isla"
+            android:layout_marginEnd="10dp"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:id="@+id/lay_isla_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gris_islas">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="4"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_compra_islas"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>

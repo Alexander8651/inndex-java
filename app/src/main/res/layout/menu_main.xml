@@ -6,6 +6,7 @@
     android:layout_height="70dp"
     android:layout_alignParentBottom="true"
     android:background="@color/fondo_menu_inferior_inicio"
+    android:baselineAligned="false"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -13,52 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_menu_main"
+        android:baselineAligned="false"
         android:elevation="2dp"
         android:orientation="horizontal">
 
         <!-- Menú Inferior -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:elevation="4dp">
-
-            <ImageView
-                android:id="@+id/img_btn_eds"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="20sp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/btn_menu_content_desc"
-                android:src="@drawable/gasolinera"
-                app:backgroundTint="@color/white" />
-
-            <TextView
-                android:id="@+id/tv_eds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/img_btn_eds"
-                android:layout_centerHorizontal="true"
-                android:text="@string/filtros"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/size_text_menu_principal"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <View
-                android:id="@+id/menu_main_first_division"
-                android:layout_width="@dimen/width_menu_item_separator"
-                android:layout_height="@dimen/height_menu_item_separator"
-                android:layout_centerVertical="true"
-                android:background="@color/colorPrimary" />
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -93,16 +53,57 @@
             android:layout_height="match_parent">
 
             <View
-                android:id="@+id/menu_main_second_division"
+                android:id="@+id/menu_main_first_division"
                 android:layout_width="@dimen/width_menu_item_separator"
                 android:layout_height="@dimen/height_menu_item_separator"
                 android:layout_centerVertical="true"
                 android:background="@color/colorPrimary" />
 
-
         </RelativeLayout>
 
         <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:elevation="4dp">
+
+            <ImageView
+                android:id="@+id/img_btn_eds"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/btn_menu_content_desc"
+                android:src="@drawable/gasolinera"
+                app:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_eds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_btn_eds"
+                android:layout_centerHorizontal="true"
+                android:text="@string/filtros"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_text_menu_principal"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!--RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/menu_main_second_division"
+                android:layout_width="@dimen/width_menu_item_separator"
+                android:layout_height="@dimen/height_menu_item_separator"
+                android:layout_centerVertical="true"
+                android:background="@color/colorPrimary" />
+        </RelativeLayout-->
+
+        <!--RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -129,7 +130,7 @@
                 android:textSize="@dimen/size_text_menu_principal"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
+        </RelativeLayout-->
 
     </LinearLayout>
 
@@ -250,13 +251,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:text="Confirmar compra"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_gravity="center_horizontal"
-                android:layout_centerHorizontal="true"/>
+                android:textSize="24sp" />
 
         </RelativeLayout>
- </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

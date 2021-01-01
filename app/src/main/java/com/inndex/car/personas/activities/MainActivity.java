@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.fab_ubicacion)
     public FloatingActionButton fabUbicacion;
-//    @BindView(R.id.fab_navegacion)
+    //    @BindView(R.id.fab_navegacion)
 //    public FloatingActionButton fabNavegacion;
     @BindView(R.id.btn_menu)
     public FloatingActionButton btnMenu;
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //getWindow().getDecorView().setSystemUiVisibility(
         //       View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        //getWindow().setStatusBarColor(Color.TRANSPARENT);
+        this.getWindow().setStatusBarColor(Color.TRANSPARENT);
         //setStatusBarTranslucent(true);
         helper = OpenHelperManager.getHelper(MainActivity.this, DataBaseHelper.class);
         bold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
@@ -284,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @OnClick(R.id.btnBack2)
     @Override
     public void onBackPressed() {
-       toolbar.setVisibility(View.GONE);
+        toolbar.setVisibility(View.GONE);
         viewMap.setVisibility(View.VISIBLE);
         clickHome();
     }
@@ -735,7 +736,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         layBtnIndicaciones.setVisibility(View.VISIBLE);
         layButtonsStationSelected.setVisibility(View.VISIBLE);
         layBtnReclamarAhora.setVisibility(View.VISIBLE);
-        ((CompraFragment)miFragment).showNumeroIslasDialog();
+    }
+
+    @OnClick(R.id.lay_btn_reclamar_ahora)
+    public void onClickReclamarAhora() {
+        ((CompraFragment) miFragment).showNumeroIslasDialog();
     }
 
 //    @OnClick(R.id.fab_navegacion)
@@ -747,7 +752,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (estacionSeleccionada != null) {
             try {
                 String url = "https://waze.com/";
-                url += "ul?ll="+ estacionSeleccionada.getLatitud() + "%2C" + estacionSeleccionada.getLongitud() + "&navigate=yes";
+                url += "ul?ll=" + estacionSeleccionada.getLatitud() + "%2C" + estacionSeleccionada.getLongitud() + "&navigate=yes";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } catch (ActivityNotFoundException ex) {
