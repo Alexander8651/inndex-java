@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public ImageView imgBtnHome;
     @BindView(R.id.img_btn_eds)
     public ImageView imgBtnEds;
-    @BindView(R.id.img_btn_tienda)
-    public ImageView imgBtnTienda;
+    //@BindView(R.id.img_btn_tienda)
+    //public ImageView imgBtnTienda;
 
     @BindView(R.id.btnBack2)
     public ImageView btnBack;
@@ -141,14 +141,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public TextView tvHome;
     @BindView(R.id.tv_eds)
     public TextView tvEds;
-    @BindView(R.id.tv_tienda)
-    public TextView tvTienda;
+    //@BindView(R.id.tv_tienda)
+    //public TextView tvTienda;
     @BindView(R.id.tv_toolbar_nombre_estacion)
     public TextView tvToolbarNombreEstacion;
     @BindView(R.id.menu_main_first_division)
     public View viewFirstDivision;
-    @BindView(R.id.menu_main_second_division)
-    public View viewSecondDivision;
+    //@BindView(R.id.menu_main_second_division)
+    //public View viewSecondDivision;
 
     @BindView(R.id.fab_ubicacion)
     public FloatingActionButton fabUbicacion;
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         tvToolbarNombreEstacion.setTypeface(light);
 
-        tvTienda.setTypeface(robotoRegular);
+        //tvTienda.setTypeface(robotoRegular);
         tvHome.setTypeface(robotoRegular);
         tvEds.setTypeface(robotoRegular);
 
@@ -647,13 +647,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (itemClicked) {
             case HOME_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_negro);
-                imgBtnEds.setImageResource(R.drawable.eds_gris);
-                imgBtnTienda.setImageResource(R.drawable.tienda_gris);
+                imgBtnEds.setImageResource(R.drawable.filtro_gris);
+                //imgBtnTienda.setImageResource(R.drawable.tienda_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                //tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
                 btnMenu.show();
                 fabUbicacion.show();
                 layLista.setVisibility(View.VISIBLE);
@@ -663,13 +663,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
-                imgBtnEds.setImageResource(R.drawable.eds_negro);
-                imgBtnTienda.setImageResource(R.drawable.tienda_gris);
+                imgBtnEds.setImageResource(R.drawable.filtro_negro);
+                //imgBtnTienda.setImageResource(R.drawable.tienda_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                //tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 btnMenu.hide();
                 fabUbicacion.hide();
                 layLista.setVisibility(View.GONE);
@@ -678,12 +678,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case STORE_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.eds_gris);
-                imgBtnTienda.setImageResource(R.drawable.tienda_negro);
+                //imgBtnTienda.setImageResource(R.drawable.tienda_negro);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                //tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 btnMenu.show();
                 fabUbicacion.show();
                 layLista.setVisibility(View.VISIBLE);

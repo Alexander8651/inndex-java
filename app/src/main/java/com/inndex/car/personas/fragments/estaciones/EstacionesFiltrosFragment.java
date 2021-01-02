@@ -34,8 +34,8 @@ public class EstacionesFiltrosFragment extends Fragment {
     public RelativeLayout relFilterMarcas;
     @BindView(R.id.rel_filter_calificacion)
     public RelativeLayout relFilterCalificacion;
-    @BindView(R.id.rel_filter_cerificados)
-    public RelativeLayout relFilterCertifiacdos;
+    //@BindView(R.id.rel_filter_cerificados)
+    //public RelativeLayout relFilterCertifiacdos;
     @BindView(R.id.rel_filter_distancia)
     public RelativeLayout relFilterDistancia;
     @BindView(R.id.rel_filter_tipo_combustible)
@@ -43,8 +43,8 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     @BindView(R.id.tv_filtro_con_que_calificacion)
     public TextView tvFiltroCalificacion;
-    @BindView(R.id.tv_filtro_con_que_certificados)
-    public TextView tvFiltroCertificados;
+    //@BindView(R.id.tv_filtro_con_que_certificados)
+    //public TextView tvFiltroCertificados;
     @BindView(R.id.tv_filtro_que_marcas_prefieres)
     public TextView tvFiltroMarcas;
     @BindView(R.id.tv_filtro_que_tan_cerca_de_ti)
@@ -110,50 +110,6 @@ public class EstacionesFiltrosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
         ButterKnife.bind(this, view);
         return view;
-    }
-
-    @OnClick(R.id.rel_filter_cerificados)
-    public void showCertificateFilters() {
-        String[] opciones;
-        if(lCertificados != null && lCertificados.size() > 0) {
-            opciones = new String[lCertificados.size()];
-            for (int i = 0; i < lCertificados.size(); i++) {
-                opciones[i] = lCertificados.get(i).getName();
-            }
-        } else {
-            Toast.makeText(mainActivity, "NO EXISTEN CERTIFICADOS", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
-        builder.setTitle("Certificados");
-        builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {
-            if(checkedCertificados == null)
-                checkedCertificados = new boolean[opciones.length];
-            checkedCertificados[which] = isChecked;
-        });
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            if (checkedCertificados != null && checkedCertificados.length > 0) {
-                StringBuilder stBuilder = new StringBuilder("");
-                for (int i = 0; i < checkedCertificados.length; i++) {
-                    if (checkedCertificados[i]) {
-                        stBuilder.append(opciones[i]);
-                        if (i < checkedCertificados.length)
-                            stBuilder.append(" , ");
-                    }
-                }
-                tvFiltroCertificados.setText(stBuilder.toString().substring(0, stBuilder.length() - 2));
-            } else {
-                tvFiltroCertificados.setText(R.string.con_que_certificados_de_calidad);
-            }
-            dialog.dismiss();
-        });
-        builder.setNegativeButton("Cancelar", (dialog, which) -> {
-            checkedCertificados = new boolean[]{};
-            tvFiltroCertificados.setText(R.string.con_que_certificados_de_calidad);
-            dialog.dismiss();
-        });
-        builder.create();
-        builder.show();
     }
 
     @OnClick(R.id.rel_filter_marcas)

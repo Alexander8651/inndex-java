@@ -76,7 +76,7 @@
                 android:layout_marginStart="20sp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/btn_menu_content_desc"
-                android:src="@drawable/gasolinera"
+                android:src="@drawable/filtro_negro"
                 app:backgroundTint="@color/white" />
 
             <TextView
