@@ -8,6 +8,7 @@
     android:background="@color/colorPrimary">
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,7 +19,8 @@
             android:contentDescription="@string/back"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_back"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="40dp"
+            android:layout_centerVertical="true"/>
 
 
         <TextView
@@ -30,7 +32,8 @@
             android:textSize="30sp"
             android:layout_below="@id/btnBack2"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
 </androidx.appcompat.widget.Toolbar>

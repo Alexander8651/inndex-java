@@ -1,6 +1,7 @@
 package com.inndex.car.personas.fragments.estaciones;
 
 import android.app.AlertDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -17,16 +17,12 @@ import com.inndex.car.personas.activities.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.MarcaCarros;
-import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class EstacionesFiltrosFragment extends Fragment {
 
@@ -51,6 +47,32 @@ public class EstacionesFiltrosFragment extends Fragment {
     public TextView tvFiltroDistancia;
     @BindView(R.id.tv_filtro_tipo_combustible)
     public TextView tvFiltroTipoCombustible;
+    @BindView(R.id.tv_filtro_cajeros)
+    public TextView tvFiltroCajeros;
+    @BindView(R.id.tv_filtro_corresponsales)
+    public TextView tvFiltroCorresponsales;
+    @BindView(R.id.tv_filtro_precio_hasta)
+    public TextView tvFiltroPrecioHasta;
+    @BindView(R.id.tv_filtro_puntos_pago)
+    public TextView tvFiltroPuntosPago;
+    @BindView(R.id.tv_filtro_tiendas)
+    public TextView tvFiltroTiendas;
+    @BindView(R.id.tv_filter_abierto_ahora)
+    public TextView tvFiltroAbiertoAhora;
+    @BindView(R.id.tv_filter_restaurantes)
+    public TextView tvFiltroRestaurantes;
+    @BindView(R.id.tv_filter_banios)
+    public TextView tvFiltroBanios;
+    @BindView(R.id.tv_filter_hoteles)
+    public TextView tvFiltroHoteles;
+    @BindView(R.id.tv_filter_lavaderos)
+    public TextView tvFiltroLavaderos;
+    @BindView(R.id.tv_filter_venta_lubricantes)
+    public TextView tvFiltroVentaLubricantes;
+    @BindView(R.id.tv_filter_venta_soat)
+    public TextView tvFiltroVentaSoat;
+    @BindView(R.id.tv_filter_llanterias)
+    public TextView tvFiltroLlanterias;
 
     @BindView(R.id.btn_filtrar_estaciones)
     public Button btnFiltrarEstaciones;
@@ -58,6 +80,8 @@ public class EstacionesFiltrosFragment extends Fragment {
     private MainActivity mainActivity;
     private DataBaseHelper helper;
     private List<MarcaCarros> lMarcasCarros;
+
+    private Typeface light;
 
     private boolean[] checkedBrands;
     private boolean[] checkedCertificados;
@@ -74,19 +98,6 @@ public class EstacionesFiltrosFragment extends Fragment {
         checkedBrands = null;
         checkedTipoCombustibles = null;
         checkedCertificados = null;
-        Call<List<Certificados>> callGetCertificados = MedidorApiAdapter.getApiService().getCertificados();
-        callGetCertificados.enqueue(new Callback<List<Certificados>>() {
-            @Override
-            public void onResponse(Call<List<Certificados>> call, Response<List<Certificados>> response) {
-                if (response.isSuccessful()) {
-                    lCertificados = response.body();
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Certificados>> call, Throwable t) {
-                Toast.makeText(mainActivity, "NO FUE POSIBLE CONECTARSE AL SERVIDOR.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public EstacionesFiltrosFragment() {
@@ -109,7 +120,31 @@ public class EstacionesFiltrosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
         ButterKnife.bind(this, view);
+        light = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Light.ttf");
+        initTypeFace();
         return view;
+    }
+
+    private void initTypeFace() {
+        tvFiltroCalificacion.setTypeface(light);
+        tvFiltroMarcas.setTypeface(light);
+        tvFiltroDistancia.setTypeface(light);
+        tvFiltroTipoCombustible.setTypeface(light);
+        tvFiltroCajeros.setTypeface(light);
+        tvFiltroCorresponsales.setTypeface(light);
+        tvFiltroPrecioHasta.setTypeface(light);
+        tvFiltroPuntosPago.setTypeface(light);
+        tvFiltroTiendas.setTypeface(light);
+        tvFiltroAbiertoAhora.setTypeface(light);
+        tvFiltroRestaurantes.setTypeface(light);
+        tvFiltroBanios.setTypeface(light);
+        tvFiltroHoteles.setTypeface(light);
+        tvFiltroLavaderos.setTypeface(light);
+        tvFiltroVentaLubricantes.setTypeface(light);
+        tvFiltroVentaSoat.setTypeface(light);
+        tvFiltroLlanterias.setTypeface(light);
+        btnFiltrarEstaciones.setTypeface(light);
+
     }
 
     @OnClick(R.id.rel_filter_marcas)
@@ -118,7 +153,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Marcas");
         builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {
-            if(checkedBrands == null)
+            if (checkedBrands == null)
                 checkedBrands = new boolean[opciones.length];
             checkedBrands[which] = isChecked;
         });
@@ -197,7 +232,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
         builder.setTitle("Combustibles");
         builder.setMultiChoiceItems(opciones, checkedTipoCombustibles, (dialog, which, isChecked) -> {
-            if(checkedTipoCombustibles == null)
+            if (checkedTipoCombustibles == null)
                 checkedTipoCombustibles = new boolean[opciones.length];
 
             checkedTipoCombustibles[which] = isChecked;
@@ -233,4 +268,4 @@ public class EstacionesFiltrosFragment extends Fragment {
     }
 
 
-    }
+}

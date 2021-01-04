@@ -109,10 +109,10 @@
     <string name="agregar">Agregar</string>
 
     <string-array name="tipos_combustibles">
-        <item>ACPM</item>
-        <item>Biodiesel</item>
+        <item>Corriente</item>
+        <item>Extra</item>
         <item>Diesel</item>
-        <item>Gasolina</item>
+        <item>Biodiesel</item>
         <item>GNV</item>
     </string-array>
 
@@ -159,10 +159,37 @@
 
     <string-array name="opciones_filtro_calificacion">
         <item>Todas</item>
-        <item>&lt; 1</item>
-        <item>&lt; 2</item>
-        <item>&lt; 3</item>
-        <item>&lt; 4</item>
+        <item>&gt; 1</item>
+        <item>&gt; 2</item>
+        <item>&gt; 3</item>
+        <item>&gt; 4</item>
+    </string-array>
+
+    <string-array name="opciones_filtro_cajeros">
+        <item>ATH - Red AVAL</item>
+        <item>Banco agrario</item>
+        <item>Bancolombia</item>
+        <item>BBVA</item>
+        <item>Colpatria</item>
+        <item>Davivienda</item>
+    </string-array>
+
+    <string-array name="opciones_puntos_pago">
+        <item>Baloto</item>
+        <item>Efecty</item>
+        <item>PagaTodo</item>
+        <item>PuntoRed</item>
+    </string-array>
+
+    <string-array name="opciones_tiendas">
+        <item>Altoque</item>
+        <item>ARA</item>
+        <item>D1</item>
+        <item>Éxito express</item>
+        <item>Justo y Bueno</item>
+        <item>Olimpica</item>
+        <item>Tiger y Market</item>
+
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

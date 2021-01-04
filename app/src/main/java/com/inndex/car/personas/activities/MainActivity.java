@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.btnBack2)
     public ImageView btnBack;
+    //@BindView(R.id.tv_toolbar)
+    //public TextView tvTitulo;
+
 
 
     @BindView(R.id.tv_home)
@@ -404,6 +407,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvUsuario.setText(myPreferences.getString("nombres", "") + " " +
                 myPreferences.getString("apellidos", ""));
         navigationView.setNavigationItemSelectedListener(this);
+        //tvTitulo.setTypeface(light);
         Menu m = navigationView.getMenu();
 
         for (int i = 0; i < m.size(); i++) {
@@ -660,6 +664,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 layButtonsConfirmarCompra.setVisibility(View.GONE);
                 layMenuInferior.setVisibility(View.VISIBLE);
                 layBtnReclamarAhora.setVisibility(View.GONE);
+                toolbar.setVisibility(View.GONE);
+
                 break;
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
@@ -669,10 +675,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 //tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                toolbar.setVisibility(View.VISIBLE);
                 //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 btnMenu.hide();
                 fabUbicacion.hide();
                 layLista.setVisibility(View.GONE);
+                tvToolbarNombreEstacion.setText(getText(R.string.filtros));
                 break;
 
             case STORE_CLICKED:

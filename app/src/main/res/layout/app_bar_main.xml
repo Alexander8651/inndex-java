@@ -11,7 +11,7 @@
         android:layout_width="67dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_top_inicio"
+        android:layout_marginTop="43dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/shape_button_lista_inicio"
         android:orientation="horizontal"
@@ -51,7 +51,7 @@
         android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <androidx.cardview.widget.CardView
+        <!--androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView-->
 
     </LinearLayout>
 
@@ -87,22 +87,26 @@
                     android:id="@+id/btnBack2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="40dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_back"
+                    android:layout_marginBottom="5dp"/>
 
                 <TextView
                     android:id="@+id/tv_toolbar_nombre_estacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/btnBack2"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@id/btnBack2"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="24sp"
+                    android:text="Filtros"
+                    android:layout_marginStart="20dp"
+                    />
 
-                <ImageView
+                <!--ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_below="@id/btnBack2"
@@ -111,7 +115,7 @@
                     android:layout_marginEnd="6dp"
                     android:layout_marginBottom="2dp"
                     android:contentDescription="@string/back"
-                    android:src="@drawable/carrocompras_blanco" />
+                    android:src="@drawable/carrocompras_blanco" /-->
 
             </RelativeLayout>
 
