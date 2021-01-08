@@ -91,7 +91,7 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <!--RelativeLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -101,36 +101,36 @@
                 android:layout_height="@dimen/height_menu_item_separator"
                 android:layout_centerVertical="true"
                 android:background="@color/colorPrimary" />
-        </RelativeLayout-->
+        </RelativeLayout>
 
-        <!--RelativeLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/img_btn_tienda"
+                android:id="@+id/img_btn_favoritos"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/btn_menu_content_desc"
-                android:src="@drawable/tienda_negro"
+                android:src="@drawable/favorito_gris"
                 app:backgroundTint="@color/white" />
 
             <TextView
-                android:id="@+id/tv_tienda"
+                android:id="@+id/tv_favoritos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/img_btn_tienda"
+                android:layout_below="@id/img_btn_favoritos"
                 android:layout_centerHorizontal="true"
-                android:text="Tienda"
+                android:text="@string/favoritos"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_text_menu_principal"
                 android:textStyle="bold" />
 
-        </RelativeLayout-->
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -141,9 +141,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/fondo_menu_inferior_inicio"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <!-- Indicaciones -->
+        <RelativeLayout
             android:id="@+id/lay_btn_indicaciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -151,7 +153,6 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/selector_buton_indications"
-            android:orientation="horizontal"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
@@ -161,18 +162,47 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/direccion_blanco" />
+                android:src="@drawable/direccion_blanco"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Indicaciones"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="22sp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="34dp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <!-- Ver servicios  -->
+        <RelativeLayout
+            android:id="@+id/lay_btn_ver_servicios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/selector_buton_buy_here"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver servicios"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <!-- Comprar Aquí -->
+        <!--LinearLayout
             android:id="@+id/lay_btn_comprar_aqui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -198,8 +228,9 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-        </LinearLayout>
+        </LinearLayout-->
 
+        <!-- Reclamar ahora -->
         <LinearLayout
             android:id="@+id/lay_btn_reclamar_ahora"
             android:layout_width="wrap_content"
@@ -232,6 +263,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/fondo_menu_inferior_inicio"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <RelativeLayout

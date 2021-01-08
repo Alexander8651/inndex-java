@@ -10,7 +10,7 @@
         android:id="@+id/sv_filters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btn_filtrar_estaciones">
+        >
 
         <LinearLayout
             android:id="@+id/lay_filter"
@@ -196,7 +196,7 @@
 
             </RelativeLayout>
 
-            <View
+            <!--View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/gris" />
@@ -229,7 +229,7 @@
                     android:hint="$"
                     android:inputType="number" />
 
-            </RelativeLayout>
+            </RelativeLayout-->
 
             <View
                 android:layout_width="match_parent"
@@ -687,25 +687,22 @@
                 android:layout_height="2dp"
                 android:background="@color/gris" />
 
+            <Button
+                android:id="@+id/btn_filtrar_estaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="76dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:background="@color/colorPrimary"
+                android:text="@string/filtrar"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
+
         </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_filtrar_estaciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="76dp"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        android:background="@color/colorPrimary"
-        android:text="@string/filtrar"
-        android:textColor="@color/white"
-        android:textSize="26sp" />
-
 </RelativeLayout>

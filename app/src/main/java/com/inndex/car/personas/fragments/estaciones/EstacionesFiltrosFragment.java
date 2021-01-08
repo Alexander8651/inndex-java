@@ -51,8 +51,8 @@ public class EstacionesFiltrosFragment extends Fragment {
     public TextView tvFiltroCajeros;
     @BindView(R.id.tv_filtro_corresponsales)
     public TextView tvFiltroCorresponsales;
-    @BindView(R.id.tv_filtro_precio_hasta)
-    public TextView tvFiltroPrecioHasta;
+    //@BindView(R.id.tv_filtro_precio_hasta)
+    //public TextView tvFiltroPrecioHasta;
     @BindView(R.id.tv_filtro_puntos_pago)
     public TextView tvFiltroPuntosPago;
     @BindView(R.id.tv_filtro_tiendas)
@@ -132,7 +132,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         tvFiltroTipoCombustible.setTypeface(light);
         tvFiltroCajeros.setTypeface(light);
         tvFiltroCorresponsales.setTypeface(light);
-        tvFiltroPrecioHasta.setTypeface(light);
+        //tvFiltroPrecioHasta.setTypeface(light);
         tvFiltroPuntosPago.setTypeface(light);
         tvFiltroTiendas.setTypeface(light);
         tvFiltroAbiertoAhora.setTypeface(light);

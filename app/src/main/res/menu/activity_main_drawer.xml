@@ -3,21 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <!--item
-            android:id="@+id/nav_combustible"
-            android:title="@string/title_activity_combustible" />
-        <item
-            android:id="@+id/nav_historial"
-            android:title="@string/historial" /-->
-        <item
-            android:id="@+id/nav_config"
-            android:title="@string/config" />
-
-    </group>
+    <item
+        android:id="@+id/opt_administrar_eds"
+        android:title="@string/administrar_mi_eds" />
 
     <item
-        android:id="@+id/logout"
-        android:title="@string/logout" />
+        android:id="@+id/opt_mis_vehiculos"
+        android:title="@string/mis_veh_culos" />
+
+    <item
+        android:id="@+id/opt_compartir_app"
+        android:title="@string/compartir_app" />
+
+    <item
+        android:id="@+id/opt_ayuda"
+        android:title="@string/ayuda" />
+
+    <item
+        android:id="@+id/opt_informacion"
+        android:title="@string/informaci_n" />
+
+
+    <item
+        android:id="@+id/opt_configuracion"
+        android:title="@string/config" />
 
 </menu>

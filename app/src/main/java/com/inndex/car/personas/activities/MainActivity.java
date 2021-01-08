@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public ImageView imgBtnHome;
     @BindView(R.id.img_btn_eds)
     public ImageView imgBtnEds;
-    //@BindView(R.id.img_btn_tienda)
-    //public ImageView imgBtnTienda;
+    @BindView(R.id.img_btn_favoritos)
+    public ImageView imgBtnFavoritos;
 
     @BindView(R.id.btnBack2)
     public ImageView btnBack;
@@ -139,19 +139,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //public TextView tvTitulo;
 
 
-
     @BindView(R.id.tv_home)
     public TextView tvHome;
     @BindView(R.id.tv_eds)
     public TextView tvEds;
-    //@BindView(R.id.tv_tienda)
-    //public TextView tvTienda;
+    @BindView(R.id.tv_favoritos)
+    public TextView tvFavoritos;
     @BindView(R.id.tv_toolbar_nombre_estacion)
     public TextView tvToolbarNombreEstacion;
     @BindView(R.id.menu_main_first_division)
     public View viewFirstDivision;
-    //@BindView(R.id.menu_main_second_division)
-    //public View viewSecondDivision;
+    @BindView(R.id.menu_main_second_division)
+    public View viewSecondDivision;
 
     @BindView(R.id.fab_ubicacion)
     public FloatingActionButton fabUbicacion;
@@ -166,10 +165,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public LinearLayout layButtonsStationSelected;
     @BindView(R.id.lay_lista)
     public LinearLayout layLista;
-    @BindView(R.id.lay_btn_comprar_aqui)
-    public LinearLayout layBtnComprarAqui;
+    //@BindView(R.id.lay_btn_comprar_aqui)
+    //public LinearLayout layBtnComprarAqui;
+    @BindView(R.id.lay_btn_ver_servicios)
+    public RelativeLayout layBtnVerServicios;
+
     @BindView(R.id.lay_btn_indicaciones)
-    public LinearLayout layBtnIndicaciones;
+    public RelativeLayout layBtnIndicaciones;
     @BindView(R.id.lay_buttons_confirmar_compra)
     public LinearLayout layButtonsConfirmarCompra;
     @BindView(R.id.lay_btn_reclamar_ahora)
@@ -270,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         tvToolbarNombreEstacion.setTypeface(light);
 
-        //tvTienda.setTypeface(robotoRegular);
+        //tvFavoritos.setTypeface(robotoRegular);
         tvHome.setTypeface(robotoRegular);
         tvEds.setTypeface(robotoRegular);
 
@@ -278,9 +280,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new NavTypeFace("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mNewTitle.setSpan(new NavTypeFace("", light), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         //mNewTitle.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, mNewTitle.length(), 0); Use this if you want to center the items
         mi.setTitle(mNewTitle);
     }
@@ -301,12 +302,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         miFragment = null;
         boolean fragmentSeleccionado = false;
-        if (id == R.id.nav_config) {
-            miFragment = new ConfiguracionTabs(MainActivity.this);
-            fragmentSeleccionado = true;
-            viewMap.setVisibility(View.GONE);
-            toolbar.setVisibility(View.VISIBLE);
-        } else if (id == R.id.logout) {
+        //if (id == R.id.nav_config) {
+            //miFragment = new ConfiguracionTabs(MainActivity.this);
+         //   fragmentSeleccionado = true;
+         //   viewMap.setVisibility(View.GONE);
+         //   toolbar.setVisibility(View.VISIBLE);
+
+        //}
+        if (id == R.id.logout) {
             //logout();
         }
         if (fragmentSeleccionado) {
@@ -612,7 +615,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         layMenuInferior.setVisibility(View.GONE);
         layButtonsStationSelected.setVisibility(View.VISIBLE);
         layBtnIndicaciones.setVisibility(View.VISIBLE);
-        layBtnComprarAqui.setVisibility(View.VISIBLE);
+        layBtnVerServicios.setVisibility(View.VISIBLE);
         this.viewMap.setClickable(false);
     }
 
@@ -652,12 +655,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case HOME_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_negro);
                 imgBtnEds.setImageResource(R.drawable.filtro_gris);
-                //imgBtnTienda.setImageResource(R.drawable.tienda_gris);
+                imgBtnFavoritos.setImageResource(R.drawable.tienda_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                //tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                tvFavoritos.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
                 btnMenu.show();
                 fabUbicacion.show();
                 layLista.setVisibility(View.VISIBLE);
@@ -670,13 +673,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.filtro_negro);
-                //imgBtnTienda.setImageResource(R.drawable.tienda_gris);
+                imgBtnFavoritos.setImageResource(R.drawable.tienda_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                //tvTienda.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
+                tvFavoritos.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
                 toolbar.setVisibility(View.VISIBLE);
-                //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 btnMenu.hide();
                 fabUbicacion.hide();
                 layLista.setVisibility(View.GONE);
@@ -686,12 +689,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case STORE_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.eds_gris);
-                //imgBtnTienda.setImageResource(R.drawable.tienda_negro);
+                imgBtnFavoritos.setImageResource(R.drawable.tienda_negro);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                //tvTienda.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+                tvFavoritos.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                 viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                //viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 btnMenu.show();
                 fabUbicacion.show();
                 layLista.setVisibility(View.VISIBLE);
@@ -721,10 +724,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         gotToWaze();
     }
 
-    @OnClick(R.id.lay_btn_comprar_aqui)
+    @OnClick(R.id.lay_btn_ver_servicios)
     public void onClickComprarAqui() {
         layButtonsStationSelected.setVisibility(View.GONE);
-        layBtnComprarAqui.setVisibility(View.GONE);
+        layBtnVerServicios.setVisibility(View.GONE);
         layBtnIndicaciones.setVisibility(View.GONE);
         layButtonsConfirmarCompra.setVisibility(View.VISIBLE);
         miFragment = new CompraFragment(this, this.light);

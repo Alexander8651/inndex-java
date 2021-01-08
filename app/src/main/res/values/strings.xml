@@ -203,4 +203,10 @@
     <string name="filtros">Filtros</string>
     <string name="tipo_de_combustible">Tipo de combustible</string>
     <string name="ingresa_la_cantidad_o_valor">Ingresa la cantidad o valor</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="compartir_app">Compartir App</string>
+    <string name="mis_veh_culos">Mis vehículos</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="informaci_n">Información</string>
+    <string name="administrar_mi_eds">Administrar mi EDS</string>
 </resources>
