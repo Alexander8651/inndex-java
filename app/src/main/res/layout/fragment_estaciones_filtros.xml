@@ -83,16 +83,7 @@
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/ic_right" />
 
-                <Switch
-                    android:id="@+id/sw_filter_abiero_ahora"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="39dp"
-                    android:layout_marginEnd="-19dp"
-                    android:buttonTint="@color/colorPrimaryDark"
-                    android:shadowColor="@color/colorPrimaryDark"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:theme="@style/BlackSwitch" />
+
 
             </RelativeLayout>
 
@@ -286,6 +277,20 @@
                     android:text="Abierto ahora"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
+
+                <Switch
+                    android:id="@+id/sw_filter_abiero_ahora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:shadowColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:theme="@style/BlackSwitch"
+                    android:layout_toEndOf="@id/tv_filter_abierto_ahora"/>
 
             </RelativeLayout>
 

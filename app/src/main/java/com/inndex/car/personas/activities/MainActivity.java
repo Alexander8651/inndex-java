@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         tvToolbarNombreEstacion.setTypeface(light);
 
-        //tvFavoritos.setTypeface(robotoRegular);
+        tvFavoritos.setTypeface(robotoRegular);
         tvHome.setTypeface(robotoRegular);
         tvEds.setTypeface(robotoRegular);
 
@@ -655,7 +655,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case HOME_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_negro);
                 imgBtnEds.setImageResource(R.drawable.filtro_gris);
-                imgBtnFavoritos.setImageResource(R.drawable.tienda_gris);
+                imgBtnFavoritos.setImageResource(R.drawable.favorito_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                 tvFavoritos.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
@@ -673,7 +673,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.filtro_negro);
-                imgBtnFavoritos.setImageResource(R.drawable.tienda_gris);
+                imgBtnFavoritos.setImageResource(R.drawable.favorito_gris);
                 tvEds.setTextColor(getResources().getColor(R.color.colorPrimary, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvFavoritos.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
@@ -689,7 +689,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case STORE_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.eds_gris);
-                imgBtnFavoritos.setImageResource(R.drawable.tienda_negro);
+                imgBtnFavoritos.setImageResource(R.drawable.favorito_negro);
                 tvEds.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvFavoritos.setTextColor(getResources().getColor(R.color.colorPrimary, null));
