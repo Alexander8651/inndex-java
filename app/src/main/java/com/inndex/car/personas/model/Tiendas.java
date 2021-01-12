@@ -2,15 +2,17 @@ package com.inndex.car.personas.model;
 
 import java.io.Serializable;
 
-public class Combustibles implements Serializable {
 
-    private static final long serialVersionUID = -6012888836184992901L;
+public class Tiendas implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = -3004153775198805047L;
 
-    private String nombre;
 
-	public Combustibles() {
+	private Long id;
+
+	private String nombre;
+
+	public Tiendas() {
 	}
 
 	public Long getId() {

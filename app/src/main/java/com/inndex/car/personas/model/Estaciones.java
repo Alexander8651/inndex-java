@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.List;
 
 @DatabaseTable(tableName = "estaciones")
 public class Estaciones implements Serializable {
@@ -35,6 +36,34 @@ public class Estaciones implements Serializable {
     private boolean certificada;
     @DatabaseField
     private String descripcionCertificado;
+
+    private Boolean tieneBanios;
+
+    private Boolean tieneLlanteria;
+
+    private Boolean tieneLavadero;
+
+    private Boolean tieneVentaLubricante;
+
+    private List<Restaurante> listRestaurantes;
+
+    private List<Hotel> listHoteles;
+
+    private List<Bancos> listCajeros;
+
+    private List<Bancos> listCorresponsales;
+
+    private List<Horario> listHorarios;
+
+    private List<EstacionCombustibles> listEstacionCombustibles;
+
+    private List<Tiendas> listTiendas;
+
+    private List<PuntoPago> listPuntosPago;
+
+    private Soat soat;
+
+    private TipoEstacion tipoEstacion;
 
     public Estaciones() {
     }
@@ -149,5 +178,117 @@ public class Estaciones implements Serializable {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public Boolean getTieneBanios() {
+        return tieneBanios;
+    }
+
+    public void setTieneBanios(Boolean tieneBanios) {
+        this.tieneBanios = tieneBanios;
+    }
+
+    public Boolean getTieneLlanteria() {
+        return tieneLlanteria;
+    }
+
+    public void setTieneLlanteria(Boolean tieneLlanteria) {
+        this.tieneLlanteria = tieneLlanteria;
+    }
+
+    public Boolean getTieneLavadero() {
+        return tieneLavadero;
+    }
+
+    public void setTieneLavadero(Boolean tieneLavadero) {
+        this.tieneLavadero = tieneLavadero;
+    }
+
+    public Boolean getTieneVentaLubricante() {
+        return tieneVentaLubricante;
+    }
+
+    public void setTieneVentaLubricante(Boolean tieneVentaLubricante) {
+        this.tieneVentaLubricante = tieneVentaLubricante;
+    }
+
+    public List<Restaurante> getListRestaurantes() {
+        return listRestaurantes;
+    }
+
+    public void setListRestaurantes(List<Restaurante> listRestaurantes) {
+        this.listRestaurantes = listRestaurantes;
+    }
+
+    public List<Hotel> getListHoteles() {
+        return listHoteles;
+    }
+
+    public void setListHoteles(List<Hotel> listHoteles) {
+        this.listHoteles = listHoteles;
+    }
+
+    public List<Bancos> getListCajeros() {
+        return listCajeros;
+    }
+
+    public void setListCajeros(List<Bancos> listCajeros) {
+        this.listCajeros = listCajeros;
+    }
+
+    public List<Bancos> getListCorresponsales() {
+        return listCorresponsales;
+    }
+
+    public void setListCorresponsales(List<Bancos> listCorresponsales) {
+        this.listCorresponsales = listCorresponsales;
+    }
+
+    public List<Horario> getListHorarios() {
+        return listHorarios;
+    }
+
+    public void setListHorarios(List<Horario> listHorarios) {
+        this.listHorarios = listHorarios;
+    }
+
+    public List<EstacionCombustibles> getListEstacionCombustibles() {
+        return listEstacionCombustibles;
+    }
+
+    public void setListEstacionCombustibles(List<EstacionCombustibles> listEstacionCombustibles) {
+        this.listEstacionCombustibles = listEstacionCombustibles;
+    }
+
+    public List<Tiendas> getListTiendas() {
+        return listTiendas;
+    }
+
+    public void setListTiendas(List<Tiendas> listTiendas) {
+        this.listTiendas = listTiendas;
+    }
+
+    public List<PuntoPago> getListPuntosPago() {
+        return listPuntosPago;
+    }
+
+    public void setListPuntosPago(List<PuntoPago> listPuntosPago) {
+        this.listPuntosPago = listPuntosPago;
+    }
+
+    public Soat getSoat() {
+        return soat;
+    }
+
+    public void setSoat(Soat soat) {
+        this.soat = soat;
+    }
+
+    public TipoEstacion getTipoEstacion() {
+        return tipoEstacion;
+    }
+
+    public void setTipoEstacion(TipoEstacion tipoEstacion) {
+        this.tipoEstacion = tipoEstacion;
     }
 }

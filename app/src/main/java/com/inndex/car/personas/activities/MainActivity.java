@@ -303,10 +303,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         miFragment = null;
         boolean fragmentSeleccionado = false;
         //if (id == R.id.nav_config) {
-            //miFragment = new ConfiguracionTabs(MainActivity.this);
-         //   fragmentSeleccionado = true;
-         //   viewMap.setVisibility(View.GONE);
-         //   toolbar.setVisibility(View.VISIBLE);
+        //miFragment = new ConfiguracionTabs(MainActivity.this);
+        //   fragmentSeleccionado = true;
+        //   viewMap.setVisibility(View.GONE);
+        //   toolbar.setVisibility(View.VISIBLE);
 
         //}
         if (id == R.id.logout) {
@@ -762,9 +762,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Estaciones estacionSeleccionada = mapService.getEstacionSeleccionada();
         if (estacionSeleccionada != null) {
             try {
-                String url = "https://waze.com/";
-                url += "ul?ll=" + estacionSeleccionada.getLatitud() + "%2C" + estacionSeleccionada.getLongitud() + "&navigate=yes";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                Uri gmmIntentUri = Uri.parse("geo:" + estacionSeleccionada.getLatitud() + "," + estacionSeleccionada.getLongitud());
+                Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 startActivity(intent);
             } catch (ActivityNotFoundException ex) {
                 // If Waze is not installed, open it in Google Play:

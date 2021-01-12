@@ -2,15 +2,15 @@ package com.inndex.car.personas.model;
 
 import java.io.Serializable;
 
-public class Combustibles implements Serializable {
+public class Soat implements Serializable {
 
-    private static final long serialVersionUID = -6012888836184992901L;
+	private static final long serialVersionUID = 7040708063406647146L;
 
-    private Long id;
+	private Long id;
 
-    private String nombre;
+	private String nombre;
 
-	public Combustibles() {
+	public Soat() {
 	}
 
 	public Long getId() {
