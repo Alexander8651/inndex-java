@@ -65,6 +65,22 @@
 
     </LinearLayout>
 
+    <!-- Estacion detalles bottom sheet -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="400dp">
+
+        <FrameLayout
+            android:id="@+id/fl_estacion_detalle_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="@string/bottom_sheet_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -88,23 +104,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back"
-                    android:src="@drawable/ic_back"
-                    android:layout_marginBottom="5dp"/>
+                    android:src="@drawable/ic_back" />
 
                 <TextView
                     android:id="@+id/tv_toolbar_nombre_estacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="5dp"
                     android:layout_toEndOf="@id/btnBack2"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
                     android:text="Filtros"
-                    android:layout_marginStart="20dp"
-                    />
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
 
                 <!--ImageView
                     android:layout_width="32dp"
@@ -130,6 +145,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="@dimen/margin_top_inicio"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/aceptar"
         android:src="@drawable/ic_menu"
         app:backgroundTint="@color/white" />
 

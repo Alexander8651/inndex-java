@@ -41,12 +41,15 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -99,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences myPreferences;
     private List<Estaciones> estaciones;
     private DataBaseHelper helper;
-    private Typeface bold;
     private View viewMap;
     private Estaciones estacionMasCercana;
     private EstacionesPlaces estacionesPlaces;
@@ -179,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.lay_btn_confirmar_compra)
     public RelativeLayout layBtnConfirmarCompra;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
@@ -196,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.getWindow().setStatusBarColor(Color.TRANSPARENT);
         //setStatusBarTranslucent(true);
         helper = OpenHelperManager.getHelper(MainActivity.this, DataBaseHelper.class);
-        bold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
         viewMap = findViewById(R.id.map);
 
         try {
@@ -257,12 +259,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 initRecorrido();
             }
         }*/
-        /*db.collection("recorridos").document("rrr123").addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                Toast.makeText(MainActivity.this, "ALGO PASO OK", Toast.LENGTH_SHORT).show();
-            }
-        });*/
         myInstance = this;
         if (idVehiculo != null && idVehiculo > 0)
             initRecorrido();
@@ -277,6 +273,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvEds.setTypeface(robotoRegular);
 
         onItemMenuClick(HOME_CLICKED);
+        View bottomSheet = findViewById(R.id.fl_estacion_detalle_container);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_DRAGGING);
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if(BottomSheetBehavior.STATE_COLLAPSED == i) {
+                    fabUbicacion.show();
+                    clickHome();
+                }
+            }
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
@@ -609,14 +621,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onMapMarkerSelected(int position) {
         Estaciones estacionSelected = this.estaciones.get(position);
-        miFragment = new EstacionDetalleFragment(estacionSelected, this, light, this.inndexLocationService.getMyLocation());
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        EstacionDetalleFragment detalleFragment = new EstacionDetalleFragment(estacionSelected, this, light, this.inndexLocationService.getMyLocation());
+        transaction.add(R.id.fl_estacion_detalle_container, detalleFragment);
+        transaction.commit();
         fabUbicacion.hide();
         layMenuInferior.setVisibility(View.GONE);
         layButtonsStationSelected.setVisibility(View.VISIBLE);
         layBtnIndicaciones.setVisibility(View.VISIBLE);
         layBtnVerServicios.setVisibility(View.VISIBLE);
-        this.viewMap.setClickable(false);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+
+        //miFragment =
+/*        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+
+        this.viewMap.setClickable(false);*/
     }
 
     public void onChangeRouteButtonIcon() {
@@ -640,7 +660,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void filtrarEstaciones() {
-
         viewMap.setVisibility(View.VISIBLE);
         //miFragment.onDestroy();
         //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
@@ -762,7 +781,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Estaciones estacionSeleccionada = mapService.getEstacionSeleccionada();
         if (estacionSeleccionada != null) {
             try {
-                Uri gmmIntentUri = Uri.parse("geo:" + estacionSeleccionada.getLatitud() + "," + estacionSeleccionada.getLongitud());
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + estacionSeleccionada.getLatitud() + "," + estacionSeleccionada.getLongitud());
+                //Uri gmmIntentUri = Uri.parse("google.navigation:q=" + estacionSeleccionada.getLatitud() + "," + estacionSeleccionada.getLongitud());
                 Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 startActivity(intent);
             } catch (ActivityNotFoundException ex) {
