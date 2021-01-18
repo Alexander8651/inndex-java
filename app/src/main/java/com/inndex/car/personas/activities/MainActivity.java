@@ -279,11 +279,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
-                if(BottomSheetBehavior.STATE_COLLAPSED == i) {
+                if (BottomSheetBehavior.STATE_COLLAPSED == i) {
                     fabUbicacion.show();
                     clickHome();
+                } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
                 }
             }
+
             @Override
             public void onSlide(@NonNull View view, float v) {
 
@@ -577,16 +579,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void upateDefaultVehicle(Vehiculo uhmc) {
 
         uhmc.setModeloCarros(null);
-        myPreferences.edit().putString(Constantes.DEFAULT_BLUETOOTH_VALUE_ARRAY, uhmc.getValoresAdq()).apply();
         //myPreferences.edit().putInt(Constantes.DEFAULT_GAL_CANT, (int)uhmc.getModeloCarros().getGalones()).apply();
-        myPreferences.edit().putString(Constantes.DEFAULT_BLUETOOTH_MAC, uhmc.getBluetoothMac()).apply();
-        myPreferences.edit().putBoolean(Constantes.MODEL_HAS_TWO_TANKS, uhmc.getHasTwoTanks()).apply();
         myPreferences.edit().putLong(Constantes.DEFAULT_VEHICLE_ID, uhmc.getId()).apply();
 //        myPreferences.edit().putLong("defaultModeloCarroId", uhmc.getModeloCarros().getId()).apply();
         myPreferences.edit().putString(Constantes.DEFAULT_PLACA, uhmc.getPlaca()).apply();
         idVehiculo = uhmc.getId();
 
-        values = uhmc.getValoresAdq();
+        //values = uhmc.getValoresAdq();
 
         String newPlaca = myPreferences.getString(Constantes.DEFAULT_PLACA, "");
         tvDefaultPlaca.setText(newPlaca);

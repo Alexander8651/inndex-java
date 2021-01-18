@@ -24,6 +24,8 @@ public class Constantes {
 
     //ESTACIONES
     public static final String GET_ALL_ESTACIONES = "estaciones/getAll";
+    public static final String GET_BY_ID = "estaciones/getById";
+    public static final String GET_BY_USUARIO_ADMIN = "estaciones-usuario/getAllByUsuarioAdmin";
     public static final String POST_REGISTER_STATION = "estaciones/postRegistrar";
     //TANQUEADAS
     public static final String POST_REGISTRAR_TANQUEADA = "tanqueadas/postRegistrar";
@@ -33,6 +35,15 @@ public class Constantes {
     public static final String POST_REGISTRAR_USUARIO_HAS_MODELO_CARRO = "usuarioHasModeloCarros/";
     public static final String PUT_UPDATE_USUARIO_HAS_MODELO_CARRO = "usuarioHasModeloCarros/update";
     public static final String GET_USUARIO_HAS_MODELO_CARROS_BY_ID_USER = "usuarioHasModeloCarros/getAllByUser/";
+
+    //PAIS
+    public static final String GET_ALL_PAIS = "pais/getAll/";
+
+    //DEPARTAMENTO
+    public static final String GET_DEPARTAMENTOS_BY_PAIS_ID = "departamento/get-by-pais-id/";
+
+    //MUNICIPIOS
+    public static final String GET_MUNICIPIOS_BY_DEPT_ID = "municipio/get-by-departamento-id/";
 
     //API KEY DE PONTON
 

@@ -111,12 +111,6 @@ public class VehiculosAdapter extends RecyclerView.Adapter<VehiculosAdapter.Esta
         holder.tvModelo.setText(items.get(position).getAnio());
         holder.tvPlaca.setText(items.get(position).getPlaca());
 
-        if(items.get(position).getHasTwoTanks()){
-            holder.tvHasTwoTanks.setText("#Tanques: 2");
-        }else {
-            holder.tvHasTwoTanks.setText("#Tanques: 1");
-        }
-
         if(items.get(position).getPlaca().equals(defaultPlaca)){
             holder.relativeLayout.setBackgroundColor(context.getResources().getColor(R.color.yellow_soft));
         }
@@ -137,7 +131,6 @@ public class VehiculosAdapter extends RecyclerView.Adapter<VehiculosAdapter.Esta
             modeloCarros.setId((int)mainActivity.getMyPreferences().getLong("defaultModeloCarroId",0));
 
             vehiculoSelected.setId(uhmc.getId());
-            vehiculoSelected.setBluetoothNombre(uhmc.getBluetoothNombre());
             vehiculoSelected.setModeloCarros(modeloCarros);
             vehiculoSelected.setUsuariosId(uhmc.getUsuariosId());
             Estados estados = new Estados();

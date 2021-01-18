@@ -202,7 +202,6 @@ public class NuevoVehiculo extends Fragment {
         String placa = edtPlaca.getText().toString();
         Estados estados = new Estados();
         estados.setId(1);
-        nuevoVehiculo.setBluetoothMac(Constantes.TEST_MAC_ADDRESS);
         if (placa.equals("") || placa.length() < 6) {
             edtPlaca.requestFocus();
             Toast.makeText(mainActivity, "La placa no es válida.", Toast.LENGTH_SHORT).show();
@@ -214,10 +213,7 @@ public class NuevoVehiculo extends Fragment {
         if (idUsuario != 0) {
 
             nuevoVehiculo.setUsuariosId(idUsuario);
-            nuevoVehiculo.setBluetoothNombre("INNDEX");
             nuevoVehiculo.setPlaca(placa);
-            nuevoVehiculo.setHasTwoTanks(modeloCarros.getHasTwoTanks());
-            nuevoVehiculo.setValoresAdq(modeloCarros.getValoresAdq());
             nuevoVehiculo.setMarca(modeloCarros.getLinea());
             nuevoVehiculo.setLinea(modeloCarros.getLinea());
             nuevoVehiculo.setAnio(modeloCarros.getModelo());

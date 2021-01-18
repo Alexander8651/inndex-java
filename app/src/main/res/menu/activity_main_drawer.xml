@@ -23,7 +23,6 @@
         android:id="@+id/opt_informacion"
         android:title="@string/informaci_n" />
 
-
     <item
         android:id="@+id/opt_configuracion"
         android:title="@string/config" />

@@ -1,11 +1,14 @@
 package com.inndex.car.personas.retrofit;
 
 import com.inndex.car.personas.model.Certificados;
+import com.inndex.car.personas.model.Departamento;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
 import com.inndex.car.personas.model.MarcaCarros;
 import com.inndex.car.personas.model.ModeloCarros;
+import com.inndex.car.personas.model.Municipio;
+import com.inndex.car.personas.model.Pais;
 import com.inndex.car.personas.model.Tanqueadas;
 import com.inndex.car.personas.model.UnidadRecorrido;
 import com.inndex.car.personas.model.Usuario;
@@ -34,9 +37,17 @@ public interface SmartBillApiServices {
     Call<ResponseServices> postRegisterUser(@Header("strUsuario") String jsonUsuario,
                                             @Body String dummy);
 
-    //ESTACIONES
+    /**
+     * ESTACIONES
+     */
     @GET(Constantes.GET_ALL_ESTACIONES)
     Call<List<Estaciones>> getEstaciones();
+
+    @GET(Constantes.GET_BY_ID)
+    Call<Estaciones> getEstacionById(@Query("id") Long id);
+
+    @GET(Constantes.GET_BY_USUARIO_ADMIN)
+    Call<List<Estaciones>> getEstacionesByUserAdmin(@Query("id") Long idUsuario);
 
     @POST(Constantes.POST_REGISTER_STATION)
     Call<ResponseServices> postRegisterStation(@Header("Content-Type") String headerContentType,
@@ -103,9 +114,26 @@ public interface SmartBillApiServices {
                                                             @Body HistorialEstadoVehiculos historialEstadoVehiculos);
 
     /**
-     * ESTADOS
+     * CERTIFICADOS
      */
     @GET(Constantes.GET_CERTIFICADOS)
     Call<List<Certificados>> getCertificados();
 
+    /**
+     * PAIS
+     */
+    @GET(Constantes.GET_ALL_PAIS)
+    Call<List<Pais>> getPaises();
+
+    /**
+     * DEPARTAMENTO
+     */
+    @GET(Constantes.GET_DEPARTAMENTOS_BY_PAIS_ID)
+    Call<List<Departamento>> getDepartamentosByPaisId(@Query("id") Long id);
+
+    /**
+     * MUNICIPIOS
+     */
+    @GET(Constantes.GET_MUNICIPIOS_BY_DEPT_ID)
+    Call<List<Municipio>> getMunicipiosByDeptId(@Query("id") Long id);
 }

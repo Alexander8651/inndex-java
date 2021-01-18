@@ -12,18 +12,11 @@ public class Vehiculo {
     private Integer modelosCarrosId;
     @DatabaseField
     private Integer usuariosId;
-    @DatabaseField
-    private String bluetoothNombre;
-    @DatabaseField
-    private String bluetoothMac;
-    @DatabaseField
-    private String valoresAdq;
+
     @DatabaseField
     private String placa;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private ModeloCarros modeloCarros;
-    @DatabaseField
-    private Boolean hasTwoTanks ;
     @DatabaseField
     private String tipoCombustible;
     @DatabaseField
@@ -71,30 +64,6 @@ public class Vehiculo {
         this.usuariosId = usuariosId;
     }
 
-    public String getBluetoothNombre() {
-        return bluetoothNombre;
-    }
-
-    public void setBluetoothNombre(String bluetoothNombre) {
-        this.bluetoothNombre = bluetoothNombre;
-    }
-
-    public String getBluetoothMac() {
-        return bluetoothMac;
-    }
-
-    public void setBluetoothMac(String bluetoothMac) {
-        this.bluetoothMac = bluetoothMac;
-    }
-
-    public String getValoresAdq() {
-        return valoresAdq;
-    }
-
-    public void setValoresAdq(String valoresAdq) {
-        this.valoresAdq = valoresAdq;
-    }
-
     public ModeloCarros getModeloCarros() {
         return modeloCarros;
     }
@@ -109,14 +78,6 @@ public class Vehiculo {
 
     public void setPlaca(String placa) {
         this.placa = placa;
-    }
-
-    public Boolean getHasTwoTanks() {
-        return hasTwoTanks;
-    }
-
-    public void setHasTwoTanks(Boolean hasTwoTanks) {
-        this.hasTwoTanks = hasTwoTanks;
     }
 
     public String getTipoCombustible() {
