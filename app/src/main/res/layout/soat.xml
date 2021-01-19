@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/soat">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Venta de SOAT"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/soatSuraSeguros"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/sura"/>
+
+                <ImageView
+                    android:id="@+id/soatSegurosEquidad"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/equidad"/>
+
+                <ImageView
+                    android:id="@+id/soatSegurosFalaBella"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/falabella"/>
+
+                <ImageView
+                    android:id="@+id/soatSegurosExito"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/exito"/>
+
+                <ImageView
+                    android:id="@+id/soatSegurosEstado"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/segurosdelestado"/>
+
+                <ImageView
+                    android:id="@+id/soatSegurosBolivar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/seguros_bolivar"/>
+
+                <ImageView
+                    android:id="@+id/soatMundialDeSeguros"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/mundial"/>
+
+                <ImageView
+                    android:id="@+id/soatMapreSeguros"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/mapfre"/>
+
+
+
+                <ImageView
+                    android:id="@+id/soatLibertySeguros"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/liberty"/>
+
+                <ImageView
+                    android:id="@+id/soatAxaColpatria"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/axa_colpatria"/>
+
+                <ImageView
+                    android:id="@+id/soatAllianz"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/allianz"/>
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

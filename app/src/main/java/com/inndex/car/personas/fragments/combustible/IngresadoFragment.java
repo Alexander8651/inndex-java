@@ -410,7 +410,7 @@ public class IngresadoFragment extends Fragment {
         t.setLatitud(estacionTanquea.getLatitud());
         t.setLongitud(estacionTanquea.getLongitud());
 
-        t.setIdEstacion(estacionTanquea.getId());
+//        t.setIdEstacion(estacionTanquea.getId());
         //guardarMedicion(t);
         enviarTanqueada(t);
     }

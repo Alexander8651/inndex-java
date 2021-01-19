@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cajeros">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Cajeros electronicos"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/cajeroBancoAth"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ath"/>
+
+                <ImageView
+                    android:id="@+id/cajeroCitiBank"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/citibank"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoomeva"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/bancoomeva"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancolombia"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/bancolombia"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoProcredit"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_procredit"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoPopular"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_popular"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoPichincha"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_pichincha"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoOldMutual"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_oldmutual"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoBngSudameris"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_gnb"/>
+
+                <ImageView
+                    android:id="@+id/cajeroFalabella"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_falabella"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoOccidente"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_occidente"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoBogota"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_bogota"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoDavivienda"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_davivienda"/>
+
+                <ImageView
+                    android:id="@+id/cajeroItau"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_itau"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoCorpBanca"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_corpbanca"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoCooperativoCoopcentral"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_coopcentral"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoColpatria"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_colpatria"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoCajaSocial"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_cajasocial"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoBbva"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_bbva"/>
+
+                <ImageView
+                    android:id="@+id/cajeroBancoAvvillas"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_avvillas"/>
+
+
+                <ImageView
+                    android:id="@+id/cajeroBancoAgrarioColombia"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/banco_agrario"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

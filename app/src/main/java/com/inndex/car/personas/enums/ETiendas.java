@@ -1,6 +1,6 @@
 package com.inndex.car.personas.enums;
 
-enum ETiendas {
+public enum ETiendas {
 
     ALTOQUE(1L),
     ARA(2L),

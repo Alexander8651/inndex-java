@@ -1,6 +1,6 @@
 package com.inndex.car.personas.enums;
 
-enum EBancos {
+public enum EBancos {
 
     BANCO_AGRARIO_DE_COLOMBIA(1L),
     BANCO_AV_VILLAS(2L),

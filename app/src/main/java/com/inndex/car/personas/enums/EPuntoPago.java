@@ -1,6 +1,6 @@
 package com.inndex.car.personas.enums;
 
-enum EPuntoPago {
+public enum EPuntoPago {
 
     BALOTO(1L),
     EFECTY(2L),

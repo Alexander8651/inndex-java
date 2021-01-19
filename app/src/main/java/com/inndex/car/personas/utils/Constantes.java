@@ -77,6 +77,7 @@ public class Constantes {
 
     public static final String GET_ESTADOS = "estados/getAll";
     public static final String POST_SAVE_HISTORIAL_ESTADO = "historial-estados-vehiculos/save";
+    public static final String ESTACION_SELECCOINADA_KEY = "estacionSeleccionada";
 
     public static int ROTATION = 0;
 

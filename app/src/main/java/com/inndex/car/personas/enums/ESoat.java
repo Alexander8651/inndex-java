@@ -1,6 +1,6 @@
 package com.inndex.car.personas.enums;
 
-enum ESoat {
+public enum ESoat {
 
     ALLIANZ(1L),
     AXA_COLPATRIA(2L),

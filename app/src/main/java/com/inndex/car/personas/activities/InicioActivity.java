@@ -78,15 +78,13 @@ public class InicioActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
                     if (response.isSuccessful()) {
                         List<Estaciones> list = response.body();
+
                         if (list != null && list.size() > 0) {
-                            for (Estaciones e : list) {
                                 try {
-                                    dao.create(e);
+                                    dao.create(list);
                                 } catch (SQLException e1) {
                                     Toast.makeText(InicioActivity.this, "Error en la base de datos.", Toast.LENGTH_SHORT).show();
-                                    break;
                                 }
-                            }
                         }
                     } else {
                         Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();

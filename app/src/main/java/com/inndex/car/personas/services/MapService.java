@@ -136,7 +136,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
             LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
             InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(), latLng, estacion.getMarca(), estacion.getDireccion(),
                     estacion.getId(), sum);
-
             mClusterManager.addItem(item);
             /*
             if (!estacion.isCertificada())

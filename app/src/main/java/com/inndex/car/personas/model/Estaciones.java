@@ -1,5 +1,8 @@
 package com.inndex.car.personas.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -8,10 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 
 @DatabaseTable(tableName = "estaciones")
-public class Estaciones implements Serializable {
+public class Estaciones implements Serializable, Parcelable {
 
-    @DatabaseField(generatedId = true)
-    private int id;
+    @DatabaseField
+    private Long id;
     @DatabaseField(canBeNull = false)
     private String nombre;
     @DatabaseField
@@ -74,6 +77,50 @@ public class Estaciones implements Serializable {
         this.longitud = longitud;
     }
 
+    protected Estaciones(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        nombre = in.readString();
+        if (in.readByte() == 0) {
+            distancia = null;
+        } else {
+            distancia = in.readFloat();
+        }
+        direccion = in.readString();
+        horario = in.readString();
+        calificacion = in.readDouble();
+        latitud = in.readDouble();
+        longitud = in.readDouble();
+        marca = in.readString();
+        departamento = in.readString();
+        municipio = in.readString();
+        certificada = in.readByte() != 0;
+        descripcionCertificado = in.readString();
+        byte tmpTieneBanios = in.readByte();
+        tieneBanios = tmpTieneBanios == 0 ? null : tmpTieneBanios == 1;
+        byte tmpTieneLlanteria = in.readByte();
+        tieneLlanteria = tmpTieneLlanteria == 0 ? null : tmpTieneLlanteria == 1;
+        byte tmpTieneLavadero = in.readByte();
+        tieneLavadero = tmpTieneLavadero == 0 ? null : tmpTieneLavadero == 1;
+        byte tmpTieneVentaLubricante = in.readByte();
+        tieneVentaLubricante = tmpTieneVentaLubricante == 0 ? null : tmpTieneVentaLubricante == 1;
+    }
+
+    public static final Creator<Estaciones> CREATOR = new Creator<Estaciones>() {
+        @Override
+        public Estaciones createFromParcel(Parcel in) {
+            return new Estaciones(in);
+        }
+
+        @Override
+        public Estaciones[] newArray(int size) {
+            return new Estaciones[size];
+        }
+    };
+
     public String getNombre() {
         return nombre;
     }
@@ -132,11 +179,11 @@ public class Estaciones implements Serializable {
         return new LatLng(this.latitud, this.longitud);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -290,5 +337,41 @@ public class Estaciones implements Serializable {
 
     public void setTipoEstacion(TipoEstacion tipoEstacion) {
         this.tipoEstacion = tipoEstacion;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeString(nombre);
+        if (distancia == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeFloat(distancia);
+        }
+        parcel.writeString(direccion);
+        parcel.writeString(horario);
+        parcel.writeDouble(calificacion);
+        parcel.writeDouble(latitud);
+        parcel.writeDouble(longitud);
+        parcel.writeString(marca);
+        parcel.writeString(departamento);
+        parcel.writeString(municipio);
+        parcel.writeByte((byte) (certificada ? 1 : 0));
+        parcel.writeString(descripcionCertificado);
+        parcel.writeByte((byte) (tieneBanios == null ? 0 : tieneBanios ? 1 : 2));
+        parcel.writeByte((byte) (tieneLlanteria == null ? 0 : tieneLlanteria ? 1 : 2));
+        parcel.writeByte((byte) (tieneLavadero == null ? 0 : tieneLavadero ? 1 : 2));
+        parcel.writeByte((byte) (tieneVentaLubricante == null ? 0 : tieneVentaLubricante ? 1 : 2));
     }
 }

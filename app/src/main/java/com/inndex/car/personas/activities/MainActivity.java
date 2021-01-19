@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,12 +64,14 @@ import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
 import com.inndex.car.personas.fragments.dondetanquear.DondeTanquearTabs;
 import com.inndex.car.personas.fragments.estaciones.EstacionDetalleFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment;
+import com.inndex.car.personas.fragments.estaciones.EstacionesServiciosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesTabsFragment;
 import com.inndex.car.personas.fragments.historial.HistorialTabs;
 import com.inndex.car.personas.fragments.recorridos.RecorridosDatos;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Vehiculo;
 import com.inndex.car.personas.places.EstacionesPlaces;
+import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.services.InndexLocationService;
 import com.inndex.car.personas.services.MapService;
 import com.inndex.car.personas.services.RecorridoService;
@@ -86,6 +89,9 @@ import java.util.Timer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, SetArrayValuesForInndex, InicioFragment.OnFragmentInteractionListener,
@@ -140,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //@BindView(R.id.tv_toolbar)
     //public TextView tvTitulo;
 
+    boolean verServiciosButtonClicked;
 
     @BindView(R.id.tv_home)
     public TextView tvHome;
@@ -279,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View view, int i) {
-                if (BottomSheetBehavior.STATE_COLLAPSED == i) {
+                if (BottomSheetBehavior.STATE_COLLAPSED == i && !verServiciosButtonClicked) {
                     fabUbicacion.show();
                     clickHome();
                 } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
@@ -743,20 +750,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @OnClick(R.id.lay_btn_ver_servicios)
-    public void onClickComprarAqui() {
-        layButtonsStationSelected.setVisibility(View.GONE);
-        layBtnVerServicios.setVisibility(View.GONE);
-        layBtnIndicaciones.setVisibility(View.GONE);
-        layButtonsConfirmarCompra.setVisibility(View.VISIBLE);
-        miFragment = new CompraFragment(this, this.light);
-        viewMap.setVisibility(View.GONE);
-        toolbar.setVisibility(View.VISIBLE);
+    public void onClickVerServicios() {
+        //layButtonsStationSelected.setVisibility(View.GONE);
+        //layBtnVerServicios.setVisibility(View.GONE);
+        //layButtonsConfirmarCompra.setVisibility(View.VISIBLE);
         Estaciones estacionSeleccionada = this.mapService.getEstacionSeleccionada();
-        if (estacionSeleccionada != null) {
-            tvToolbarNombreEstacion.setText(estacionSeleccionada.getNombre());
-        }
-        btnMenu.hide();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+
+        Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacionSeleccionada.getId());
+        getEstacionById.enqueue(new Callback<Estaciones>() {
+            @Override
+            public void onResponse(Call<Estaciones> call,  Response<Estaciones> response) {
+
+                if(response != null && response.isSuccessful()) {
+
+                    miFragment = new EstacionesServiciosFragment(MainActivity.this, light);
+                    viewMap.setVisibility(View.GONE);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(Constantes.ESTACION_SELECCOINADA_KEY, response.body());
+                    miFragment.setArguments(bundle);
+                    verServiciosButtonClicked = true;
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    btnMenu.hide();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Estaciones> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
+                Log.e("ERROR",t.getLocalizedMessage());
+                Log.e("ERROR2",call.request().toString());
+                Log.e("ERROR3", call.request().headers().toString());
+            }
+        });
+
+
+
     }
 
     @OnClick(R.id.lay_btn_confirmar_compra)
