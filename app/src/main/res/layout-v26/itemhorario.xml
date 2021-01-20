@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
     android:orientation="horizontal">
 
-    <ExpandableListView
-        android:id="@+id/expanded_horarios"
+    <TextView
+        android:id="@+id/horarioitem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/white" />
+        android:textColor="@color/azul_texto_enlace"
+        android:textSize="22sp" />
 
 </LinearLayout>

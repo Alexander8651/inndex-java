@@ -759,14 +759,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacionSeleccionada.getId());
         getEstacionById.enqueue(new Callback<Estaciones>() {
             @Override
-            public void onResponse(Call<Estaciones> call,  Response<Estaciones> response) {
+            public void onResponse(Call<Estaciones> call, Response<Estaciones> response) {
 
-                if(response != null && response.isSuccessful()) {
+                if (response != null && response.isSuccessful()) {
+
+                    Estaciones estResponse = response.body();
+
+                    if (estResponse.getListEstacionCombustibles() == null || estResponse.getListEstacionCombustibles().size() == 0) {
+                        Toast.makeText(MainActivity.this, "Estación no cuenta con información de combustibles.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     miFragment = new EstacionesServiciosFragment(MainActivity.this, light);
                     viewMap.setVisibility(View.GONE);
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(Constantes.ESTACION_SELECCOINADA_KEY, response.body());
+                    bundle.putParcelable(Constantes.ESTACION_SELECCOINADA_KEY, estResponse);
                     miFragment.setArguments(bundle);
                     verServiciosButtonClicked = true;
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -778,12 +785,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<Estaciones> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
-                Log.e("ERROR",t.getLocalizedMessage());
-                Log.e("ERROR2",call.request().toString());
+                Log.e("ERROR", t.getLocalizedMessage());
+                Log.e("ERROR2", call.request().toString());
                 Log.e("ERROR3", call.request().headers().toString());
             }
         });
-
 
 
     }

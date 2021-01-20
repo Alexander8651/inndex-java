@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.estaciones.EstacionesServiciosFragment"
-    android:layout_marginBottom="70dp">
+    android:layout_marginBottom="70dp"
+    tools:context=".fragments.estaciones.EstacionesServiciosFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp">
+            android:layout_height="190dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -23,18 +23,18 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@drawable/gasolinera" />
+                    android:background="@drawable/gasolinera_2" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="100dp"
                     android:layout_alignParentBottom="true"
-                    android:alpha="0.6"
+                    android:alpha="0.8"
                     android:background="@android:color/black" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="100dp"
                     android:layout_alignParentBottom="true"
                     android:orientation="vertical">
 
@@ -53,11 +53,26 @@
                         android:layout_height="40dp"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
-                        android:textSize="25sp"
+                        android:textSize="22sp"
                         tools:text="EDS la esperanza" />
 
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/botonback">
+
+                    <ImageView
+                        android:id="@+id/botonbackdetallebomba"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_baseline_arrow_back_24"/>
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -70,45 +85,57 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3sp">
+                    android:layout_marginBottom="3dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/direccionBomba"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_weight="2.5"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
                         tools:text="Cl. 22 # 68d-20" />
 
                     <TextView
+                        android:layout_toStartOf="@id/estaciones_servicios_route"
                         android:id="@+id/tv_estacion_servicios_distancia"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="3dp"
-                        android:layout_weight="1"
                         android:text="1.1 Km"
-                        android:textAlignment="textEnd"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_centerVertical="true"/>
 
-                    <Button
+                    <ImageButton
+                        android:id="@+id/estaciones_servicios_route"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/circular_button_shape"
+                        android:src="@drawable/direccion48"
+                        app:tint="@android:color/black"
+                        android:layout_alignParentEnd="true"/>
+
+                    <!--Button
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/circular_button_shape"
                         android:contentDescription="@string/aceptar"
                         android:drawableTop="@drawable/direccion48"
-                        android:paddingTop="13dp" />
+                        android:paddingTop="13dp" /-->
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -121,10 +148,11 @@
                     android:layout_height="wrap_content" />
 
                 <include
+                    android:id="@+id/horariosycontacto"
                     layout="@layout/horariosycontactos"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="4dp"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -150,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ver opiniones"
-                        android:textColor="@android:color/holo_blue_dark"
+                        android:textColor="@color/azul_texto_enlace"
                         android:textSize="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -160,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="14dp"
                         android:text="Calificar"
-                        android:textColor="@android:color/holo_blue_dark"
+                        android:textColor="@color/azul_texto_enlace"
                         android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView2"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -232,4 +260,5 @@
         </ScrollView>
 
     </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

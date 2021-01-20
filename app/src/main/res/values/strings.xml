@@ -209,4 +209,8 @@
     <string name="ayuda">Ayuda</string>
     <string name="informaci_n">Información</string>
     <string name="administrar_mi_eds">Administrar mi EDS</string>
+
+    <!-- PLACEHOLDERS -->
+    <string name="precio_combustible_placeholder">$ %1$d</string>
+
 </resources>

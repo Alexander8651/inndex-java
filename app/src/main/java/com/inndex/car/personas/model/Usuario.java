@@ -8,7 +8,7 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "usuarios")
 public class Usuario implements Serializable {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField
     private int id;
     @DatabaseField
     private String email;
@@ -21,7 +21,14 @@ public class Usuario implements Serializable {
     @DatabaseField
     private String celular;
     @DatabaseField
+    private String telefono;
+    @DatabaseField
+    private String telefonoIndicativo;
+    @DatabaseField
     private Integer tipo;
+    @DatabaseField
+    private Integer genero;
+
 
     public Usuario() {
     }
@@ -80,5 +87,29 @@ public class Usuario implements Serializable {
 
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getTelefonoIndicativo() {
+        return telefonoIndicativo;
+    }
+
+    public void setTelefonoIndicativo(String telefonoIndicativo) {
+        this.telefonoIndicativo = telefonoIndicativo;
+    }
+
+    public Integer getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Integer genero) {
+        this.genero = genero;
     }
 }

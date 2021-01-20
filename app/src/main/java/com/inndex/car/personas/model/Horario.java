@@ -13,7 +13,7 @@ public class Horario implements Serializable {
 
 	private Time fin;
 
-	private short dia;
+	private Long dia;
 
 	private Boolean abiertoSiempre;
 
@@ -46,11 +46,11 @@ public class Horario implements Serializable {
 		this.fin = fin;
 	}
 
-	public short getDia() {
+	public Long getDia() {
 		return dia;
 	}
 
-	public void setDia(short dia) {
+	public void setDia(Long dia) {
 		this.dia = dia;
 	}
 
