@@ -13,7 +13,7 @@
             android:id="@+id/titulolubricantes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold"
             android:text="Venta de lubricantes"/>
 
@@ -28,11 +28,10 @@
 
                 <ImageView
                     android:id="@+id/estacionLubricantes"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
                     android:visibility="gone"
                     android:src="@drawable/lubricantes"/>
-
 
             </LinearLayout>
         </HorizontalScrollView>

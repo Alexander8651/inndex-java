@@ -157,7 +157,8 @@
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="25dp"
@@ -199,6 +200,38 @@
                 android:text="Ver servicios"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
+
+        </RelativeLayout>
+
+        <!-- Navegar -->
+        <RelativeLayout
+            android:id="@+id/lay_btn_navegar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/selector_buton_buy_here"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/navegacion_blanco" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/navegar"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="34dp"/>
 
         </RelativeLayout>
 

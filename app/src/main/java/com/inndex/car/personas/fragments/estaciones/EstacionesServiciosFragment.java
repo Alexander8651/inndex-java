@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.idlestar.ratingstar.RatingStarView;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.MainActivity;
 import com.inndex.car.personas.adapter.ExpLAdapter;
@@ -77,8 +79,16 @@ public class EstacionesServiciosFragment extends Fragment {
         final TextView tvDistancia = root.findViewById(R.id.tv_estacion_servicios_distancia);
         final ImageView botonBack = root.findViewById(R.id.botonbackdetallebomba);
         botonBack.setOnClickListener(v -> {
-
+            this.onDestroy();
+            mainActivity.clickHome();
         });
+
+        if(distancia < 1000) {
+            tvDistancia.setText(String.format(Locale.ENGLISH,"%.2f m", distancia));
+        } else {
+            distancia = distancia / 1000;
+            tvDistancia.setText(String.format(Locale.ENGLISH,"%.2f km", distancia));
+        }
 
         final TextView titulocajeros = root.findViewById(R.id.titulocajero);
         final TextView titulopuntopagos = root.findViewById(R.id.titulopuntospago);
@@ -90,7 +100,25 @@ public class EstacionesServiciosFragment extends Fragment {
         final TextView titulolubricantes = root.findViewById(R.id.titulolubricantes);
         final TextView titulollanteria = root.findViewById(R.id.titulollanteria);
         final TextView titulolavaderos = root.findViewById(R.id.titulolavadero);
+        final ImageView menuBomba = root.findViewById(R.id.img_menu_estacion_servicios);
+        final TextView tvPreciosActualizados = root.findViewById(R.id.tv_estacion_servicios_precios_actualizados);
 
+        final TextView tvVerOpiniones = root.findViewById(R.id.tv_estacion_servicios_ver_opiniones);
+        final TextView tvCalificar = root.findViewById(R.id.tv_estacion_servicios_calificar);
+        final TextView tvCalificacion = root.findViewById(R.id.tv_estacion_servicios_calificacion);
+        RatingStarView rsv_rating = root.findViewById(R.id.rat_bar_estacion_servicios_calificacion);
+        //rsv_rating.setRating(1.5f);
+        menuBomba.setOnClickListener(v ->{
+            PopupMenu popupMenu = new PopupMenu(requireContext(), menuBomba);
+            popupMenu.getMenuInflater().inflate(R.menu.menu_estacion_servicios, popupMenu.getMenu());
+            popupMenu.show();
+        });
+
+        tvVerOpiniones.setTypeface(light);
+        tvCalificar.setTypeface(light);
+        tvCalificacion.setTypeface(light);
+
+        tvPreciosActualizados.setTypeface(light);
         titulocajeros.setTypeface(light);
         titulopuntopagos.setTypeface(light);
         titulotiendaconvivencia.setTypeface(light);
@@ -126,7 +154,9 @@ public class EstacionesServiciosFragment extends Fragment {
 
     private void combustibles(View root) {
 
-        if (estaciones.getListEstacionCombustibles() != null) {
+        View layCombustibles = root.findViewById(R.id.lay_combustibles);
+
+        if (estaciones.getListEstacionCombustibles() != null && estaciones.getListEstacionCombustibles().size() > 0) {
             for (EstacionCombustibles bomba : estaciones.getListEstacionCombustibles()) {
                 TextView nombreCombustible = null;
                 TextView precioCombustible = null;
@@ -163,6 +193,8 @@ public class EstacionesServiciosFragment extends Fragment {
                     precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
                 }
             }
+        } else {
+            layCombustibles.setVisibility(View.GONE);
         }
     }
 
@@ -170,8 +202,9 @@ public class EstacionesServiciosFragment extends Fragment {
         ExpandableListView spin = root.findViewById(R.id.expanded_horarios);
         ArrayList<String> listCategorias = new ArrayList<>();
         Map<String, ArrayList<Horario>> mapChild = new HashMap<>();
+        View layHorarios = root.findViewById(R.id.horariosycontacto);
 
-        if (estaciones.getListHorarios() != null) {
+        if (estaciones.getListHorarios() != null && estaciones.getListHorarios().size() > 0) {
 
             ArrayList<Horario> horarios = new ArrayList<>(estaciones.getListHorarios());
             listCategorias.add("Horarios y contacto");
@@ -189,248 +222,207 @@ public class EstacionesServiciosFragment extends Fragment {
                 }
                 return false;
             });
+        } else {
+            layHorarios.setVisibility(View.GONE);
         }
     }
 
     private void cajeros(View root) {
-        if (estaciones.getListCajeros() != null) {
-            if (estaciones.getListCajeros() != null) {
-                for (Bancos cajero : estaciones.getListCajeros()) {
-                    if (cajero.getId().equals(EBancos.ATH.getId())) {
-                        ImageView cajeroAth = root.findViewById(R.id.cajeroBancoAth);
-                        cajeroAth.setVisibility(View.VISIBLE);
-                    }
 
-                    if (cajero.getId().equals(EBancos.CITIBANK.getId())) {
-                        ImageView cajeroCITIBANK = root.findViewById(R.id.cajeroCitiBank);
-                        cajeroCITIBANK.setVisibility(View.VISIBLE);
-                    }
+        if (estaciones.getListCajeros() != null && estaciones.getListCajeros().size() > 0) {
+            for (Bancos cajero : estaciones.getListCajeros()) {
+                if (cajero.getId().equals(EBancos.ATH.getId())) {
+                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoAth);
+                    cajeroAth.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCOOMEVA.getId())) {
-                        ImageView cajeroBANCOOMEVA = root.findViewById(R.id.cajeroBancoomeva);
-                        cajeroBANCOOMEVA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.CITIBANK.getId())) {
+                    ImageView cajeroCITIBANK = root.findViewById(R.id.cajeroCitiBank);
+                    cajeroCITIBANK.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_AGRARIO_DE_COLOMBIA.getId())) {
-                        ImageView cajeroBANCO_AGRARIO_DE_COLOMBIA = root.findViewById(R.id.cajeroBancoAgrarioColombia);
-                        cajeroBANCO_AGRARIO_DE_COLOMBIA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCOOMEVA.getId())) {
+                    ImageView cajeroBANCOOMEVA = root.findViewById(R.id.cajeroBancoomeva);
+                    cajeroBANCOOMEVA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCOLOMBIA.getId())) {
-                        ImageView cajeroBANCOLOMBIA = root.findViewById(R.id.cajeroBancolombia);
-                        cajeroBANCOLOMBIA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_AGRARIO_DE_COLOMBIA.getId())) {
+                    ImageView cajeroBANCO_AGRARIO_DE_COLOMBIA = root.findViewById(R.id.cajeroBancoAgrarioColombia);
+                    cajeroBANCO_AGRARIO_DE_COLOMBIA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_PROCREDIT.getId())) {
-                        ImageView cajeroBANCO_PROCREDIT = root.findViewById(R.id.cajeroBancoProcredit);
-                        cajeroBANCO_PROCREDIT.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCOLOMBIA.getId())) {
+                    ImageView cajeroBANCOLOMBIA = root.findViewById(R.id.cajeroBancolombia);
+                    cajeroBANCOLOMBIA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_POPULAR.getId())) {
-                        ImageView cajeroAth = root.findViewById(R.id.cajeroBancoPopular);
-                        cajeroAth.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_PROCREDIT.getId())) {
+                    ImageView cajeroBANCO_PROCREDIT = root.findViewById(R.id.cajeroBancoProcredit);
+                    cajeroBANCO_PROCREDIT.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_PICHINCHA.getId())) {
-                        ImageView cajeroBANCO_PICHINCHA = root.findViewById(R.id.cajeroBancoPichincha);
-                        cajeroBANCO_PICHINCHA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_POPULAR.getId())) {
+                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoPopular);
+                    cajeroAth.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_OLD_MUTUAL.getId())) {
-                        ImageView cajeroBANCO_OLD_MUTUAL = root.findViewById(R.id.cajeroBancoOldMutual);
-                        cajeroBANCO_OLD_MUTUAL.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_PICHINCHA.getId())) {
+                    ImageView cajeroBANCO_PICHINCHA = root.findViewById(R.id.cajeroBancoPichincha);
+                    cajeroBANCO_PICHINCHA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_GNB_SUDAMERIS.getId())) {
-                        ImageView cajeroAth = root.findViewById(R.id.cajeroBancoBngSudameris);
-                        cajeroAth.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_OLD_MUTUAL.getId())) {
+                    ImageView cajeroBANCO_OLD_MUTUAL = root.findViewById(R.id.cajeroBancoOldMutual);
+                    cajeroBANCO_OLD_MUTUAL.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_FALABELLA.getId())) {
-                        ImageView cajeroBANCO_GNB_SUDAMERIS = root.findViewById(R.id.cajeroFalabella);
-                        cajeroBANCO_GNB_SUDAMERIS.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_GNB_SUDAMERIS.getId())) {
+                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoBngSudameris);
+                    cajeroAth.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_DE_OCCIDENTE.getId())) {
-                        ImageView cajeroAth = root.findViewById(R.id.cajeroBancoOccidente);
-                        cajeroAth.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_FALABELLA.getId())) {
+                    ImageView cajeroBANCO_GNB_SUDAMERIS = root.findViewById(R.id.cajeroFalabella);
+                    cajeroBANCO_GNB_SUDAMERIS.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_DE_BOGOTA.getId())) {
-                        ImageView cajeroBANCO_DE_BOGOTA = root.findViewById(R.id.cajeroBancoBogota);
-                        cajeroBANCO_DE_BOGOTA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_DE_OCCIDENTE.getId())) {
+                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoOccidente);
+                    cajeroAth.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_DAVIVIENDA.getId())) {
-                        ;
-                        ImageView cajeroBANCO_DAVIVIENDA = root.findViewById(R.id.cajeroBancoDavivienda);
-                        cajeroBANCO_DAVIVIENDA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_DE_BOGOTA.getId())) {
+                    ImageView cajeroBANCO_DE_BOGOTA = root.findViewById(R.id.cajeroBancoBogota);
+                    cajeroBANCO_DE_BOGOTA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_ITAU.getId())) {
-                        ;
-                        ImageView cajeroBANCO_ITAU = root.findViewById(R.id.cajeroItau);
-                        cajeroBANCO_ITAU.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_DAVIVIENDA.getId())) {
+                    ;
+                    ImageView cajeroBANCO_DAVIVIENDA = root.findViewById(R.id.cajeroBancoDavivienda);
+                    cajeroBANCO_DAVIVIENDA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_CORPBANCA.getId())) {
-                        ;
-                        ImageView cajeroBANCO_CORPBANCA = root.findViewById(R.id.cajeroBancoCorpBanca);
-                        cajeroBANCO_CORPBANCA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_ITAU.getId())) {
+                    ;
+                    ImageView cajeroBANCO_ITAU = root.findViewById(R.id.cajeroItau);
+                    cajeroBANCO_ITAU.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_COOPERATIVO_COOPCENTRAL.getId())) {
-                        ;
-                        ImageView cajeroBANCO_COOPERATIVO_COOPCENTRAL = root.findViewById(R.id.cajeroBancoCooperativoCoopcentral);
-                        cajeroBANCO_COOPERATIVO_COOPCENTRAL.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_CORPBANCA.getId())) {
+                    ;
+                    ImageView cajeroBANCO_CORPBANCA = root.findViewById(R.id.cajeroBancoCorpBanca);
+                    cajeroBANCO_CORPBANCA.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_COLPATRIA.getId())) {
-                        ;
-                        ImageView cajeroAth = root.findViewById(R.id.cajeroBancoColpatria);
-                        cajeroAth.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_COOPERATIVO_COOPCENTRAL.getId())) {
+                    ;
+                    ImageView cajeroBANCO_COOPERATIVO_COOPCENTRAL = root.findViewById(R.id.cajeroBancoCooperativoCoopcentral);
+                    cajeroBANCO_COOPERATIVO_COOPCENTRAL.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_CAJA_SOCIAL.getId())) {
-                        ;
-                        ImageView cajeroBANCO_CAJA_SOCIAL = root.findViewById(R.id.cajeroBancoCajaSocial);
-                        cajeroBANCO_CAJA_SOCIAL.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_COLPATRIA.getId())) {
+                    ;
+                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoColpatria);
+                    cajeroAth.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_BBVA.getId())) {
-                        ;
-                        ImageView cajeroBANCO_BBVA = root.findViewById(R.id.cajeroBancoBbva);
-                        cajeroBANCO_BBVA.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_CAJA_SOCIAL.getId())) {
+                    ;
+                    ImageView cajeroBANCO_CAJA_SOCIAL = root.findViewById(R.id.cajeroBancoCajaSocial);
+                    cajeroBANCO_CAJA_SOCIAL.setVisibility(View.VISIBLE);
+                }
 
-                    if (cajero.getId().equals(EBancos.BANCO_AV_VILLAS.getId())) {
-                        ;
-                        ImageView cajeroBANCO_AV_VILLAS = root.findViewById(R.id.cajeroBancoAvvillas);
-                        cajeroBANCO_AV_VILLAS.setVisibility(View.VISIBLE);
-                    }
+                if (cajero.getId().equals(EBancos.BANCO_BBVA.getId())) {
+                    ;
+                    ImageView cajeroBANCO_BBVA = root.findViewById(R.id.cajeroBancoBbva);
+                    cajeroBANCO_BBVA.setVisibility(View.VISIBLE);
+                }
+
+                if (cajero.getId().equals(EBancos.BANCO_AV_VILLAS.getId())) {
+                    ;
+                    ImageView cajeroBANCO_AV_VILLAS = root.findViewById(R.id.cajeroBancoAvvillas);
+                    cajeroBANCO_AV_VILLAS.setVisibility(View.VISIBLE);
                 }
             }
-        } else {
 
+        } else {
             ConstraintLayout cajeros = root.findViewById(R.id.cajeros);
             cajeros.setVisibility(View.GONE);
-
         }
     }
 
     private void puntosPago(View root) {
+        if (estaciones.getListPuntosPago() != null && estaciones.getListPuntosPago().size() > 0) {
+            for (PuntoPago puntoPago : estaciones.getListPuntosPago()) {
+                //
+                if (puntoPago.getId().equals(EPuntoPago.BALOTO.getId())) {
+                    ImageView puntoBaloto = root.findViewById(R.id.puntoPagoBaloto);
+                    puntoBaloto.setVisibility(View.VISIBLE);
+                }
 
-        if (estaciones.getListPuntosPago() != null) {
-            // getListCajeros().get(0)));
+                if (puntoPago.getId().equals(EPuntoPago.EFECTY.getId())) {
+                    ImageView puntoEfecty = root.findViewById(R.id.puntoPagoEfecty);
+                    puntoEfecty.setVisibility(View.VISIBLE);
+                }
 
-            if (estaciones.getListPuntosPago() != null) {
-                for (PuntoPago puntoPago : estaciones.getListPuntosPago()) {
-                    //
-                    if (puntoPago.getId().equals(EPuntoPago.BALOTO.getId())) {
+                if (puntoPago.getId().equals(EPuntoPago.PAGA_TODO.getId())) {
+                    ImageView puntoPagatodo = root.findViewById(R.id.puntoPagoPagaTodo);
+                    puntoPagatodo.setVisibility(View.VISIBLE);
 
+                }
 
-                        ImageView puntoBaloto = root.findViewById(R.id.puntoPagoBaloto);
-                        puntoBaloto.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (puntoPago.getId().equals(EPuntoPago.EFECTY.getId())) {
-
-
-                        ImageView puntoEfecty = root.findViewById(R.id.puntoPagoEfecty);
-                        puntoEfecty.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (puntoPago.getId().equals(EPuntoPago.PAGA_TODO.getId())) {
-
-
-                        ImageView puntoPagatodo = root.findViewById(R.id.puntoPagoPagaTodo);
-                        puntoPagatodo.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (puntoPago.getId().equals(EPuntoPago.SU_RED.getId())) {
-
-
-                        ImageView puntoSuRed = root.findViewById(R.id.puntoPagoSuRed);
-                        puntoSuRed.setVisibility(View.VISIBLE);
-
-                    }
+                if (puntoPago.getId().equals(EPuntoPago.SU_RED.getId())) {
+                    ImageView puntoSuRed = root.findViewById(R.id.puntoPagoSuRed);
+                    puntoSuRed.setVisibility(View.VISIBLE);
                 }
             }
         } else {
-
             ConstraintLayout puntosPagos = root.findViewById(R.id.puntospago);
             puntosPagos.setVisibility(View.GONE);
-
         }
 
     }
 
     private void tiendasConvivencia(View root) {
-        if (estaciones.getListTiendas() != null) {
-            // getListCajeros().get(0)));
+        if (estaciones.getListTiendas() != null && estaciones.getListTiendas().size() > 0) {
+            for (Tiendas tienda : estaciones.getListTiendas()) {
+                //
+                if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
+                    ImageView tiendaTigerMarker = root.findViewById(R.id.puntoPagoBaloto);
+                    tiendaTigerMarker.setVisibility(View.VISIBLE);
+                }
 
-            if (estaciones.getListTiendas() != null) {
-                for (Tiendas tienda : estaciones.getListTiendas()) {
-                    //
-                    if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
+                if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
+                    ImageView tiendaTigerMarker = root.findViewById(R.id.tiendaTigerMarket);
+                    tiendaTigerMarker.setVisibility(View.VISIBLE);
+                }
 
+                if (tienda.getId().equals(ETiendas.OLIMPICA.getId())) {
+                    ImageView tiendaOlimpica = root.findViewById(R.id.tiendaOlimpica);
+                    tiendaOlimpica.setVisibility(View.VISIBLE);
+                }
 
-                        ImageView tiendaTigerMarker = root.findViewById(R.id.puntoPagoBaloto);
-                        tiendaTigerMarker.setVisibility(View.VISIBLE);
+                if (tienda.getId().equals(ETiendas.JUSTO_Y_BUENO.getId())) {
+                    ImageView tiendaJustoBueno = root.findViewById(R.id.tiendaJustoBueno);
+                    tiendaJustoBueno.setVisibility(View.VISIBLE);
+                }
 
-                    }
+                if (tienda.getId().equals(ETiendas.EXITO_EXPRESS.getId())) {
+                    ImageView tiendaExitoExpress = root.findViewById(R.id.tiendaExitoExpress);
+                    tiendaExitoExpress.setVisibility(View.VISIBLE);
+                }
 
-                    if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
+                if (tienda.getId().equals(ETiendas.D_UNO.getId())) {
+                    ImageView tiendaD1 = root.findViewById(R.id.tiendaD1);
+                    tiendaD1.setVisibility(View.VISIBLE);
+                }
 
-
-                        ImageView tiendaTigerMarker = root.findViewById(R.id.tiendaTigerMarket);
-                        tiendaTigerMarker.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (tienda.getId().equals(ETiendas.OLIMPICA.getId())) {
-
-
-                        ImageView tiendaOlimpica = root.findViewById(R.id.tiendaOlimpica);
-                        tiendaOlimpica.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (tienda.getId().equals(ETiendas.JUSTO_Y_BUENO.getId())) {
-
-
-                        ImageView tiendaJustoBueno = root.findViewById(R.id.tiendaJustoBueno);
-                        tiendaJustoBueno.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (tienda.getId().equals(ETiendas.EXITO_EXPRESS.getId())) {
-
-
-                        ImageView tiendaExitoExpress = root.findViewById(R.id.tiendaExitoExpress);
-                        tiendaExitoExpress.setVisibility(View.VISIBLE);
-
-                    }
-
-                    if (tienda.getId().equals(ETiendas.D_UNO.getId())) {
-
-
-                        ImageView tiendaD1 = root.findViewById(R.id.tiendaD1);
-                        tiendaD1.setVisibility(View.VISIBLE);
-                    }
-
-                    if (tienda.getId().equals(ETiendas.ALTOQUE.getId())) {
-
-
-                        ImageView tiendaAltoque = root.findViewById(R.id.tiendaAltoque);
-                        tiendaAltoque.setVisibility(View.VISIBLE);
-
-                    }
+                if (tienda.getId().equals(ETiendas.ALTOQUE.getId())) {
+                    ImageView tiendaAltoque = root.findViewById(R.id.tiendaAltoque);
+                    tiendaAltoque.setVisibility(View.VISIBLE);
                 }
             }
+
         } else {
             ConstraintLayout tiendasConvivencia = root.findViewById(R.id.tiendasconvivencia);
             tiendasConvivencia.setVisibility(View.GONE);
@@ -442,138 +434,87 @@ public class EstacionesServiciosFragment extends Fragment {
         if (estaciones.getSoat() != null) {
 
             if (estaciones.getSoat().getId().equals(ESoat.ALLIANZ.getId())) {
-
-
                 ImageView soatAllianz = root.findViewById(R.id.soatAllianz);
                 soatAllianz.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.AXA_COLPATRIA.getId())) {
-
-
                 ImageView soatAxa = root.findViewById(R.id.soatAxaColpatria);
                 soatAxa.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.LIBERTY_SEGUROS.getId())) {
-
-
                 ImageView soatLiberty = root.findViewById(R.id.soatLibertySeguros);
                 soatLiberty.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.MAPRE_SEGUROS.getId())) {
-
-
                 ImageView soatMapfre = root.findViewById(R.id.soatMapreSeguros);
                 soatMapfre.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.MUNDIAL_DE_SEGUROS.getId())) {
-
-
                 ImageView soatMundial = root.findViewById(R.id.soatMundialDeSeguros);
                 soatMundial.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.SEGUROS_BOLIVAR.getId())) {
-
-
                 ImageView soatBolivar = root.findViewById(R.id.soatSegurosBolivar);
                 soatBolivar.setVisibility(View.VISIBLE);
             }
 
             if (estaciones.getSoat().getId().equals(ESoat.SEGUROS_DEL_ESTADO.getId())) {
-
-
                 ImageView soatEstado = root.findViewById(R.id.soatSegurosEstado);
                 soatEstado.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.SEGUROS_EXITO.getId())) {
-
-
                 ImageView soatExito = root.findViewById(R.id.soatSegurosExito);
                 soatExito.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.SEGUROS_FALABELLA.getId())) {
-
-
                 ImageView soatFalabella = root.findViewById(R.id.soatSegurosFalaBella);
                 soatFalabella.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.SEGUROS_LA_EQUIDAD.getId())) {
-
-
                 ImageView soatEquidad = root.findViewById(R.id.soatSegurosEquidad);
                 soatEquidad.setVisibility(View.VISIBLE);
             }
-
             if (estaciones.getSoat().getId().equals(ESoat.SURA_SEGUROS.getId())) {
-
-
                 ImageView soatSura = root.findViewById(R.id.soatSuraSeguros);
                 soatSura.setVisibility(View.VISIBLE);
             }
-
         } else {
             ConstraintLayout soat = root.findViewById(R.id.soat);
             soat.setVisibility(View.GONE);
         }
-
     }
 
     private void restaurantes(View root) {
 
-        if (estaciones.getListRestaurantes() != null) {
+        if (estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
             ImageView restaurante = root.findViewById(R.id.estacionRestaurante);
             restaurante.setVisibility(View.VISIBLE);
-
         } else {
-
             ConstraintLayout restaurante = root.findViewById(R.id.restautantes);
             restaurante.setVisibility(View.GONE);
-
         }
-
     }
 
     private void hotel(View root) {
-
-        if (estaciones.getListHoteles() != null) {
+        if (estaciones.getListHoteles() != null && estaciones.getListHoteles().size() > 0) {
             ImageView hotel = root.findViewById(R.id.estacionHotel);
             hotel.setVisibility(View.VISIBLE);
         } else {
-
             ConstraintLayout restaurante = root.findViewById(R.id.hoteles);
             restaurante.setVisibility(View.GONE);
-
         }
-
     }
 
 
     private void bano(View root) {
 
-        if (estaciones.getTieneBanios() != null) {
-            if (estaciones.getTieneBanios()) {
-                ImageView hotel = root.findViewById(R.id.estacionbanios);
-                hotel.setVisibility(View.VISIBLE);
-            } else {
-
-                ConstraintLayout bano = root.findViewById(R.id.banios);
-                bano.setVisibility(View.GONE);
-
-            }
+        if (estaciones.getTieneBanios() != null && estaciones.getTieneBanios()) {
+            ImageView hotel = root.findViewById(R.id.estacionbanios);
+            hotel.setVisibility(View.VISIBLE);
         } else {
-
             ConstraintLayout bano = root.findViewById(R.id.banios);
             bano.setVisibility(View.GONE);
-
         }
-
     }
 
 
@@ -584,18 +525,13 @@ public class EstacionesServiciosFragment extends Fragment {
                 ImageView lubricantes = root.findViewById(R.id.estacionLubricantes);
                 lubricantes.setVisibility(View.VISIBLE);
             } else {
-
                 ConstraintLayout lubricantes = root.findViewById(R.id.lubricantes);
                 lubricantes.setVisibility(View.GONE);
-
             }
         } else {
-
             ConstraintLayout lubricantes = root.findViewById(R.id.lubricantes);
             lubricantes.setVisibility(View.GONE);
-
         }
-
     }
 
     private void llanteria(View root) {
@@ -624,10 +560,8 @@ public class EstacionesServiciosFragment extends Fragment {
             } else {
                 ConstraintLayout lavadero = root.findViewById(R.id.lavaderos);
                 lavadero.setVisibility(View.GONE);
-
             }
         } else {
-
             ConstraintLayout lavadero = root.findViewById(R.id.lavaderos);
             lavadero.setVisibility(View.GONE);
         }

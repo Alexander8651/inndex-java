@@ -19,7 +19,8 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/nombreCorriente"
@@ -39,12 +40,12 @@
                     tools:text="$8.740" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/nombreExtra"
@@ -64,14 +65,14 @@
                     tools:text="$8.740" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/DIESEL"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/nombreDiesel"
@@ -91,14 +92,14 @@
                     tools:text="$8.740" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/GNV"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/nombreGNV"
@@ -123,6 +124,7 @@
     </HorizontalScrollView>
 
     <TextView
+        android:id="@+id/tv_estacion_servicios_precios_actualizados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Precios Actualizados hace 2 dias"

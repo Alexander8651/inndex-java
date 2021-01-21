@@ -20,7 +20,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -174,8 +173,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public LinearLayout layButtonsStationSelected;
     @BindView(R.id.lay_lista)
     public LinearLayout layLista;
-    //@BindView(R.id.lay_btn_comprar_aqui)
-    //public LinearLayout layBtnComprarAqui;
+    @BindView(R.id.lay_btn_navegar)
+    public RelativeLayout layBtnNavegar;
     @BindView(R.id.lay_btn_ver_servicios)
     public RelativeLayout layBtnVerServicios;
 
@@ -693,7 +692,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 layMenuInferior.setVisibility(View.VISIBLE);
                 layBtnReclamarAhora.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
-
+                layBtnVerServicios.setVisibility(View.GONE);
+                layBtnNavegar.setVisibility(View.GONE);
                 break;
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
@@ -709,6 +709,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fabUbicacion.hide();
                 layLista.setVisibility(View.GONE);
                 tvToolbarNombreEstacion.setText(getText(R.string.filtros));
+                layBtnVerServicios.setVisibility(View.VISIBLE);
                 break;
 
             case STORE_CLICKED:
@@ -764,20 +765,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (response != null && response.isSuccessful()) {
 
                     Estaciones estResponse = response.body();
-
-                    if (estResponse.getListEstacionCombustibles() == null || estResponse.getListEstacionCombustibles().size() == 0) {
-                        Toast.makeText(MainActivity.this, "Estación no cuenta con información de combustibles.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
                     miFragment = new EstacionesServiciosFragment(MainActivity.this, light);
                     viewMap.setVisibility(View.GONE);
+                    LatLng myPosition = new LatLng(inndexLocationService.getMyLocation().getLatitude(),
+                            inndexLocationService.getMyLocation().getLongitude());
+                    float distancia = Constantes.getDistance(myPosition, estResponse.getCoordenadas());
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(Constantes.ESTACION_SELECCOINADA_KEY, estResponse);
+                    bundle.putFloat("distancia", distancia);
                     miFragment.setArguments(bundle);
                     verServiciosButtonClicked = true;
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     btnMenu.hide();
+                    layBtnVerServicios.setVisibility(View.GONE);
+                    layBtnNavegar.setVisibility(View.VISIBLE);
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
                 }
             }
@@ -785,9 +786,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<Estaciones> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
-                Log.e("ERROR", t.getLocalizedMessage());
-                Log.e("ERROR2", call.request().toString());
-                Log.e("ERROR3", call.request().headers().toString());
             }
         });
 

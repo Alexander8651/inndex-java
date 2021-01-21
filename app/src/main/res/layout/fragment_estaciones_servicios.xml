@@ -29,14 +29,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_alignParentBottom="true"
-                    android:alpha="0.8"
+                    android:alpha="0.6"
                     android:background="@android:color/black" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
+                    android:layout_alignParentBottom="true">
 
                     <TextView
                         android:id="@+id/marcaBomba"
@@ -49,28 +48,51 @@
 
                     <TextView
                         android:id="@+id/nombreBomba"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/marcaBomba"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="30dp"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
                         android:textSize="22sp"
                         tools:text="EDS la esperanza" />
 
-                </LinearLayout>
+                    <CheckBox
+                        android:id="@+id/cb_estacion_servicios_favorita"
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/favourite_estacion_selector" />
+
+                    <ImageView
+                        android:id="@+id/img_menu_estacion_servicios"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/ic_more_horiz"
+                        app:tint="@color/white" />
+                </RelativeLayout>
+
 
                 <RelativeLayout
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/botonback">
 
                     <ImageView
                         android:id="@+id/botonbackdetallebomba"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/ic_baseline_arrow_back_24"/>
+                        android:src="@drawable/ic_baseline_arrow_back_24" />
 
                 </RelativeLayout>
 
@@ -85,8 +107,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
@@ -98,33 +120,33 @@
 
                     <TextView
                         android:id="@+id/direccionBomba"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:textAlignment="center"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20sp"
-                        tools:text="Cl. 22 # 68d-20" />
+                        android:textSize="20sp" />
 
                     <TextView
-                        android:layout_toStartOf="@id/estaciones_servicios_route"
                         android:id="@+id/tv_estacion_servicios_distancia"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="3dp"
+                        android:layout_toStartOf="@id/estaciones_servicios_route"
                         android:text="1.1 Km"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="20sp" />
 
                     <ImageButton
                         android:id="@+id/estaciones_servicios_route"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginTop="2dp"
                         android:background="@drawable/circular_button_shape"
                         android:src="@drawable/direccion48"
-                        app:tint="@android:color/black"
-                        android:layout_alignParentEnd="true"/>
+                        app:tint="@android:color/black" />
 
                     <!--Button
                         android:layout_width="50dp"
@@ -143,6 +165,7 @@
                     android:background="@color/colorPrimary" />
 
                 <include
+                    android:id="@+id/lay_combustibles"
                     layout="@layout/combustibles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -152,49 +175,74 @@
                     layout="@layout/horariosycontactos"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="4dp"/>
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="15dp"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorPrimary" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:layout_marginTop="4dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="15dp">
+
+                    <com.idlestar.ratingstar.RatingStarView
+                        android:id="@+id/rat_bar_estacion_servicios_calificacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="4dp"
+                        android:paddingLeft="0dp"
+                        android:paddingTop="2dp"
+                        app:rsv_starBackgroundColor="#E8E8E8"
+                        android:paddingRight="0dp"
+                        app:rsv_cornerRadius="1dp"
+                        app:rsv_drawStrokeForEmptyStar="false"
+                        app:rsv_drawStrokeForHalfStar="true"
+                        app:rsv_enableSelectRating="true"
+                        app:rsv_onlyHalfStar="true"
+                        app:rsv_rating="1"
+                        app:rsv_starForegroundColor="#FFFF00"
+                        app:rsv_starMargin="12dp"
+                        app:rsv_starNum="5"
+                        app:rsv_starThickness="0.6"
+                        app:rsv_strokeColor="#FFFFFF"
+                        app:rsv_strokeWidth="1dp"
+                        android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
+                        android:layout_marginStart="5dp"/>
+
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tv_estacion_servicios_calificacion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.3"
-                        android:textSize="24dp"
+                        android:textSize="24sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tv_estacion_servicios_ver_opiniones"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_estacion_servicios_calificacion"
                         android:text="Ver opiniones"
                         android:textColor="@color/azul_texto_enlace"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        android:textSize="20dp" />
 
                     <TextView
+                        android:id="@+id/tv_estacion_servicios_calificar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginRight="14dp"
                         android:text="Calificar"
                         android:textColor="@color/azul_texto_enlace"
-                        android:textSize="20dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="20dp" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"

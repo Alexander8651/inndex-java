@@ -213,4 +213,26 @@
     <!-- PLACEHOLDERS -->
     <string name="precio_combustible_placeholder">$ %1$d</string>
 
+
+    <string name="pais">Pais</string>
+    <string name="cel">319 461 7069</string>
+    <string name="celular">Celular</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
+    <string name="tvModFecNacimiento">Fecha de nacimiento</string>
+    <string name="sexo">Sexo</string>
+    <string name="tvMasculino">Masculino</string>
+    <string name="tvFemenino">Femenino</string>
+    <string name="etPassword">12345678</string>
+    <string name="tvContrasena">Contraseña</string>
+    <string name="informacion_personal">Información personal</string>
+    <string name="privacidad">Privacidad</string>
+    <string name="seguridad">Seguridad</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="btn_guardar_cambios">Guardar Cambios</string>
+    <string name="hint_contrasena_actual">Contraseña actual</string>
+    <string name="hint_contrasena_nueva">Contraseña nueva</string>
+    <string name="hint_conf_contrasena_nueva">Confirmar contraseña nueva</string>
+    <string name="navegar">Navegar</string>
+
+
 </resources>

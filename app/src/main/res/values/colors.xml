@@ -15,5 +15,6 @@
     <color name="fondo_mapa">#3392949e</color>
     <color name="fondo_menu_inferior_inicio">#F3F3F3</color>
     <color name="sombra">#64000000</color>
+    <color name="sombra_btn_back">#94000000</color>
     <color name="azul_texto_enlace">#0000FF</color>
 </resources>
