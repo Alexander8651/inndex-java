@@ -18,6 +18,11 @@ import java.util.UUID;
 public class Constantes {
 
     public static final String BASE_URL = "http://inndexco.com:8085/api/";
+
+    //FORESQUARE
+    public static final String FORESQUARE_CLIENT_ID = "JBTWYW5ECKIM0VH5GHYFAMRKXD320PHVV33L5ELFILGMJZFH";
+    public static final String FORESQUARE_CLIENT_SECRET = "QXD3QHZ5OIA2EYKV43HCDZWZXH3YWUIGNHPCQFOPEKYCWKWM";
+
     //USUARIO
     public static final String POST_LOGIN_USER = "users/postLogin/";
     public static final String POST_REGISTER_USER = "users/postRegistrar";
