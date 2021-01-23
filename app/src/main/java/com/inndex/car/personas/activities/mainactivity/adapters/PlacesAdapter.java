@@ -49,6 +49,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
 
         holder.direccion.setText(placeFourSquare.getLocation().getAdrres());
 
+        
+
         //todo
         holder.itemView.setOnClickListener(v ->{
             searchView.setQuery(placeFourSquare.getName(), false);
