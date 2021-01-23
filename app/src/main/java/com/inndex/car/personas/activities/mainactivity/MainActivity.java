@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -889,6 +890,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onClose() {
 
         recycler.setVisibility(View.GONE);
+
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                buscarlugar.setFocusable(true);
+                buscarlugar.setIconified(false);
+                buscarlugar.clearFocus();
+
+            };
+        }, 10);
 
         return false;
     }
