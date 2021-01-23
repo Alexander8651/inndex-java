@@ -22,11 +22,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
     ArrayList<LocationResposePlaceFourSquare> places;
     Activity activity;
     SearchView searchView;
+    RecyclerView recyclerView;
 
-    public PlacesAdapter(ArrayList<LocationResposePlaceFourSquare> places, Activity activity, SearchView searchView) {
+    public PlacesAdapter(ArrayList<LocationResposePlaceFourSquare> places, Activity activity, SearchView searchView, RecyclerView recyclerView) {
         this.places = places;
         this.activity = activity;
         this.searchView = searchView;
+        this.recyclerView = recyclerView;
     }
 
     public PlacesAdapter() {
@@ -49,11 +51,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
 
         holder.direccion.setText(placeFourSquare.getLocation().getAdrres());
 
-        
+
 
         //todo
         holder.itemView.setOnClickListener(v ->{
             searchView.setQuery(placeFourSquare.getName(), false);
+            recyclerView.setVisibility(View.GONE);
 
         });
 

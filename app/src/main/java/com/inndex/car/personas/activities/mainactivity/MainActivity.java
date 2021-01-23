@@ -877,7 +877,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public PlacesAdapter crearAdaptador(ArrayList<LocationResposePlaceFourSquare> myPlaces) {
 
-        return new PlacesAdapter(myPlaces, this, buscarlugar);
+        return new PlacesAdapter(myPlaces, this, buscarlugar, recycler);
     }
 
     @Override

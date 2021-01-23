@@ -44,11 +44,6 @@ public class Presentador implements IPresentador {
 
     ArrayList<LocationResposePlaceFourSquare> miPlaces;
 
-    public void setMiPlaces(ArrayList<LocationResposePlaceFourSquare> miPlaces) {
-        mostrarContactosRV();
-        this.miPlaces = miPlaces;
-    }
-
     public Presentador(IMainActivity iMainactivity, RecyclerView recycler) {
         this.iMainactivity = iMainactivity;
         this.recycler = recycler;
