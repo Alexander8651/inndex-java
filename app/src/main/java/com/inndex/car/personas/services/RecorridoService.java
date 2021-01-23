@@ -3,7 +3,7 @@ package com.inndex.car.personas.services;
 import android.location.Location;
 import android.widget.Toast;
 
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Recorrido;
 import com.inndex.car.personas.model.Tanqueadas;

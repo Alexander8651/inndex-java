@@ -20,6 +20,8 @@ android {
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -35,8 +37,15 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
+
+
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+
+
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'me.abhinay.input:currency-edittext:1.1'
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
@@ -50,7 +59,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.github.everhad:AndroidRatingStar:v1.0.4'
     implementation 'com.google.guava:guava:27.0.1-android'
-    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+
     implementation 'com.google.maps.android:android-maps-utils:2.0.3'
     implementation 'com.jakewharton:butterknife:10.2.3'
     implementation 'com.hbb20:ccp:2.3.1'

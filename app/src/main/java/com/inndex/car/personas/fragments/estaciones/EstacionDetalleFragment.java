@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.utils.Constantes;
 

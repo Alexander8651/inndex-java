@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.adapter.RecorridosDataAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Recorrido;

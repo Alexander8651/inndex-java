@@ -1,4 +1,4 @@
-package com.inndex.car.personas.activities;
+package com.inndex.car.personas.activities.mainactivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -43,6 +46,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,6 +58,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.activities.mainactivity.adapters.PlacesAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.InicioFragment;
 import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
@@ -71,6 +76,7 @@ import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Vehiculo;
 import com.inndex.car.personas.places.EstacionesPlaces;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
+import com.inndex.car.personas.retrofit.responseapifoursquare.LocationResposePlaceFourSquare;
 import com.inndex.car.personas.services.InndexLocationService;
 import com.inndex.car.personas.services.MapService;
 import com.inndex.car.personas.services.RecorridoService;
@@ -82,6 +88,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
@@ -96,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         OnMapReadyCallback, SetArrayValuesForInndex, InicioFragment.OnFragmentInteractionListener,
         HistorialTabs.OnFragmentInteractionListener, ConfiguracionTabs.OnFragmentInteractionListener,
         IngresadoFragment.OnFragmentInteractionListener, NuevoVehiculo.OnFragmentInteractionListener,
-        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener {
+        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener, IMainActivity, SearchView.OnCloseListener {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -189,13 +196,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public RelativeLayout layBtnConfirmarCompra;
     private BottomSheetBehavior mBottomSheetBehavior;
 
+    private Presentador iPresentador;
+    SearchView buscarlugar;
+    private RecyclerView recycler;
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
+        recycler = (RecyclerView) findViewById(R.id.rv_places);
+        iPresentador = new Presentador(this, recycler);
+        buscarlugar =  findViewById(R.id.buscar_lugar);
+
+
+        buscarlugar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                iPresentador.getPlacesNear(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.length() > 3){
+                    iPresentador.getPlacesNear(newText);
+                }
+                return false;
+            }
+        });
+
+        buscarlugar.setOnCloseListener(this);
+
+
+
+
+
+
+
+
 
         //getWindow().setNavigationBarColor(Color.BLACK);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -825,9 +868,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @OnClick(R.id.fab_ubicacion)
-    public void clickUbicacion() {
-        this.mapService.mostrarUbicacion();
+
+    @Override
+    public PlacesAdapter crearAdaptador(ArrayList<LocationResposePlaceFourSquare> myPlaces) {
+
+        return new PlacesAdapter(myPlaces, this);
     }
 
+    @Override
+    public void inicializarAdaptadorRV(PlacesAdapter adaptador) {
+        recycler.setAdapter(adaptador);
+
+    }
+
+    @Override
+    public boolean onClose() {
+
+        recycler.setVisibility(View.GONE);
+
+        return false;
+    }
 }
