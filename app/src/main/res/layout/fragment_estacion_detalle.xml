@@ -69,7 +69,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_more_horiz" />
+                android:src="@drawable/ic_more_horiz_servicios" />
 
         </RelativeLayout>
 
@@ -316,8 +316,8 @@
                 app:rsv_enableSelectRating="true"
                 app:rsv_onlyHalfStar="true"
                 app:rsv_rating="1"
-                app:rsv_starBackgroundColor="#E8E8E8"
-                app:rsv_starForegroundColor="#FFFF00"
+                app:rsv_starBackgroundColor="@color/gray_star_unchecked"
+                app:rsv_starForegroundColor="@color/yellow_star_checked"
                 app:rsv_starMargin="12dp"
                 app:rsv_starNum="5"
                 app:rsv_starThickness="0.6"

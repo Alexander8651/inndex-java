@@ -48,11 +48,12 @@
 
                     <TextView
                         android:id="@+id/nombreBomba"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/marcaBomba"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
                         android:textSize="22sp"
@@ -71,20 +72,17 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:src="@drawable/ic_more_horiz"
+                        android:src="@drawable/ic_more_horiz_servicios"
                         app:tint="@color/white" />
                 </RelativeLayout>
-
 
                 <RelativeLayout
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/botonback">
 
                     <ImageView
@@ -134,7 +132,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="3dp"
                         android:layout_toStartOf="@id/estaciones_servicios_route"
-                        android:text="1.1 Km"
                         android:textColor="@android:color/black"
                         android:textSize="20sp" />
 
@@ -146,7 +143,8 @@
                         android:layout_marginTop="2dp"
                         android:background="@drawable/circular_button_shape"
                         android:src="@drawable/direccion48"
-                        app:tint="@android:color/black" />
+                        app:tint="@android:color/black"
+                        android:layout_centerVertical="true"/>
 
                     <!--Button
                         android:layout_width="50dp"
@@ -169,6 +167,11 @@
                     layout="@layout/combustibles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
 
                 <include
                     android:id="@+id/horariosycontacto"
@@ -205,8 +208,8 @@
                         app:rsv_enableSelectRating="true"
                         app:rsv_onlyHalfStar="true"
                         app:rsv_rating="1"
-                        app:rsv_starBackgroundColor="#E8E8E8"
-                        app:rsv_starForegroundColor="#FFFF00"
+                        app:rsv_starBackgroundColor="@color/gray_star_unchecked"
+                        app:rsv_starForegroundColor="@color/yellow_star_checked"
                         app:rsv_starMargin="12dp"
                         app:rsv_starNum="5"
                         app:rsv_starThickness="0.6"

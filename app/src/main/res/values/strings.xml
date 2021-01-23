@@ -233,6 +233,7 @@
     <string name="hint_contrasena_nueva">Contraseña nueva</string>
     <string name="hint_conf_contrasena_nueva">Confirmar contraseña nueva</string>
     <string name="navegar">Navegar</string>
+    <string name="cajeros_electr_nicos">Cajeros electrónicos</string>
 
 
 </resources>

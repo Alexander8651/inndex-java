@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -64,7 +65,8 @@ public class EstacionesServiciosFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             estaciones = getArguments().getParcelable(Constantes.ESTACION_SELECCOINADA_KEY);
-            distancia = getArguments().getFloat("distancia");
+            this.distancia = getArguments().getFloat("distancia");
+            Toast.makeText(mainActivity, "Distancia " + distancia, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -83,11 +85,11 @@ public class EstacionesServiciosFragment extends Fragment {
             mainActivity.clickHome();
         });
 
-        if(distancia < 1000) {
-            tvDistancia.setText(String.format(Locale.ENGLISH,"%.2f m", distancia));
+        if (distancia < 1000) {
+            tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
         } else {
             distancia = distancia / 1000;
-            tvDistancia.setText(String.format(Locale.ENGLISH,"%.2f km", distancia));
+            tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f km", distancia));
         }
 
         final TextView titulocajeros = root.findViewById(R.id.titulocajero);
@@ -108,7 +110,7 @@ public class EstacionesServiciosFragment extends Fragment {
         final TextView tvCalificacion = root.findViewById(R.id.tv_estacion_servicios_calificacion);
         RatingStarView rsv_rating = root.findViewById(R.id.rat_bar_estacion_servicios_calificacion);
         //rsv_rating.setRating(1.5f);
-        menuBomba.setOnClickListener(v ->{
+        menuBomba.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(requireContext(), menuBomba);
             popupMenu.getMenuInflater().inflate(R.menu.menu_estacion_servicios, popupMenu.getMenu());
             popupMenu.show();
@@ -136,7 +138,6 @@ public class EstacionesServiciosFragment extends Fragment {
         direccion.setText(estaciones.getDireccion());
         marca.setText(estaciones.getMarca());
         nombre.setText(estaciones.getNombre());
-        tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
         combustibles(root);
         horaciosycontacto(root);
         cajeros(root);
@@ -365,12 +366,6 @@ public class EstacionesServiciosFragment extends Fragment {
                     puntoEfecty.setVisibility(View.VISIBLE);
                 }
 
-                if (puntoPago.getId().equals(EPuntoPago.PAGA_TODO.getId())) {
-                    ImageView puntoPagatodo = root.findViewById(R.id.puntoPagoPagaTodo);
-                    puntoPagatodo.setVisibility(View.VISIBLE);
-
-                }
-
                 if (puntoPago.getId().equals(EPuntoPago.SU_RED.getId())) {
                     ImageView puntoSuRed = root.findViewById(R.id.puntoPagoSuRed);
                     puntoSuRed.setVisibility(View.VISIBLE);
@@ -380,7 +375,6 @@ public class EstacionesServiciosFragment extends Fragment {
             ConstraintLayout puntosPagos = root.findViewById(R.id.puntospago);
             puntosPagos.setVisibility(View.GONE);
         }
-
     }
 
     private void tiendasConvivencia(View root) {

@@ -3,5 +3,5 @@
     <item android:state_checked="true"
         android:drawable="@drawable/ic_baseline_star_24" /> <!-- checked -->
     <item android:state_checked="false"
-        android:drawable="@drawable/ic_baseline_star_border_24" /> <!-- unchecked-->
+        android:drawable="@drawable/ic_star_border_servicios" /> <!-- unchecked-->
 </selector>
