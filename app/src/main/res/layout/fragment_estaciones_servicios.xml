@@ -176,7 +176,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="15dp"/>
+                    android:layout_marginBottom="15dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -193,10 +193,11 @@
                         android:id="@+id/rat_bar_estacion_servicios_calificacion"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="4dp"
+                        android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
                         android:paddingLeft="0dp"
                         android:paddingTop="2dp"
-                        app:rsv_starBackgroundColor="#E8E8E8"
                         android:paddingRight="0dp"
                         app:rsv_cornerRadius="1dp"
                         app:rsv_drawStrokeForEmptyStar="false"
@@ -204,14 +205,13 @@
                         app:rsv_enableSelectRating="true"
                         app:rsv_onlyHalfStar="true"
                         app:rsv_rating="1"
+                        app:rsv_starBackgroundColor="#E8E8E8"
                         app:rsv_starForegroundColor="#FFFF00"
                         app:rsv_starMargin="12dp"
                         app:rsv_starNum="5"
                         app:rsv_starThickness="0.6"
                         app:rsv_strokeColor="#FFFFFF"
-                        app:rsv_strokeWidth="1dp"
-                        android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
-                        android:layout_marginStart="5dp"/>
+                        app:rsv_strokeWidth="1dp" />
 
 
                     <TextView

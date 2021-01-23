@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
     android:layout_marginBottom="50dp"
-    tools:context=".fragments.estaciones.EstacionDetalleFragment"
-    >
+    android:focusable="true"
+    tools:context=".fragments.estaciones.EstacionDetalleFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,12 +20,13 @@
 
             <ImageView
                 android:id="@+id/img_drag_estacion_detalle"
-                android:layout_width="160dp"
-                android:layout_height="16dp"
+                android:layout_width="50dp"
+                android:layout_height="5dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/aceptar"
-                android:src="@drawable/horizontal_drag" />
+                android:cropToPadding="true"
+                android:src="@drawable/barra" />
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_marca"
@@ -63,12 +64,12 @@
                 android:button="@drawable/favourite_estacion_selector" />
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
-                android:src="@drawable/more_horiz_24" />
+                android:src="@drawable/ic_more_horiz" />
 
         </RelativeLayout>
 
@@ -108,8 +109,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="9dp"
                 android:background="@drawable/circular_button_shape"
                 android:contentDescription="@string/aceptar"
                 android:drawableTop="@drawable/direccion48"
@@ -300,13 +300,29 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="36sp" />
 
-            <RatingBar
+            <com.idlestar.ratingstar.RatingStarView
                 android:id="@+id/rtb_estacion_detalle_calificacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/tv_estacion_detalle_calificacion" />
-
+                android:layout_width="180dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/tv_estacion_detalle_calificacion"
+                android:paddingLeft="0dp"
+                android:paddingTop="2dp"
+                android:paddingRight="0dp"
+                app:rsv_cornerRadius="1dp"
+                app:rsv_drawStrokeForEmptyStar="false"
+                app:rsv_drawStrokeForHalfStar="true"
+                app:rsv_enableSelectRating="true"
+                app:rsv_onlyHalfStar="true"
+                app:rsv_rating="1"
+                app:rsv_starBackgroundColor="#E8E8E8"
+                app:rsv_starForegroundColor="#FFFF00"
+                app:rsv_starMargin="12dp"
+                app:rsv_starNum="5"
+                app:rsv_starThickness="0.6"
+                app:rsv_strokeColor="#FFFFFF"
+                app:rsv_strokeWidth="1dp" />
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_ver_opiniones"
@@ -317,7 +333,6 @@
                 android:text="Ver opiniones"
                 android:textColor="@color/azul_texto_enlace"
                 android:textSize="20sp" />
-
 
             <TextView
                 android:id="@+id/tv_estacion_detalle_calificar"
