@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.idlestar.ratingstar.RatingStarView;
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.adapter.ExpLAdapter;
 import com.inndex.car.personas.enums.EBancos;
 import com.inndex.car.personas.enums.ECombustibles;

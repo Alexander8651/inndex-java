@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.MarcaCarros;

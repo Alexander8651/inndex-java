@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.ClusterManager;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.renderer.EstacionRenderer;
 import com.inndex.car.personas.rutas.DirectionFinder;

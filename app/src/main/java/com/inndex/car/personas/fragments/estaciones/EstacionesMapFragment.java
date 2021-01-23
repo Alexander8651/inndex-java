@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 
 
 public class EstacionesMapFragment extends Fragment {

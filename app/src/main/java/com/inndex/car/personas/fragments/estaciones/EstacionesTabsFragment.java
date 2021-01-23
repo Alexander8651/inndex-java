@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.MainActivity;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.adapter.SeccionesCombustibleAdapter;
 import com.inndex.car.personas.utils.Constantes;
 
