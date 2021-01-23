@@ -212,6 +212,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         iPresentador = new Presentador(this, recycler);
         buscarlugar =  findViewById(R.id.buscar_lugar);
 
+        buscarlugar.setOnCloseListener(this);
+        buscarlugar.setFocusable(true);
+        buscarlugar.setIconified(false);
+        buscarlugar.clearFocus();
+
 
         buscarlugar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -230,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        buscarlugar.setOnCloseListener(this);
 
 
 
