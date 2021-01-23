@@ -877,7 +877,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public PlacesAdapter crearAdaptador(ArrayList<LocationResposePlaceFourSquare> myPlaces) {
 
-        return new PlacesAdapter(myPlaces, this);
+        return new PlacesAdapter(myPlaces, this, buscarlugar);
     }
 
     @Override
@@ -897,7 +897,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buscarlugar.setFocusable(true);
                 buscarlugar.setIconified(false);
                 buscarlugar.clearFocus();
-
             };
         }, 10);
 

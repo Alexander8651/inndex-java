@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
@@ -20,13 +21,15 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
 
     ArrayList<LocationResposePlaceFourSquare> places;
     Activity activity;
+    SearchView searchView;
 
-    public PlacesAdapter() {
-    }
-
-    public PlacesAdapter(ArrayList<LocationResposePlaceFourSquare> places, Activity activity) {
+    public PlacesAdapter(ArrayList<LocationResposePlaceFourSquare> places, Activity activity, SearchView searchView) {
         this.places = places;
         this.activity = activity;
+        this.searchView = searchView;
+    }
+
+    public PlacesAdapter() {
     }
 
     @NonNull
@@ -45,6 +48,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
         holder.nombre.setText(placeFourSquare.getName());
 
         holder.direccion.setText(placeFourSquare.getLocation().getAdrres());
+
+        //todo
+        holder.itemView.setOnClickListener(v ->{
+            searchView.setQuery(placeFourSquare.getName(), false);
+
+        });
 
     }
 
