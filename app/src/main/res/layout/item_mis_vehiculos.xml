@@ -86,7 +86,7 @@
                 android:id="@+id/ivEdit_elim"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_more_horiz"
+                android:src="@drawable/ic_more_horiz_servicios"
                 android:layout_gravity="top"/>
 
             </LinearLayout>

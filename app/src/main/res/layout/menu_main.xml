@@ -148,7 +148,7 @@
         <!-- Indicaciones -->
         <RelativeLayout
             android:id="@+id/lay_btn_indicaciones"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/width_buttons_indicaciones"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="10dp"
@@ -206,7 +206,7 @@
         <!-- Navegar -->
         <RelativeLayout
             android:id="@+id/lay_btn_navegar"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/width_buttons_indicaciones"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -220,7 +220,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
                 android:src="@drawable/navegacion_blanco" />
 
             <TextView

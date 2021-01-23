@@ -13,9 +13,9 @@
             android:id="@+id/titulocajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold"
-            android:text="Cajeros electronicos"/>
+            android:text="@string/cajeros_electr_nicos"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"

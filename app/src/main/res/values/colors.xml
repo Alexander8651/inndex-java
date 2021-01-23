@@ -6,9 +6,13 @@
     <color name="white">#FFFFFF</color>
     <color name="textSecond">#000000</color>
     <color name="star">#FFFD38</color>
+    <color name="yellow_star_checked">#FFC90E</color>
+    <color name="gray_star_unchecked">#D1D1D1</color>
     <color name="gris">#CCCCCC</color>
     <color name="gris_islas">#999999</color>
     <color name="gris_menu_main">#666666</color>
+    <color name="gris_menu_tres_puntos_servicios">#EFEFEF</color>
+    <color name="gris_menu_tres_puntos_detalle">#7D7D7D</color>
     <color name="valorToTal">#CCCCCC</color>
     <color name="yellow_soft">#FFFECE</color>
     <color name="blue">#4A86E8</color>
