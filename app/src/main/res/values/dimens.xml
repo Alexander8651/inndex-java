@@ -52,7 +52,8 @@
     <dimen name="margin_top_card_isla">16dp</dimen>
 
     <!-- Estacion servicios -->
-    <dimen name="text_titulos_secciones">24sp</dimen>
+    <dimen name="text_titulos_secciones">20sp</dimen>
+    <dimen name="text_combustibles_precios">15sp</dimen>
     <dimen name="size_img_secciones">80dp</dimen>
     <dimen name="margin_img_secciones">20dp</dimen>
 

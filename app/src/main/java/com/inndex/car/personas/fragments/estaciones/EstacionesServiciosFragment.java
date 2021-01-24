@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -69,7 +68,6 @@ public class EstacionesServiciosFragment extends Fragment {
         if (getArguments() != null) {
             estaciones = getArguments().getParcelable(Constantes.ESTACION_SELECCOINADA_KEY);
             this.distancia = getArguments().getFloat("distancia");
-            Toast.makeText(mainActivity, "Distancia " + distancia, Toast.LENGTH_SHORT).show();
         }
     }
 

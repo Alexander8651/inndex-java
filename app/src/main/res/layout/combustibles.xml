@@ -20,7 +20,6 @@
                 android:id="@+id/lay_corriente"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -30,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="Corriente" />
 
                 <TextView
@@ -39,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="$8.740" />
             </LinearLayout>
 
@@ -47,7 +46,6 @@
                 android:id="@+id/lay_extra"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -57,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="Extra" />
 
                 <TextView
@@ -66,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="$8.740" />
             </LinearLayout>
 
@@ -74,7 +72,6 @@
                 android:id="@+id/DIESEL"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -84,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="Extra" />
 
                 <TextView
@@ -93,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="$8.740" />
             </LinearLayout>
 
@@ -101,7 +98,6 @@
                 android:id="@+id/lay_bio_diesel"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -111,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="Extra" />
 
                 <TextView
@@ -120,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="$8.740" />
             </LinearLayout>
 
@@ -128,7 +124,6 @@
                 android:id="@+id/GNV"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -138,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="Extra" />
 
                 <TextView
@@ -147,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/text_combustibles_precios"
                     tools:text="$8.740" />
             </LinearLayout>
 
@@ -161,7 +156,7 @@
         android:layout_height="wrap_content"
         android:text="Precios Actualizados hace 2 dias"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="@dimen/text_combustibles_precios" />
 
     <View
         android:layout_width="match_parent"

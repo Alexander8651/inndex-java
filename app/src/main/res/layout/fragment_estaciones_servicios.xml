@@ -14,7 +14,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp">
+            android:layout_height="160dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -27,23 +27,23 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="70dp"
                     android:layout_alignParentBottom="true"
                     android:alpha="0.6"
                     android:background="@android:color/black" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="74dp"
                     android:layout_alignParentBottom="true">
 
                     <TextView
                         android:id="@+id/marcaBomba"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_centerHorizontal="true"
                         android:textColor="@color/colorAccent"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         tools:text="Terpel" />
 
                     <TextView
@@ -52,11 +52,11 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/marcaBomba"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginEnd="35dp"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         tools:text="EDS la esperanza" />
 
                     <CheckBox
@@ -81,8 +81,8 @@
                 <RelativeLayout
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="28dp"
                     android:background="@drawable/botonback">
 
                     <ImageView
@@ -118,12 +118,12 @@
 
                     <TextView
                         android:id="@+id/direccionBomba"
-                        android:layout_width="180dp"
+                        android:layout_width="220dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_estacion_servicios_distancia"
@@ -133,18 +133,18 @@
                         android:layout_marginEnd="3dp"
                         android:layout_toStartOf="@id/estaciones_servicios_route"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <ImageButton
                         android:id="@+id/estaciones_servicios_route"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginTop="2dp"
                         android:background="@drawable/circular_button_shape"
                         android:src="@drawable/direccion48"
-                        app:tint="@android:color/black"
-                        android:layout_centerVertical="true"/>
+                        app:tint="@android:color/black" />
 
                     <!--Button
                         android:layout_width="50dp"
@@ -167,28 +167,26 @@
                     layout="@layout/combustibles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal" />
 
                 <include
                     android:id="@+id/horariosycontacto"
                     layout="@layout/horariosycontactos"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="15dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="15dp">
 
                     <com.idlestar.ratingstar.RatingStarView
                         android:id="@+id/rat_bar_estacion_servicios_calificacion"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="5dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="12dp"
                         android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
                         android:paddingLeft="0dp"
                         android:paddingTop="2dp"
@@ -207,15 +205,12 @@
                         app:rsv_strokeColor="#FFFFFF"
                         app:rsv_strokeWidth="1dp" />
 
-
                     <TextView
                         android:id="@+id/tv_estacion_servicios_calificacion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.3"
-                        android:textSize="24sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:id="@+id/tv_estacion_servicios_ver_opiniones"
@@ -224,7 +219,7 @@
                         android:layout_below="@+id/tv_estacion_servicios_calificacion"
                         android:text="Ver opiniones"
                         android:textColor="@color/azul_texto_enlace"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/text_combustibles_precios" />
 
                     <TextView
                         android:id="@+id/tv_estacion_servicios_calificar"
@@ -234,7 +229,7 @@
                         android:layout_marginRight="14dp"
                         android:text="Calificar"
                         android:textColor="@color/azul_texto_enlace"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/text_combustibles_precios" />
 
                 </RelativeLayout>
 
