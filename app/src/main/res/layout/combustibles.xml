@@ -6,21 +6,23 @@
     android:orientation="vertical">
 
     <HorizontalScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/lay_corriente"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/nombreCorriente"
@@ -41,11 +43,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_extra"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/nombreExtra"
@@ -70,9 +74,9 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_weight="1">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/nombreDiesel"
@@ -93,13 +97,40 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_bio_diesel"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/nombre_bio_diesel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    tools:text="Extra" />
+
+                <TextView
+                    android:id="@+id/precio_bio_diesel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="30sp"
+                    tools:text="$8.740" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/GNV"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_weight="1">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/nombreGNV"
@@ -130,5 +161,11 @@
         android:text="Precios Actualizados hace 2 dias"
         android:textAlignment="center"
         android:textSize="20sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
 
 </LinearLayout>

@@ -166,12 +166,8 @@
                     android:id="@+id/lay_combustibles"
                     layout="@layout/combustibles"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"/>
 
                 <include
                     android:id="@+id/horariosycontacto"

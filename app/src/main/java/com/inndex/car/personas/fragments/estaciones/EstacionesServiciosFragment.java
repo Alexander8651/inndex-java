@@ -32,6 +32,7 @@ import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.utils.Constantes;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -43,10 +44,12 @@ public class EstacionesServiciosFragment extends Fragment {
     float distancia;
     private MainActivity mainActivity;
     private Typeface light;
+    private Typeface robotoRegular;
 
     public EstacionesServiciosFragment(MainActivity mainActivity, Typeface light) {
         this.mainActivity = mainActivity;
         this.light = light;
+        this.robotoRegular = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Regular.ttf");
     }
 
     public EstacionesServiciosFragment() {
@@ -121,16 +124,16 @@ public class EstacionesServiciosFragment extends Fragment {
         tvCalificacion.setTypeface(light);
 
         tvPreciosActualizados.setTypeface(light);
-        titulocajeros.setTypeface(light);
-        titulopuntopagos.setTypeface(light);
-        titulotiendaconvivencia.setTypeface(light);
-        titulosoat.setTypeface(light);
-        titulorestaurantes.setTypeface(light);
-        titulohoteles.setTypeface(light);
-        titulobanios.setTypeface(light);
-        titulolubricantes.setTypeface(light);
-        titulollanteria.setTypeface(light);
-        titulolavaderos.setTypeface(light);
+        titulocajeros.setTypeface(robotoRegular);
+        titulopuntopagos.setTypeface(robotoRegular);
+        titulotiendaconvivencia.setTypeface(robotoRegular);
+        titulosoat.setTypeface(robotoRegular);
+        titulorestaurantes.setTypeface(robotoRegular);
+        titulohoteles.setTypeface(robotoRegular);
+        titulobanios.setTypeface(robotoRegular);
+        titulolubricantes.setTypeface(robotoRegular);
+        titulollanteria.setTypeface(robotoRegular);
+        titulolavaderos.setTypeface(robotoRegular);
 
         direccion.setTypeface(light);
         tvDistancia.setTypeface(light);
@@ -163,11 +166,15 @@ public class EstacionesServiciosFragment extends Fragment {
                 TextView precioCombustible = null;
 
                 if (bomba.getCombustible().getId().equals(ECombustibles.CORRIENTE.getId())) {
+                    final LinearLayout corriente = root.findViewById(R.id.lay_corriente);
+                    corriente.setVisibility(View.VISIBLE);
                     nombreCombustible = root.findViewById(R.id.nombreCorriente);
                     precioCombustible = root.findViewById(R.id.precioCorriente);
                 }
 
                 if (bomba.getCombustible().getId().equals(ECombustibles.EXTRA.getId())) {
+                    final LinearLayout extra = root.findViewById(R.id.lay_extra);
+                    extra.setVisibility(View.VISIBLE);
                     nombreCombustible = root.findViewById(R.id.nombreExtra);
                     precioCombustible = root.findViewById(R.id.precioExtra);
                 }
@@ -179,19 +186,30 @@ public class EstacionesServiciosFragment extends Fragment {
                     precioCombustible = root.findViewById(R.id.precioDiesel);
                 }
 
-                if (bomba.getCombustible().getId().equals(ECombustibles.GNV.getId())) {
-                    final LinearLayout gnv = root.findViewById(R.id.GNV);
-                    gnv.setVisibility(View.VISIBLE);
-                    nombreCombustible = root.findViewById(R.id.nombreGNV);
-                    precioCombustible = root.findViewById(R.id.precioGNV);
+                if (bomba.getCombustible().getId().equals(ECombustibles.DIESEL.getId())) {
+                    final LinearLayout diesel = root.findViewById(R.id.DIESEL);
+                    diesel.setVisibility(View.VISIBLE);
+                    nombreCombustible = root.findViewById(R.id.nombreDiesel);
+                    precioCombustible = root.findViewById(R.id.precioDiesel);
+                }
 
+                if (bomba.getCombustible().getId().equals(ECombustibles.BIODIESEL.getId())) {
+                    final LinearLayout bioDiesel = root.findViewById(R.id.lay_bio_diesel);
+                    bioDiesel.setVisibility(View.VISIBLE);
+                    nombreCombustible = root.findViewById(R.id.nombre_bio_diesel);
+                    precioCombustible = root.findViewById(R.id.precio_bio_diesel);
                 }
 
                 if (nombreCombustible != null && precioCombustible != null) {
                     nombreCombustible.setTypeface(light);
                     precioCombustible.setTypeface(light);
                     nombreCombustible.setText(bomba.getCombustible().getNombre());
-                    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
+                    DecimalFormat formatter = new DecimalFormat("###,###");
+
+                    String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio().intValue()));
+
+                //    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
+                    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, sPrecio.replace(",",".")));
                 }
             }
         } else {

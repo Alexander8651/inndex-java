@@ -211,7 +211,7 @@
     <string name="administrar_mi_eds">Administrar mi EDS</string>
 
     <!-- PLACEHOLDERS -->
-    <string name="precio_combustible_placeholder">$ %1$d</string>
+    <string name="precio_combustible_placeholder">$ %1$s</string>
 
 
     <string name="pais">Pais</string>

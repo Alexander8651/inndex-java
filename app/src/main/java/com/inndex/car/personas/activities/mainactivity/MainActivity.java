@@ -21,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private EstacionesPlaces estacionesPlaces;
     private Fragment miFragment;
     private InicioFragment inicioFragment;
+    @BindView(R.id.linearCard)
+    public CardView cardSearchPlaces;
 
     public static MainActivity myInstance;
 
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recycler = (RecyclerView) findViewById(R.id.rv_places);
+        recycler = findViewById(R.id.rv_places);
         iPresentador = new Presentador(this, recycler);
         buscarlugar =  findViewById(R.id.buscar_lugar);
 
@@ -217,7 +218,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buscarlugar.setFocusable(true);
         buscarlugar.setIconified(false);
         buscarlugar.clearFocus();
-
 
         buscarlugar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -235,15 +235,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
-
-
-
-
-
-
-
-
 
         //getWindow().setNavigationBarColor(Color.BLACK);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -742,6 +733,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setVisibility(View.GONE);
                 layBtnVerServicios.setVisibility(View.GONE);
                 layBtnNavegar.setVisibility(View.GONE);
+                cardSearchPlaces.setVisibility(View.VISIBLE);
                 break;
             case EDS_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
@@ -758,8 +750,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 layLista.setVisibility(View.GONE);
                 tvToolbarNombreEstacion.setText(getText(R.string.filtros));
                 layBtnVerServicios.setVisibility(View.VISIBLE);
+                cardSearchPlaces.setVisibility(View.GONE);
                 break;
-
             case STORE_CLICKED:
                 imgBtnHome.setImageResource(R.drawable.home_gris);
                 imgBtnEds.setImageResource(R.drawable.eds_gris);
@@ -827,6 +819,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     btnMenu.hide();
                     layBtnVerServicios.setVisibility(View.GONE);
                     layBtnNavegar.setVisibility(View.VISIBLE);
+                    cardSearchPlaces.setVisibility(View.GONE);
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
                 }
             }
@@ -876,21 +870,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public PlacesAdapter crearAdaptador(ArrayList<LocationResposePlaceFourSquare> myPlaces) {
-
         return new PlacesAdapter(myPlaces, this, buscarlugar, recycler);
     }
 
     @Override
     public void inicializarAdaptadorRV(PlacesAdapter adaptador) {
         recycler.setAdapter(adaptador);
-
     }
 
     @Override
     public boolean onClose() {
 
         recycler.setVisibility(View.GONE);
-
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -899,7 +890,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buscarlugar.clearFocus();
             };
         }, 10);
-
         return false;
     }
 }
