@@ -32,8 +32,6 @@
                     android:layout_height="@dimen/size_img_secciones"
                     android:visibility="gone"
                     android:src="@drawable/hotel"/>
-
-
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -41,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="18dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/gray_separator_services"/>
 
     </LinearLayout>
 

@@ -16,11 +16,10 @@
         android:background="@drawable/background_menu_main"
         android:baselineAligned="false"
         android:elevation="2dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <!-- Menú Inferior -->
-
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -149,16 +148,11 @@
         <RelativeLayout
             android:id="@+id/lay_btn_indicaciones"
             android:layout_width="@dimen/width_buttons_indicaciones"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_buttons_indicaciones"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_buton_indications"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:visibility="gone">
+            android:background="@drawable/selector_buton_indications">
 
             <ImageView
                 android:layout_width="25dp"
@@ -166,6 +160,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="2dp"
                 android:src="@drawable/direccion_blanco" />
 
             <TextView
@@ -182,15 +177,16 @@
         <!-- Ver servicios  -->
         <RelativeLayout
             android:id="@+id/lay_btn_ver_servicios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/width_buttons_indicaciones"
+            android:layout_height="@dimen/height_buttons_indicaciones"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/selector_buton_buy_here"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -207,31 +203,26 @@
         <RelativeLayout
             android:id="@+id/lay_btn_navegar"
             android:layout_width="@dimen/width_buttons_indicaciones"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_buttons_indicaciones"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="@drawable/selector_buton_buy_here"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp">
+            android:background="@drawable/selector_buton_buy_here">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="20dp"
                 android:src="@drawable/navegacion_blanco" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="58dp"
                 android:text="@string/navegar"
                 android:textColor="@color/white"
-                android:textSize="22sp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="34dp"/>
+                android:textSize="22sp" />
 
         </RelativeLayout>
 

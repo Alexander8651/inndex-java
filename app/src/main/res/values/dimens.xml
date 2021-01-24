@@ -36,7 +36,8 @@
 
     <!-- Menu main -->
     <dimen name="margin_bottom_text">10dp</dimen>
-    <dimen name="width_buttons_indicaciones">162dp</dimen>
+    <dimen name="width_buttons_indicaciones">168dp</dimen>
+    <dimen name="height_buttons_indicaciones">46dp</dimen>
 
     <!-- Detalle estación fragment -->
     <dimen name="text_combustible_precio_titulo">16sp</dimen>

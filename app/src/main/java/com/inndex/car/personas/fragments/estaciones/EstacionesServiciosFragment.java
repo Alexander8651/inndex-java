@@ -142,7 +142,7 @@ public class EstacionesServiciosFragment extends Fragment {
         marca.setText(estaciones.getMarca());
         nombre.setText(estaciones.getNombre());
         combustibles(root);
-        horaciosycontacto(root);
+        horariosycontacto(root);
         cajeros(root);
         puntosPago(root);
         tiendasConvivencia(root);
@@ -217,7 +217,7 @@ public class EstacionesServiciosFragment extends Fragment {
         }
     }
 
-    private void horaciosycontacto(View root) {
+    private void horariosycontacto(View root) {
         ExpandableListView spin = root.findViewById(R.id.expanded_horarios);
         ArrayList<String> listCategorias = new ArrayList<>();
         Map<String, ArrayList<Horario>> mapChild = new HashMap<>();
