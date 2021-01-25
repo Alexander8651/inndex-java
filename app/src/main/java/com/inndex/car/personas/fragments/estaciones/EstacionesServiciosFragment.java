@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.idlestar.ratingstar.RatingStarView;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.adapter.ExpLAdapter;
@@ -94,6 +93,7 @@ public class EstacionesServiciosFragment extends Fragment {
         }
 
         final TextView titulocajeros = root.findViewById(R.id.titulocajero);
+        final TextView tituloCorresponsales = root.findViewById(R.id.titulo_corresponsales);
         final TextView titulopuntopagos = root.findViewById(R.id.titulopuntospago);
         final TextView titulotiendaconvivencia = root.findViewById(R.id.titulotiendaconvivencia);
         final TextView titulosoat = root.findViewById(R.id.titulosoat);
@@ -109,8 +109,6 @@ public class EstacionesServiciosFragment extends Fragment {
         final TextView tvVerOpiniones = root.findViewById(R.id.tv_estacion_servicios_ver_opiniones);
         final TextView tvCalificar = root.findViewById(R.id.tv_estacion_servicios_calificar);
         final TextView tvCalificacion = root.findViewById(R.id.tv_estacion_servicios_calificacion);
-        RatingStarView rsv_rating = root.findViewById(R.id.rat_bar_estacion_servicios_calificacion);
-        //rsv_rating.setRating(1.5f);
         menuBomba.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(requireContext(), menuBomba);
             popupMenu.getMenuInflater().inflate(R.menu.menu_estacion_servicios, popupMenu.getMenu());
@@ -121,8 +119,13 @@ public class EstacionesServiciosFragment extends Fragment {
         tvCalificar.setTypeface(light);
         tvCalificacion.setTypeface(light);
 
+        tvCalificacion.setText(String.format(Locale.ENGLISH, "%.1f", estaciones.getCalificacion()));
+        float cal = 3.8f;
+        //float cal =  (float)estaciones.getCalificacion()
+
         tvPreciosActualizados.setTypeface(light);
         titulocajeros.setTypeface(robotoRegular);
+        tituloCorresponsales.setTypeface(robotoRegular);
         titulopuntopagos.setTypeface(robotoRegular);
         titulotiendaconvivencia.setTypeface(robotoRegular);
         titulosoat.setTypeface(robotoRegular);
@@ -142,6 +145,7 @@ public class EstacionesServiciosFragment extends Fragment {
         combustibles(root);
         horariosycontacto(root);
         cajeros(root);
+        initCorresponsales(root);
         puntosPago(root);
         tiendasConvivencia(root);
         soat(root);
@@ -153,6 +157,7 @@ public class EstacionesServiciosFragment extends Fragment {
         lavaderos(root);
         return root;
     }
+
 
     private void combustibles(View root) {
 
@@ -206,8 +211,8 @@ public class EstacionesServiciosFragment extends Fragment {
 
                     String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio().intValue()));
 
-                //    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
-                    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, sPrecio.replace(",",".")));
+                    //    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
+                    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, sPrecio.replace(",", ".")));
                 }
             }
         } else {
@@ -247,119 +252,132 @@ public class EstacionesServiciosFragment extends Fragment {
     private void cajeros(View root) {
 
         if (estaciones.getListCajeros() != null && estaciones.getListCajeros().size() > 0) {
+            int counter = 0;
+            ImageView imgCajero = null;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
             for (Bancos cajero : estaciones.getListCajeros()) {
                 if (cajero.getId().equals(EBancos.ATH.getId())) {
-                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoAth);
-                    cajeroAth.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoAth);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.CITIBANK.getId())) {
-                    ImageView cajeroCITIBANK = root.findViewById(R.id.cajeroCitiBank);
-                    cajeroCITIBANK.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroCitiBank);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCOOMEVA.getId())) {
-                    ImageView cajeroBANCOOMEVA = root.findViewById(R.id.cajeroBancoomeva);
-                    cajeroBANCOOMEVA.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoomeva);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_AGRARIO_DE_COLOMBIA.getId())) {
-                    ImageView cajeroBANCO_AGRARIO_DE_COLOMBIA = root.findViewById(R.id.cajeroBancoAgrarioColombia);
-                    cajeroBANCO_AGRARIO_DE_COLOMBIA.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoAgrarioColombia);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCOLOMBIA.getId())) {
-                    ImageView cajeroBANCOLOMBIA = root.findViewById(R.id.cajeroBancolombia);
-                    cajeroBANCOLOMBIA.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancolombia);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_PROCREDIT.getId())) {
-                    ImageView cajeroBANCO_PROCREDIT = root.findViewById(R.id.cajeroBancoProcredit);
-                    cajeroBANCO_PROCREDIT.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoProcredit);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_POPULAR.getId())) {
-                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoPopular);
-                    cajeroAth.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoPopular);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_PICHINCHA.getId())) {
-                    ImageView cajeroBANCO_PICHINCHA = root.findViewById(R.id.cajeroBancoPichincha);
-                    cajeroBANCO_PICHINCHA.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoPichincha);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_OLD_MUTUAL.getId())) {
-                    ImageView cajeroBANCO_OLD_MUTUAL = root.findViewById(R.id.cajeroBancoOldMutual);
-                    cajeroBANCO_OLD_MUTUAL.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoOldMutual);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_GNB_SUDAMERIS.getId())) {
-                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoBngSudameris);
-                    cajeroAth.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoBngSudameris);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_FALABELLA.getId())) {
-                    ImageView cajeroBANCO_GNB_SUDAMERIS = root.findViewById(R.id.cajeroFalabella);
-                    cajeroBANCO_GNB_SUDAMERIS.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroFalabella);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_DE_OCCIDENTE.getId())) {
-                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoOccidente);
-                    cajeroAth.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoOccidente);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_DE_BOGOTA.getId())) {
-                    ImageView cajeroBANCO_DE_BOGOTA = root.findViewById(R.id.cajeroBancoBogota);
-                    cajeroBANCO_DE_BOGOTA.setVisibility(View.VISIBLE);
+                    imgCajero = root.findViewById(R.id.cajeroBancoBogota);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_DAVIVIENDA.getId())) {
-                    ;
-                    ImageView cajeroBANCO_DAVIVIENDA = root.findViewById(R.id.cajeroBancoDavivienda);
-                    cajeroBANCO_DAVIVIENDA.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoDavivienda);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_ITAU.getId())) {
-                    ;
-                    ImageView cajeroBANCO_ITAU = root.findViewById(R.id.cajeroItau);
-                    cajeroBANCO_ITAU.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroItau);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_CORPBANCA.getId())) {
-                    ;
-                    ImageView cajeroBANCO_CORPBANCA = root.findViewById(R.id.cajeroBancoCorpBanca);
-                    cajeroBANCO_CORPBANCA.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoCorpBanca);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_COOPERATIVO_COOPCENTRAL.getId())) {
-                    ;
-                    ImageView cajeroBANCO_COOPERATIVO_COOPCENTRAL = root.findViewById(R.id.cajeroBancoCooperativoCoopcentral);
-                    cajeroBANCO_COOPERATIVO_COOPCENTRAL.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoCooperativoCoopcentral);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_COLPATRIA.getId())) {
-                    ;
-                    ImageView cajeroAth = root.findViewById(R.id.cajeroBancoColpatria);
-                    cajeroAth.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoColpatria);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_CAJA_SOCIAL.getId())) {
-                    ;
-                    ImageView cajeroBANCO_CAJA_SOCIAL = root.findViewById(R.id.cajeroBancoCajaSocial);
-                    cajeroBANCO_CAJA_SOCIAL.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoCajaSocial);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_BBVA.getId())) {
-                    ;
-                    ImageView cajeroBANCO_BBVA = root.findViewById(R.id.cajeroBancoBbva);
-                    cajeroBANCO_BBVA.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoBbva);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
 
                 if (cajero.getId().equals(EBancos.BANCO_AV_VILLAS.getId())) {
-                    ;
-                    ImageView cajeroBANCO_AV_VILLAS = root.findViewById(R.id.cajeroBancoAvvillas);
-                    cajeroBANCO_AV_VILLAS.setVisibility(View.VISIBLE);
+
+                    imgCajero = root.findViewById(R.id.cajeroBancoAvvillas);
+                    imgCajero.setVisibility(View.VISIBLE);
                 }
+
+                if (counter == 0 && imgCajero != null) {
+                    params.setMargins(0, 0, 20, 0);
+                    imgCajero.setLayoutParams(params);
+                } else if(counter > 0) {
+                    params.setMargins(20, 0, 20, 0);
+                    imgCajero.setLayoutParams(params);
+                }
+                counter++;
             }
 
         } else {
@@ -368,24 +386,170 @@ public class EstacionesServiciosFragment extends Fragment {
         }
     }
 
+    private void initCorresponsales(View root) {
+        if (estaciones.getListCorresponsales() != null && estaciones.getListCorresponsales().size() > 0) {
+            ImageView imgCorresponsal = null;
+            int counter = 0;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
+
+            for (Bancos corresponsal : estaciones.getListCorresponsales()) {
+
+                if (corresponsal.getId().equals(EBancos.ATH.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoAth);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.CITIBANK.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalCitiBank);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCOOMEVA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoomeva);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_AGRARIO_DE_COLOMBIA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoAgrarioColombia);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCOLOMBIA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancolombia);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_PROCREDIT.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoProcredit);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_POPULAR.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoPopular);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_PICHINCHA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoPichincha);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_OLD_MUTUAL.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoOldMutual);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_GNB_SUDAMERIS.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoBngSudameris);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_FALABELLA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalFalabella);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_DE_OCCIDENTE.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoOccidente);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_DE_BOGOTA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoBogota);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_DAVIVIENDA.getId())) {
+
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoDavivienda);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_ITAU.getId())) {
+
+                    imgCorresponsal = root.findViewById(R.id.corresponsalItau);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_CORPBANCA.getId())) {
+
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoCorpBanca);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_COOPERATIVO_COOPCENTRAL.getId())) {
+
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoCooperativoCoopcentral);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+
+                if (corresponsal.getId().equals(EBancos.BANCO_COLPATRIA.getId())) {
+
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoColpatria);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+                if (corresponsal.getId().equals(EBancos.BANCO_CAJA_SOCIAL.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoCajaSocial);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+                if (corresponsal.getId().equals(EBancos.BANCO_BBVA.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoBbva);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+                if (corresponsal.getId().equals(EBancos.BANCO_AV_VILLAS.getId())) {
+                    imgCorresponsal = root.findViewById(R.id.corresponsalBancoAvvillas);
+                    imgCorresponsal.setVisibility(View.VISIBLE);
+                }
+                if (counter == 0 && imgCorresponsal != null) {
+                    params.setMargins(0, 0, 20, 0);
+                    imgCorresponsal.setLayoutParams(params);
+                }
+                else if(counter > 0) {
+                    params.setMargins(20, 0, 20, 0);
+                    imgCorresponsal.setLayoutParams(params);
+                }
+                counter++;
+
+            }
+        } else {
+            ConstraintLayout cajeros = root.findViewById(R.id.cajeros);
+            cajeros.setVisibility(View.GONE);
+        }
+    }
+
     private void puntosPago(View root) {
         if (estaciones.getListPuntosPago() != null && estaciones.getListPuntosPago().size() > 0) {
+            int counter = 0;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
+            ImageView imgPuntoPago = null;
             for (PuntoPago puntoPago : estaciones.getListPuntosPago()) {
                 //
                 if (puntoPago.getId().equals(EPuntoPago.BALOTO.getId())) {
-                    ImageView puntoBaloto = root.findViewById(R.id.puntoPagoBaloto);
-                    puntoBaloto.setVisibility(View.VISIBLE);
+                    imgPuntoPago = root.findViewById(R.id.puntoPagoBaloto);
+                    imgPuntoPago.setVisibility(View.VISIBLE);
                 }
 
                 if (puntoPago.getId().equals(EPuntoPago.EFECTY.getId())) {
-                    ImageView puntoEfecty = root.findViewById(R.id.puntoPagoEfecty);
-                    puntoEfecty.setVisibility(View.VISIBLE);
+                    imgPuntoPago = root.findViewById(R.id.puntoPagoEfecty);
+                    imgPuntoPago.setVisibility(View.VISIBLE);
                 }
 
                 if (puntoPago.getId().equals(EPuntoPago.SU_RED.getId())) {
-                    ImageView puntoSuRed = root.findViewById(R.id.puntoPagoSuRed);
-                    puntoSuRed.setVisibility(View.VISIBLE);
+                    imgPuntoPago = root.findViewById(R.id.puntoPagoSuRed);
+                    imgPuntoPago.setVisibility(View.VISIBLE);
                 }
+
+                if (counter == 0 && imgPuntoPago != null) {
+                    params.setMargins(0, 0, 20, 0);
+                    imgPuntoPago.setLayoutParams(params);
+                }
+                else if(counter > 0) {
+                    params.setMargins(20, 0, 20, 0);
+                    imgPuntoPago.setLayoutParams(params);
+                }
+                counter++;
             }
         } else {
             ConstraintLayout puntosPagos = root.findViewById(R.id.puntospago);
@@ -395,42 +559,55 @@ public class EstacionesServiciosFragment extends Fragment {
 
     private void tiendasConvivencia(View root) {
         if (estaciones.getListTiendas() != null && estaciones.getListTiendas().size() > 0) {
+            int counter = 0;
+            ImageView imgTienda = null;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
             for (Tiendas tienda : estaciones.getListTiendas()) {
                 //
                 if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
-                    ImageView tiendaTigerMarker = root.findViewById(R.id.puntoPagoBaloto);
-                    tiendaTigerMarker.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.puntoPagoBaloto);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
 
                 if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
-                    ImageView tiendaTigerMarker = root.findViewById(R.id.tiendaTigerMarket);
-                    tiendaTigerMarker.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.tiendaTigerMarket);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
 
                 if (tienda.getId().equals(ETiendas.OLIMPICA.getId())) {
-                    ImageView tiendaOlimpica = root.findViewById(R.id.tiendaOlimpica);
-                    tiendaOlimpica.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.tiendaOlimpica);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
 
                 if (tienda.getId().equals(ETiendas.JUSTO_Y_BUENO.getId())) {
-                    ImageView tiendaJustoBueno = root.findViewById(R.id.tiendaJustoBueno);
-                    tiendaJustoBueno.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.tiendaJustoBueno);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
 
                 if (tienda.getId().equals(ETiendas.EXITO_EXPRESS.getId())) {
-                    ImageView tiendaExitoExpress = root.findViewById(R.id.tiendaExitoExpress);
-                    tiendaExitoExpress.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.tiendaExitoExpress);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
 
                 if (tienda.getId().equals(ETiendas.D_UNO.getId())) {
-                    ImageView tiendaD1 = root.findViewById(R.id.tiendaD1);
-                    tiendaD1.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.tiendaD1);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
 
                 if (tienda.getId().equals(ETiendas.ALTOQUE.getId())) {
-                    ImageView tiendaAltoque = root.findViewById(R.id.tiendaAltoque);
-                    tiendaAltoque.setVisibility(View.VISIBLE);
+                    imgTienda = root.findViewById(R.id.tiendaAltoque);
+                    imgTienda.setVisibility(View.VISIBLE);
                 }
+                if (counter == 0 && imgTienda != null) {
+
+                    params.setMargins(0, 0, 20, 0);
+                    imgTienda.setLayoutParams(params);
+                } else if (counter > 0) {
+                    params.setMargins(20, 0, 20, 0);
+                    imgTienda.setLayoutParams(params);
+                }
+                counter++;
             }
 
         } else {
@@ -515,7 +692,6 @@ public class EstacionesServiciosFragment extends Fragment {
         }
     }
 
-
     private void bano(View root) {
 
         if (estaciones.getTieneBanios() != null && estaciones.getTieneBanios()) {
@@ -526,7 +702,6 @@ public class EstacionesServiciosFragment extends Fragment {
             bano.setVisibility(View.GONE);
         }
     }
-
 
     private void lubricantes(View root) {
 

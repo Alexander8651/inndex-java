@@ -26,6 +26,15 @@ public enum EBancos {
 
     private Long id;
 
+    public static EBancos getEBancosById(Long id) {
+        for (EBancos e : EBancos.values()) {
+            if (e.getId().equals(id)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     EBancos(Long id) {
         this.id = id;
     }

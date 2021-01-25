@@ -38,13 +38,10 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
 
-
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     implementation 'com.squareup.okhttp3:okhttp:4.2.1'
-
-
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'me.abhinay.input:currency-edittext:1.1'

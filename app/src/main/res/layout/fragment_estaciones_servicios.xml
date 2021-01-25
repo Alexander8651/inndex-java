@@ -22,19 +22,19 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="160dp"
                     android:background="@drawable/gasolinera_2" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="80dp"
                     android:layout_alignParentBottom="true"
                     android:alpha="0.6"
                     android:background="@android:color/black" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="74dp"
+                    android:layout_height="81dp"
                     android:layout_alignParentBottom="true">
 
                     <TextView
@@ -43,39 +43,45 @@
                         android:layout_height="35dp"
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/colorAccent"
-                        android:textSize="25sp"
+                        android:textSize="24sp"
                         tools:text="Terpel" />
 
-                    <TextView
-                        android:id="@+id/nombreBomba"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/marcaBomba"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="35dp"
-                        android:layout_marginEnd="35dp"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp"
-                        tools:text="EDS la esperanza" />
+                        android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/cb_estacion_servicios_favorita"
-                        android:layout_width="25dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
-                        android:button="@drawable/favourite_estacion_selector" />
+                        <CheckBox
+                            android:id="@+id/cb_estacion_servicios_favorita"
+                            android:layout_width="25dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="10dp"
+                            android:button="@drawable/favourite_estacion_selector" />
 
-                    <ImageView
-                        android:id="@+id/img_menu_estacion_servicios"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_more_horiz_servicios"
-                        app:tint="@color/white" />
+                        <TextView
+                            android:id="@+id/nombreBomba"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/white"
+                            android:textSize="19sp"
+                            tools:text="EDS la esperanza"
+                            android:layout_weight="1"/>
+
+                        <ImageView
+                            android:id="@+id/img_menu_estacion_servicios"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_more_horiz_servicios"
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -186,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
                         android:layout_marginStart="5dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="6dp"
                         android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
                         android:paddingLeft="0dp"
                         android:paddingTop="2dp"
@@ -219,7 +225,7 @@
                         android:layout_below="@+id/tv_estacion_servicios_calificacion"
                         android:text="Ver opiniones"
                         android:textColor="@color/azul_texto_enlace"
-                        android:textSize="@dimen/text_combustibles_precios" />
+                        android:textSize="@dimen/text_combustibles_titulos" />
 
                     <TextView
                         android:id="@+id/tv_estacion_servicios_calificar"
@@ -229,7 +235,7 @@
                         android:layout_marginRight="14dp"
                         android:text="Calificar"
                         android:textColor="@color/azul_texto_enlace"
-                        android:textSize="@dimen/text_combustibles_precios" />
+                        android:textSize="@dimen/text_combustibles_titulos" />
 
                 </RelativeLayout>
 
@@ -240,6 +246,12 @@
 
                 <include
                     layout="@layout/cajeros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+
+                <include
+                    layout="@layout/corresponsales"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp" />

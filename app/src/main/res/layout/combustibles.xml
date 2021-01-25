@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_combustibles_precios"
+                    android:textSize="@dimen/text_combustibles_titulos"
                     tools:text="Corriente" />
 
                 <TextView
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_combustibles_precios"
+                    android:textSize="@dimen/text_combustibles_titulos"
                     tools:text="Extra" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_combustibles_precios"
+                    android:textSize="@dimen/text_combustibles_titulos"
                     tools:text="Extra" />
 
                 <TextView
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_combustibles_precios"
+                    android:textSize="@dimen/text_combustibles_titulos"
                     tools:text="Extra" />
 
                 <TextView
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/text_combustibles_precios"
+                    android:textSize="@dimen/text_combustibles_titulos"
                     tools:text="Extra" />
 
                 <TextView
@@ -154,9 +154,9 @@
         android:id="@+id/tv_estacion_servicios_precios_actualizados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Precios Actualizados hace 2 dias"
+        android:text="Precios actualizados hace 2 dias"
         android:textAlignment="center"
-        android:textSize="@dimen/text_combustibles_precios" />
+        android:textSize="@dimen/text_combustibles_titulos" />
 
     <View
         android:layout_width="match_parent"

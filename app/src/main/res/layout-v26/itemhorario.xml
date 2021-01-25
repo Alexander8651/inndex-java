@@ -7,9 +7,18 @@
 
     <TextView
         android:id="@+id/horarioitem"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/azul_texto_enlace"
-        android:textSize="21sp" />
+        android:textSize="21sp"
+        android:text="Horarios"/>
+
+    <TextView
+        android:id="@+id/tv_abierto_siempre_servicios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="21sp"
+        android:text="Abierto siempre"/>
 
 </LinearLayout>

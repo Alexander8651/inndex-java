@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cajeros"
+    android:id="@+id/constrait_corresponsales"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,10 +11,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/titulocajero"
+            android:id="@+id/titulo_corresponsales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cajeros_electr_nicos"
+            android:text="Corresponsales bancarios"
             android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold" />
 
@@ -29,147 +29,147 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/cajeroBancoAth"
+                    android:id="@+id/corresponsalBancoAth"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/ath"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroCitiBank"
+                    android:id="@+id/corresponsalCitiBank"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/citibank"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoomeva"
+                    android:id="@+id/corresponsalBancoomeva"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/bancoomeva"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancolombia"
+                    android:id="@+id/corresponsalBancolombia"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/bancolombia"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoProcredit"
+                    android:id="@+id/corresponsalBancoProcredit"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_procredit"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoPopular"
+                    android:id="@+id/corresponsalBancoPopular"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_popular"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoPichincha"
+                    android:id="@+id/corresponsalBancoPichincha"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_pichincha"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoOldMutual"
+                    android:id="@+id/corresponsalBancoOldMutual"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_oldmutual"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoBngSudameris"
+                    android:id="@+id/corresponsalBancoBngSudameris"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_gnb"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroFalabella"
+                    android:id="@+id/corresponsalFalabella"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_falabella"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoOccidente"
+                    android:id="@+id/corresponsalBancoOccidente"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_occidente"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoBogota"
+                    android:id="@+id/corresponsalBancoBogota"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_bogota"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoDavivienda"
+                    android:id="@+id/corresponsalBancoDavivienda"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_davivienda"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroItau"
+                    android:id="@+id/corresponsalItau"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_itau"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoCorpBanca"
+                    android:id="@+id/corresponsalBancoCorpBanca"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_corpbanca"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoCooperativoCoopcentral"
+                    android:id="@+id/corresponsalBancoCooperativoCoopcentral"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_coopcentral"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoColpatria"
+                    android:id="@+id/corresponsalBancoColpatria"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_colpatria"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoCajaSocial"
+                    android:id="@+id/corresponsalBancoCajaSocial"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_cajasocial"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoBbva"
+                    android:id="@+id/corresponsalBancoBbva"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_bbva"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoAvvillas"
+                    android:id="@+id/corresponsalBancoAvvillas"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_avvillas"
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/cajeroBancoAgrarioColombia"
+                    android:id="@+id/corresponsalBancoAgrarioColombia"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/banco_agrario"
