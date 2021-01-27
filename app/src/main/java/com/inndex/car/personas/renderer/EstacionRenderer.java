@@ -21,11 +21,16 @@ public class EstacionRenderer extends DefaultClusterRenderer<InndexMarkerItem> {
     @Override
     protected void onBeforeClusterItemRendered(@NonNull InndexMarkerItem item, @NonNull MarkerOptions markerOptions) {
 
-        if(item.isCertificada()) {
+        if (item.isCertificada()) {
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada));
 
         } else {
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado));
+            if (item.getIdEstacion().equals(74L) || item.getIdEstacion().equals(192L) || item.getIdEstacion().equals(13L)
+                    || item.getIdEstacion().equals(71L) || item.getIdEstacion().equals(19L) || item.getIdEstacion().equals(109L)) {
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_promo));
+            } else {
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado));
+            }
         }
         markerOptions.title(item.getTitle());
         markerOptions.snippet(item.getSnippet());

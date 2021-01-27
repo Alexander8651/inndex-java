@@ -22,7 +22,8 @@ public enum EBancos {
     BANCOLOMBIA(18L),
     BANCOOMEVA(19L),
     CITIBANK(20L),
-    ATH(21L);
+    ATH(21L),
+    SERVY_BANCA(22L);
 
     private Long id;
 

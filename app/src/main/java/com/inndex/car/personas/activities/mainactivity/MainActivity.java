@@ -21,11 +21,13 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -48,15 +50,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.adapters.PlacesAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
@@ -87,9 +93,13 @@ import com.inndex.car.personas.utils.SetArrayValuesForInndex;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 
 import butterknife.BindView;
@@ -103,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         OnMapReadyCallback, SetArrayValuesForInndex, InicioFragment.OnFragmentInteractionListener,
         HistorialTabs.OnFragmentInteractionListener, ConfiguracionTabs.OnFragmentInteractionListener,
         IngresadoFragment.OnFragmentInteractionListener, NuevoVehiculo.OnFragmentInteractionListener,
-        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener, IMainActivity, SearchView.OnCloseListener {
+        RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -119,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private EstacionesPlaces estacionesPlaces;
     private Fragment miFragment;
     private InicioFragment inicioFragment;
-    @BindView(R.id.linearCard)
+    //@BindView(R.id.linearCard)
+    @BindView(R.id.card_places_search)
     public CardView cardSearchPlaces;
 
     public static MainActivity myInstance;
@@ -210,9 +221,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recycler = findViewById(R.id.rv_places);
+/*        recycler = findViewById(R.id.rv_places);
         iPresentador = new Presentador(this, recycler);
-        buscarlugar =  findViewById(R.id.buscar_lugar);
+        buscarlugar = findViewById(R.id.buscar_lugar);
 
         buscarlugar.setOnCloseListener(this);
         buscarlugar.setFocusable(true);
@@ -229,12 +240,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 3){
+                if (newText.length() > 3) {
                     iPresentador.getPlacesNear(newText);
                 }
                 return false;
             }
-        });
+        });*/
 
         //getWindow().setNavigationBarColor(Color.BLACK);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -336,6 +347,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), Constantes.API_KEY_PLACES, Locale.US);
+        }
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        EditText edtSearchPlaces = findViewById(R.id.editText_search);
+
+        if (autocompleteFragment != null) {
+            // Specify the types of place data to return.
+            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+            autocompleteFragment.setHint(getString(R.string.a_donde_vas));
+            // Set up a PlaceSelectionListener to handle the response.
+            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(@NotNull Place place) {
+                    // TODO: Get info about the selected place.
+                    Log.i("PLACE", "Place: " + place.getName() + ", " + place.getId());
+                    autocompleteFragment.setText(place.getName());
+
+                    if (place.getLatLng() != null && mapService.getmMap() != null) {
+                        Toast.makeText(MainActivity.this, "MIRA EL MARCADOR EN LA UBICACION DE " + place.getName(), Toast.LENGTH_SHORT).show();
+                        mapService.mostrarUbicacionPlace(place.getLatLng(), place.getName());
+                    }
+                }
+
+                @Override
+                public void onError(@NotNull Status status) {
+                    // TODO: Handle the error.
+                    Log.i("PLACE", "An error occurred: " + status);
+                }
+            });
+        }
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
@@ -396,9 +439,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapService.getmMap().setMyLocationEnabled(true);
 
             inndexLocationService.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-            //locationManager.req
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             mapService.setMyLocation(inndexLocationService.getLocationManager().getLastKnownLocation(LocationManager.PASSIVE_PROVIDER));
+            mapService.getmMap().setMyLocationEnabled(true);
             if (mapService.getMyLocation() != null) {
                 LatLng newPosition = new LatLng(mapService.getMyLocation().getLatitude(), mapService.getMyLocation().getLongitude());
                 SharedPreferences.Editor editor = myPreferences.edit();
@@ -408,11 +450,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mapService.getmMap().animateCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 14));
                 //mMap.addMarker(new MarkerOptions().position(newPosition).flat(true).title("Mi ubicación"));
                 EstacionesPlaces places = new EstacionesPlaces();
-                mapService.getmMap().setMyLocationEnabled(true);
                 try {
                     Estaciones estacionMasCercana = places.getEstacionMasCercana(newPosition, helper);
-                    Gson gson = new Gson();
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -664,10 +703,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onMapMarkerSelected(int position) {
+
+        if (this.inndexLocationService.getMyLocation() == null) {
+            Toast.makeText(myInstance, "NO SE PUEDE DETERMINAR TU UBICACIÓN", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Estaciones estacionSelected = this.estaciones.get(position);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        EstacionDetalleFragment detalleFragment = new EstacionDetalleFragment(estacionSelected, this, light, this.inndexLocationService.getMyLocation());
+        EstacionDetalleFragment detalleFragment = new EstacionDetalleFragment(estacionSelected, this, light,
+                this.inndexLocationService.getMyLocation());
         transaction.add(R.id.fl_estacion_detalle_container, detalleFragment);
         transaction.commit();
         fabUbicacion.hide();
@@ -684,7 +730,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onChangeRouteButtonIcon() {
-        inicioFragment.onChangeRouteButtonIcon();
+//        inicioFragment.onChangeRouteButtonIcon();
     }
 
     @OnClick(R.id.img_btn_eds)
@@ -782,27 +828,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @OnClick(R.id.lay_btn_indicaciones)
     public void drawRoute() {
         this.mapService.drawSationRoute();
-        if (miFragment != null)
+/*        if (miFragment != null)
             getSupportFragmentManager().beginTransaction().remove(miFragment).commit();
         clickHome();
         layButtonsStationSelected.setVisibility(View.GONE);
         layMenuInferior.setVisibility(View.VISIBLE);
-        gotToWaze();
+        gotToWaze();*/
     }
 
     @OnClick(R.id.lay_btn_ver_servicios)
     public void onClickVerServicios() {
-        //layButtonsStationSelected.setVisibility(View.GONE);
-        //layBtnVerServicios.setVisibility(View.GONE);
-        //layButtonsConfirmarCompra.setVisibility(View.VISIBLE);
         Estaciones estacionSeleccionada = this.mapService.getEstacionSeleccionada();
+
+        if(inndexLocationService.getMyLocation() == null) {
+
+            Toast.makeText(MainActivity.this, "NO ES POSIBLE DETERMINAR TU UBICACIÓN.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacionSeleccionada.getId());
         getEstacionById.enqueue(new Callback<Estaciones>() {
             @Override
             public void onResponse(Call<Estaciones> call, Response<Estaciones> response) {
 
-                if (response != null && response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
                     Estaciones estResponse = response.body();
                     miFragment = new EstacionesServiciosFragment(MainActivity.this, light);
@@ -830,8 +879,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @OnClick(R.id.lay_btn_confirmar_compra)
@@ -868,17 +915,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    @Override
+    //@Override
     public PlacesAdapter crearAdaptador(ArrayList<LocationResposePlaceFourSquare> myPlaces) {
-        return new PlacesAdapter(myPlaces, this, buscarlugar, recycler);
+        return null;
+        //return new PlacesAdapter(myPlaces, this, buscarlugar, recycler);
     }
 
-    @Override
+    //@Override
     public void inicializarAdaptadorRV(PlacesAdapter adaptador) {
-        recycler.setAdapter(adaptador);
+        //recycler.setAdapter(adaptador);
     }
 
-    @Override
+    //@Override
     public boolean onClose() {
 
         recycler.setVisibility(View.GONE);
@@ -888,8 +936,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buscarlugar.setFocusable(true);
                 buscarlugar.setIconified(false);
                 buscarlugar.clearFocus();
-            };
+            }
         }, 10);
         return false;
+    }
+
+    @OnClick(R.id.fab_ubicacion)
+    public void clickUbicacion() {
+        this.mapService.mostrarUbicacion();
     }
 }

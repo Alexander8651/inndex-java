@@ -108,6 +108,11 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         }
     }
 
+    public void mostrarUbicacionPlace(LatLng position, String placeName) {
+        markerMyPosition = mMap.addMarker(new MarkerOptions().position(position).title(placeName));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 14));
+    }
+
     public GoogleMap getmMap() {
         return mMap;
     }
@@ -174,12 +179,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     public void setMyLocation(Location myLocation) {
         this.myLocation = myLocation;
     }
-
-    /*@Override
-    public void onCameraIdle() {
-        Log.e("CAMERA","Cmaera changed");
-        mainActivity.onMapPositionChange();
-    }*/
 
     @Override
     public void onCameraMove() {

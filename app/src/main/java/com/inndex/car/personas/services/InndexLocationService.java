@@ -55,35 +55,14 @@ public class InndexLocationService {
                     //Toast.makeText(mainActivity, "DISTANCIA " + distancia, Toast.LENGTH_SHORT).show();
                     mainActivity.updateLocation(myLocation);
                     distancia_temp = myLocation.distanceTo(locationResult.getLastLocation());
-                    //Log.e("D1",String.valueOf(distancia_temp));
-                    //Log.e("ML2",String.valueOf(myLocation.getLatitude()));
-                    //Log.e("LL4",String.valueOf(locationResult.getLastLocation().getLatitude()));
-                    //Log.e("ML3",String.valueOf(myLocation.getLongitude()));
-                    //Log.e("LL5",String.valueOf(locationResult.getLastLocation().getLongitude()));
                     mainActivity.getMapService().updateMyPosition();
                     mainActivity.getMapService().setMyLocation(myLocation);
                     if (distancia_temp > 2) {
-
-                        myLocation = locationResult.getLastLocation();
                         distancia += distancia_temp;
                     }
-                    myLocation = locationResult.getLastLocation();
+                    if (locationResult.getLastLocation() != null)
+                        myLocation = locationResult.getLastLocation();
                 }
-                //return;
-
-                /*for (Location location : locationResult.getLocations()) {
-                    if (location != null) {
-                        myLocation = location;
-                        mainActivity.updateLocation(myLocation);
-                        distancia_temp = myLocation.distanceTo(location);
-                        mainActivity.getMapService().updateMyPosition();
-                        mainActivity.getMapService().setMyLocation(myLocation);
-                        if(distancia_temp > 12) {
-                            myLocation = location;
-                            distancia += distancia_temp;
-                        }
-                    }
-                }*/
             }
         };
     }
@@ -104,42 +83,7 @@ public class InndexLocationService {
                 }
             });
             mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
-            //Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            /*if(lastKnownLocationGPS != null) {
-                myLocation = lastKnownLocationGPS;
-                mainActivity.updateLocation(myLocation);
-
-            } else {
-                Log.e("LOC2","SORRY TRY IT NEXT TIME");
-            }*/
         }
-
-/*
-        if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            //Manifest.permission.ACCESS_COARSE_LOCATION == PackageManager.PERMISSION_GRANTED
-            if(locationManager == null) {
-                locationManager = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE);
-                Log.e("PRO","enabled " + locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                if(lastKnownLocationGPS != null) {
-                    myLocation = lastKnownLocationGPS;
-                    mainActivity.updateLocation(myLocation);
-
-                } else {
-                    Log.e("LOC2","SORRY TRY IT NEXT TIME");
-                }
-            }
-        } else {
-            ActivityCompat.requestPermissions(
-                    mainActivity,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    LOCATION_REQUEST_CODE);
-        }
-        */
     }
 
     public MainActivity getMainActivity() {

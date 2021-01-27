@@ -56,7 +56,7 @@ public class Constantes {
 
     //public static final String API_KEY_PLACES = "AIzaSyBHLkx2pOIKyoiTYjw-c78ValF4iHktcjc";
     //public static final String API_KEY_PLACES = "AIzaSyBizdZCPln0q6WvLBJ4DGorvKgQ857k8qw";
-    public static final String API_KEY_PLACES = "AIzaSyCRfWREv6YQGU8OBG0lOmXMOT16wjS2sC4";
+    public static final String API_KEY_PLACES = "AIzaSyBizdZCPln0q6WvLBJ4DGorvKgQ857k8qw";
 
     //RECORRIDOS
     public static final String POST_RECORRIDOS_BULK = "recorridos/bulk";
@@ -68,7 +68,6 @@ public class Constantes {
 
     //CERTIFICADOS
     public static final String GET_CERTIFICADOS = "certificados/getAll";
-
 
     /**
      * MODELOS CARROS
@@ -113,9 +112,6 @@ public class Constantes {
     public static final long INTERVAL_UPLOAD_UNIT_RECORRIDO = 600000;
 
     public static final long TIMEOUT = 500;
-
-    public static final String TEST_MAC_ADDRESS = "00:11:00:00:22";
-
 
     public static final SimpleDateFormat SDF_FOR_BACKEND = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
@@ -162,8 +158,6 @@ public class Constantes {
 
         return years;
     }
-
-
 
     /**
      * Constants for FetchAddressIntentService

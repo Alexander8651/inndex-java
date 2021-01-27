@@ -31,7 +31,7 @@
                     android:id="@+id/puntoPagoSuRed"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:src="@drawable/puntored"
+                    android:src="@drawable/sured"
                     android:visibility="gone"/>
 
                 <ImageView
@@ -47,6 +47,63 @@
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/baloto"
                     android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/punto_giros_y_finanzas"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/girosyfinanzas"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/punto_moviired"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/moviired"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/punto_pagafacil"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/pagafacil"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/puntoredeban"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/redeban"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/puntoservypagos"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/servypagos"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/puntosupergiros"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/supergiros"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/punto_red"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/puntored"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/punto_western_union"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:src="@drawable/western_union"
+                    android:visibility="gone" />
+
             </LinearLayout>
         </HorizontalScrollView>
 

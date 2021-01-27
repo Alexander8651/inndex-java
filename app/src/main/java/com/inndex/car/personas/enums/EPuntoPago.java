@@ -4,8 +4,15 @@ public enum EPuntoPago {
 
     BALOTO(1L),
     EFECTY(2L),
-    PAGA_TODO(3L),
-    SU_RED(4L);
+    SU_RED(4L),
+    GIROS_Y_FINANZAS(5L),
+    MOVII_RED(6L),
+    PAGA_FACIL(7L),
+    PUNTO_RED(8L),
+    REDEBAN(9L),
+    SERVY_PAGOS(10L),
+    SUPER_GIROS(11L),
+    WESTERN_UNION(12L);
     private Long id;
 
     EPuntoPago(Long id) {
