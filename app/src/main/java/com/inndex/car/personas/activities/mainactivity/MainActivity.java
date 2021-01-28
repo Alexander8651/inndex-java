@@ -133,8 +133,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.card_places_search)
     public CardView cardSearchPlaces;
 
-    public static MainActivity myInstance;
-
     private Timer timerInndexDeviceListener;
     private Integer tipoUsuario;
     private RecorridoService recorridoService;
@@ -280,13 +278,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         tipoUsuario = myPreferences.getInt("tipoUsuario", 8);
 
-        if (values != null && !values.equals("")) {
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
-            filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
-            filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-//            this.registerReceiver(mReceiver, filter);
-        }
+
         //inicioFragment = new InicioFragment(bold, this);
         //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, inicioFragment).commit();
         initControls();
@@ -315,7 +307,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 initRecorrido();
             }
         }*/
-        myInstance = this;
         if (idVehiculo != null && idVehiculo > 0)
             initRecorrido();
 
@@ -685,10 +676,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initRecorrido();
     }
 
-    public static MainActivity getInstance() {
-        return myInstance;
-    }
-
     public CustomProgressDialog getmCustomProgressDialog() {
         return mCustomProgressDialog;
     }
@@ -705,7 +692,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onMapMarkerSelected(int position) {
 
         if (this.inndexLocationService.getMyLocation() == null) {
-            Toast.makeText(myInstance, "NO SE PUEDE DETERMINAR TU UBICACIÓN", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "NO SE PUEDE DETERMINAR TU UBICACIÓN", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -944,5 +931,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @OnClick(R.id.fab_ubicacion)
     public void clickUbicacion() {
         this.mapService.mostrarUbicacion();
+    }
+
+    public void goStreetView(LatLng position) {
+
     }
 }

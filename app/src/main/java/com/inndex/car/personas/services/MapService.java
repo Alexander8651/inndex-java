@@ -127,6 +127,9 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         uiSettings.setAllGesturesEnabled(true);
         uiSettings.setMapToolbarEnabled(false);
         uiSettings.setMyLocationButtonEnabled(false);
+//        mClusterManager.getMarkerCollection().setInfoWindowAdapter(new CustomInfoViewAdapter(LayoutInflater.from(mainActivity)));
+
+//        mMap.setInfoWindowAdapter(mClusterManager.getMarkerManager());
         //this.mMap.setOnMarkerClickListener(this);
     }
 

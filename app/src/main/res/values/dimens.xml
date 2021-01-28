@@ -24,6 +24,10 @@
     <dimen name="margin_top_inicio">30dp</dimen>
     <dimen name="margin_top_inicio_lista">30dp</dimen>
 
+
+    <dimen name="size_text_title_snippet">16sp</dimen>
+    <dimen name="size_text_body_snippet">12sp</dimen>
+
     <!-- Nuevo vehículo fragment -->
     <dimen name="margin_top_to_toolbar_nuevo_vehiculo">120dp</dimen>
 
