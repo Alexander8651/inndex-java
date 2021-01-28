@@ -51,9 +51,6 @@
                 android:value=".activities.LoginActivity" />
         </activity>
         <activity
-            android:name=".activities.CombustibleActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.PasswordActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -65,14 +62,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
         <service
             android:name=".jobs.UploadRecorridoJob"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <receiver
             android:name=".receiver.UploadRecorridoReceiver"
             android:enabled="true"

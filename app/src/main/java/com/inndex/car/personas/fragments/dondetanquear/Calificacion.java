@@ -24,11 +24,10 @@ public class Calificacion extends Fragment {
 
     private MainActivity mainActivity;
 
-    private DondeTanquearTabs.OnFragmentInteractionListener mListener;
-
     public Calificacion(MainActivity mainActivity) {
         this.mainActivity =  mainActivity;
     }
+
     public Calificacion() {
         // Required empty public constructor
     }

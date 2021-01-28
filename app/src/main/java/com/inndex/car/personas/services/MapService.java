@@ -185,7 +185,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
 
     @Override
     public void onCameraMove() {
-        mainActivity.onMapPositionChange();
+//        mainActivity.onMapPositionChange();
     }
 
     public List<Estaciones> getEstaciones() {

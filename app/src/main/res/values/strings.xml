@@ -237,4 +237,34 @@
     <string name="a_donde_vas">¿A donde vas?</string>
 
 
+
+    <string name="tvNombres">Nombres</string>
+    <string name="etNombres">Carlos Alonso</string>
+    <string name="tvApellidos">Apellidos</string>
+    <string name="etApellidos">Lago Baute</string>
+    <string name="tv_n_mero_de_identidad">Número de Identidad</string>
+    <string name="et_n_mero_de_identidad">Número de identidad</string>
+    <string name="placa">HDZ-51C</string>
+    <string name="linea">3 ALL NEW</string>
+    <string name="anio">2015</string>
+    <string name="marca">MAZDA</string>
+    <string name="precio_cyh">Precio:</string>
+    <string name="gasolina_corriente_cyh">Gasolina corriente</string>
+    <string name="signo_peso_cyh">$</string>
+    <string name="gasolina_extra">Gasolina extra</string>
+    <string name="diesel_cyh">Diesel</string>
+    <string name="biodiesel_cyh">Biodiesel</string>
+    <string name="gnv_cyh">GNV</string>
+    <string name="apertura_cyh">Apertura</string>
+    <string name="cierre_cyh">Cierre</string>
+    <string name="separacion_aper_cierre">-</string>
+    <string name="todo_el_dia_cyh">Todo el dia</string>
+    <string name="sabado_cyh">Sabado</string>
+    <string name="viernes_cyh">Viernes</string>
+    <string name="jueves_cyh">Jueves</string>
+    <string name="miercoles_cyh">Miercoles</string>
+    <string name="martes_cyh">Martes</string>
+    <string name="lunes_cyh">Lunes</string>
+    <string name="hint_horaio_de_hasta">00:00</string>
+
 </resources>

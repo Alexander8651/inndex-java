@@ -66,17 +66,13 @@ import com.google.android.material.navigation.NavigationView;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.adapters.PlacesAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
-import com.inndex.car.personas.fragments.InicioFragment;
 import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
 import com.inndex.car.personas.fragments.compra.CompraFragment;
-import com.inndex.car.personas.fragments.configuracion_cuenta.ConfiguracionTabs;
 import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
-import com.inndex.car.personas.fragments.dondetanquear.DondeTanquearTabs;
 import com.inndex.car.personas.fragments.estaciones.EstacionDetalleFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesServiciosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesTabsFragment;
-import com.inndex.car.personas.fragments.historial.HistorialTabs;
 import com.inndex.car.personas.fragments.recorridos.RecorridosDatos;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Vehiculo;
@@ -110,8 +106,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback, SetArrayValuesForInndex, InicioFragment.OnFragmentInteractionListener,
-        HistorialTabs.OnFragmentInteractionListener, ConfiguracionTabs.OnFragmentInteractionListener,
+        OnMapReadyCallback, SetArrayValuesForInndex,
         IngresadoFragment.OnFragmentInteractionListener, NuevoVehiculo.OnFragmentInteractionListener,
         RecorridosDatos.OnFragmentInteractionListener, EstacionesTabsFragment.OnFragmentInteractionListener {
 
@@ -128,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Estaciones estacionMasCercana;
     private EstacionesPlaces estacionesPlaces;
     private Fragment miFragment;
-    private InicioFragment inicioFragment;
     //@BindView(R.id.linearCard)
     @BindView(R.id.card_places_search)
     public CardView cardSearchPlaces;
@@ -244,12 +238,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });*/
-
-        //getWindow().setNavigationBarColor(Color.BLACK);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        //getWindow().getDecorView().setSystemUiVisibility(
-        //       View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         this.getWindow().setStatusBarColor(Color.TRANSPARENT);
         //setStatusBarTranslucent(true);
         helper = OpenHelperManager.getHelper(MainActivity.this, DataBaseHelper.class);
@@ -522,18 +510,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         estaciones = dao.queryForAll();
     }
 
-    public void irDondeTanquear() {
-
-        Fragment miFragment = null;
-        boolean fragmentSeleccionado = false;
-        miFragment = new DondeTanquearTabs(this);
-        fragmentSeleccionado = true;
-        //tvTitulo.setText("¿Donde Tanquear?");
-        //tvTitulo.setVisibility(View.VISIBLE);
-        viewMap.setVisibility(View.GONE);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
-    }
-
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -685,10 +661,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.getDrawer().openDrawer(this.getNavigationView());
     }
 
-    public void onMapPositionChange() {
-        inicioFragment.onMapPositionChange();
-    }
-
     public void onMapMarkerSelected(int position) {
 
         if (this.inndexLocationService.getMyLocation() == null) {
@@ -827,7 +799,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onClickVerServicios() {
         Estaciones estacionSeleccionada = this.mapService.getEstacionSeleccionada();
 
-        if(inndexLocationService.getMyLocation() == null) {
+        if (inndexLocationService.getMyLocation() == null) {
 
             Toast.makeText(MainActivity.this, "NO ES POSIBLE DETERMINAR TU UBICACIÓN.", Toast.LENGTH_SHORT).show();
             return;
