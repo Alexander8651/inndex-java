@@ -33,7 +33,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Location myLocation;
     private Context context;
-    private MainActivity mainActivity;
+    //private MainActivity mainActivity;
     private List<Estaciones> estaciones;
     private ClusterManager<InndexMarkerItem> mClusterManager;
     private InndexMarkerItem itemStationSelected;
@@ -45,7 +45,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
 
     public MapService(Context context, MainActivity mainActivity) {
         this.context = context;
-        this.mainActivity = mainActivity;
     }
 
     public void drawSationRoute() {
@@ -84,7 +83,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
                     polylineOptions.add(route.points.get(i));
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
-            mainActivity.onChangeRouteButtonIcon();
+            //mainActivity.onChangeRouteButtonIcon();
         }
     }
 
@@ -156,9 +155,8 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         }
         mClusterManager.cluster();
         mClusterManager.setOnClusterItemClickListener(item -> {
-
             itemStationSelected = item;
-            mainActivity.onMapMarkerSelected(item.getPositionInList());
+            //mainActivity.onMapMarkerSelected(item.getPositionInList());
             return false;
         });
     }

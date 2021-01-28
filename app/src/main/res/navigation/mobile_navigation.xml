@@ -12,13 +12,16 @@
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_acountConfFragment"
-            app:destination="@id/acountConfFragment" />
+            app:destination="@id/opt_configuracion" />
         <action
             android:id="@+id/action_homeFragment_to_misVehiculosFragment"
-            app:destination="@id/misVehiculosFragment" />
+            app:destination="@id/opt_mis_vehiculos" />
+        <action
+            android:id="@+id/action_homeFragment_to_misEdsFragment"
+            app:destination="@id/opt_administrar_eds" />
     </fragment>
     <fragment
-        android:id="@+id/acountConfFragment"
+        android:id="@+id/opt_configuracion"
         android:name="com.inndex.car.personas.fragments.configuracion_cuenta.AcountConfFragment"
         android:label="fragment_acount_conf"
         tools:layout="@layout/fragment_acount_conf" >
@@ -46,12 +49,44 @@
         android:label="fragment_edit_password"
         tools:layout="@layout/fragment_edit_password" />
     <fragment
-        android:id="@+id/misVehiculosFragment"
+        android:id="@+id/opt_mis_vehiculos"
         android:name="com.inndex.car.personas.fragments.vehiculos.MisVehiculosFragment"
         android:label="fragment_mis_vehiculos"
         tools:layout="@layout/fragment_mis_vehiculos" >
         <action
             android:id="@+id/action_misVehiculosFragment_to_agregarVehiculoFragment"
             app:destination="@id/agregarVehiculoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/combustibleYHorarioFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.admin.CombustibleYHorarioFragment"
+        android:label="fragment_combustible_y_horario"
+        tools:layout="@layout/fragment_combustible_y_horario" />
+    <fragment
+        android:id="@+id/datosGeneralesFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.admin.DatosGeneralesFragment"
+        android:label="fragment_datos_generales"
+        tools:layout="@layout/fragment_datos_generales" >
+        <action
+            android:id="@+id/action_datosGeneralesFragment_to_combustibleYHorarioFragment"
+            app:destination="@id/combustibleYHorarioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarEdsFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.admin.EditarEdsFragment"
+        android:label="fragment_editar_eds"
+        tools:layout="@layout/fragment_editar_eds" >
+        <action
+            android:id="@+id/action_editarEdsFragment_to_datosGeneralesFragment"
+            app:destination="@id/datosGeneralesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/opt_administrar_eds"
+        android:name="com.inndex.car.personas.fragments.estaciones.admin.gallery.MisEdsFragment"
+        android:label="fragment_mis_eds"
+        tools:layout="@layout/fragment_mis_eds" >
+        <action
+            android:id="@+id/action_misEdsFragment_to_editarEdsFragment"
+            app:destination="@id/editarEdsFragment" />
     </fragment>
 </navigation>
