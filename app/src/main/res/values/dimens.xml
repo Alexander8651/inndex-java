@@ -11,6 +11,8 @@
     <dimen name="margin_left_imag_btn_refresh">15dp</dimen>
     <dimen name="elevation">50dp</dimen>
 
+    <dimen name="margun_status_bar">30dp</dimen>
+
     <dimen name="texto_info_personal">14sp</dimen>
     <dimen name="texto_edt_info_personal">18sp</dimen>
     <!-- Iniciofragment -->

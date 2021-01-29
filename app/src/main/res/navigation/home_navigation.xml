@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/estacionesMapFragment">
+
+    <fragment
+        android:id="@+id/estacionesMapFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.EstacionesMapFragment"
+        android:label="fragment_estaciones_map"
+        tools:layout="@layout/fragment_estaciones_map" >
+        <action
+            android:id="@+id/action_estacionesMapFragment_to_estacionesFiltrosFragment"
+            app:destination="@id/estacionesFiltrosFragment" />
+        <action
+            android:id="@+id/action_estacionesMapFragment_to_estacionesFavoritasFragment"
+            app:destination="@id/estacionesFavoritasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/estacionesFiltrosFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment"
+        android:label="fragment_estaciones_filtros"
+        tools:layout="@layout/fragment_estaciones_filtros" />
+    <fragment
+        android:id="@+id/estacionesFavoritasFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.favoritas.EstacionesFavoritasFragment"
+        android:label="fragment_estaciones_favoritas"
+        tools:layout="@layout/fragment_estaciones_favoritas" />
+</navigation>

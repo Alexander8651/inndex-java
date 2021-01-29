@@ -13,6 +13,7 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.model.Estaciones;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Calificacion extends Fragment {
@@ -62,7 +63,8 @@ public class Calificacion extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_calificacion, container, false);
-        List<Estaciones> listEstaciones = mainActivity.getEstaciones();
+        //List<Estaciones> listEstaciones = mainActivity.getEstaciones();
+        List<Estaciones> listEstaciones = new ArrayList<>();
         RecyclerView rv = v.findViewById(R.id.rv_dt_calificacion);
         final LinearLayoutManager llm = new LinearLayoutManager(mainActivity);
         rv.setLayoutManager(llm);

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -100,7 +101,7 @@ public class InfoPersonal extends Fragment {
         btnGuardarCambios.setOnClickListener(v1 -> guardarCambios());
 
         if (mainActivity != null){
-            myPreferences = mainActivity.getMyPreferences();
+            myPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
             edtCorreo.setText(myPreferences.getString("email",""));
             edtTelefono.setText(myPreferences.getString("celular",""));
@@ -125,7 +126,7 @@ public class InfoPersonal extends Fragment {
             startActivityForResult(Intent.createChooser(intent, "Select File"), FROM_STORAGE);
         });
         edtPassword.setOnClickListener(view -> {
-            mainActivity.irCambiarContrasena();
+            //mainActivity.irCambiarContrasena();
         });
         return v;
     }

@@ -17,8 +17,6 @@ import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.adapter.SeccionesCombustibleAdapter;
 import com.inndex.car.personas.utils.Constantes;
 
-import java.util.Objects;
-
 
 public class EstacionesTabsFragment extends Fragment {
 
@@ -53,8 +51,8 @@ public class EstacionesTabsFragment extends Fragment {
         if (Constantes.ROTATION == 0) {
             View parent = (View) container.getParent();
             if (appBar == null) {
-                appBar = parent.findViewById(R.id.app_bar);
-                tabs = new TabLayout(Objects.requireNonNull(getActivity()));
+                //appBar = parent.findViewById(R.id.app_bar);
+                //tabs = new TabLayout(Objects.requireNonNull(getActivity()));
                 tabs.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
                 tabs.setSelectedTabIndicatorColor(Color.parseColor("#4A86E8"));
                 tabs.setSelectedTabIndicator(R.drawable.custom_indicator);
@@ -80,8 +78,8 @@ public class EstacionesTabsFragment extends Fragment {
 
     private void llenarViewPager(ViewPager viewPager) {
         SeccionesCombustibleAdapter adapter = new SeccionesCombustibleAdapter(getFragmentManager());
-        adapter.addFragment(new EstacionesListFragment(mainActivity), "Lista");
-        adapter.addFragment(new EstacionesMapFragment(mainActivity), "Mapa");
+        //adapter.addFragment(new EstacionesListFragment(mainActivity), "Lista");
+        //adapter.addFragment(new EstacionesMapFragment(mainActivity), "Mapa");
         viewPager.setAdapter(adapter);
     }
 

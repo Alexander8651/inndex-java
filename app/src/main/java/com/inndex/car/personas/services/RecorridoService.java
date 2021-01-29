@@ -1,6 +1,5 @@
 package com.inndex.car.personas.services;
 
-import android.location.Location;
 import android.widget.Toast;
 
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
@@ -91,12 +90,12 @@ public class RecorridoService {
     private void updateRecorrido() {
 
         UnidadRecorrido unidadRecorrido = new UnidadRecorrido();
-        Location location = mainActivity.getInndexLocationService().getMyLocation();
-        if (location != null) {
+        //Location location = mainActivity.getInndexLocationService().getMyLocation();
+        /*if (location != null) {
             unidadRecorrido.setLatitud(mainActivity.getInndexLocationService().getMyLocation().getLatitude());
             unidadRecorrido.setLongitud(mainActivity.getInndexLocationService().getMyLocation().getLongitude());
             unidadRecorrido.setAltitud(mainActivity.getInndexLocationService().getMyLocation().getAltitude());
-        }
+        }*/
         unidadRecorrido.setHora(Constantes.SDF_HOUR_RECORRIDO.format(new Date()));
         unidadRecorrido.setFecha(Constantes.SDF_DATE_ONLY.format(new Date()));
 

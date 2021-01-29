@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.ClusterManager;
-import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.renderer.EstacionRenderer;
 import com.inndex.car.personas.rutas.DirectionFinder;
@@ -26,7 +25,7 @@ import com.inndex.car.personas.utils.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListener, GoogleMap.OnCameraMoveListener {
+public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListener {
 
     private GoogleMap mMap;
     private Marker markerMyPosition;
@@ -37,14 +36,12 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
     private List<Estaciones> estaciones;
     private ClusterManager<InndexMarkerItem> mClusterManager;
     private InndexMarkerItem itemStationSelected;
-
-    public MapService(GoogleMap mMap, Context context) {
+    IMapService imapService;
+    public MapService(GoogleMap mMap, Context context, IMapService imapService) {
         this.mMap = mMap;
         this.context = context;
-    }
-
-    public MapService(Context context, MainActivity mainActivity) {
-        this.context = context;
+        this.imapService = imapService;
+        initMap();
     }
 
     public void drawSationRoute() {
@@ -87,16 +84,9 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         }
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-
-        return false;
-    }
-
     public void mostrarUbicacion() {
         //initLocation();
         if (myLocation != null) {
-
             LatLng newPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             if (markerMyPosition == null)
                 markerMyPosition = mMap.addMarker(new MarkerOptions().position(newPosition));
@@ -156,7 +146,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         mClusterManager.cluster();
         mClusterManager.setOnClusterItemClickListener(item -> {
             itemStationSelected = item;
-            //mainActivity.onMapMarkerSelected(item.getPositionInList());
+            imapService.onEstacionMarkerClick(getEstacionSeleccionada());
             return false;
         });
     }
@@ -200,5 +190,8 @@ public class MapService implements PasarUbicacion, GoogleMap.OnMarkerClickListen
         }
         return null;
     }
+
+
+
 
 }

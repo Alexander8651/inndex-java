@@ -1,7 +1,6 @@
 package com.inndex.car.personas.fragments.estaciones;
 
 import android.app.AlertDialog;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.MarcaCarros;
@@ -77,11 +75,10 @@ public class EstacionesFiltrosFragment extends Fragment {
     @BindView(R.id.btn_filtrar_estaciones)
     public Button btnFiltrarEstaciones;
 
-    private MainActivity mainActivity;
+    //private MainActivity mainActivity;
     private DataBaseHelper helper;
     private List<MarcaCarros> lMarcasCarros;
 
-    private Typeface light;
 
     private boolean[] checkedBrands;
     private boolean[] checkedCertificados;
@@ -92,8 +89,8 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     private List<Certificados> lCertificados;
 
-    public EstacionesFiltrosFragment(MainActivity mainActivity, DataBaseHelper helper) {
-        this.mainActivity = mainActivity;
+    public EstacionesFiltrosFragment( DataBaseHelper helper) {
+
         this.helper = helper;
         checkedBrands = null;
         checkedTipoCombustibles = null;
@@ -120,37 +117,13 @@ public class EstacionesFiltrosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
         ButterKnife.bind(this, view);
-        light = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Roboto-Light.ttf");
-        initTypeFace();
         return view;
-    }
-
-    private void initTypeFace() {
-        tvFiltroCalificacion.setTypeface(light);
-        tvFiltroMarcas.setTypeface(light);
-        tvFiltroDistancia.setTypeface(light);
-        tvFiltroTipoCombustible.setTypeface(light);
-        tvFiltroCajeros.setTypeface(light);
-        tvFiltroCorresponsales.setTypeface(light);
-        //tvFiltroPrecioHasta.setTypeface(light);
-        tvFiltroPuntosPago.setTypeface(light);
-        tvFiltroTiendas.setTypeface(light);
-        tvFiltroAbiertoAhora.setTypeface(light);
-        tvFiltroRestaurantes.setTypeface(light);
-        tvFiltroBanios.setTypeface(light);
-        tvFiltroHoteles.setTypeface(light);
-        tvFiltroLavaderos.setTypeface(light);
-        tvFiltroVentaLubricantes.setTypeface(light);
-        tvFiltroVentaSoat.setTypeface(light);
-        tvFiltroLlanterias.setTypeface(light);
-        btnFiltrarEstaciones.setTypeface(light);
-
     }
 
     @OnClick(R.id.rel_filter_marcas)
     public void showBrandFilters() {
         String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Marcas");
         builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {
             if (checkedBrands == null)
@@ -186,7 +159,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     public void showDistanceFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_distancia);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Distancia");
         builder.setSingleChoiceItems(opciones, opcionDistanciaSelected, (dialog, which) -> {
             opcionDistanciaSelected = which;
@@ -208,7 +181,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     public void showCalificacionFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_calificacion);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Calificación");
         builder.setSingleChoiceItems(opciones, opcionCalificacionSelected, (dialog, which) -> {
             opcionCalificacionSelected = which;
@@ -229,7 +202,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     @OnClick(R.id.tv_filtro_tipo_combustible)
     public void showTipoCombustiblesFilters() {
         String[] opciones = getResources().getStringArray(R.array.tipos_combustibles);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity, R.style.BlackDialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Combustibles");
         builder.setMultiChoiceItems(opciones, checkedTipoCombustibles, (dialog, which, isChecked) -> {
             if (checkedTipoCombustibles == null)
@@ -264,7 +237,7 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     @OnClick(R.id.btn_filtrar_estaciones)
     public void filtrarEstaciones() {
-        mainActivity.filtrarEstaciones();
+        //mainActivity.filtrarEstaciones();
     }
 
 

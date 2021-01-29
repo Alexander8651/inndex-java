@@ -22,7 +22,7 @@ public class DetalleRecorrido extends FragmentActivity implements OnMapReadyCall
         setContentView(R.layout.activity_detalle_recorrido);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.map_detalle_recorrido);
         mapFragment.getMapAsync(this);
     }
 

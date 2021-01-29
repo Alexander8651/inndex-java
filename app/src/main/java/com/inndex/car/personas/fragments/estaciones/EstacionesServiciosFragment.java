@@ -82,7 +82,7 @@ public class EstacionesServiciosFragment extends Fragment {
         final ImageView botonBack = root.findViewById(R.id.botonbackdetallebomba);
         botonBack.setOnClickListener(v -> {
             this.onDestroy();
-            mainActivity.clickHome();
+            //mainActivity.clickHome();
         });
 
         if (distancia < 1000) {

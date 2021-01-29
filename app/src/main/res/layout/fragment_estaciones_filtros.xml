@@ -9,8 +9,7 @@
     <ScrollView
         android:id="@+id/sv_filters"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/lay_filter"
@@ -25,6 +24,7 @@
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
 
                 <TextView
+                android:fontFamily="@font/roboto_light"
                     android:id="@+id/tv_mostrar_estaciones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,6 +71,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+
                     android:text="@string/con_que_tipo_de_combustible"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -82,7 +84,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/ic_right" />
-
 
 
             </RelativeLayout>
@@ -100,6 +101,7 @@
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
 
                 <TextView
+                android:fontFamily="@font/roboto_light"
                     android:id="@+id/tv_filtro_con_que_certificados"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -139,6 +141,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="@string/que_marcas_prefieres"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -173,6 +176,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="@string/que_tan_cerca_de_ti"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -199,6 +203,7 @@
                 android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
 
                 <TextView
+                android:fontFamily="@font/roboto_light"
                     android:id="@+id/tv_filtro_precio_hasta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -241,6 +246,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="@string/con_que_calificacion"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -274,6 +280,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Abierto ahora"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -282,15 +289,15 @@
                     android:id="@+id/sw_filter_abiero_ahora"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="39dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_toEndOf="@id/tv_filter_abierto_ahora"
                     android:buttonTint="@color/colorPrimaryDark"
                     android:shadowColor="@color/colorPrimaryDark"
                     android:textColor="@color/colorPrimaryDark"
-                    android:theme="@style/BlackSwitch"
-                    android:layout_toEndOf="@id/tv_filter_abierto_ahora"/>
+                    android:theme="@style/BlackSwitch" />
 
             </RelativeLayout>
 
@@ -314,6 +321,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Cajeros electrónicos"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -347,6 +355,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Corresponsales bancarios"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -380,6 +389,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Puntos de pagos"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -413,6 +423,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Tiendas de conveniencia"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -445,6 +456,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Venta de SOAT"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -482,6 +494,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Restaurantes"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -519,6 +532,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Hoteles"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -556,6 +570,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Baños públicos"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -593,6 +608,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Venta de lubricantes"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -630,6 +646,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Llanterias"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -667,6 +684,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
                     android:text="Lavaderos"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
@@ -700,12 +718,13 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="76dp"
-                android:textStyle="bold"
-                android:textAllCaps="false"
                 android:background="@color/colorPrimary"
+                android:fontFamily="@font/roboto_light"
                 android:text="@string/filtrar"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="26sp" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
