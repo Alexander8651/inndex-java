@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/soat">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/soat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,14 +13,16 @@
             android:id="@+id/titulosoat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Venta de SOAT"
             android:textSize="@dimen/text_titulos_secciones"
-            android:textStyle="bold"
-            android:text="Venta de SOAT"/>
+            android:textStyle="bold" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,80 +32,79 @@
                     android:id="@+id/soatSuraSeguros"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/sura"/>
+                    android:src="@drawable/sura"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatSegurosEquidad"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/equidad"/>
+                    android:src="@drawable/equidad"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatSegurosFalaBella"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/falabella"/>
+                    android:src="@drawable/falabella"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatSegurosExito"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/exito"/>
+                    android:src="@drawable/exito"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatSegurosEstado"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/segurosdelestado"/>
+                    android:src="@drawable/segurosdelestado"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatSegurosBolivar"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/seguros_bolivar"/>
+                    android:src="@drawable/seguros_bolivar"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatMundialDeSeguros"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/mundial"/>
+                    android:src="@drawable/mundial"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatMapreSeguros"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/mapfre"/>
-
+                    android:src="@drawable/mapfre"
+                    android:visibility="gone" />
 
 
                 <ImageView
                     android:id="@+id/soatLibertySeguros"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/liberty"/>
+                    android:src="@drawable/liberty"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatAxaColpatria"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/axa_colpatria"/>
+                    android:src="@drawable/axa_colpatria"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/soatAllianz"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/allianz"/>
+                    android:src="@drawable/allianz"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
@@ -113,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="18dp"
-            android:background="@color/gray_separator_services"/>
+            android:background="@color/gray_separator_services" />
 
     </LinearLayout>
 

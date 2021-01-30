@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/lubricantes">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lubricantes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,14 +13,16 @@
             android:id="@+id/titulolubricantes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Venta de lubricantes"
             android:textSize="@dimen/text_titulos_secciones"
-            android:textStyle="bold"
-            android:text="Venta de lubricantes"/>
+            android:textStyle="bold" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,8 +32,8 @@
                     android:id="@+id/estacionLubricantes"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/lubricantes"/>
+                    android:src="@drawable/lubricantes"
+                    android:visibility="gone" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -40,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="18dp"
-            android:background="@color/gray_separator_services"/>
+            android:background="@color/gray_separator_services" />
 
     </LinearLayout>
 

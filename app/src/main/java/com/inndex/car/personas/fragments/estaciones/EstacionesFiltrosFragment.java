@@ -18,61 +18,58 @@ import com.inndex.car.personas.model.MarcaCarros;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class EstacionesFiltrosFragment extends Fragment {
 
-    @BindView(R.id.rel_filter_marcas)
+
     public RelativeLayout relFilterMarcas;
-    @BindView(R.id.rel_filter_calificacion)
+
     public RelativeLayout relFilterCalificacion;
-    //@BindView(R.id.rel_filter_cerificados)
+    //
     //public RelativeLayout relFilterCertifiacdos;
-    @BindView(R.id.rel_filter_distancia)
+
     public RelativeLayout relFilterDistancia;
-    @BindView(R.id.rel_filter_tipo_combustible)
+
     public RelativeLayout relFilterTipoCombustible;
 
-    @BindView(R.id.tv_filtro_con_que_calificacion)
+
     public TextView tvFiltroCalificacion;
-    //@BindView(R.id.tv_filtro_con_que_certificados)
+    //
     //public TextView tvFiltroCertificados;
-    @BindView(R.id.tv_filtro_que_marcas_prefieres)
+
     public TextView tvFiltroMarcas;
-    @BindView(R.id.tv_filtro_que_tan_cerca_de_ti)
+
     public TextView tvFiltroDistancia;
-    @BindView(R.id.tv_filtro_tipo_combustible)
+
     public TextView tvFiltroTipoCombustible;
-    @BindView(R.id.tv_filtro_cajeros)
+
     public TextView tvFiltroCajeros;
-    @BindView(R.id.tv_filtro_corresponsales)
+
     public TextView tvFiltroCorresponsales;
-    //@BindView(R.id.tv_filtro_precio_hasta)
+    //
     //public TextView tvFiltroPrecioHasta;
-    @BindView(R.id.tv_filtro_puntos_pago)
+
     public TextView tvFiltroPuntosPago;
-    @BindView(R.id.tv_filtro_tiendas)
+
     public TextView tvFiltroTiendas;
-    @BindView(R.id.tv_filter_abierto_ahora)
+
     public TextView tvFiltroAbiertoAhora;
-    @BindView(R.id.tv_filter_restaurantes)
+
     public TextView tvFiltroRestaurantes;
-    @BindView(R.id.tv_filter_banios)
+
     public TextView tvFiltroBanios;
-    @BindView(R.id.tv_filter_hoteles)
+
     public TextView tvFiltroHoteles;
-    @BindView(R.id.tv_filter_lavaderos)
+
     public TextView tvFiltroLavaderos;
-    @BindView(R.id.tv_filter_venta_lubricantes)
+
     public TextView tvFiltroVentaLubricantes;
-    @BindView(R.id.tv_filter_venta_soat)
+
     public TextView tvFiltroVentaSoat;
-    @BindView(R.id.tv_filter_llanterias)
+
     public TextView tvFiltroLlanterias;
 
-    @BindView(R.id.btn_filtrar_estaciones)
+
     public Button btnFiltrarEstaciones;
 
     //private MainActivity mainActivity;
@@ -116,11 +113,11 @@ public class EstacionesFiltrosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
-        ButterKnife.bind(this, view);
+
         return view;
     }
 
-    @OnClick(R.id.rel_filter_marcas)
+
     public void showBrandFilters() {
         String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
@@ -155,7 +152,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-    @OnClick(R.id.tv_filtro_que_tan_cerca_de_ti)
+
     public void showDistanceFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_distancia);
@@ -177,7 +174,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-    @OnClick(R.id.rel_filter_calificacion)
+
     public void showCalificacionFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_calificacion);
@@ -199,7 +196,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-    @OnClick(R.id.tv_filtro_tipo_combustible)
+
     public void showTipoCombustiblesFilters() {
         String[] opciones = getResources().getStringArray(R.array.tipos_combustibles);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
@@ -235,7 +232,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-    @OnClick(R.id.btn_filtrar_estaciones)
+
     public void filtrarEstaciones() {
         //mainActivity.filtrarEstaciones();
     }

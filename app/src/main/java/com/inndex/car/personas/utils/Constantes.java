@@ -21,6 +21,10 @@ public class Constantes {
     public static final String BASE_URL_FOURSQUARE = "https://api.foursquare.com/v2/venues/";
     public static final int LIMIT_RESPONSE = 5;
 
+    public static final String LATITUD_KEY = "latitud";
+    public static final String LONGITUD_KEY = "longitud";
+    public static final String SHARED_PREFERENCES_FILE_KEY = "inndex_preferences";
+
     //FORESQUARE
     public static final String FORESQUARE_CLIENT_ID = "JBTWYW5ECKIM0VH5GHYFAMRKXD320PHVV33L5ELFILGMJZFH";
     public static final String FORESQUARE_CLIENT_SECRET = "QXD3QHZ5OIA2EYKV43HCDZWZXH3YWUIGNHPCQFOPEKYCWKWM";
@@ -83,7 +87,7 @@ public class Constantes {
 
     public static final String GET_ESTADOS = "estados/getAll";
     public static final String POST_SAVE_HISTORIAL_ESTADO = "historial-estados-vehiculos/save";
-    public static final String ESTACION_SELECCOINADA_KEY = "estacionSeleccionada";
+    public static final String ESTACION_SELECCIONADA_KEY = "estacionSeleccionada";
 
     public static int ROTATION = 0;
 

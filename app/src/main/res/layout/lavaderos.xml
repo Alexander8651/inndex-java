@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/lavaderos">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lavaderos"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,14 +13,16 @@
             android:id="@+id/titulolavadero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Lavaderos"
             android:textSize="@dimen/text_titulos_secciones"
-            android:textStyle="bold"
-            android:text="Lavaderos"/>
+            android:textStyle="bold" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,8 +32,8 @@
                     android:id="@+id/estacionLavaderos"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:visibility="gone"
-                    android:src="@drawable/lavado_de_autos"/>
+                    android:src="@drawable/lavado_de_autos"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
@@ -41,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="18dp"
-            android:background="@color/gray_separator_services"/>
+            android:background="@color/gray_separator_services" />
 
     </LinearLayout>
 

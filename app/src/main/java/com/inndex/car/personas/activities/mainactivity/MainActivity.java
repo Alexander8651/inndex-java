@@ -2,8 +2,14 @@ package com.inndex.car.personas.activities.mainactivity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,10 +22,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.utils.NavTypeFace;
 
-import butterknife.OnClick;
-
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -136,13 +141,35 @@ public class MainActivity extends AppCompatActivity  {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navigationView, navController);
+        //navigationView.setNavigationItemSelectedListener(this);
+        //tvTitulo.setTypeface(light);
+        Menu m = navigationView.getMenu();
+
+        for (int i = 0; i < m.size(); i++) {
+            MenuItem mi = m.getItem(i);
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu != null && subMenu.size() > 0) {
+                for (int j = 0; j < subMenu.size(); j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
+            //the method we have create in activity
+            applyFontToMenuItem(mi);
+        }
     }
 
-
-    @OnClick(R.id.fab_ubicacion)
-    public void clickUbicacion() {
-        // this.mapService.mostrarUbicacion();
+    private void applyFontToMenuItem(MenuItem mi) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Typeface light = getResources().getFont(R.font.roboto_light);
+            SpannableString mNewTitle = new SpannableString(mi.getTitle());
+            mNewTitle.setSpan(new NavTypeFace("", light), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            //mNewTitle.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, mNewTitle.length(), 0); Use this if you want to center the items
+            mi.setTitle(mNewTitle);
+        }
     }
+
 
     public void goStreetView(LatLng position) {
 

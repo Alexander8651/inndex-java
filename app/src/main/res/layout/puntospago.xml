@@ -13,6 +13,7 @@
             android:id="@+id/titulopuntospago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:text="Puntos de pagos"
             android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold" />
@@ -32,7 +33,7 @@
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/sured"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/puntoPagoEfecty"
@@ -53,7 +54,7 @@
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/girosyfinanzas"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/punto_moviired"
@@ -74,7 +75,7 @@
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/redeban"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/puntoservypagos"
@@ -95,7 +96,7 @@
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/puntored"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/punto_western_union"

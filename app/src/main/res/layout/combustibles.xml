@@ -25,6 +25,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/nombreCorriente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
                     tools:text="Corriente" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/precioCorriente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,6 +53,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/nombreExtra"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,6 +62,7 @@
                     tools:text="Extra" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/precioExtra"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,6 +81,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/nombreDiesel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,6 +90,7 @@
                     tools:text="Extra" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/precioDiesel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,6 +109,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/nombre_bio_diesel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,6 +118,7 @@
                     tools:text="Extra" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/precio_bio_diesel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,6 +137,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/nombreGNV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,6 +146,7 @@
                     tools:text="Extra" />
 
                 <TextView
+                    android:fontFamily="@font/roboto_light"
                     android:id="@+id/precioGNV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,6 +161,7 @@
     </HorizontalScrollView>
 
     <TextView
+        android:fontFamily="@font/roboto_light"
         android:id="@+id/tv_estacion_servicios_precios_actualizados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

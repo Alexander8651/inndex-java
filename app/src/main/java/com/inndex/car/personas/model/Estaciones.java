@@ -64,6 +64,8 @@ public class Estaciones implements Serializable, Parcelable {
 
     private List<PuntoPago> listPuntosPago;
 
+    private List<MetodoPago> listMetodoPago;
+
     private Soat soat;
 
     private TipoEstacion tipoEstacion;
@@ -165,7 +167,9 @@ public class Estaciones implements Serializable, Parcelable {
         return latitud;
     }
 
-    public void setLatitud(double latitud) { this.latitud = latitud; }
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
 
     public double getLongitud() {
         return longitud;
@@ -175,7 +179,7 @@ public class Estaciones implements Serializable, Parcelable {
         this.longitud = longitud;
     }
 
-    public LatLng getCoordenadas(){
+    public LatLng getCoordenadas() {
         return new LatLng(this.latitud, this.longitud);
     }
 
@@ -305,6 +309,14 @@ public class Estaciones implements Serializable, Parcelable {
 
     public void setListEstacionCombustibles(List<EstacionCombustibles> listEstacionCombustibles) {
         this.listEstacionCombustibles = listEstacionCombustibles;
+    }
+
+    public List<MetodoPago> getListMetodoPago() {
+        return listMetodoPago;
+    }
+
+    public void setListMetodoPago(List<MetodoPago> listMetodoPago) {
+        this.listMetodoPago = listMetodoPago;
     }
 
     public List<Tiendas> getListTiendas() {

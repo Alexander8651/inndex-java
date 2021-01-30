@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +19,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.enums.EEvents;
+import com.inndex.car.personas.shared.SharedViewModel;
 
-public class HomeFragment extends Fragment  {
+public class HomeFragment extends Fragment {
 
     private HomeViewModel mViewModel;
     private NavController navController;
@@ -46,7 +49,7 @@ public class HomeFragment extends Fragment  {
 
     public View viewFirstDivision;
     public View viewSecondDivision;
-
+    private SharedViewModel sharedViewModel;
     private static final int HOME_CLICKED = 1;
     private static final int FILTER_CLICKED = 2;
     private static final int FAVOURITES_CLICKED = 3;
@@ -64,11 +67,11 @@ public class HomeFragment extends Fragment  {
 
         layLista = v.findViewById(R.id.lay_lista);
         layBtnNavegar = v.findViewById(R.id.lay_btn_navegar);
-        layBtnVerServicios = v.findViewById(R.id.lay_btn_ver_servicios);
+        //layBtnVerServicios = v.findViewById(R.id.lay_btn_ver_servicios);
 
         layBtnIndicaciones = v.findViewById(R.id.lay_btn_indicaciones);
         layButtonsConfirmarCompra = v.findViewById(R.id.lay_btn_confirmar_compra);
-        layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
+        //layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
 
         imgBtnHome = v.findViewById(R.id.img_btn_home);
         imgBtnFiltros = v.findViewById(R.id.img_btn_eds);
@@ -77,15 +80,15 @@ public class HomeFragment extends Fragment  {
         viewFirstDivision = v.findViewById(R.id.menu_main_first_division);
         viewSecondDivision = v.findViewById(R.id.menu_main_second_division);
 
-        tvHome =v.findViewById(R.id.tv_home);
-        tvFiltros =v.findViewById(R.id.tv_filtros);
-        tvFavoritos =v.findViewById(R.id.tv_favoritos);
+        tvHome = v.findViewById(R.id.tv_home);
+        tvFiltros = v.findViewById(R.id.tv_filtros);
+        tvFavoritos = v.findViewById(R.id.tv_favoritos);
 
         imgBtnHome.setOnClickListener(v1 -> onItemMenuClick(HOME_CLICKED));
         imgBtnFavoritos.setOnClickListener(v1 -> onItemMenuClick(FAVOURITES_CLICKED));
         imgBtnFiltros.setOnClickListener(v1 -> onItemMenuClick(FILTER_CLICKED));
 
-        Log.e("HOME","ONCREATE_VIEW");
+        Log.e("HOME", "ONCREATE_VIEW");
         return v;
     }
 
@@ -99,10 +102,26 @@ public class HomeFragment extends Fragment  {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        // TODO: Use the ViewModel
-    }
+        //mViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
+        sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        sharedViewModel.getEvents().observe(getViewLifecycleOwner(),
+                integer -> {
+                    switch (EEvents.getEBancosById(integer)) {
+                        case ESTACION_MARKER_SELECTED:
+                            layMenuInferior.setVisibility(View.GONE);
+                            layButtonsStationSelected.setVisibility(View.VISIBLE);
+                            break;
+                        case SHOW_ORIGINAL_MENU:
+                            layMenuInferior.setVisibility(View.VISIBLE);
+                            layButtonsStationSelected.setVisibility(View.GONE);
+                            break;
+                    }
+                    Log.e("CLICK", "LISTENNING");
+                    Toast.makeText(getActivity(), "YOU JUST CLICKED " + integer, Toast.LENGTH_SHORT).show();
+                });
+
+    }
 
 
     private void onItemMenuClick(int itemClicked) {
@@ -143,15 +162,12 @@ public class HomeFragment extends Fragment  {
                 tvFiltros.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
                 tvFavoritos.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
+                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 navController.navigate(R.id.estacionesFavoritasFragment);
                 break;
         }
     }
-
-
-
 
 
 }

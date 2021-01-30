@@ -3,7 +3,6 @@ package com.inndex.car.personas.activities.mainactivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -46,8 +45,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.api.Status;
@@ -69,7 +66,6 @@ import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.combustible.IngresadoFragment;
 import com.inndex.car.personas.fragments.compra.CompraFragment;
 import com.inndex.car.personas.fragments.configuracion_cuenta.NuevoVehiculo;
-import com.inndex.car.personas.fragments.estaciones.EstacionDetalleFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesServiciosFragment;
 import com.inndex.car.personas.fragments.estaciones.EstacionesTabsFragment;
@@ -87,7 +83,6 @@ import com.inndex.car.personas.utils.CustomProgressDialog;
 import com.inndex.car.personas.utils.NavTypeFace;
 import com.inndex.car.personas.utils.SetArrayValuesForInndex;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -154,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //@BindView(R.id.tv_toolbar)
     //public TextView tvTitulo;
 
-    boolean verServiciosButtonClicked;
 
     @BindView(R.id.tv_home)
     public TextView tvHome;
@@ -196,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.lay_btn_confirmar_compra)
     public RelativeLayout layBtnConfirmarCompra;
-    private BottomSheetBehavior mBottomSheetBehavior;
+    
 
     private Presentador iPresentador;
     SearchView buscarlugar;
@@ -295,64 +289,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvEds.setTypeface(robotoRegular);
 
         onItemMenuClick(HOME_CLICKED);
-        View bottomSheet = findViewById(R.id.fl_estacion_detalle_container);
-        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_DRAGGING);
-        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View view, int i) {
-                if (BottomSheetBehavior.STATE_COLLAPSED == i && !verServiciosButtonClicked) {
-                    fabUbicacion.show();
-                    clickHome();
-                } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View view, float v) {
-
-            }
-        });
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), Constantes.API_KEY_PLACES, Locale.US);
-        }
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-        EditText edtSearchPlaces = findViewById(R.id.editText_search);
-
-        if (autocompleteFragment != null) {
-            // Specify the types of place data to return.
-            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
-            autocompleteFragment.setHint(getString(R.string.a_donde_vas));
-            // Set up a PlaceSelectionListener to handle the response.
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(@NotNull Place place) {
-                    // TODO: Get info about the selected place.
-                    Log.i("PLACE", "Place: " + place.getName() + ", " + place.getId());
-                    autocompleteFragment.setText(place.getName());
-
-                    if (place.getLatLng() != null && mapService.getmMap() != null) {
-                        Toast.makeText(MainActivity.this, "MIRA EL MARCADOR EN LA UBICACION DE " + place.getName(), Toast.LENGTH_SHORT).show();
-                        mapService.mostrarUbicacionPlace(place.getLatLng(), place.getName());
-                    }
-                }
-
-                @Override
-                public void onError(@NotNull Status status) {
-                    // TODO: Handle the error.
-                    Log.i("PLACE", "An error occurred: " + status);
-                }
-            });
-        }
+        
     }
 
-    private void applyFontToMenuItem(MenuItem mi) {
-        SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new NavTypeFace("", light), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        //mNewTitle.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, mNewTitle.length(), 0); Use this if you want to center the items
-        mi.setTitle(mNewTitle);
-    }
+    
 
     @OnClick(R.id.btnBack2)
     @Override
@@ -467,23 +407,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvDefaultPlaca.setText(placa);
         tvUsuario.setText(myPreferences.getString("nombres", "") + " " +
                 myPreferences.getString("apellidos", ""));
-        navigationView.setNavigationItemSelectedListener(this);
-        //tvTitulo.setTypeface(light);
-        Menu m = navigationView.getMenu();
-
-        for (int i = 0; i < m.size(); i++) {
-            MenuItem mi = m.getItem(i);
-            //for aapplying a font to subMenu ...
-            SubMenu subMenu = mi.getSubMenu();
-            if (subMenu != null && subMenu.size() > 0) {
-                for (int j = 0; j < subMenu.size(); j++) {
-                    MenuItem subMenuItem = subMenu.getItem(j);
-                    applyFontToMenuItem(subMenuItem);
-                }
-            }
-            //the method we have create in activity
-            applyFontToMenuItem(mi);
-        }
+        
     }
 
     
@@ -831,12 +755,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    @OnClick(R.id.fab_ubicacion)
-    public void clickUbicacion() {
-        this.mapService.mostrarUbicacion();
-    }
-
-    public void goStreetView(LatLng position) {
-
-    }
+    
 }

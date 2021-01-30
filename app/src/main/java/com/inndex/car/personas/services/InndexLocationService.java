@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
@@ -42,7 +41,6 @@ public class InndexLocationService {
             @Override
             public void onLocationResult(LocationResult locationResult) {
 
-                Log.e("ON", "LOCATION CALLBACK");
                 if (locationResult == null) {
                     return;
                 }
@@ -74,8 +72,6 @@ public class InndexLocationService {
         } else {
 
             mFusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
-                Log.e("ON", "GET LAST LOCATION");
-
                 if (location != null) {
                     myLocation = location;
                     //mainActivity.updateLocation(myLocation);

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lay_menu_principal"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="@dimen/height_menu_main"
     android:layout_alignParentBottom="true"
     android:background="@color/fondo_menu_inferior_inicio"
     android:baselineAligned="false"
@@ -23,8 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:elevation="4dp">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/img_btn_eds"
@@ -43,11 +42,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_btn_eds"
                 android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_light"
                 android:text="@string/filtros"
                 android:textColor="@color/gris_menu_main"
                 android:textSize="@dimen/size_text_menu_principal"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto_light"/>
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -84,11 +83,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_btn_home"
                 android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_light"
                 android:text="Inicio"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_text_menu_principal"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto_light"/>
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -126,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_btn_favoritos"
                 android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_light"
                 android:text="@string/favoritos"
                 android:textColor="@color/gris_menu_main"
                 android:textSize="@dimen/size_text_menu_principal"
@@ -177,7 +177,7 @@
         </RelativeLayout>
 
         <!-- Ver servicios  -->
-        <RelativeLayout
+        <!--RelativeLayout
             android:id="@+id/lay_btn_ver_servicios"
             android:layout_width="@dimen/width_buttons_indicaciones"
             android:layout_height="@dimen/height_buttons_indicaciones"
@@ -199,7 +199,7 @@
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
-        </RelativeLayout>
+        </RelativeLayout-->
 
         <!-- Navegar -->
         <RelativeLayout
@@ -258,7 +258,7 @@
         </LinearLayout-->
 
         <!-- Reclamar ahora -->
-        <LinearLayout
+        <!--LinearLayout
             android:id="@+id/lay_btn_reclamar_ahora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-        </LinearLayout>
+        </LinearLayout-->
 
     </LinearLayout>
 

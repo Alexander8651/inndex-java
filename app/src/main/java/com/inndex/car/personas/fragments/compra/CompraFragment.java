@@ -24,27 +24,24 @@ import com.inndex.car.personas.activities.mainactivity.MainActivity;
 
 import java.text.DecimalFormat;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class CompraFragment extends Fragment implements
         AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.edt_compra_valor)
+
     public EditText edtValor;
-    @BindView(R.id.edt_compra_galones)
+
     public EditText edtGalones;
-    @BindView(R.id.tv_compra_tipos_combustibles)
+
     public TextView tvTiposCombustibles;
-    @BindView(R.id.tv_compra_ingresa_cantidad_valor)
+
     public TextView tvIngresarCantidadValor;
-    @BindView(R.id.tv_compra_agregar_otros_productos)
+
     public TextView tvAgregarProductos;
-    @BindView(R.id.tv_compra_signo_peso)
+
     public TextView tvCompraSignoPeso;
-    @BindView(R.id.tv_compra_gal)
+
     public TextView tvCompraGal;
-    @BindView(R.id.sp_compra_tipos_combustibles)
+
     public Spinner spTiposCombustibles;
 
     private final int CORRIENTE = 0;
@@ -96,7 +93,7 @@ public class CompraFragment extends Fragment implements
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_compra, container, false);
-        ButterKnife.bind(this, view);
+
         edtValor.setTypeface(light);
         edtGalones.setTypeface(light);
         tvTiposCombustibles.setTypeface(light);

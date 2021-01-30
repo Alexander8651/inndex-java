@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cajeros"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -14,6 +13,7 @@
             android:id="@+id/titulocajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:text="@string/cajeros_electr_nicos"
             android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
                     android:src="@drawable/ath"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/cajeroCitiBank"

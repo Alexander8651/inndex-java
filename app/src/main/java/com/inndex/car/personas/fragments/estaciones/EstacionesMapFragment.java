@@ -2,7 +2,9 @@ package com.inndex.car.personas.fragments.estaciones;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -12,29 +14,50 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
+import com.inndex.car.personas.databinding.FragmentEstacionesMapBinding;
+import com.inndex.car.personas.enums.EEvents;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.services.ILocationService;
 import com.inndex.car.personas.services.IMapService;
 import com.inndex.car.personas.services.InndexLocationService;
 import com.inndex.car.personas.services.MapService;
+import com.inndex.car.personas.shared.SharedViewModel;
+import com.inndex.car.personas.utils.Constantes;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EstacionesMapFragment extends Fragment implements OnMapReadyCallback, ILocationService, IMapService {
 
@@ -45,6 +68,15 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private List<Estaciones> estaciones;
     private InndexLocationService inndexLocationService;
     private boolean myLocationZoomed;
+    private BottomSheetBehavior mBottomSheetBehavior;
+    boolean verServiciosButtonClicked;
+    private SharedPreferences sharedPreferences;
+    private SharedViewModel sharedViewModel;
+    private LatLng myLocation;
+
+
+    private FragmentEstacionesMapBinding binding;
+
 
     public EstacionesMapFragment() {
         // Required empty public constructor
@@ -60,8 +92,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -70,14 +100,18 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_estaciones_map, container, false);
 
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+        double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+        double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+
+        if (latitud != 0 && longitud != 0) {
+            myLocation = new LatLng(latitud, longitud);
+        }
 
         drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        FloatingActionButton fabMenu = v.findViewById(R.id.btn_menu);
-        FloatingActionButton fabUbicacion = v.findViewById(R.id.fab_ubicacion);
         helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
 
-        fabUbicacion.setOnClickListener(view -> mapService.mostrarUbicacion());
-        fabMenu.setOnClickListener(c1 -> drawer.open());
         try {
             getAllStations();
         } catch (SQLException throwables) {
@@ -87,12 +121,66 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         inndexLocationService = new InndexLocationService(getActivity(), this, this);
         //inndexLocationService.init();
         checkGPSState();
+        View bottomSheet = v.findViewById(R.id.fl_estacion_detalle_container);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_DRAGGING);
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if (BottomSheetBehavior.STATE_COLLAPSED == i && !verServiciosButtonClicked) {
+                    binding.fabUbicacion.show();
+                    //clickHome();
+                } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
+        if (!Places.isInitialized()) {
+            Places.initialize(getActivity(), Constantes.API_KEY_PLACES, Locale.US);
+        }
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocompleteFragment);
+        EditText edtSearchPlaces = v.findViewById(R.id.editText_search);
+
+        if (autocompleteFragment != null) {
+            // Specify the types of place data to return.
+            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+            autocompleteFragment.setHint(getString(R.string.a_donde_vas));
+
+            // Set up a PlaceSelectionListener to handle the response.
+            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(@NotNull Place place) {
+                    // TODO: Get info about the selected place.
+                    Log.i("PLACE", "Place: " + place.getName() + ", " + place.getId());
+                    autocompleteFragment.setText(place.getName());
+
+                    if (place.getLatLng() != null && mapService.getmMap() != null) {
+                        Toast.makeText(getActivity(), "MIRA EL MARCADOR EN LA UBICACION DE " + place.getName(), Toast.LENGTH_SHORT).show();
+                        mapService.mostrarUbicacionPlace(place.getLatLng(), place.getName());
+                    }
+                }
+
+                @Override
+                public void onError(@NotNull Status status) {
+                    // TODO: Handle the error.
+                    Log.i("PLACE", "An error occurred: " + status);
+                }
+            });
+        }
         return v;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding = FragmentEstacionesMapBinding.bind(view);
+        binding.fabUbicacion.setOnClickListener(v -> mapService.mostrarUbicacion());
+        binding.btnMenu.setOnClickListener(c1 -> drawer.open());
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map1);
         mapFragment.getMapAsync(this);
     }
@@ -110,6 +198,13 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             mapService.setMyLocation(inndexLocationService.getMyLocation());
             mapService.mostrarUbicacion();
             myLocationZoomed = true;
+        } else if (myLocation != null) {
+            Location temp = new Location(LocationManager.GPS_PROVIDER);
+            temp.setLatitude(myLocation.latitude);
+            temp.setLongitude(myLocation.longitude);
+            mapService.setMyLocation(temp);
+            mapService.mostrarUbicacion();
+            myLocationZoomed = true;
         }
         //LatLng newPosition = new LatLng(10.466294112577513, -73.25580205076582);
         //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 14));
@@ -119,42 +214,72 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onLocationChanged(Location location) {
         this.mapService.setMyLocation(location);
-        if(!myLocationZoomed) {
+        if (!myLocationZoomed) {
             this.mapService.mostrarUbicacion();
             myLocationZoomed = true;
+        }
+        if (location != null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Constantes.LATITUD_KEY, String.valueOf(location.getLatitude()));
+            editor.putString(Constantes.LONGITUD_KEY, String.valueOf(location.getLongitude()));
+            editor.apply();
+            editor.commit();
         }
     }
 
     @Override
     public void onEstacionMarkerClick(Estaciones estacion) {
-
-    }
-
-    public void onMapMarkerSelected(int position) {
-
         if (this.inndexLocationService.getMyLocation() == null) {
             Toast.makeText(getActivity(), "NO SE PUEDE DETERMINAR TU UBICACIÓN", Toast.LENGTH_SHORT).show();
             return;
         }
 
- /*       FragmentManager fragmentManager = getSupportFragmentManager();
+        Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacion.getId());
+        getEstacionById.enqueue(new Callback<Estaciones>() {
+            @Override
+            public void onResponse(Call<Estaciones> call, Response<Estaciones> response) {
+
+                if (response.isSuccessful()) {
+                    float distancia = 2000;
+
+                    Estaciones estResponse = response.body();
+                    EstacionDetalleFragment miFragment = new EstacionDetalleFragment(estResponse, distancia, inndexLocationService.getMyLocation());
+                    //viewMap.setVisibility(View.GONE);
+                    /*LatLng myPosition = new LatLng(inndexLocationService.getMyLocation().getLatitude(),
+                            inndexLocationService.getMyLocation().getLongitude());*/
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(Constantes.ESTACION_SELECCIONADA_KEY, estResponse);
+                    bundle.putFloat("distancia", distancia);
+                    miFragment.setArguments(bundle);
+                    //verServiciosButtonClicked = true;
+                    getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Estaciones> call, Throwable t) {
+                Toast.makeText(getActivity(), "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+         /*       FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         EstacionDetalleFragment detalleFragment = new EstacionDetalleFragment(estacionSelected, this, light,
                 this.inndexLocationService.getMyLocation());
         transaction.add(R.id.fl_estacion_detalle_container, detalleFragment);
         transaction.commit();
         fabUbicacion.hide();
-        layMenuInferior.setVisibility(View.GONE);
-        layButtonsStationSelected.setVisibility(View.VISIBLE);
-        layBtnIndicaciones.setVisibility(View.VISIBLE);
-        layBtnVerServicios.setVisibility(View.VISIBLE);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);*/
 
         //miFragment =
 /*        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
 
         this.viewMap.setClickable(false);*/
+
+        sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
     }
+
 
     private void getAllStations() throws SQLException {
         final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
@@ -174,7 +299,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
 
-
     private void gotToWaze() {
         Estaciones estacionSeleccionada = mapService.getEstacionSeleccionada();
         if (estacionSeleccionada != null) {
@@ -192,14 +316,20 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.e("ON","onDestroyView");
+        Log.e("ON", "onDestroyView");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("ON","onDestroy");
+        Log.e("ON", "onDestroy");
     }
 }
