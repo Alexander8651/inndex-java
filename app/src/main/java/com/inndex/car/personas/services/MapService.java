@@ -62,6 +62,18 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
         }
     }
 
+    public void drawRouteToPlace(LatLng destino) {
+        if (myLocation != null) {
+            LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            //return;
+            DirectionFinder buscador = new DirectionFinder(this, latLng, destino,
+                    Constantes.API_KEY_PLACES);
+            buscador.peticionRutas();
+        } else {
+            Toast.makeText(context, "ERROR, No se pudo detectar tu ubicación", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void trazarRutas(List<Route> rutas) {
 
@@ -80,12 +92,11 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
                     polylineOptions.add(route.points.get(i));
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
-            //mainActivity.onChangeRouteButtonIcon();
+            imapService.onRutaTrazada();
         }
     }
 
     public void mostrarUbicacion() {
-        //initLocation();
         if (myLocation != null) {
             LatLng newPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             if (markerMyPosition == null)
@@ -98,6 +109,7 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
     }
 
     public void mostrarUbicacionPlace(LatLng position, String placeName) {
+        drawRouteToPlace(position);
         markerMyPosition = mMap.addMarker(new MarkerOptions().position(position).title(placeName));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 14));
     }

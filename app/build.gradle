@@ -59,7 +59,6 @@ dependencies {
     implementation files('libs\\ormlite-android-5.1.jar')
     implementation files('libs\\ormlite-core-5.1.jar')
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.github.everhad:AndroidRatingStar:v1.0.4'
     implementation 'com.google.guava:guava:27.0.1-android'
 
     implementation 'androidx.navigation:navigation-fragment:2.3.2'

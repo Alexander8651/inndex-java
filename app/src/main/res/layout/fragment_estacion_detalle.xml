@@ -155,29 +155,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp">
 
-                <com.idlestar.ratingstar.RatingStarView
+                <RatingBar
                     android:id="@+id/rat_bar_estacion_servicios_calificacion"
-                    android:layout_width="wrap_content"
+                    android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
-                    android:paddingLeft="0dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="0dp"
-                    app:rsv_cornerRadius="1dp"
-                    app:rsv_drawStrokeForEmptyStar="false"
-                    app:rsv_drawStrokeForHalfStar="true"
-                    app:rsv_enableSelectRating="true"
-                    app:rsv_onlyHalfStar="true"
-                    app:rsv_rating="1"
-                    app:rsv_starBackgroundColor="@color/gray_star_unchecked"
-                    app:rsv_starForegroundColor="@color/yellow_star_checked"
-                    app:rsv_starMargin="12dp"
-                    app:rsv_starNum="5"
-                    app:rsv_starThickness="0.6"
-                    app:rsv_strokeColor="#FFFFFF"
-                    app:rsv_strokeWidth="1dp" />
+                    android:numStars="5"
+                    android:progressDrawable="@drawable/custom_rating_bar"
+                    android:rating="5"
+                    android:stepSize="0.1"/>
 
                 <TextView
                     android:id="@+id/tv_estacion_servicios_calificacion"

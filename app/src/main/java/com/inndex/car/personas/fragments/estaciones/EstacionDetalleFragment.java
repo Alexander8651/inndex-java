@@ -154,6 +154,7 @@ public class EstacionDetalleFragment extends Fragment {
         lubricantes(root);
         llanteria(root);
         lavaderos(root);
+        metodosPago(root);
 
         distancia = 2000;
         if (distancia < 1000) {
@@ -256,14 +257,14 @@ public class EstacionDetalleFragment extends Fragment {
 
     private void metodosPago(View root) {
 
-        if (estaciones.getListMetodoPago() != null && estaciones.getListMetodoPago().size() > 0) {
+        if (estaciones.getListMetodosPago() != null && estaciones.getListMetodosPago().size() > 0) {
 
             int counter = 0;
             ImageView imgMetodoPago = null;
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
                     (int) getResources().getDimension(R.dimen.size_img_secciones));
 
-            for (MetodoPago metodoPago : estaciones.getListMetodoPago()
+            for (MetodoPago metodoPago : estaciones.getListMetodosPago()
             ) {
 
                 switch (EMetodosPago.getMetodosPagoById(metodoPago.getId())) {
@@ -317,7 +318,6 @@ public class EstacionDetalleFragment extends Fragment {
                     counter++;
                 }
             }
-
         }else {
             LinearLayout layout = root.findViewById(R.id.layMetodosPago);
             layout.setVisibility(View.GONE);
@@ -574,7 +574,7 @@ public class EstacionDetalleFragment extends Fragment {
 
             }
         } else {
-            ConstraintLayout cajeros = root.findViewById(R.id.cajeros);
+            ConstraintLayout cajeros = root.findViewById(R.id.constrait_corresponsales);
             cajeros.setVisibility(View.GONE);
         }
     }

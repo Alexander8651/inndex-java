@@ -39,6 +39,8 @@ public class Estaciones implements Serializable, Parcelable {
     private boolean certificada;
     @DatabaseField
     private String descripcionCertificado;
+    @DatabaseField
+    private String telefono;
 
     private Boolean tieneBanios;
 
@@ -64,7 +66,7 @@ public class Estaciones implements Serializable, Parcelable {
 
     private List<PuntoPago> listPuntosPago;
 
-    private List<MetodoPago> listMetodoPago;
+    private List<MetodoPago> listMetodosPago;
 
     private Soat soat;
 
@@ -207,6 +209,14 @@ public class Estaciones implements Serializable, Parcelable {
         this.municipio = municipio;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public boolean isCertificada() {
         return certificada;
     }
@@ -311,12 +321,12 @@ public class Estaciones implements Serializable, Parcelable {
         this.listEstacionCombustibles = listEstacionCombustibles;
     }
 
-    public List<MetodoPago> getListMetodoPago() {
-        return listMetodoPago;
+    public List<MetodoPago> getListMetodosPago() {
+        return listMetodosPago;
     }
 
-    public void setListMetodoPago(List<MetodoPago> listMetodoPago) {
-        this.listMetodoPago = listMetodoPago;
+    public void setListMetodosPago(List<MetodoPago> listMetodosPago) {
+        this.listMetodosPago = listMetodosPago;
     }
 
     public List<Tiendas> getListTiendas() {

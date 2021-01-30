@@ -74,9 +74,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private SharedViewModel sharedViewModel;
     private LatLng myLocation;
 
-
     private FragmentEstacionesMapBinding binding;
-
 
     public EstacionesMapFragment() {
         // Required empty public constructor
@@ -129,7 +127,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             public void onStateChanged(@NonNull View view, int i) {
                 if (BottomSheetBehavior.STATE_COLLAPSED == i && !verServiciosButtonClicked) {
                     binding.fabUbicacion.show();
-                    //clickHome();
+                    sharedViewModel.setEvents(EEvents.SHOW_ORIGINAL_MENU.getId());
                 } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
                 }
             }
@@ -254,6 +252,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                     //verServiciosButtonClicked = true;
                     getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                    binding.fabUbicacion.hide();
                 }
             }
 
@@ -280,6 +279,10 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
     }
 
+    @Override
+    public void onRutaTrazada() {
+        binding.fabNavegacion.show();
+    }
 
     private void getAllStations() throws SQLException {
         final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
@@ -319,6 +322,17 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        sharedViewModel.getHomeEvents().observe(getViewLifecycleOwner(), event ->{
+            switch (EEvents.getEventsById(event)) {
+                case NAVIGATE:
+                    gotToWaze();
+                    break;
+                case DRAW_ROUTE:
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    mapService.drawSationRoute();
+                    break;
+            }
+        });
     }
 
     @Override

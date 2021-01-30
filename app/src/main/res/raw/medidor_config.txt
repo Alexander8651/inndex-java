@@ -1,5 +1,5 @@
 #
-# generated on 2021/01/18 11:57:03
+# generated on 2021/01/30 01:07:23
 #
 # --table-start--
 dataClass=com.inndex.car.personas.model.Estaciones
@@ -44,6 +44,9 @@ fieldName=certificada
 # --field-end--
 # --field-start--
 fieldName=descripcionCertificado
+# --field-end--
+# --field-start--
+fieldName=telefono
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -285,7 +288,6 @@ tableName=usuarios
 # --table-fields-start--
 # --field-start--
 fieldName=id
-generatedId=true
 # --field-end--
 # --field-start--
 fieldName=email
@@ -303,7 +305,16 @@ fieldName=apellidos
 fieldName=celular
 # --field-end--
 # --field-start--
+fieldName=telefono
+# --field-end--
+# --field-start--
+fieldName=telefonoIndicativo
+# --field-end--
+# --field-start--
 fieldName=tipo
+# --field-end--
+# --field-start--
+fieldName=genero
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -3,11 +3,13 @@ package com.inndex.car.personas.enums;
 public enum EEvents {
 
     ESTACION_MARKER_SELECTED(1),
-    SHOW_ORIGINAL_MENU(2);
+    SHOW_ORIGINAL_MENU(2),
+    NAVIGATE(3),
+    DRAW_ROUTE(4);
 
     private Integer id;
 
-    public static EEvents getEBancosById(Integer id) {
+    public static EEvents getEventsById(Integer id) {
         for (EEvents e : EEvents.values()) {
             if (e.getId().equals(id)) {
                 return e;
