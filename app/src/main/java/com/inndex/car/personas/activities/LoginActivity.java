@@ -9,7 +9,6 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -106,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         tvRecordar.setTypeface(bold);
         tvRecordar.setOnClickListener(view -> {
         });
-        myPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        myPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
     }
 
     private void login(Usuario user) {

@@ -1,4 +1,4 @@
-package com.inndex.car.personas.retrofit;
+package com.inndex.car.personas.retrofit.distanceapi;
 
 import com.inndex.car.personas.utils.IApiBaseUrl;
 
@@ -10,11 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.inndex.car.personas.utils.Constantes.TIMEOUT;
 
-public class MedidorApiAdapter {
+public class DistanceApiAdapter {
 
-    private static InndexApiServices API_SERVICE;
+    private static DistanceApiServices API_SERVICE;
 
-    public static InndexApiServices getApiService() {
+    public static DistanceApiServices getApiService() {
 
         if (API_SERVICE == null){
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -23,11 +23,11 @@ public class MedidorApiAdapter {
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(IApiBaseUrl.INNDEX_API_URL)
+                    .baseUrl(IApiBaseUrl.DISTANCE_API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build();
-            API_SERVICE = retrofit.create(InndexApiServices.class);
+            API_SERVICE = retrofit.create(DistanceApiServices.class);
         }
         return API_SERVICE;
     }

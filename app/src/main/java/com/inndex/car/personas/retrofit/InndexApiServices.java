@@ -27,7 +27,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface SmartBillApiServices {
+public interface InndexApiServices {
 
     @POST(Constantes.POST_LOGIN_USER)
     Call<Usuario> postLogin(@Header("Content-Type") String headerContentType,

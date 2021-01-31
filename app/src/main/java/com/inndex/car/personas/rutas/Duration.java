@@ -4,11 +4,28 @@ package com.inndex.car.personas.rutas;
  * Created by oscar on 6/12/16.
  */
 
-public class Duration {
-    public String text;
+import java.io.Serializable;
 
-    Duration(String text, int value) {
+public class Duration implements Serializable {
+    private String text;
+    private Integer value;
+
+    public Duration() {
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
         this.text = text;
-        int value1 = value;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
     }
 }

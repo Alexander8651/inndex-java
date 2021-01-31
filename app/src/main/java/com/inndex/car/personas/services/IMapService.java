@@ -7,4 +7,5 @@ public interface IMapService {
     void onEstacionMarkerClick(Estaciones estacion);
 
     void onRutaTrazada();
+
 }

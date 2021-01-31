@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,10 +37,9 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
         //this.getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-
         helper = OpenHelperManager.getHelper(InicioActivity.this, DataBaseHelper.class);
 
-        final SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final SharedPreferences myPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
 
         int DURACION_SPLASH = 1200;
         new Handler().postDelayed(() -> {

@@ -17,7 +17,6 @@ import java.util.UUID;
 
 public class Constantes {
 
-    public static final String BASE_URL = "http://inndexco.com:8085/api/";
     public static final String BASE_URL_FOURSQUARE = "https://api.foursquare.com/v2/venues/";
     public static final int LIMIT_RESPONSE = 5;
 
