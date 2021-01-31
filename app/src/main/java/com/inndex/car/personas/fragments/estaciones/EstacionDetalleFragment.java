@@ -1,17 +1,19 @@
 package com.inndex.car.personas.fragments.estaciones;
 
+import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -176,7 +178,6 @@ public class EstacionDetalleFragment extends Fragment {
         return root;
     }
 
-
     private void combustibles(View root) {
 
         View layCombustibles = root.findViewById(R.id.lay_combustibles);
@@ -256,7 +257,32 @@ public class EstacionDetalleFragment extends Fragment {
                 if (parent.isGroupExpanded(groupPosition)) {
                     params.height = 100;
                 } else {
-                    params.height = 500;
+
+                    if (estaciones.getTelefono() != null){
+                        params.height = 1100;
+                        LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
+                        linearLayout.setVisibility(View.VISIBLE);
+                        final TextView numero = root.findViewById(R.id.numero_estacion);
+                        numero.setText(estaciones.getTelefono());
+
+                        final CardView botonLlamar = root.findViewById(R.id.botonllamar);
+
+                        botonLlamar.setOnClickListener(view ->{
+                            Intent i = new Intent(Intent.ACTION_CALL);
+                            i.setData(Uri.parse(estaciones.getTelefono()));
+                            startActivity(i);
+                        });
+
+
+
+                    }else {
+                        params.height = 900;
+
+                        LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
+                        linearLayout.setVisibility(View.GONE);
+
+
+                    }
                 }
                 return false;
             });
