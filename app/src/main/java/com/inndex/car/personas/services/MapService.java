@@ -5,10 +5,12 @@ import android.graphics.Color;
 import android.location.Location;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -25,7 +27,7 @@ import com.inndex.car.personas.utils.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListener {
+public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListener {
 
     private GoogleMap mMap;
     private Marker markerMyPosition;
@@ -37,6 +39,7 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
     private ClusterManager<InndexMarkerItem> mClusterManager;
     private InndexMarkerItem itemStationSelected;
     IMapService imapService;
+
     public MapService(GoogleMap mMap, Context context, IMapService imapService) {
         this.mMap = mMap;
         this.context = context;
@@ -74,10 +77,23 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
         }
     }
 
+    public void deleteMapPolylines() {
+        for (Polyline pol :
+                polylinePaths) {
+            pol.remove();
+        }
+    }
+
+
+    public void deleteMapMarkers() {
+
+    }
+
+
     @Override
     public void trazarRutas(List<Route> rutas) {
-
         if (rutas != null && rutas.size() > 0) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
             if (polylinePaths != null && polylinePaths.size() > 0) {
                 polylinePaths.forEach(Polyline::remove);
             }
@@ -88,19 +104,25 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
                         color(Color.BLACK).
                         width(6);
 
-                for (int i = 0; i < route.points.size(); i++)
+                for (int i = 0; i < route.points.size(); i++) {
                     polylineOptions.add(route.points.get(i));
+                    builder.include(route.points.get(i));
+                }
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
             imapService.onRutaTrazada();
+            int padding = 50;
+            /**create the bounds from latlngBuilder to set into map camera*/
+            LatLngBounds bounds = builder.build();
+            /**create the camera with bounds and padding to set into map*/
+            final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+            mMap.animateCamera(cu);
         }
     }
 
     public void mostrarUbicacion() {
         if (myLocation != null) {
             LatLng newPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-            if (markerMyPosition == null)
-                markerMyPosition = mMap.addMarker(new MarkerOptions().position(newPosition));
             if (mMap != null)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 14));
         } else {
@@ -202,8 +224,6 @@ public class MapService implements PasarUbicacion,  GoogleMap.OnCameraMoveListen
         }
         return null;
     }
-
-
 
 
 }

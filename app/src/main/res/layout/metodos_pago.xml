@@ -3,8 +3,8 @@
     android:id="@+id/lay_metodos_pago"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_toEndOf="@+id/layMetodosPago">
+    android:layout_toEndOf="@+id/layMetodosPago"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tituloMetodosPago"
@@ -24,6 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/metodoPagoEfectivo"
+                android:layout_width="@dimen/size_img_secciones"
+                android:layout_height="@dimen/size_img_secciones"
+                android:src="@drawable/efectivo"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/metodoPagoVisa"
@@ -81,12 +88,6 @@
                 android:src="@drawable/gopass"
                 android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/metodoPagoEfectivo"
-                android:layout_width="@dimen/size_img_secciones"
-                android:layout_height="@dimen/size_img_secciones"
-                android:src="@drawable/efectivo"
-                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/metodoPagoDiscover"

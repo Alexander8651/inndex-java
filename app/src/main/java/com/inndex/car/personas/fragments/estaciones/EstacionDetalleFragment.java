@@ -10,14 +10,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.adapter.ExpLAdapter;
 import com.inndex.car.personas.enums.EBancos;
 import com.inndex.car.personas.enums.ECombustibles;
+import com.inndex.car.personas.enums.EEvents;
 import com.inndex.car.personas.enums.EMetodosPago;
 import com.inndex.car.personas.enums.EPuntoPago;
 import com.inndex.car.personas.enums.ESoat;
@@ -29,6 +33,7 @@ import com.inndex.car.personas.model.Horario;
 import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Tiendas;
+import com.inndex.car.personas.shared.SharedViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -40,6 +45,7 @@ public class EstacionDetalleFragment extends Fragment {
 
     private Estaciones estaciones;
     private float distancia = 2000;
+    private SharedViewModel model;
 
     public TextView tvCalificacion;
 
@@ -106,6 +112,10 @@ public class EstacionDetalleFragment extends Fragment {
         final TextView nombre = root.findViewById(R.id.tvEstaciondetalleNombre);
         final TextView tvDistancia = root.findViewById(R.id.tv_estacion_servicios_distancia);
         final ImageView botonBack = root.findViewById(R.id.botonbackdetallebomba);
+        final ImageView imgDrawRoute = root.findViewById(R.id.estaciones_servicios_route);
+        imgDrawRoute.setOnClickListener(v -> {
+            model.setHomeEvents(EEvents.DRAW_ROUTE.getId());
+        });
 /*        botonBack.setOnClickListener(v -> {
             this.onDestroy();
             //mainActivity.clickHome();
@@ -845,4 +855,9 @@ public class EstacionDetalleFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+    }
 }

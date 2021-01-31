@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.inndex.car.personas.R;
 
@@ -21,8 +22,8 @@ public class AcountConfFragment extends Fragment {
 
        infoperso = view.findViewById(R.id.infoPersonal);
 
-       //infoperso.setOnClickListener(v ->
-       //        Navigation.findNavController(v).navigate(R.id.action_acountConfFragment_to_editProfileFragment));
+       infoperso.setOnClickListener(v ->
+               Navigation.findNavController(v).navigate(R.id.editProfileFragment));
         return view;
     }
 }

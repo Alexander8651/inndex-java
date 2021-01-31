@@ -1,27 +1,34 @@
 package com.inndex.car.personas.activities.mainactivity;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.databinding.ActivityMainBinding;
+import com.inndex.car.personas.enums.EEvents;
+import com.inndex.car.personas.shared.SharedViewModel;
+import com.inndex.car.personas.utils.Constantes;
 import com.inndex.car.personas.utils.NavTypeFace;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private AppBarConfiguration mAppBarConfiguration;
 
-   /* private TextView tvDefaultPlaca;
+    private boolean isEstacionesMapFragmentVisible;
+
+    /* private TextView tvDefaultPlaca;
     private AlertDialog alert = null;
     private CustomProgressDialog mCustomProgressDialog;
     private SharedPreferences myPreferences;
@@ -122,27 +131,46 @@ public class MainActivity extends AppCompatActivity {
     SearchView buscarlugar;
     private RecyclerView recycler;*/
 
+    private SharedViewModel model;
+    private ActivityMainBinding activityMainBinding;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        //View view = activityMainBinding.getRoot();
         setContentView(R.layout.activity_main);
         this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        SharedPreferences preferences = getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+
+        String nombresApellidos = preferences.getString("nombres", "") + " " + preferences.getString("apellidos", "");
+        String email = preferences.getString("email", "");
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.opt_configuracion, R.id.infoPersonal2)
+                R.id.homeFragment, R.id.opt_configuracion, R.id.editProfileFragment)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navigationView, navController);
         //navigationView.setNavigationItemSelectedListener(this);
-        //tvTitulo.setTypeface(light);
+
+        model = new ViewModelProvider(this).get(SharedViewModel.class);
+        model.getEvents().observe(this, i -> {
+
+            if (i.equals(EEvents.ESTACIONES_MAP_FRAGMENT_VISIBLE.getId())) {
+                isEstacionesMapFragmentVisible = true;
+            } else if (i.equals(EEvents.ESTACIONES_MAP_FRAGMENT_GONE.getId())) {
+                isEstacionesMapFragmentVisible = false;
+            }
+        });
         Menu m = navigationView.getMenu();
 
         for (int i = 0; i < m.size(); i++) {
@@ -158,6 +186,25 @@ public class MainActivity extends AppCompatActivity {
             //the method we have create in activity
             applyFontToMenuItem(mi);
         }
+
+        TextView tvNombres = navigationView.getHeaderView(0).findViewById(R.id.tvUsuario);
+        TextView tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tvEmailUsuario);
+        if (tvNombres != null)
+            tvNombres.setText(nombresApellidos);
+        else
+            Log.e("ERR","NULL NOMBRES");
+
+        if (tvEmail != null)
+            tvEmail.setText(email);
+        else
+            Log.e("ERR","NULL EMAIL");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isEstacionesMapFragmentVisible)
+            model.setHomeEvents(EEvents.BACK_BUTTON_PRESSED.getId());
+        else super.onBackPressed();
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
@@ -168,10 +215,5 @@ public class MainActivity extends AppCompatActivity {
             //mNewTitle.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, mNewTitle.length(), 0); Use this if you want to center the items
             mi.setTitle(mNewTitle);
         }
-    }
-
-
-    public void goStreetView(LatLng position) {
-
     }
 }

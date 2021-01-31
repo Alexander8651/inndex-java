@@ -26,23 +26,14 @@
         android:label="fragment_acount_conf"
         tools:layout="@layout/fragment_acount_conf" >
         <action
-            android:id="@+id/action_acountConfFragment_to_infoPersonal2"
-            app:destination="@id/infoPersonal2" />
+            android:id="@+id/action_opt_configuracion_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/agregarVehiculoFragment"
         android:name="com.inndex.car.personas.fragments.vehiculos.AgregarVehiculoFragment"
         android:label="fragment_agregar_vehiculo"
         tools:layout="@layout/fragment_agregar_vehiculo" />
-    <fragment
-        android:id="@+id/infoPersonal2"
-        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.InfoPersonal"
-        android:label="fragment_info_personal"
-        tools:layout="@layout/fragment_info_personal" >
-        <action
-            android:id="@+id/action_infoPersonal2_to_editPasswordFragment"
-            app:destination="@id/editPasswordFragment" />
-    </fragment>
     <fragment
         android:id="@+id/editPasswordFragment"
         android:name="com.inndex.car.personas.fragments.configuracion_cuenta.EditPasswordFragment"
@@ -88,5 +79,14 @@
         <action
             android:id="@+id/action_misEdsFragment_to_editarEdsFragment"
             app:destination="@id/editarEdsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_editPasswordFragment"
+            app:destination="@id/editPasswordFragment" />
     </fragment>
 </navigation>
