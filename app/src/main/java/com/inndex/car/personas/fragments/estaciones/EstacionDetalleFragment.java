@@ -277,15 +277,11 @@ public class EstacionDetalleFragment extends Fragment {
                             requireContext().startActivity(i);
                         });
 
-
-
                     }else {
                         params.height = 900;
 
                         LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
                         linearLayout.setVisibility(View.GONE);
-
-
                     }
                 }
                 return false;
