@@ -166,7 +166,6 @@ public class EstacionDetalleFragment extends Fragment {
         return root;
     }
 
-
     private void combustibles(View root) {
 
         View layCombustibles = root.findViewById(R.id.lay_combustibles);
@@ -246,7 +245,21 @@ public class EstacionDetalleFragment extends Fragment {
                 if (parent.isGroupExpanded(groupPosition)) {
                     params.height = 100;
                 } else {
-                    params.height = 500;
+
+                    if (estaciones.getTelefono() != null){
+                        params.height = 1100;
+                        LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
+                        linearLayout.setVisibility(View.VISIBLE);
+                        final TextView numero = root.findViewById(R.id.numero_estacion);
+                        numero.setText(estaciones.getTelefono());
+                    }else {
+                        params.height = 900;
+
+                        LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
+                        linearLayout.setVisibility(View.GONE);
+
+
+                    }
                 }
                 return false;
             });

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".fragments.estaciones.favoritas.EstacionesFavoritasFragment">
 
     <include
@@ -11,10 +13,11 @@
         android:layout_height="wrap_content"
         layout="@layout/my_toolbar"/>
     
-    <TextView
-        android:layout_below="@id/toolbar_favoritas"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEstacionesFavoritas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:listitem="@layout/itemestacionfavorita"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-</RelativeLayout>
+</LinearLayout>
