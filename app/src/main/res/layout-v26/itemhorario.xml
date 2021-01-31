@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Horarios"
+        android:fontFamily="@font/roboto_light"
         android:textColor="@color/azul_texto_enlace"
         android:textSize="@dimen/text_combustibles_titulos" />
 
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Abierto 24 horas"
         android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/roboto_light"
         android:textSize="@dimen/text_combustibles_titulos"
         android:layout_alignParentEnd="true"/>
 

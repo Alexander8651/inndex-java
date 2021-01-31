@@ -21,6 +21,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/roboto_light"
                     android:layout_weight="1"
                     tools:text="Domingo"/>
 
@@ -34,6 +35,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/roboto_light"
                     tools:text="De 7 a 5"/>
         </LinearLayout>
 </LinearLayout>
