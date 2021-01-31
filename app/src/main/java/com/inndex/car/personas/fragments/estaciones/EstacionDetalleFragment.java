@@ -260,9 +260,9 @@ public class EstacionDetalleFragment extends Fragment {
                         final CardView botonLlamar = root.findViewById(R.id.botonllamar);
 
                         botonLlamar.setOnClickListener(view ->{
-                            Intent i = new Intent(Intent.ACTION_CALL);
-                            i.setData(Uri.parse(estaciones.getTelefono()));
-                            startActivity(i);
+                            Intent i = new Intent(Intent.ACTION_DIAL);
+                            i.setData(Uri.parse("tel:" +estaciones.getTelefono()));
+                            requireContext().startActivity(i);
                         });
 
 
