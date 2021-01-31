@@ -92,6 +92,7 @@ public class ExpLAdapter extends BaseExpandableListAdapter {
                     String horarioAbierto = "Abierto 24 horas";
                     String diasemana = "Domingo";
                     String horarioAtencion = "Abierto 24 horas";
+                    
 
                     ((TextView) convertView.findViewById(R.id.itemSpinnersDomingoDia)).setText(diasemana);
                     ((TextView) convertView.findViewById(R.id.itemSpinnersDomingoDiaHorario)).setText(horarioAtencion);
