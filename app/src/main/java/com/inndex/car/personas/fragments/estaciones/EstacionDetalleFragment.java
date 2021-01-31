@@ -257,6 +257,9 @@ public class EstacionDetalleFragment extends Fragment {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
                 if (parent.isGroupExpanded(groupPosition)) {
                     params.height = 100;
+                    LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
+                    linearLayout.setVisibility(View.GONE);
+
                 } else {
 
                     if (estaciones.getTelefono() != null){
