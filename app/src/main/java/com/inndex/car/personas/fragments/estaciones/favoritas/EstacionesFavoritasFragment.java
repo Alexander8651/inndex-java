@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.adapter.EstacionFavoritaAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
-import com.inndex.car.personas.fragments.estaciones.EstacionesMapFragment;
 import com.inndex.car.personas.model.Estaciones;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -47,6 +47,12 @@ public class EstacionesFavoritasFragment extends Fragment {
         helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
 
         View root = inflater.inflate(R.layout.fragment_estaciones_favoritas, container, false);
+
+        TextView tvTitulo = root.findViewById(R.id.tv_toolbar_titulo);
+
+
+            tvTitulo.setText("Mis favoritas");
+
 
         rvFavoritas = root.findViewById(R.id.rvEstacionesFavoritas);
         try {

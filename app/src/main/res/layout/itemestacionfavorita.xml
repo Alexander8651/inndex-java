@@ -14,16 +14,18 @@
       android:orientation="horizontal">
 
       <ImageView
-          android:layout_width="80dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="6dp"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="22dp"
           android:src="@drawable/gasolinera_icono"/>
 
       <LinearLayout
           android:layout_width="250dp"
           android:layout_height="wrap_content"
           android:orientation="vertical"
-          android:layout_margin="4dp">
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="20dp">
           <TextView
               android:id="@+id/marca_estacion_item"
               android:layout_width="match_parent"
@@ -37,28 +39,29 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               tools:text="EDS la esperanza"
-              android:textSize="20sp"/>
+              android:textSize="16sp"/>
           <TextView
               android:id="@+id/direccion_estacion_item"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               tools:text="CL. 22 # 68d-20"
-              android:textSize="20sp"/>
+              android:textSize="16sp"/>
 
           <TextView
               android:id="@+id/ciudad_estacion_item"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               tools:text="Bogotá DC, Bogotá DC"
-              android:textSize="20sp"/>
+              android:textSize="16sp"/>
       </LinearLayout>
 
       <ImageView
           android:id="@+id/menu3botonoes"
-          android:layout_width="50dp"
-          android:layout_height="wrap_content"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
           app:tint="@android:color/darker_gray"
-          android:src="@drawable/ic_more_horiz_servicios"/>
+          android:src="@drawable/ic_more_horiz_servicios"
+          android:layout_marginStart="12dp"/>
 
   </LinearLayout>
 
