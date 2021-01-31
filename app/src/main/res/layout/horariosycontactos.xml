@@ -56,11 +56,10 @@
             android:layout_gravity="center_horizontal"
             android:textColor="@android:color/holo_blue_bright"
             android:layout_height="35dp"
+            android:fontFamily="@font/roboto_light"
             android:textSize="25sp"/>
 
     </LinearLayout>
-
-
 
     <View
         android:layout_width="match_parent"
