@@ -32,7 +32,11 @@ public class EstacionRenderer extends DefaultClusterRenderer<InndexMarkerItem> {
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado));
             }
         }
-        markerOptions.title(item.getTitle());
-        markerOptions.snippet(item.getSnippet());
+        markerOptions.title("Ir a Street View");
+        //markerOptions.snippet(item.getSnippet());
     }
+
+
+
+
 }

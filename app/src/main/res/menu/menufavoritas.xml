@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/compartir_favoritas"
+        android:title="@string/compartir" />
 
     <item
         android:id="@+id/elinimar_favoritas"
-        android:title="Eliminar"
-
-        />
-
-    <item
-        android:id="@+id/compartir_favoritas"
-        android:title="Compartir"
-        />
+        android:title="@string/eliminar" />
 
 </menu>

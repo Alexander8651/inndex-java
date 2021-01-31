@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ import java.util.Map;
 public class EstacionDetalleFragment extends Fragment {
 
     private Estaciones estaciones;
-    private float distancia = 2000;
+    private float distancia = 0;
     private SharedViewModel model;
 
     public TextView tvCalificacion;
@@ -119,6 +120,7 @@ public class EstacionDetalleFragment extends Fragment {
         imgDrawRoute.setOnClickListener(v -> {
             model.setHomeEvents(EEvents.DRAW_ROUTE.getId());
         });
+        RatingBar ratingBar = root.findViewById(R.id.rat_bar_estacion_servicios_calificacion);
 /*        botonBack.setOnClickListener(v -> {
             this.onDestroy();
             //mainActivity.clickHome();
@@ -148,8 +150,7 @@ public class EstacionDetalleFragment extends Fragment {
         });*/
 
         tvCalificacion.setText(String.format(Locale.ENGLISH, "%.1f", estaciones.getCalificacion()));
-        float cal = 3.8f;
-        //float cal =  (float)estaciones.getCalificacion()
+        ratingBar.setRating((float) estaciones.getCalificacion());
 
         direccion.setText(estaciones.getDireccion());
         marca.setText(estaciones.getMarca());
@@ -169,7 +170,6 @@ public class EstacionDetalleFragment extends Fragment {
         lavaderos(root);
         metodosPago(root);
 
-        distancia = 2000;
         if (distancia < 1000) {
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
         } else {

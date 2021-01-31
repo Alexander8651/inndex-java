@@ -8,4 +8,6 @@ public interface IMapService {
 
     void onRutaTrazada();
 
+    void goToStreetView(String location);
+
 }

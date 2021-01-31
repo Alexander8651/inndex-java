@@ -84,11 +84,9 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         }
     }
 
-
     public void deleteMapMarkers() {
 
     }
-
 
     @Override
     public void trazarRutas(List<Route> rutas) {
@@ -182,6 +180,12 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
             itemStationSelected = item;
             imapService.onEstacionMarkerClick(getEstacionSeleccionada());
             return false;
+        });
+        mClusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<InndexMarkerItem>() {
+            @Override
+            public void onClusterItemInfoWindowClick(InndexMarkerItem item) {
+                imapService.goToStreetView(itemStationSelected.getPosition().latitude + "," + itemStationSelected.getPosition().longitude);
+            }
         });
     }
 

@@ -266,5 +266,7 @@
     <string name="martes_cyh">Martes</string>
     <string name="lunes_cyh">Lunes</string>
     <string name="hint_horaio_de_hasta">00:00</string>
+    <string name="compartir">Compartir</string>
+    <string name="eliminar">Eliminar</string>
 
 </resources>

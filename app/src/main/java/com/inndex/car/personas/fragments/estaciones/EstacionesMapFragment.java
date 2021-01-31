@@ -77,6 +77,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private SharedViewModel sharedViewModel;
     private LatLng myLocation;
     private Place selectedPlace;
+    float distancia;
 
     private FragmentEstacionesMapBinding binding;
 
@@ -220,7 +221,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.e("HOME", "MAP READY");
         mMap = googleMap;
         mapService = new MapService(mMap, getContext(), this);
         if (estaciones.size() > 0) {
@@ -266,14 +266,50 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             return;
         }
 
+        String origins = this.myLocation.latitude + "," + this.myLocation.longitude;
+        String destination = estacion.getLatitud() + "," + estacion.getLongitud();
+        calculateDistance(origins, destination, estacion);
+
+        //openStationBottomSheet(estacion);
+    }
+
+    private void calculateDistance(String origins, String destination, Estaciones estacion) {
+        Call<DistanceApiResponse> getDistance = DistanceApiAdapter.getApiService().getDistanceBetween(origins,
+                destination, Constantes.API_KEY_PLACES);
+        getDistance.enqueue(new Callback<DistanceApiResponse>() {
+            @Override
+            public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
+                Log.e("RESPONSE", "RES " + response.code());
+                if (response.isSuccessful()) {
+                    DistanceApiResponse res = response.body();
+                    if (res != null) {
+                        Log.e("DIS", "DISTANMCE IS " + res.getDistanceValue());
+                        distancia = (float) res.getDistanceValue();
+                        openStationBottomSheet(estacion);
+                    } else
+                        Log.e("DIS", "SOMETHING HAPPEND");
+
+                } else {
+                    Log.e("RESPONSE", "NOT SUCCESSFULL " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DistanceApiResponse> call, Throwable t) {
+                Log.e("FAILURE", "EX " + t.getMessage());
+            }
+        });
+
+    }
+
+
+    private void openStationBottomSheet(Estaciones estacion) {
         Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacion.getId());
         getEstacionById.enqueue(new Callback<Estaciones>() {
             @Override
             public void onResponse(Call<Estaciones> call, Response<Estaciones> response) {
 
                 if (response.isSuccessful()) {
-                    float distancia = 2000;
-
                     Estaciones estResponse = response.body();
                     EstacionDetalleFragment miFragment = new EstacionDetalleFragment(estResponse, distancia, inndexLocationService.getMyLocation());
                     //viewMap.setVisibility(View.GONE);
@@ -287,6 +323,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                     getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
                     binding.fabUbicacion.hide();
+                    sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
                 }
             }
 
@@ -295,28 +332,25 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                 Toast.makeText(getActivity(), "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
             }
         });
-
-         /*       FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        EstacionDetalleFragment detalleFragment = new EstacionDetalleFragment(estacionSelected, this, light,
-                this.inndexLocationService.getMyLocation());
-        transaction.add(R.id.fl_estacion_detalle_container, detalleFragment);
-        transaction.commit();
-        fabUbicacion.hide();
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);*/
-
-        //miFragment =
-/*        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, miFragment).commit();
-
-        this.viewMap.setClickable(false);*/
-
-        sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
     }
 
     @Override
     public void onRutaTrazada() {
         rutaTrazada = true;
+    }
 
+    @Override
+    public void goToStreetView(String location) {
+        //46.414382,10.013988
+        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + location);
+
+// Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+// Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+// Attempt to start an activity that can handle the Intent
+        startActivity(mapIntent);
     }
 
     private void getAllStations() throws SQLException {
