@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     public RelativeLayout layBtnVerServicios;
 
     public RelativeLayout layBtnIndicaciones;
-    public RelativeLayout layButtonsConfirmarCompra;
+
 
     public ImageView imgBtnHome;
     public ImageView imgBtnFiltros;
@@ -111,22 +111,21 @@ public class HomeFragment extends Fragment {
                             layButtonsStationSelected.setVisibility(View.VISIBLE);
                             break;
                         case SHOW_ORIGINAL_MENU:
-                            layMenuInferior.setVisibility(View.VISIBLE);
                             layButtonsStationSelected.setVisibility(View.GONE);
+                            layMenuInferior.setVisibility(View.VISIBLE);
                             break;
                     }
                 });
 
     }
 
-
     private void onItemMenuClick(int itemClicked) {
 
         switch (itemClicked) {
             case HOME_CLICKED:
-                layButtonsConfirmarCompra.setVisibility(View.GONE);
                 layMenuInferior.setVisibility(View.VISIBLE);
-                layBtnNavegar.setVisibility(View.GONE);
+                layButtonsStationSelected.setVisibility(View.INVISIBLE);
+                //layBtnNavegar.setVisibility(View.GONE);
                 navController.navigate(R.id.estacionesMapFragment);
                 imgBtnHome.setImageResource(R.drawable.home_negro);
                 imgBtnFiltros.setImageResource(R.drawable.filtro_gris);

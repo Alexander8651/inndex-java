@@ -134,6 +134,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             public void onStateChanged(@NonNull View view, int i) {
                 if (BottomSheetBehavior.STATE_COLLAPSED == i) {
                     binding.fabUbicacion.show();
+                    binding.fabNavegacion.hide();
                     sharedViewModel.setEvents(EEvents.SHOW_ORIGINAL_MENU.getId());
                 } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
                 }
@@ -211,8 +212,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         binding = FragmentEstacionesMapBinding.bind(view);
         binding.fabUbicacion.setOnClickListener(v -> mapService.mostrarUbicacion());
         binding.fabNavegacion.setOnClickListener(v -> {
-            if (selectedPlace != null)
-            {
+            if (selectedPlace != null) {
                 gotToWaze(selectedPlace.getLatLng());
             }
         });
@@ -409,7 +409,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         }
     }
 
-   @Override
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
@@ -429,8 +429,10 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                         mapService.deleteMapPolylines();
                         rutaTrazada = false;
                         mapService.mostrarUbicacion();
+                        sharedViewModel.setEvents(EEvents.SHOW_ORIGINAL_MENU.getId());
                     } else if (mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        sharedViewModel.setEvents(EEvents.SHOW_ORIGINAL_MENU.getId());
                     } else {
                         getActivity().finish();
                     }
