@@ -11,7 +11,7 @@
     <dimen name="margin_left_imag_btn_refresh">15dp</dimen>
     <dimen name="elevation">50dp</dimen>
 
-    <dimen name="margin_status_bar">30dp</dimen>
+    <dimen name="margin_status_bar">28dp</dimen>
     <dimen name="height_toolbar">100dp</dimen>
 
     <dimen name="texto_info_personal">14sp</dimen>
@@ -24,7 +24,7 @@
     <dimen name="size_text_menu_principal">18sp</dimen>
     <dimen name="height_menu_item_separator">40dp</dimen>
     <dimen name="width_menu_item_separator">2dp</dimen>
-    <dimen name="margin_top_inicio">30dp</dimen>
+    <dimen name="margin_top_inicio">34dp</dimen>
     <dimen name="margin_top_inicio_lista">30dp</dimen>
     <dimen name="margin_lista_search">20dp</dimen>
 

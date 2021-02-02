@@ -1,7 +1,6 @@
 package com.inndex.car.personas.model;
 
 import java.io.Serializable;
-import java.sql.Time;
 
 public class Horario implements Serializable {
 
@@ -9,9 +8,9 @@ public class Horario implements Serializable {
 
 	private Long id;
 
-	private Time inicio;
+	private String inicio;
 
-	private Time fin;
+	private String fin;
 
 	private Long dia;
 
@@ -30,19 +29,19 @@ public class Horario implements Serializable {
 		this.id = id;
 	}
 
-	public Time getInicio() {
+	public String getInicio() {
 		return inicio;
 	}
 
-	public void setInicio(Time inicio) {
+	public void setInicio(String inicio) {
 		this.inicio = inicio;
 	}
 
-	public Time getFin() {
+	public String getFin() {
 		return fin;
 	}
 
-	public void setFin(Time fin) {
+	public void setFin(String fin) {
 		this.fin = fin;
 	}
 

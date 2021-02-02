@@ -2,14 +2,12 @@ package com.inndex.car.personas.adapter;
 
 import android.app.Activity;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -43,7 +41,7 @@ public class EstacionFavoritaAdapter extends RecyclerView.Adapter<EstacionFavori
     public void onBindViewHolder(@NonNull EstacionesFavoritasViewHolder holder, int position) {
 
         Estaciones estacion = estaciones.get(position);
-        String ubicacion = estacion.getMunicipio() + estacion.getDepartamento();
+        String ubicacion = estacion.getMunicipio() + ", " + estacion.getDepartamento();
 
         holder.marcaestacion.setText(estacion.getMarca());
         holder.nombreestacion.setText(estacion.getNombre());

@@ -23,20 +23,12 @@ public class EstacionRenderer extends DefaultClusterRenderer<InndexMarkerItem> {
 
         if (item.isCertificada()) {
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada));
-
         } else {
-            if (item.getIdEstacion().equals(74L) || item.getIdEstacion().equals(192L) || item.getIdEstacion().equals(13L)
-                    || item.getIdEstacion().equals(71L) || item.getIdEstacion().equals(19L) || item.getIdEstacion().equals(109L)) {
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_promo));
-            } else {
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado));
-            }
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado));
         }
         markerOptions.title("Ir a Street View");
         //markerOptions.snippet(item.getSnippet());
     }
-
-
 
 
 }

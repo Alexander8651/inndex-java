@@ -1,9 +1,13 @@
 package com.inndex.car.personas.services;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -148,10 +152,11 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         uiSettings.setAllGesturesEnabled(true);
         uiSettings.setMapToolbarEnabled(false);
         uiSettings.setMyLocationButtonEnabled(false);
-//        mClusterManager.getMarkerCollection().setInfoWindowAdapter(new CustomInfoViewAdapter(LayoutInflater.from(mainActivity)));
-
-//        mMap.setInfoWindowAdapter(mClusterManager.getMarkerManager());
-        //this.mMap.setOnMarkerClickListener(this);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
     }
 
     public void addStations() {
@@ -163,7 +168,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         for (Estaciones estacion :
                 estaciones) {
             LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
-            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(), latLng, estacion.getMarca(), estacion.getDireccion(),
+            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(), latLng,
                     estacion.getId(), sum);
             mClusterManager.addItem(item);
             /*
@@ -223,8 +228,10 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
     }
 
     public Estaciones getEstacionSeleccionada() {
-        if (this.itemStationSelected != null) {
+        if (this.itemStationSelected != null && this.estaciones != null && this.estaciones.size() > 0) {
             return this.estaciones.get(itemStationSelected.getPositionInList());
+        } else {
+            Toast.makeText(context, "ERROR estaciones null" , Toast.LENGTH_SHORT).show();
         }
         return null;
     }

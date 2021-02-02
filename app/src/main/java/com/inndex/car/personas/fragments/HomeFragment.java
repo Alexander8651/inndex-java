@@ -33,9 +33,6 @@ public class HomeFragment extends Fragment {
 
     public RelativeLayout layBtnIndicaciones;
     public RelativeLayout layButtonsConfirmarCompra;
-    public LinearLayout layBtnReclamarAhora;
-
-    public RelativeLayout layBtnConfirmarCompra;
 
     public ImageView imgBtnHome;
     public ImageView imgBtnFiltros;
@@ -74,7 +71,6 @@ public class HomeFragment extends Fragment {
         layBtnIndicaciones.setOnClickListener(view -> {
             sharedViewModel.setHomeEvents(EEvents.DRAW_ROUTE.getId());
         });
-        layButtonsConfirmarCompra = v.findViewById(R.id.lay_btn_confirmar_compra);
         //layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
 
         imgBtnHome = v.findViewById(R.id.img_btn_home);

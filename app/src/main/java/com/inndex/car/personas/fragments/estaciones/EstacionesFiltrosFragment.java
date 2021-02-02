@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
@@ -75,6 +78,7 @@ public class EstacionesFiltrosFragment extends Fragment {
     //private MainActivity mainActivity;
     private DataBaseHelper helper;
     private List<MarcaCarros> lMarcasCarros;
+    private NavController navController;
 
 
     private boolean[] checkedBrands;
@@ -113,10 +117,15 @@ public class EstacionesFiltrosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
-
+        TextView tvTitulo = view.findViewById(R.id.tv_toolbar_titulo);
+        tvTitulo.setText("Filtros");
+        ImageView imgBack = view.findViewById(R.id.btnBack);
+        navController = Navigation.findNavController(requireActivity(), R.id.fragContentApp);
+        imgBack.setOnClickListener(v -> {
+            navController.navigate(R.id.estacionesMapFragment);
+        });
         return view;
     }
-
 
     public void showBrandFilters() {
         String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);

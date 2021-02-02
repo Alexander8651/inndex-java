@@ -15,31 +15,27 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_inicio">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/cardPlacesSearch"
-            android:layout_marginEnd="@dimen/margin_lista_search"
-            android:layout_marginTop="@dimen/margin_top_inicio"
-            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:contentDescription="@string/aceptar"
             android:src="@drawable/ic_menu"
-            app:backgroundTint="@color/white"
-            android:layout_centerVertical="true"/>
+            app:backgroundTint="@color/white" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardPlacesSearch"
-            android:layout_width="220dp"
+            android:layout_width="200dp"
             android:layout_height="38dp"
-            android:layout_marginTop="30dp"
-            android:minHeight="30dp"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="6dp"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
+            app:cardCornerRadius="4dp"
+            app:cardElevation="6dp">
 
             <fragment
                 android:id="@+id/autocompleteFragment"
@@ -86,11 +82,9 @@
 
         </LinearLayout-->
 
-
-
     </RelativeLayout>
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabUbicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,9 +104,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:src="@drawable/navegacion"
-        android:visibility="gone"
         app:backgroundTint="@color/white" />
-
 
     <!--androidx.cardview.widget.CardView
         android:id="@+id/linearCard"
@@ -168,7 +160,7 @@
             android:layout_height="match_parent"
             app:behavior_hideable="true"
             app:behavior_peekHeight="0dp"
-            app:layout_behavior="@string/bottom_sheet_behavior" >
+            app:layout_behavior="@string/bottom_sheet_behavior">
 
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

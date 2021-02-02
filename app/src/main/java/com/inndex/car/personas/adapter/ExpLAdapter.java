@@ -1,21 +1,15 @@
 package com.inndex.car.personas.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.TextView;
-
-import androidx.core.app.ActivityCompat;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.enums.EDias;
 import com.inndex.car.personas.model.Horario;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Map;
 
 public class ExpLAdapter extends BaseExpandableListAdapter {
@@ -67,10 +61,10 @@ public class ExpLAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String tituloCategoria = (String) getGroup(groupPosition);
+/*        String tituloCategoria = (String) getGroup(groupPosition);
         convertView = LayoutInflater.from(context).inflate(R.layout.itemhorario, null);
         TextView tvGroupTitle = convertView.findViewById(R.id.horarioitem);
-        tvGroupTitle.setText(tituloCategoria);
+        tvGroupTitle.setText(tituloCategoria);*/
 
         return convertView;
     }
@@ -79,7 +73,7 @@ public class ExpLAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.itemspinners, null);
 
-        Calendar rightNow = Calendar.getInstance();
+ /*       Calendar rightNow = Calendar.getInstance();
 
         Horario horario = (Horario) getChild(groupPosition, childPosition);
 
@@ -316,7 +310,7 @@ public class ExpLAdapter extends BaseExpandableListAdapter {
                     }
                 }
             }
-        }
+        }*/
         return convertView;
     }
 

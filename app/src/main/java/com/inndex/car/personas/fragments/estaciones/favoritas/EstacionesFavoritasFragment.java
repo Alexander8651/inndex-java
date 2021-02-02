@@ -5,12 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
@@ -29,11 +32,10 @@ public class EstacionesFavoritasFragment extends Fragment {
     private EstacionesFavoritasViewModel mViewModel;
     private DataBaseHelper helper;
     private List<Estaciones> estaciones;
-
+    private NavController navController;
     private RecyclerView rvFavoritas;
 
     private EstacionFavoritaAdapter adapter;
-
 
 
     public static EstacionesFavoritasFragment newInstance() {
@@ -49,10 +51,13 @@ public class EstacionesFavoritasFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_estaciones_favoritas, container, false);
 
         TextView tvTitulo = root.findViewById(R.id.tv_toolbar_titulo);
+        ImageView imgBack = root.findViewById(R.id.btnBack);
+        navController = Navigation.findNavController(requireActivity(), R.id.fragContentApp);
+        imgBack.setOnClickListener(v -> {
+            navController.navigate(R.id.estacionesMapFragment);
+        });
 
-
-            tvTitulo.setText("Mis favoritas");
-
+        tvTitulo.setText("Mis favoritas");
 
         rvFavoritas = root.findViewById(R.id.rvEstacionesFavoritas);
         try {
@@ -64,8 +69,6 @@ public class EstacionesFavoritasFragment extends Fragment {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
         return root;
     }
 

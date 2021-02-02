@@ -1,8 +1,5 @@
 package com.inndex.car.personas.fragments.estaciones;
 
-import android.content.Intent;
-import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -82,9 +79,9 @@ public class EstacionDetalleFragment extends Fragment {
     private LatLng myPosition;
 
     public EstacionDetalleFragment(Estaciones estacion, Float distance,
-                                   Location position) {
+                                   LatLng position) {
         this.estaciones = estacion;
-        this.myPosition = new LatLng(position.getLatitude(), position.getLongitude());
+        this.myPosition = position;
         this.distancia = distance;
     }
 
@@ -156,7 +153,7 @@ public class EstacionDetalleFragment extends Fragment {
         marca.setText(estaciones.getMarca());
         nombre.setText(estaciones.getNombre());
         combustibles(root);
-        horariosycontacto(root);
+        //horariosycontacto(root);
         cajeros(root);
         initCorresponsales(root);
         puntosPago(root);
@@ -239,22 +236,29 @@ public class EstacionDetalleFragment extends Fragment {
     }
 
     private void horariosycontacto(View root) {
+
+
         ExpandableListView spin = root.findViewById(R.id.expanded_horarios);
         ArrayList<String> listCategorias = new ArrayList<>();
         Map<String, ArrayList<Horario>> mapChild = new HashMap<>();
         View layHorarios = root.findViewById(R.id.horariosycontacto);
 
         if (estaciones.getListHorarios() != null && estaciones.getListHorarios().size() > 0) {
-
             ArrayList<Horario> horarios = new ArrayList<>(estaciones.getListHorarios());
             listCategorias.add("Horarios y contacto");
             mapChild.put(listCategorias.get(0), horarios);
-            ExpLAdapter adapter = new ExpLAdapter(mapChild, listCategorias, requireContext());
-            spin.setAdapter(adapter);
-            spin.setIndicatorBounds(610, 0);
-            spin.setOnGroupClickListener((parent, v, groupPosition, id) -> {
-                View layout = root.findViewById(R.id.horariosycontacto);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
+            try {
+                ExpLAdapter adapter = new ExpLAdapter(mapChild, listCategorias, requireContext());
+                spin.setAdapter(adapter);
+            } catch (Exception ex) {
+                Toast.makeText(getActivity(), "EX " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            /*spin.setIndicatorBounds(610, 0);
+            /*spin.setOnGroupClickListener((parent, v, groupPosition, id) -> {
+                Toast.makeText(getActivity(), "CLICK", Toast.LENGTH_SHORT).show();
+
+                //View layout = root.findViewById(R.id.horariosycontacto);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layHorarios.getLayoutParams();
                 if (parent.isGroupExpanded(groupPosition)) {
                     params.height = 100;
                     LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
@@ -286,6 +290,7 @@ public class EstacionDetalleFragment extends Fragment {
                 }
                 return false;
             });
+            */
         } else {
             layHorarios.setVisibility(View.GONE);
         }
@@ -354,7 +359,7 @@ public class EstacionDetalleFragment extends Fragment {
                     counter++;
                 }
             }
-        }else {
+        } else {
             LinearLayout layout = root.findViewById(R.id.layMetodosPago);
             layout.setVisibility(View.GONE);
         }

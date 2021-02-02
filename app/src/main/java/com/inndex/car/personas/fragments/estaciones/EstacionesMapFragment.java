@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -78,6 +77,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private LatLng myLocation;
     private Place selectedPlace;
     float distancia;
+    private Estaciones estacionSeleccionada;
 
     private FragmentEstacionesMapBinding binding;
 
@@ -147,14 +147,15 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         if (!Places.isInitialized()) {
             Places.initialize(getActivity(), Constantes.API_KEY_PLACES, Locale.US);
         }
+
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocompleteFragment);
-        EditText edtSearchPlaces = v.findViewById(R.id.editText_search);
+        //EditText edtSearchPlaces = v.findViewById(R.id.editText_search);
 
         if (autocompleteFragment != null) {
             // Specify the types of place data to return.
             autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
-            autocompleteFragment.setHint(getString(R.string.a_donde_vas));
+            //autocompleteFragment.setHint(getString(R.string.a_donde_vas));
 
             // Set up a PlaceSelectionListener to handle the response.
             autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -202,7 +203,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                 Log.e("FAILURE", "EX " + t.getMessage());
             }
         });
-
     }
 
     @Override
@@ -212,7 +212,9 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         binding.fabUbicacion.setOnClickListener(v -> mapService.mostrarUbicacion());
         binding.fabNavegacion.setOnClickListener(v -> {
             if (selectedPlace != null)
-                mapService.drawRouteToPlace(selectedPlace.getLatLng());
+            {
+                gotToWaze(selectedPlace.getLatLng());
+            }
         });
         binding.btnMenu.setOnClickListener(c1 -> drawer.open());
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map1);
@@ -245,7 +247,13 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
+        if (location == null) {
+            Toast.makeText(getActivity(), "LOCATION NULL", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         this.mapService.setMyLocation(location);
+        this.myLocation = new LatLng(location.getLatitude(), location.getLongitude());
         if (!myLocationZoomed) {
             this.mapService.mostrarUbicacion();
             myLocationZoomed = true;
@@ -261,15 +269,27 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
     @Override
     public void onEstacionMarkerClick(Estaciones estacion) {
-        if (this.inndexLocationService.getMyLocation() == null) {
+        if (this.myLocation == null) {
             Toast.makeText(getActivity(), "NO SE PUEDE DETERMINAR TU UBICACIÓN", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String origins = this.myLocation.latitude + "," + this.myLocation.longitude;
-        String destination = estacion.getLatitud() + "," + estacion.getLongitud();
-        calculateDistance(origins, destination, estacion);
+        if (estacion == null) {
+            Toast.makeText(getActivity(), "Estacion nula", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        //this.myLocation = new LatLng(inndexLocationService.getMyLocation().getLatitude(), inndexLocationService.getMyLocation().getLongitude());
+
+        try {
+            String origins = this.myLocation.latitude + "," + this.myLocation.longitude;
+            String destination = estacion.getLatitud() + "," + estacion.getLongitud();
+
+            calculateDistance(origins, destination, estacion);
+
+        } catch (Exception ex) {
+            Toast.makeText(getActivity(), "EXCEPTION " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         //openStationBottomSheet(estacion);
     }
 
@@ -279,11 +299,12 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         getDistance.enqueue(new Callback<DistanceApiResponse>() {
             @Override
             public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
-                Log.e("RESPONSE", "RES " + response.code());
+
+
                 if (response.isSuccessful()) {
                     DistanceApiResponse res = response.body();
                     if (res != null) {
-                        Log.e("DIS", "DISTANMCE IS " + res.getDistanceValue());
+
                         distancia = (float) res.getDistanceValue();
                         openStationBottomSheet(estacion);
                     } else
@@ -304,32 +325,34 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
 
     private void openStationBottomSheet(Estaciones estacion) {
+        estacionSeleccionada = estacion;
         Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacion.getId());
         getEstacionById.enqueue(new Callback<Estaciones>() {
             @Override
             public void onResponse(Call<Estaciones> call, Response<Estaciones> response) {
 
                 if (response.isSuccessful()) {
-                    Estaciones estResponse = response.body();
-                    EstacionDetalleFragment miFragment = new EstacionDetalleFragment(estResponse, distancia, inndexLocationService.getMyLocation());
-                    //viewMap.setVisibility(View.GONE);
+                    try {
+                        Estaciones estResponse = response.body();
+                        EstacionDetalleFragment miFragment = new EstacionDetalleFragment(estResponse, distancia, myLocation);
+                        //viewMap.setVisibility(View.GONE);
                     /*LatLng myPosition = new LatLng(inndexLocationService.getMyLocation().getLatitude(),
                             inndexLocationService.getMyLocation().getLongitude());*/
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(Constantes.ESTACION_SELECCIONADA_KEY, estResponse);
-                    bundle.putFloat("distancia", distancia);
-                    miFragment.setArguments(bundle);
-                    //verServiciosButtonClicked = true;
-                    getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-                    binding.fabUbicacion.hide();
-                    sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
+                        //verServiciosButtonClicked = true;
+
+                        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
+                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                        binding.fabUbicacion.hide();
+                        sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
+                    } catch (Exception ex) {
+                        Toast.makeText(getActivity(), "ERROR " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Estaciones> call, Throwable t) {
-                Toast.makeText(getActivity(), "Ocurrió un error consultando la estación.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "estación " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -371,11 +394,10 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
 
-    private void gotToWaze() {
-        Estaciones estacionSeleccionada = mapService.getEstacionSeleccionada();
-        if (estacionSeleccionada != null) {
+    private void gotToWaze(LatLng location) {
+        if (location != null) {
             try {
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + estacionSeleccionada.getLatitud() + "," + estacionSeleccionada.getLongitud());
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location.latitude + "," + location.longitude);
                 //Uri gmmIntentUri = Uri.parse("google.navigation:q=" + estacionSeleccionada.getLatitud() + "," + estacionSeleccionada.getLongitud());
                 Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 startActivity(intent);
@@ -387,7 +409,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         }
     }
 
-    @Override
+   @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
@@ -395,7 +417,8 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         sharedViewModel.getHomeEvents().observe(getViewLifecycleOwner(), event -> {
             switch (EEvents.getEventsById(event)) {
                 case NAVIGATE:
-                    gotToWaze();
+                    LatLng latLng = new LatLng(estacionSeleccionada.getLatitud(), estacionSeleccionada.getLongitud());
+                    gotToWaze(latLng);
                     break;
                 case DRAW_ROUTE:
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);

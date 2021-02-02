@@ -10,16 +10,12 @@ public class InndexMarkerItem implements ClusterItem {
 
     private boolean certificada;
     private LatLng mPosition;
-    private String mTitle;
-    private String mSnippet;
     private int positionInList;
     private Long idEstacion;
 
-    public InndexMarkerItem(boolean certificada, LatLng mPosition, String mTitle, String mSnippet, Long idEstacion, int position) {
+    public InndexMarkerItem(boolean certificada, LatLng mPosition,  Long idEstacion, int position) {
         this.certificada = certificada;
         this.mPosition = mPosition;
-        this.mTitle = mTitle;
-        this.mSnippet = mSnippet;
         this.idEstacion = idEstacion;
         this.positionInList = position;
     }
@@ -33,13 +29,13 @@ public class InndexMarkerItem implements ClusterItem {
     @Nullable
     @Override
     public String getTitle() {
-        return mTitle;
+        return "Ir a Street View";
     }
 
     @Nullable
     @Override
     public String getSnippet() {
-        return mSnippet;
+        return null;
     }
 
     public boolean isCertificada() {
