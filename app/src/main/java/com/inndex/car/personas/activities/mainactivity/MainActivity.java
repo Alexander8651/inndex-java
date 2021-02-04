@@ -202,9 +202,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (isEstacionesMapFragmentVisible)
+        if (isEstacionesMapFragmentVisible) {
             model.setHomeEvents(EEvents.BACK_BUTTON_PRESSED.getId());
-        else super.onBackPressed();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     private void applyFontToMenuItem(MenuItem mi) {

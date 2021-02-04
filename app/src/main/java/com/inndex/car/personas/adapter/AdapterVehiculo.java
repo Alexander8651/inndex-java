@@ -47,10 +47,10 @@ public class AdapterVehiculo extends RecyclerView.Adapter<com.inndex.car.persona
     public void onBindViewHolder(@NonNull AdapterVehiculo.ViewHolder holder, int position) {
 
         final Vehiculo vehiculo = lVehiculo.get(position);
-        holder.marca.setText(vehiculo.getMarca());
+        holder.marca.setText(vehiculo.getLinea().getMarca().getNombre());
         holder.anio.setText(vehiculo.getAnio());
         holder.placa.setText(vehiculo.getPlaca());
-        holder.linea.setText(vehiculo.getLinea());
+        holder.linea.setText(vehiculo.getLinea().getNombre());
 
         holder.mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,20 +60,13 @@ public class AdapterVehiculo extends RecyclerView.Adapter<com.inndex.car.persona
                 }
             }
         });
-
-
-
     }
 
-
-
     public class ViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
-
 
         TextView marca, anio , linea, placa;
         ImageView ivEdi_elim;
         RadioButton mRadioButton;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -4,7 +4,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @DatabaseTable(tableName = "usuarios")
 public class Usuario implements Serializable {
@@ -32,7 +31,9 @@ public class Usuario implements Serializable {
     @DatabaseField
     private Integer genero;
 
-    private Date fechaNacimiento;
+
+    //Formato: yyyy-MM-dd
+    private String fechaNacimiento;
 
 
     public Usuario() {
@@ -126,11 +127,11 @@ public class Usuario implements Serializable {
         this.genero = genero;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }

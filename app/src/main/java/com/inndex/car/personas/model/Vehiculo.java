@@ -8,23 +8,16 @@ public class Vehiculo {
 
     @DatabaseField(id = true)
     private Long id;
-    @DatabaseField
-    private Integer modelosCarrosId;
-    @DatabaseField
-    private Integer usuariosId;
 
     @DatabaseField
     private String placa;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private ModeloCarros modeloCarros;
+
     @DatabaseField
-    private String tipoCombustible;
-    @DatabaseField
-    private String marca;
-    @DatabaseField
-    private String linea;
-    @DatabaseField
-    private String anio;
+    private Integer anio;
+
+    private LineasVehiculos linea;
+
+    private Usuario usuario;
 
     private Estados estado;
 
@@ -44,33 +37,6 @@ public class Vehiculo {
         this.id = id;
     }
 
-    public Integer getModelosCarrosId() {
-        return modelosCarrosId;
-    }
-
-    public void setModelosCarrosId(Integer modelosCarrosId) {
-        this.modelosCarrosId = modelosCarrosId;
-    }
-
-    public Integer getUsuariosId() {
-        return usuariosId;
-    }
-
-    public void setUsuariosId(Integer usuariosId) {
-        this.usuariosId = usuariosId;
-    }
-
-    public void setUsuariosId(int usuariosId) {
-        this.usuariosId = usuariosId;
-    }
-
-    public ModeloCarros getModeloCarros() {
-        return modeloCarros;
-    }
-
-    public void setModeloCarros(ModeloCarros modeloCarros) {
-        this.modeloCarros = modeloCarros;
-    }
 
     public String getPlaca() {
         return placa;
@@ -80,35 +46,20 @@ public class Vehiculo {
         this.placa = placa;
     }
 
-    public String getTipoCombustible() {
-        return tipoCombustible;
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setTipoCombustible(String tipoCombustible) {
-        this.tipoCombustible = tipoCombustible;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getLinea() {
-        return linea;
-    }
-
-    public void setLinea(String linea) {
-        this.linea = linea;
-    }
-
-    public String getAnio() {
+    public Integer getAnio() {
         return anio;
     }
 
-    public void setAnio(String anio) {
+    public void setAnio(Integer anio) {
         this.anio = anio;
     }
 
@@ -118,5 +69,13 @@ public class Vehiculo {
 
     public void setEstado(Estados estado) {
         this.estado = estado;
+    }
+
+    public LineasVehiculos getLinea() {
+        return linea;
+    }
+
+    public void setLinea(LineasVehiculos linea) {
+        this.linea = linea;
     }
 }

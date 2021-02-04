@@ -1,16 +1,6 @@
 package com.inndex.car.personas.threads;
 
 import com.inndex.car.personas.database.DataBaseHelper;
-import com.inndex.car.personas.model.Vehiculo;
-import com.inndex.car.personas.retrofit.MedidorApiAdapter;
-import com.j256.ormlite.dao.Dao;
-
-import java.sql.SQLException;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DownloadUsuarioHasModeloCarro extends Thread {
 
@@ -26,7 +16,7 @@ public class DownloadUsuarioHasModeloCarro extends Thread {
 
     @Override
     public void run() {
-
+/*
         Call<List<Vehiculo>> callGetAllUsuarioHasModelos  = MedidorApiAdapter.getApiService().getUsuarioHasModeloCarros(String.valueOf(idUsuario));
         callGetAllUsuarioHasModelos.enqueue(new Callback<List<Vehiculo>>() {
             @Override
@@ -46,7 +36,7 @@ public class DownloadUsuarioHasModeloCarro extends Thread {
             public void onFailure(Call<List<Vehiculo>> call, Throwable t) {
 
             }
-        });
+        });*/
     }
 
     public int getIdUsuario() {

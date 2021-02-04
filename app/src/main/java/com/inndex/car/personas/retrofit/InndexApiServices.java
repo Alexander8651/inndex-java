@@ -5,8 +5,7 @@ import com.inndex.car.personas.model.Departamento;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
-import com.inndex.car.personas.model.MarcaCarros;
-import com.inndex.car.personas.model.ModeloCarros;
+import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
 import com.inndex.car.personas.model.Tanqueadas;
@@ -38,6 +37,16 @@ public interface InndexApiServices {
                                             @Body String dummy);
 
     /**
+     * USUARIO
+     */
+    @GET(Constantes.GET_USER_INFO_BY_ID)
+    Call<Usuario> getUserInfoById(@Query("id") Long idUsuario);
+
+    @PUT(Constantes.UPDATE_USER)
+    Call<Usuario> updateUser(@Header("Content-Type") String headerContentType,
+                             @Body Usuario usuario);
+
+    /**
      * ESTACIONES
      */
     @GET(Constantes.GET_ALL_ESTACIONES)
@@ -53,6 +62,9 @@ public interface InndexApiServices {
     Call<ResponseServices> postRegisterStation(@Header("Content-Type") String headerContentType,
                                                @Body Estaciones estaciones);
 
+    @GET(Constantes.GET_VEHICLES_BY_USER_ID)
+    Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);
+
     //TANQUEADAS
     @POST(Constantes.POST_REGISTRAR_TANQUEADA)
     Call<ResponseServices> postRegisterTanqueada(@Header("Content-Type") String headerContentType,
@@ -61,37 +73,22 @@ public interface InndexApiServices {
     @GET(Constantes.GET_TANQUEADAS_BY_USER + "{id}")
     Call<List<Tanqueadas>> getTanqueadasByUser(@Path("id") String id);
 
-    /**
-     * USUARIO HAS MODELO CARROS
-     */
-    @POST(Constantes.POST_REGISTRAR_USUARIO_HAS_MODELO_CARRO + "{idMarca}" + "/" + "{linea}")
-    Call<Vehiculo> postRegisterUsuarioHasModeloCarro(@Header("Content-Type") String headerContentType,
-                                                     @Path("idMarca") String idMarca,
-                                                     @Path("linea") String linea,
-                                                     @Body Vehiculo uhmc);
-
-    @PUT(Constantes.PUT_UPDATE_USUARIO_HAS_MODELO_CARRO)
-    Call<Vehiculo> putUpdateUsuarioHasModeloCarro(@Header("Content-Type") String headerContentType,
-                                                  @Body Vehiculo uhmc);
-
-    @GET(Constantes.GET_USUARIO_HAS_MODELO_CARROS_BY_ID_USER + "{idUsuario}")
-    Call<List<Vehiculo>> getUsuarioHasModeloCarros(@Path("idUsuario") String idUsuario);
 
     /**
      * MODELOS CARROS
      */
     @POST(Constantes.POST_REGISTER_MODELO_CARRO)
-    Call<ModeloCarros> postRegisterModelo(@Header("Content-Type") String headerContentType,
-                                          @Body ModeloCarros modeloCarros);
+    Call<LineasVehiculos> postRegisterModelo(@Header("Content-Type") String headerContentType,
+                                             @Body LineasVehiculos modeloCarros);
 
     @GET(Constantes.GET_MODELOS_CARROS_BY_MARCA + "{idMarca}")
-    Call<List<ModeloCarros>> getModelosCarrosByMarca(@Path("idMarca") String idMarca);
+    Call<List<LineasVehiculos>> getModelosCarrosByMarca(@Path("idMarca") String idMarca);
 
     /**
      * MARCAS CARROS
      */
     @GET(Constantes.GET_MARCAS_CARROS)
-    Call<List<MarcaCarros>> getMarcasCarros();
+    Call<List<LineasVehiculos>> getMarcasCarros();
 
     /**
      * RECORRIDOS

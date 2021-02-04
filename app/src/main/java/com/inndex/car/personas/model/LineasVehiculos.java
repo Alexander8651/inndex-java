@@ -4,19 +4,20 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.List;
 
-@DatabaseTable(tableName = "marcas_carros")
-public class MarcaCarros implements Serializable {
+@DatabaseTable(tableName = "lineas_vehiculos")
+public class LineasVehiculos implements Serializable {
 
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
     private String nombre;
 
-    private List<ModeloCarros> listModelos;
 
-    public MarcaCarros() {
+    private MarcaVehiculos marca;
+
+
+    public LineasVehiculos() {
     }
 
     public int getId() {
@@ -35,11 +36,11 @@ public class MarcaCarros implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<ModeloCarros> getListModelos() {
-        return listModelos;
+    public MarcaVehiculos getMarca() {
+        return marca;
     }
 
-    public void setListModelos(List<ModeloCarros> listModelos) {
-        this.listModelos = listModelos;
+    public void setMarca(MarcaVehiculos marca) {
+        this.marca = marca;
     }
 }

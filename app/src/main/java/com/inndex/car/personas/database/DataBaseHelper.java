@@ -2,14 +2,12 @@ package com.inndex.car.personas.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
-import com.inndex.car.personas.model.MarcaCarros;
-import com.inndex.car.personas.model.ModeloCarros;
+import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.Recorrido;
 import com.inndex.car.personas.model.Tanqueadas;
 import com.inndex.car.personas.model.UnidadRecorrido;
@@ -40,11 +38,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Recorrido, Integer> daoRecorrido = null;
     private RuntimeExceptionDao<Recorrido, Integer> recorridoRuntimeDao = null;
 
-    private Dao<MarcaCarros, Integer> daoMarcas = null;
-    private RuntimeExceptionDao<MarcaCarros, Integer> marcasRuntimeDao = null;
-
-    private Dao<ModeloCarros, Integer> daoModelos = null;
-    private RuntimeExceptionDao<ModeloCarros, Integer> modelosRuntimeDao = null;
+    private Dao<LineasVehiculos, Integer> daoModelos = null;
+    private RuntimeExceptionDao<LineasVehiculos, Integer> modelosRuntimeDao = null;
 
     private Dao<Vehiculo, Integer> daoUsuarioHasModeloCarros = null;
     private RuntimeExceptionDao<Vehiculo, Integer> usuarioHasModeloCarroRuntimeDao = null;
@@ -69,8 +64,7 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Estaciones.class);
             TableUtils.createTable(connectionSource, Estados.class);
             TableUtils.createTable(connectionSource, HistorialEstadoVehiculos.class);
-            TableUtils.createTable(connectionSource, MarcaCarros.class);
-            TableUtils.createTable(connectionSource, ModeloCarros.class);
+            TableUtils.createTable(connectionSource, LineasVehiculos.class);
             TableUtils.createTable(connectionSource, Recorrido.class);
             TableUtils.createTable(connectionSource, Tanqueadas.class);
             TableUtils.createTable(connectionSource, UnidadRecorrido.class);
@@ -92,8 +86,7 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connection, Estaciones.class, true);
             TableUtils.dropTable(connection, Tanqueadas.class, true);
             TableUtils.dropTable(connection, Recorrido.class, true);
-            TableUtils.dropTable(connection, MarcaCarros.class,true);
-            TableUtils.dropTable(connection, ModeloCarros.class,true);
+            TableUtils.dropTable(connection, LineasVehiculos.class,true);
             TableUtils.dropTable(connection, UnidadRecorrido.class,true);
             TableUtils.dropTable(connection, Vehiculo.class,true);
             TableUtils.dropTable(connection, HistorialEstadoVehiculos.class,true);
@@ -144,24 +137,15 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
         return recorridoRuntimeDao;
     }
 
-    public Dao<MarcaCarros, Integer> getDaoMarcas() throws SQLException {
-        if (daoMarcas == null) daoMarcas = getDao(MarcaCarros.class);
-        return daoMarcas;
-    }
 
-    public RuntimeExceptionDao<MarcaCarros, Integer> getMarcasRuntimeDao() {
-        if(marcasRuntimeDao == null) marcasRuntimeDao = getRuntimeExceptionDao(MarcaCarros.class);
 
-        return marcasRuntimeDao;
-    }
-
-    public Dao<ModeloCarros, Integer> getDaoModelos() throws SQLException {
-        if (daoModelos == null) daoModelos = getDao(ModeloCarros.class);
+    public Dao<LineasVehiculos, Integer> getDaoModelos() throws SQLException {
+        if (daoModelos == null) daoModelos = getDao(LineasVehiculos.class);
         return daoModelos;
     }
 
-    public RuntimeExceptionDao<ModeloCarros, Integer> getUsua() {
-        if(modelosRuntimeDao == null) modelosRuntimeDao = getRuntimeExceptionDao(ModeloCarros.class);
+    public RuntimeExceptionDao<LineasVehiculos, Integer> getUsua() {
+        if(modelosRuntimeDao == null) modelosRuntimeDao = getRuntimeExceptionDao(LineasVehiculos.class);
         return modelosRuntimeDao;
     }
 
@@ -214,14 +198,12 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
         daoEstaciones = null;
         daoTanqueadas = null;
         daoRecorrido = null;
-        daoMarcas = null;
         daoModelos = null;
         daoUsuarioHasModeloCarros = null;
         tanqueadasRuntimeDao = null;
         estacionesRuntimeDao = null;
         recorridoRuntimeDao = null;
         usuarioRuntimeDao = null;
-        marcasRuntimeDao = null;
         modelosRuntimeDao = null;
         usuarioHasModeloCarroRuntimeDao = null;
     }

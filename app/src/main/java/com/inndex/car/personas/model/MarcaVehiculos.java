@@ -4,9 +4,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.List;
 
-@DatabaseTable(tableName = "marcas_carros")
+@DatabaseTable(tableName = "marcas_vehiculos")
 public class MarcaVehiculos implements Serializable {
 
     @DatabaseField(generatedId = true)
@@ -14,7 +13,6 @@ public class MarcaVehiculos implements Serializable {
     @DatabaseField
     private String nombre;
 
-    private List<ModeloCarros> listModelos;
 
     public MarcaVehiculos() {
     }
@@ -35,11 +33,4 @@ public class MarcaVehiculos implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<ModeloCarros> getListModelos() {
-        return listModelos;
-    }
-
-    public void setListModelos(List<ModeloCarros> listModelos) {
-        this.listModelos = listModelos;
-    }
 }

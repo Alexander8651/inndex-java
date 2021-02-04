@@ -174,7 +174,7 @@ public class MaterialProgressBar extends AppCompatImageView {
            } else {
                OvalShape oval = new OvalShadow(mShadowRadius, mDiameter);
                mBgCircle = new ShapeDrawable(oval);
-               ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_SOFTWARE, mBgCircle.getPaint());
+               //ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_SOFTWARE, mBgCircle.getPaint());
                mBgCircle.getPaint().setShadowLayer(mShadowRadius, shadowXOffset, shadowYOffset,
                        KEY_SHADOW_COLOR);
                final int padding = (int) mShadowRadius;

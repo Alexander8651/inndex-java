@@ -17,7 +17,8 @@ import androidx.navigation.Navigation;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Certificados;
-import com.inndex.car.personas.model.MarcaCarros;
+import com.inndex.car.personas.model.MarcaVehiculos;
+
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     //private MainActivity mainActivity;
     private DataBaseHelper helper;
-    private List<MarcaCarros> lMarcasCarros;
+    private List<MarcaVehiculos> lMarcasVehiculos;
     private NavController navController;
 
 

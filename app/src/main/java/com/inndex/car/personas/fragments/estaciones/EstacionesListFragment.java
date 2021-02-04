@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.adapter.EstacionesAdapter;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Estaciones;
@@ -23,12 +22,6 @@ import java.util.List;
 public class EstacionesListFragment extends Fragment {
 
     private List<Estaciones> lEstaciones;
-    private MainActivity mainActivity;
-
-    public EstacionesListFragment( MainActivity mainActivity) {
-        this.mainActivity =  mainActivity;
-
-    }
 
     public EstacionesListFragment() {
     }
@@ -49,11 +42,11 @@ public class EstacionesListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_estaciones_list, container, false);
         RecyclerView rvEstaciones = view.findViewById(R.id.rv_estaciones);
-        DataBaseHelper helper = OpenHelperManager.getHelper(mainActivity, DataBaseHelper.class);
+        DataBaseHelper helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
         try {
             Dao<Estaciones, Integer> daoEstaciones = helper.getDaoEstaciones();
             this.lEstaciones = daoEstaciones.queryForAll();
-            EstacionesAdapter adapter = new EstacionesAdapter(this.lEstaciones, mainActivity, helper);
+            EstacionesAdapter adapter = new EstacionesAdapter(this.lEstaciones, getActivity(), helper);
             rvEstaciones.setLayoutManager(new LinearLayoutManager(getContext()));
             rvEstaciones.setAdapter(adapter);
         } catch (SQLException e) {

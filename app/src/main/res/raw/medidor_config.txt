@@ -107,7 +107,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.ModeloCarros
+dataClass=com.inndex.car.personas.model.LineasVehiculos
 tableName=modelos_carros
 # --table-fields-start--
 # --field-start--

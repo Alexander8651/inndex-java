@@ -1,32 +1,17 @@
 package com.inndex.car.personas.activities.mainactivity;
 
 import android.icu.text.SimpleDateFormat;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.inndex.car.personas.R;
-import com.inndex.car.personas.fragments.estaciones.EstacionesServiciosFragment;
-import com.inndex.car.personas.model.Estaciones;
-import com.inndex.car.personas.model.Ll;
 import com.inndex.car.personas.retrofit.FourSquareService;
-import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.retrofit.responseapifoursquare.LocationResposePlaceFourSquare;
-import com.inndex.car.personas.retrofit.responseapifoursquare.PlaceVenusFourceSquare;
 import com.inndex.car.personas.retrofit.responseapifoursquare.ResponsePlaceApiFourSquare;
-import com.inndex.car.personas.services.InndexLocationService;
 import com.inndex.car.personas.utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,8 +22,8 @@ public class Presentador implements IPresentador {
     private IMainActivity iMainactivity;
 
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-    String formattedDate = df.format(c.getTime());
+    SimpleDateFormat df;
+    String formattedDate;
     RecyclerView recycler;
 
 

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_estacionesMapFragment_to_estacionesFavoritasFragment"
             app:destination="@id/estacionesFavoritasFragment" />
+        <action
+            android:id="@+id/action_estacionesMapFragment_to_estacionesListFragment"
+            app:destination="@id/estacionesListFragment" />
     </fragment>
     <fragment
         android:id="@+id/estacionesFiltrosFragment"
@@ -27,4 +30,9 @@
         android:name="com.inndex.car.personas.fragments.estaciones.favoritas.EstacionesFavoritasFragment"
         android:label="fragment_estaciones_favoritas"
         tools:layout="@layout/fragment_estaciones_favoritas" />
+    <fragment
+        android:id="@+id/estacionesListFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.EstacionesListFragment"
+        android:label="fragment_estaciones_list"
+        tools:layout="@layout/fragment_estaciones_list" />
 </navigation>

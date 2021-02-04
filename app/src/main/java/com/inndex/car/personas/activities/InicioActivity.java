@@ -13,7 +13,6 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Estaciones;
-import com.inndex.car.personas.model.MarcaCarros;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.utils.Constantes;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -49,7 +48,6 @@ public class InicioActivity extends AppCompatActivity {
             } else {
                 try {
                     getAllStations();
-                    getAllMarcas();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -97,41 +95,5 @@ public class InicioActivity extends AppCompatActivity {
             });
         }
     }
-
-    private void getAllMarcas() throws SQLException {
-
-        final Dao<MarcaCarros, Integer> dao = helper.getDaoMarcas();
-        if (!(dao.queryForAll().size() > 0)) {
-            Call<List<MarcaCarros>> callGetMarcas = MedidorApiAdapter.getApiService().getMarcasCarros();
-            callGetMarcas.enqueue(new Callback<List<MarcaCarros>>() {
-                @Override
-                public void onResponse(@NonNull Call<List<MarcaCarros>> call, @NonNull Response<List<MarcaCarros>> response) {
-
-                    if (response.isSuccessful()) {
-                        List<MarcaCarros> list = response.body();
-                        if (list != null && list.size() > 0) {
-                            for (MarcaCarros e : list) {
-                                try {
-                                    dao.create(e);
-                                } catch (SQLException e1) {
-                                    Toast.makeText(InicioActivity.this, "Error en la base de datos.", Toast.LENGTH_SHORT).show();
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
-                        Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS MARCAS INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<List<MarcaCarros>> call, @NonNull Throwable t) {
-                    Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS MARCAS INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-    }
-
 
 }

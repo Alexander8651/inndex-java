@@ -22,7 +22,7 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Estados;
-import com.inndex.car.personas.model.ModeloCarros;
+import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.Usuario;
 import com.inndex.car.personas.model.Vehiculo;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private CustomProgressDialog mCustomProgressDialog;
 
     private Dao<Vehiculo, Integer> daoUsuarioModeloCarros;
-    private Dao<ModeloCarros, Integer> daoModeloCarros;
+    private Dao<LineasVehiculos, Integer> daoModeloCarros;
 
     private DataBaseHelper helper;
 

@@ -134,7 +134,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             public void onStateChanged(@NonNull View view, int i) {
                 if (BottomSheetBehavior.STATE_COLLAPSED == i) {
                     binding.fabUbicacion.show();
-                    binding.fabNavegacion.hide();
+                    //binding.fabNavegacion.hide();
                     sharedViewModel.setEvents(EEvents.SHOW_ORIGINAL_MENU.getId());
                 } else if (BottomSheetBehavior.STATE_EXPANDED == i) {
                 }
@@ -214,6 +214,8 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         binding.fabNavegacion.setOnClickListener(v -> {
             if (selectedPlace != null) {
                 gotToWaze(selectedPlace.getLatLng());
+            } else if(estacionSeleccionada != null) {
+                gotToWaze(estacionSeleccionada.getCoordenadas());
             }
         });
         binding.btnMenu.setOnClickListener(c1 -> drawer.open());
@@ -241,6 +243,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             mapService.mostrarUbicacion();
             myLocationZoomed = true;
         }
+        sharedViewModel.setEvents(EEvents.ESTACIONES_MAP_FRAGMENT_VISIBLE.getId());
         //LatLng newPosition = new LatLng(10.466294112577513, -73.25580205076582);
         //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 14));
     }
@@ -323,7 +326,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
     }
 
-
     private void openStationBottomSheet(Estaciones estacion) {
         estacionSeleccionada = estacion;
         Call<Estaciones> getEstacionById = MedidorApiAdapter.getApiService().getEstacionById(estacion.getId());
@@ -343,6 +345,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
                         binding.fabUbicacion.hide();
+                        binding.fabNavegacion.hide();
                         sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
                     } catch (Exception ex) {
                         Toast.makeText(getActivity(), "ERROR " + ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -413,7 +416,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
-        sharedViewModel.setEvents(EEvents.ESTACIONES_MAP_FRAGMENT_VISIBLE.getId());
+
         sharedViewModel.getHomeEvents().observe(getViewLifecycleOwner(), event -> {
             switch (EEvents.getEventsById(event)) {
                 case NAVIGATE:
@@ -423,8 +426,11 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                 case DRAW_ROUTE:
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     mapService.drawSationRoute();
+                    binding.fabNavegacion.show();
                     break;
                 case BACK_BUTTON_PRESSED:
+                    this.selectedPlace = null;
+                    binding.fabNavegacion.hide();
                     if (rutaTrazada) {
                         mapService.deleteMapPolylines();
                         rutaTrazada = false;

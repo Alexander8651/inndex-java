@@ -3,15 +3,10 @@ package com.inndex.car.personas.utils;
 import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.inndex.car.personas.database.DataBaseHelper;
-import com.inndex.car.personas.model.MarcaCarros;
-import com.j256.ormlite.dao.Dao;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -42,9 +37,11 @@ public class Constantes {
     public static final String GET_TANQUEADAS_BY_USER = "tanqueadas/getByUser/";
 
     //Vehiculos
-    public static final String POST_REGISTRAR_USUARIO_HAS_MODELO_CARRO = "usuarioHasModeloCarros/";
-    public static final String PUT_UPDATE_USUARIO_HAS_MODELO_CARRO = "usuarioHasModeloCarros/update";
-    public static final String GET_USUARIO_HAS_MODELO_CARROS_BY_ID_USER = "usuarioHasModeloCarros/getAllByUser/";
+    public static final String POST_SAVE_VEHICLE = "usuarioHasModeloCarros/";
+    public static final String PUT_UPDATE_VEHICLE = "usuarioHasModeloCarros/update";
+    public static final String GET_VEHICLES_BY_USER_ID = "vehiculos/getAllByUser";
+    public static final String DELETE_VEHICLES_BY_ID = "usuarioHasModeloCarros/getAllByUser/";
+
 
     //PAIS
     public static final String GET_ALL_PAIS = "pais/getAll/";
@@ -88,6 +85,10 @@ public class Constantes {
     public static final String POST_SAVE_HISTORIAL_ESTADO = "historial-estados-vehiculos/save";
     public static final String ESTACION_SELECCIONADA_KEY = "estacionSeleccionada";
 
+    public static final String GET_USER_INFO_BY_ID = "users/get-by-id";
+    public static final String UPDATE_USER = "users/update";
+
+
     public static int ROTATION = 0;
 
     public static int ARRAY_DATA_SIZE = 5;
@@ -110,7 +111,7 @@ public class Constantes {
 
     public static final long DELAY_RECORRIDO = 1000;
     public static final long LIMIT_UNIT_RECORRIDO = 2000;
-//    public static final long DELAY_UPLOAD_RECORIDOS = 1800000;
+    //    public static final long DELAY_UPLOAD_RECORIDOS = 1800000;
     public static final long DELAY_UPLOAD_RECORIDOS = 300000;
     public static final long INTERVAL_UPLOAD_UNIT_RECORRIDO = 600000;
 
@@ -136,17 +137,6 @@ public class Constantes {
         float[] results = {0};
         Location.distanceBetween(myPosition.latitude, myPosition.longitude, estacionLatLng.latitude, estacionLatLng.longitude, results);
         return results[0];
-    }
-
-    public static String[] getAllMarcasNames(DataBaseHelper helper) throws SQLException {
-
-        final Dao<MarcaCarros, Integer> dao = helper.getDaoMarcas();
-        List<MarcaCarros> listMarcas = dao.queryForAll();
-        String[] marcas = new String[listMarcas.size()];
-        for (int i = 0; i < listMarcas.size(); i++) {
-            marcas[i] = listMarcas.get(i).getNombre();
-        }
-        return marcas;
     }
 
     public static String[] getYearsModelsCars() {

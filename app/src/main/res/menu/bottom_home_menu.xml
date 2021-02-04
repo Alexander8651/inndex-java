@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/estacionesMapFragment"
+        android:icon="@drawable/bottom_menu_home_selector"
+        android:title="@string/inicio" />
+    <item
+        android:id="@+id/estacionesFiltrosFragment"
+        android:icon="@drawable/bottom_menu_filtros_selector"
+        android:title="@string/filtros"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/estacionesListFragment"
+        android:icon="@drawable/bottom_menu_lista_selector"
+        android:title="@string/lista"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/estacionesFavoritasFragment"
+        android:icon="@drawable/bottom_menu_favoritos_selector"
+        android:title="@string/favoritos"
+        app:showAsAction="ifRoom"/>
+</menu>

@@ -97,7 +97,10 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         if (rutas != null && rutas.size() > 0) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             if (polylinePaths != null && polylinePaths.size() > 0) {
-                polylinePaths.forEach(Polyline::remove);
+                for (Polyline pol:
+                     polylinePaths) {
+                    pol.remove();
+                }
             }
             polylinePaths = new ArrayList<>();
             for (Route route : rutas) {

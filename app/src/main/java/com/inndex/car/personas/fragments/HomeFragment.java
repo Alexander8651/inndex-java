@@ -58,7 +58,6 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_fragment, container, false);
         layButtonsStationSelected = v.findViewById(R.id.lay_buttons_station_selected);
-        layMenuInferior = v.findViewById(R.id.lay_menu_inferior);
 
         //layLista = v.findViewById(R.id.lay_lista);
         layBtnNavegar = v.findViewById(R.id.lay_btn_navegar);
@@ -73,20 +72,9 @@ public class HomeFragment extends Fragment {
         });
         //layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
 
-        imgBtnHome = v.findViewById(R.id.img_btn_home);
-        imgBtnFiltros = v.findViewById(R.id.img_btn_eds);
-        imgBtnFavoritos = v.findViewById(R.id.img_btn_favoritos);
-
-        viewFirstDivision = v.findViewById(R.id.menu_main_first_division);
-        viewSecondDivision = v.findViewById(R.id.menu_main_second_division);
-
-        tvHome = v.findViewById(R.id.tv_home);
-        tvFiltros = v.findViewById(R.id.tv_filtros);
-        tvFavoritos = v.findViewById(R.id.tv_favoritos);
-
-        imgBtnHome.setOnClickListener(v1 -> onItemMenuClick(HOME_CLICKED));
-        imgBtnFavoritos.setOnClickListener(v1 -> onItemMenuClick(FAVOURITES_CLICKED));
-        imgBtnFiltros.setOnClickListener(v1 -> onItemMenuClick(FILTER_CLICKED));
+        //imgBtnHome.setOnClickListener(v1 -> onItemMenuClick(HOME_CLICKED));
+        //imgBtnFavoritos.setOnClickListener(v1 -> onItemMenuClick(FAVOURITES_CLICKED));
+        //imgBtnFiltros.setOnClickListener(v1 -> onItemMenuClick(FILTER_CLICKED));
         return v;
     }
 
@@ -116,46 +104,17 @@ public class HomeFragment extends Fragment {
                             break;
                     }
                 });
-
     }
 
     private void onItemMenuClick(int itemClicked) {
 
         switch (itemClicked) {
             case HOME_CLICKED:
-                layMenuInferior.setVisibility(View.VISIBLE);
-                layButtonsStationSelected.setVisibility(View.INVISIBLE);
-                //layBtnNavegar.setVisibility(View.GONE);
-                navController.navigate(R.id.estacionesMapFragment);
-                imgBtnHome.setImageResource(R.drawable.home_negro);
-                imgBtnFiltros.setImageResource(R.drawable.filtro_gris);
-                imgBtnFavoritos.setImageResource(R.drawable.favorito_gris);
-                tvFiltros.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvHome.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                tvFavoritos.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
                 break;
             case FILTER_CLICKED:
-                imgBtnHome.setImageResource(R.drawable.home_gris);
-                imgBtnFiltros.setImageResource(R.drawable.filtro_negro);
-                imgBtnFavoritos.setImageResource(R.drawable.favorito_gris);
-                tvFiltros.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvFavoritos.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 navController.navigate(R.id.estacionesFiltrosFragment);
                 break;
             case FAVOURITES_CLICKED:
-                imgBtnHome.setImageResource(R.drawable.home_gris);
-                imgBtnFiltros.setImageResource(R.drawable.filtro_gris);
-                imgBtnFavoritos.setImageResource(R.drawable.favorito_negro);
-                tvFiltros.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvHome.setTextColor(getResources().getColor(R.color.gris_menu_main, null));
-                tvFavoritos.setTextColor(getResources().getColor(R.color.colorPrimary, null));
-                viewSecondDivision.setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-                viewFirstDivision.setBackgroundColor(getResources().getColor(R.color.gris_menu_main, null));
                 navController.navigate(R.id.estacionesFavoritasFragment);
                 break;
         }
