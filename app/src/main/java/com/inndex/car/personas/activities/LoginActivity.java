@@ -27,7 +27,6 @@ import com.inndex.car.personas.model.Usuario;
 import com.inndex.car.personas.model.Vehiculo;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.utils.Constantes;
-import com.inndex.car.personas.utils.CustomProgressDialog;
 import com.j256.ormlite.dao.Dao;
 
 import java.util.regex.Matcher;
@@ -42,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword, etEmail;
     private String email;
     public static final int LOCATION_REQUEST_CODE = 1;
-
-    private CustomProgressDialog mCustomProgressDialog;
 
     private Dao<Vehiculo, Integer> daoUsuarioModeloCarros;
     private Dao<LineasVehiculos, Integer> daoModeloCarros;
@@ -61,9 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Typeface light = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
         Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
-        mCustomProgressDialog = new CustomProgressDialog(this);
-        mCustomProgressDialog.setCanceledOnTouchOutside(false);
-        mCustomProgressDialog.setCancelable(false);
 
         etEmail = findViewById(R.id.etEmail);
         etEmail.setTypeface(light);
@@ -84,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
                     //login(user);
-                    mCustomProgressDialog.show("");
+                    //mCustomProgressDialog.show("");
                     login(user);
                     //Toast.makeText(LoginActivity.this, "OK", Toast.LENGTH_SHORT).show();
                 } else {
@@ -117,14 +111,12 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.body() != null)
                         irMain(response.body());
                 } else {
-                    mCustomProgressDialog.dismiss("");
                     Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                mCustomProgressDialog.dismiss("");
                 Toast.makeText(LoginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -141,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
 
         infoUsuario.apply();
         infoUsuario.commit();
-        mCustomProgressDialog.dismiss("");
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.configuracion_cuenta.AcountConfFragment"
-    android:layout_marginTop="@dimen/margin_status_bar">
+    android:layout_marginTop="@dimen/margin_status_bar"
+    tools:context=".fragments.configuracion_cuenta.AcountConfFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,22 +23,22 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/infopersonal"/>
+                android:src="@drawable/infopersonal" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center"
                 android:text="@string/informacion_personal"
-                android:textSize="30sp"
-                android:gravity="start|center"
-                android:layout_marginStart="10dp"/>
+                android:textSize="30sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,22 +49,22 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/seguridad"/>
+                android:src="@drawable/seguridad" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center"
                 android:text="@string/privacidad"
-                android:textSize="30sp"
-                android:gravity="start|center"
-                android:layout_marginStart="10dp"/>
+                android:textSize="30sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,22 +75,22 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/candado"/>
+                android:src="@drawable/candado" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="start|center"
                 android:text="@string/seguridad"
-                android:textSize="30sp"
-                android:gravity="start|center"
-                android:layout_marginStart="10dp"/>
+                android:textSize="30sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,19 +101,17 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/cerrar_sesion"/>
+                android:src="@drawable/cerrar_sesion" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/cerrar_sesion"
-                android:textSize="30sp"
+                android:layout_marginStart="10dp"
                 android:gravity="start|center"
-                android:layout_marginStart="10dp"/>
+                android:text="@string/cerrar_sesion"
+                android:textSize="30sp" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

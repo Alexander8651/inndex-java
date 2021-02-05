@@ -1,5 +1,5 @@
 #
-# generated on 2021/01/30 01:55:05
+# generated on 2021/02/03 11:43:27
 #
 # --table-start--
 dataClass=com.inndex.car.personas.model.Estaciones
@@ -93,8 +93,8 @@ fieldName=idVehiculo
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.MarcaCarros
-tableName=marcas_carros
+dataClass=com.inndex.car.personas.model.LineasVehiculos
+tableName=lineas_vehiculos
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -107,36 +107,15 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.LineasVehiculos
-tableName=modelos_carros
+dataClass=com.inndex.car.personas.model.MarcaVehiculos
+tableName=marcas_vehiculos
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=linea
-# --field-end--
-# --field-start--
-fieldName=idMarca
-# --field-end--
-# --field-start--
-fieldName=galones
-# --field-end--
-# --field-start--
-fieldName=modelo
-# --field-end--
-# --field-start--
-fieldName=valoresAdq
-# --field-end--
-# --field-start--
-fieldName=flujo
-# --field-end--
-# --field-start--
-fieldName=hasTwoTanks
-# --field-end--
-# --field-start--
-fieldName=tipoCombustible
+fieldName=nombre
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -296,6 +275,9 @@ fieldName=email
 fieldName=password
 # --field-end--
 # --field-start--
+fieldName=identificacion
+# --field-end--
+# --field-start--
 fieldName=nombres
 # --field-end--
 # --field-start--
@@ -328,28 +310,7 @@ fieldName=id
 id=true
 # --field-end--
 # --field-start--
-fieldName=modelosCarrosId
-# --field-end--
-# --field-start--
-fieldName=usuariosId
-# --field-end--
-# --field-start--
 fieldName=placa
-# --field-end--
-# --field-start--
-fieldName=modeloCarros
-foreign=true
-foreignAutoRefresh=true
-maxForeignAutoRefreshLevel=2
-# --field-end--
-# --field-start--
-fieldName=tipoCombustible
-# --field-end--
-# --field-start--
-fieldName=marca
-# --field-end--
-# --field-start--
-fieldName=linea
 # --field-end--
 # --field-start--
 fieldName=anio

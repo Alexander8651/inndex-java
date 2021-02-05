@@ -342,13 +342,15 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                             inndexLocationService.getMyLocation().getLongitude());*/
                         //verServiciosButtonClicked = true;
 
-                        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
-                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-                        binding.fabUbicacion.hide();
-                        binding.fabNavegacion.hide();
-                        sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
+                        if(getActivity() != null) {
+                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
+                            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                            binding.fabUbicacion.hide();
+                            binding.fabNavegacion.hide();
+                            sharedViewModel.setEvents(EEvents.ESTACION_MARKER_SELECTED.getId());
+                        }
                     } catch (Exception ex) {
-                        Toast.makeText(getActivity(), "ERROR " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "ERROR EX " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

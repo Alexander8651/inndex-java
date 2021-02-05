@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.enums.EEvents;
 import com.inndex.car.personas.shared.SharedViewModel;
@@ -25,7 +26,8 @@ public class HomeFragment extends Fragment {
     private HomeViewModel mViewModel;
     private NavController navController;
 
-    public LinearLayout layMenuInferior;
+    private BottomNavigationView bottomNavigationView;
+
     public LinearLayout layButtonsStationSelected;
     //public LinearLayout layLista;
     public RelativeLayout layBtnNavegar;
@@ -58,7 +60,7 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_fragment, container, false);
         layButtonsStationSelected = v.findViewById(R.id.lay_buttons_station_selected);
-
+        bottomNavigationView = v.findViewById(R.id.bottomNavigation);
         //layLista = v.findViewById(R.id.lay_lista);
         layBtnNavegar = v.findViewById(R.id.lay_btn_navegar);
         layBtnNavegar.setOnClickListener(view -> {
@@ -72,10 +74,7 @@ public class HomeFragment extends Fragment {
         });
         //layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
 
-        //imgBtnHome.setOnClickListener(v1 -> onItemMenuClick(HOME_CLICKED));
-        //imgBtnFavoritos.setOnClickListener(v1 -> onItemMenuClick(FAVOURITES_CLICKED));
-        //imgBtnFiltros.setOnClickListener(v1 -> onItemMenuClick(FILTER_CLICKED));
-        return v;
+         return v;
     }
 
     @Override
@@ -95,12 +94,12 @@ public class HomeFragment extends Fragment {
                 integer -> {
                     switch (EEvents.getEventsById(integer)) {
                         case ESTACION_MARKER_SELECTED:
-                            layMenuInferior.setVisibility(View.GONE);
+                            bottomNavigationView.setVisibility(View.GONE);
                             layButtonsStationSelected.setVisibility(View.VISIBLE);
                             break;
                         case SHOW_ORIGINAL_MENU:
                             layButtonsStationSelected.setVisibility(View.GONE);
-                            layMenuInferior.setVisibility(View.VISIBLE);
+                            bottomNavigationView.setVisibility(View.VISIBLE);
                             break;
                     }
                 });

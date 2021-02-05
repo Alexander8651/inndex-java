@@ -21,7 +21,6 @@ public class AcountConfFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_acount_conf, container, false);
 
        infoperso = view.findViewById(R.id.infoPersonal);
-
        infoperso.setOnClickListener(v ->
                Navigation.findNavController(v).navigate(R.id.editProfileFragment));
         return view;
