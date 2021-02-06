@@ -1,4 +1,4 @@
-package com.inndex.car.personas.fragments.estaciones.admin.gallery;
+package com.inndex.car.personas.fragments.estaciones.admin;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

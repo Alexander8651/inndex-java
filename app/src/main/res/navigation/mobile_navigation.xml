@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/opt_administrar_eds"
-        android:name="com.inndex.car.personas.fragments.estaciones.admin.gallery.MisEdsFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.admin.MisEdsFragment"
         android:label="fragment_mis_eds"
         tools:layout="@layout/fragment_mis_eds" >
         <action

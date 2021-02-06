@@ -1,4 +1,4 @@
-package com.inndex.car.personas.fragments.estaciones.admin.gallery;
+package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

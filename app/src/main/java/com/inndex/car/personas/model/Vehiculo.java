@@ -15,6 +15,12 @@ public class Vehiculo {
     @DatabaseField
     private Integer anio;
 
+    private String color;
+
+    private Integer colorId;
+
+    private Combustibles combustible;
+
     private LineasVehiculos linea;
 
     private Usuario usuario;
@@ -77,5 +83,29 @@ public class Vehiculo {
 
     public void setLinea(LineasVehiculos linea) {
         this.linea = linea;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Integer getColorId() {
+        return colorId;
+    }
+
+    public void setColorId(Integer colorId) {
+        this.colorId = colorId;
+    }
+
+    public Combustibles getCombustible() {
+        return combustible;
+    }
+
+    public void setCombustible(Combustibles combustible) {
+        this.combustible = combustible;
     }
 }

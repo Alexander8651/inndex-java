@@ -1,11 +1,13 @@
 package com.inndex.car.personas.retrofit;
 
 import com.inndex.car.personas.model.Certificados;
+import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Departamento;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
 import com.inndex.car.personas.model.LineasVehiculos;
+import com.inndex.car.personas.model.MarcaVehiculos;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
 import com.inndex.car.personas.model.Tanqueadas;
@@ -73,22 +75,25 @@ public interface InndexApiServices {
     @GET(Constantes.GET_TANQUEADAS_BY_USER + "{id}")
     Call<List<Tanqueadas>> getTanqueadasByUser(@Path("id") String id);
 
+    /**
+     * COMBUSTIBLES
+     */
+    @GET(Constantes.GET_COMBUSTIBLES_ALL)
+    Call<List<Combustibles>> getCombustiblesAll();
+
+
+    /**
+     * MARCAS VEHICULOS
+     */
+    @GET(Constantes.GET_MARCAS_VEHICULOS)
+    Call<List<MarcaVehiculos>> getMarcasVehiculos();
 
     /**
      * MODELOS CARROS
      */
-    @POST(Constantes.POST_REGISTER_MODELO_CARRO)
-    Call<LineasVehiculos> postRegisterModelo(@Header("Content-Type") String headerContentType,
-                                             @Body LineasVehiculos modeloCarros);
-
-    @GET(Constantes.GET_MODELOS_CARROS_BY_MARCA + "{idMarca}")
-    Call<List<LineasVehiculos>> getModelosCarrosByMarca(@Path("idMarca") String idMarca);
-
-    /**
-     * MARCAS CARROS
-     */
-    @GET(Constantes.GET_MARCAS_CARROS)
-    Call<List<LineasVehiculos>> getMarcasCarros();
+    @GET(Constantes.GET_LINEAS_VEHICULOS_BY_MARCA)
+    Call<List<LineasVehiculos>> getLineasVehiculosByMarca(
+            @Query("idMarca") Long idMarca);
 
     /**
      * RECORRIDOS

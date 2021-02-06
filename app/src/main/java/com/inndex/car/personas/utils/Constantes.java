@@ -42,6 +42,10 @@ public class Constantes {
     public static final String GET_VEHICLES_BY_USER_ID = "vehiculos/getAllByUser";
     public static final String DELETE_VEHICLES_BY_ID = "usuarioHasModeloCarros/getAllByUser/";
 
+    //COMBUSTIBLES
+    public static final String GET_COMBUSTIBLES_ALL = "combustibles/getAll";
+
+
 
     //PAIS
     public static final String GET_ALL_PAIS = "pais/getAll/";
@@ -70,15 +74,15 @@ public class Constantes {
     public static final String GET_CERTIFICADOS = "certificados/getAll";
 
     /**
-     * MODELOS CARROS
+     * MARCAS VEHICULOS
      */
-    public static final String GET_MODELOS_CARROS_BY_MARCA = "modelos-carros/getByMarca/";
-    public static final String POST_REGISTER_MODELO_CARRO = "modelos-carros/postRegistrar";
+    public static final String GET_MARCAS_VEHICULOS = "marcas-vehiculos/getAll";
 
     /**
-     * MARCAS CARROS
+     * LINEAS VEHICULOS
      */
-    public static final String GET_MARCAS_CARROS = "marcas-carros/getAll";
+    public static final String GET_LINEAS_VEHICULOS_BY_MARCA = "lineas-vehiculos/getByMarcaId";
+
     public static final String DEFAULT_USER_ID = "idUsuario";
 
     public static final String GET_ESTADOS = "estados/getAll";
