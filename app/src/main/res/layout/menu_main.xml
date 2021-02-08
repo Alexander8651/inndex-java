@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_menu_main"
+        app:elevation="60dp"
         app:itemHorizontalTranslationEnabled="true"
         app:itemIconSize="26dp"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_home_menu"
-        app:elevation="60dp"
-         />
+        />
 
     <!--LinearLayout
         android:id="@+id/lay_menu_inferior"

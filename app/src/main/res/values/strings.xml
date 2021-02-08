@@ -270,5 +270,7 @@
     <string name="inicio">Inicio</string>
     <string name="lista">Lista</string>
     <string name="favoritas">Favoritas</string>
+    <string name="calificacion">Calificación</string>
+    <string name="distancia">Distancia</string>
 
 </resources>

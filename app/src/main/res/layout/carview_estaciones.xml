@@ -1,104 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    android:elevation="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="2dp"
+        android:paddingStart="@dimen/margin_start_card_estaciones_list"
+        android:paddingEnd="@dimen/margin_start_card_estaciones_list">
+
+        <TextView
+            android:id="@+id/tvMarca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvMarca"
+            android:fontFamily="@font/roboto_light"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/img_estacion_certificado"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_toEndOf="@id/tvNombre"
+        <TextView
+            android:id="@+id/tvDireccion"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNombre"
+            android:fontFamily="@font/roboto_light"
+            android:textColor="@color/gris_menu_main"
+            android:textSize="16sp" />
+
+        <include
+            android:id="@+id/lay_combustibles_list"
+            layout="@layout/combustibles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDireccion"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tvDistancia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tvDireccion"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/roboto_light"
+            android:textColor="@color/gris_menu_main" />
+
+        <TextView
+            android:id="@+id/tvClasificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lay_combustibles_list"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_light"
+            android:text="4.2"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+        <RatingBar
+            android:id="@+id/rbClasificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_below="@id/lay_combustibles_list"
             android:layout_marginStart="5dp"
-            android:src="@drawable/logo_pqua"
-            android:visibility="gone"/>
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/tvClasificacion"
+            android:clickable="false"
+            android:numStars="5"
+            android:progressDrawable="@drawable/custom_rating_bar"
+            android:rating="2"
+            android:stepSize="0.1" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvCantClasificacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical"
-            android:layout_below="@id/tvNombre">
+            android:layout_below="@id/lay_combustibles_list"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/rbClasificacion"
+            android:fontFamily="@font/roboto_light"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21sp" />
 
-            <TextView
-                android:id="@+id/tvDistancia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/textSecond" />
-
-            <TextView
-                android:id="@+id/tvDireccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/textSecond" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvHorario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/textSecond" />
-
-                <TextView
-                    android:id="@+id/tvClasificacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@id/rbClasificacion"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
-
-                <RatingBar
-                    android:id="@+id/rbClasificacion"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:backgroundTint="@color/gris"
-                    android:numStars="5"
-                    android:progressTint="@color/star"
-                    android:stepSize="0.1"
-                    android:theme="@style/MyRatingBar" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/img_irEstacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/direccion_negro" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img_irEstacion"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal">
-
-        </LinearLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

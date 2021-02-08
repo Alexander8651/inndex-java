@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.estaciones.EstacionesListFragment">
+
+    <include
+        android:id="@+id/toolbar_estaciones_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/my_toolbar"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_estaciones"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</FrameLayout>
+        android:layout_height="wrap_content" />
+</LinearLayout>
