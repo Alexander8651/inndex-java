@@ -32,6 +32,10 @@ public class Constantes {
     public static final String GET_BY_ID = "estaciones/getById";
     public static final String GET_BY_USUARIO_ADMIN = "estaciones-usuario/getAllByUsuarioAdmin";
     public static final String POST_REGISTER_STATION = "estaciones/postRegistrar";
+    public static final String UPDATE_STATION_GENERAL_DATA = "estaciones/update-general-data";
+    public static final String UPDATE_STATION_FUEL_AND_SCHEDULE = "estaciones/update-fuel-schedule";
+    public static final String UPDATE_STATION_OTHER_SERVICES = "estaciones/update-other-services";
+
     //TANQUEADAS
     public static final String POST_REGISTRAR_TANQUEADA = "tanqueadas/postRegistrar";
     public static final String GET_TANQUEADAS_BY_USER = "tanqueadas/getByUser/";
@@ -91,7 +95,11 @@ public class Constantes {
 
     public static final String GET_USER_INFO_BY_ID = "users/get-by-id";
     public static final String UPDATE_USER = "users/update";
-
+    
+    public static final String GET_BANCOS = "bancos/getAll";
+    public static final String GET_PUNTOS_PAGO = "puntos-pago/getAll";
+    public static final String GET_TIENDAS = "tiendas/getAll";
+    public static final String GET_SOAT = "soat/getAll";
 
     public static int ROTATION = 0;
 

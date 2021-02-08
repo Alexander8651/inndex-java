@@ -44,7 +44,7 @@
     <dimen name="margin_end_separator">20dp</dimen>
 
     <!-- Menu main -->
-    <dimen name="height_menu_main">70dp</dimen>
+    <dimen name="height_menu_main">60dp</dimen>
     <dimen name="margin_bottom_text">10dp</dimen>
     <dimen name="width_buttons_indicaciones">168dp</dimen>
     <dimen name="height_buttons_indicaciones">46dp</dimen>

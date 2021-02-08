@@ -57,11 +57,7 @@
         android:id="@+id/datosGeneralesFragment"
         android:name="com.inndex.car.personas.fragments.estaciones.admin.DatosGeneralesFragment"
         android:label="fragment_datos_generales"
-        tools:layout="@layout/fragment_datos_generales" >
-        <action
-            android:id="@+id/action_datosGeneralesFragment_to_combustibleYHorarioFragment"
-            app:destination="@id/combustibleYHorarioFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_datos_generales" />
     <fragment
         android:id="@+id/editarEdsFragment"
         android:name="com.inndex.car.personas.fragments.estaciones.admin.EditarEdsFragment"
@@ -70,6 +66,12 @@
         <action
             android:id="@+id/action_editarEdsFragment_to_datosGeneralesFragment"
             app:destination="@id/datosGeneralesFragment" />
+        <action
+            android:id="@+id/action_editarEdsFragment_to_combustibleYHorarioFragment"
+            app:destination="@id/combustibleYHorarioFragment" />
+        <action
+            android:id="@+id/action_editarEdsFragment_to_edsOtrosServiciosFragment"
+            app:destination="@id/edsOtrosServiciosFragment" />
     </fragment>
     <fragment
         android:id="@+id/opt_administrar_eds"
@@ -89,4 +91,9 @@
             android:id="@+id/action_editProfileFragment_to_editPasswordFragment"
             app:destination="@id/editPasswordFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/edsOtrosServiciosFragment"
+        android:name="com.inndex.car.personas.fragments.estaciones.admin.EdsOtrosServiciosFragment"
+        android:label="fragment_eds_otros_servicios"
+        tools:layout="@layout/fragment_eds_otros_servicios" />
 </navigation>

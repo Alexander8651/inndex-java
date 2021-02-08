@@ -1,5 +1,6 @@
 package com.inndex.car.personas.retrofit;
 
+import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Departamento;
@@ -10,7 +11,10 @@ import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.MarcaVehiculos;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
+import com.inndex.car.personas.model.PuntoPago;
+import com.inndex.car.personas.model.Soat;
 import com.inndex.car.personas.model.Tanqueadas;
+import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.model.UnidadRecorrido;
 import com.inndex.car.personas.model.Usuario;
 import com.inndex.car.personas.model.Vehiculo;
@@ -64,6 +68,18 @@ public interface InndexApiServices {
     Call<ResponseServices> postRegisterStation(@Header("Content-Type") String headerContentType,
                                                @Body Estaciones estaciones);
 
+    @PUT(Constantes.UPDATE_STATION_GENERAL_DATA)
+    Call<ResponseServices> updateStationGeneralData(@Header("Content-Type") String headerContentType,
+                                                    @Body Estaciones estaciones);
+
+    @PUT(Constantes.UPDATE_STATION_FUEL_AND_SCHEDULE)
+    Call<ResponseServices> updateStationFuelAndSchedule(@Header("Content-Type") String headerContentType,
+                                                        @Body Estaciones estaciones);
+
+    @PUT(Constantes.UPDATE_STATION_OTHER_SERVICES)
+    Call<ResponseServices> updateStationOtherServices(@Header("Content-Type") String headerContentType,
+                                                      @Body Estaciones estaciones);
+
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
     Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);
 
@@ -80,6 +96,30 @@ public interface InndexApiServices {
      */
     @GET(Constantes.GET_COMBUSTIBLES_ALL)
     Call<List<Combustibles>> getCombustiblesAll();
+
+    /**
+     * BANCOS
+     */
+    @GET(Constantes.GET_BANCOS)
+    Call<List<Bancos>> getBancos();
+
+    /**
+     * PUNTOS PAGO
+     */
+    @GET(Constantes.GET_PUNTOS_PAGO)
+    Call<List<PuntoPago>> getPuntosPago();
+
+    /**
+     * TIENDAS
+     */
+    @GET(Constantes.GET_TIENDAS)
+    Call<List<Tiendas>> getTiendas();
+
+    /**
+     * SOAT
+     */
+    @GET(Constantes.GET_SOAT)
+    Call<List<Soat>> getSoat();
 
 
     /**
