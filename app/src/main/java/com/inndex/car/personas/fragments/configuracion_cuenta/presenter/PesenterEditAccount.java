@@ -30,7 +30,6 @@ public class PesenterEditAccount implements IpresenterEditAccount {
     TextView fechaNacimiento;
     RelativeLayout imagenCarga;
 
-
     public PesenterEditAccount(IeditAccout ieditAccout, int userID) {
         this.ieditAccout = ieditAccout;
         this.userID = userID;
@@ -74,7 +73,7 @@ public class PesenterEditAccount implements IpresenterEditAccount {
                     }
 
                     if (usuario.getIdentificacion() != null){
-                        numeroIdentidad.setText(String.valueOf(usuario.getId()));
+                        numeroIdentidad.setText(String.valueOf(usuario.getIdentificacion()));
                     }
 
                     if (usuario.getEmail() != null){
@@ -90,13 +89,11 @@ public class PesenterEditAccount implements IpresenterEditAccount {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 Log.d("llegoesto", t.getMessage());
             }
         });
-
     }
 
     @Override

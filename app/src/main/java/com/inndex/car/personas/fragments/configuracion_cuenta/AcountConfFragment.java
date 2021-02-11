@@ -31,7 +31,7 @@ public class AcountConfFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_acount_conf, container, false);
 
-        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         requireActivity().getWindow().setStatusBarColor(Color.BLACK);
 
 
