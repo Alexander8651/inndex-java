@@ -51,6 +51,7 @@ import com.j256.ormlite.dao.Dao;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -104,7 +105,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         View v = inflater.inflate(R.layout.fragment_estaciones_map, container, false);
 
         sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
-
+        estaciones = new ArrayList<>();
         //testDistanceApi();
 
         double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
