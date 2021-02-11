@@ -7,11 +7,14 @@
     android:layout_marginTop="@dimen/margin_status_bar"
     tools:context=".fragments.configuracion_cuenta.AcountConfFragment">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <include layout="@layout/my_toolbar"/>
 
         <LinearLayout
             android:id="@+id/infoPersonal"
