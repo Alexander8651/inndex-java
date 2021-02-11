@@ -1,28 +1,50 @@
 package com.inndex.car.personas.fragments.configuracion_cuenta;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.activities.mainactivity.MainActivity;
 
 public class AcountConfFragment extends Fragment {
 
    private LinearLayout infoperso;
    View view;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+
         view = inflater.inflate(R.layout.fragment_acount_conf, container, false);
+
+        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        requireActivity().getWindow().setStatusBarColor(Color.BLACK);
+
 
        infoperso = view.findViewById(R.id.infoPersonal);
        infoperso.setOnClickListener(v ->
                Navigation.findNavController(v).navigate(R.id.editProfileFragment));
+
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigateUp();
+        });
+
         return view;
     }
 }

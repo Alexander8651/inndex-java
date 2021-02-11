@@ -17,6 +17,15 @@ public class MarcaVehiculos implements Serializable {
     public MarcaVehiculos() {
     }
 
+    public MarcaVehiculos(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public MarcaVehiculos(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

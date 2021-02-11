@@ -35,6 +35,14 @@ public class Usuario implements Serializable {
     //Formato: yyyy-MM-dd
     private String fechaNacimiento;
 
+    public Usuario(String email, String identificacion, String nombres, String apellidos, String celular, String fechaNacimiento) {
+        this.email = email;
+        this.identificacion = identificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.celular = celular;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public Usuario() {
     }

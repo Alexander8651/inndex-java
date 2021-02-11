@@ -1,5 +1,6 @@
 package com.inndex.car.personas.fragments.vehiculos;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,23 +8,32 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.adapter.AdapterVehiculo;
+import com.inndex.car.personas.fragments.vehiculos.presenters.IVehiculosFragmentPresenter;
+import com.inndex.car.personas.fragments.vehiculos.presenters.VehiculosFragmentPresenter;
 import com.inndex.car.personas.model.Vehiculo;
+import com.inndex.car.personas.utils.Constantes;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
 
-public class MisVehiculosFragment extends Fragment {
+
+public class MisVehiculosFragment extends Fragment implements IMisVehiculosFragment {
 
     AdapterVehiculo adapterVehiculo;
     LinearLayout llAgregarvehi;
     ArrayList<Vehiculo> vehiculos;
     RecyclerView recyclerView;
     View view;
+    IVehiculosFragmentPresenter iVehiculosFragmentPresenter;
+    private SharedPreferences myPreferences;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,11 +43,13 @@ public class MisVehiculosFragment extends Fragment {
         llAgregarvehi = view.findViewById(R.id.llAgregarVehiculo);
         vehiculos = new ArrayList<>();
 
-        cargarVehiculos();
-        mostrarVehiculos();
+        myPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+        int userID =  myPreferences.getInt(Constantes.DEFAULT_USER_ID, 0);
 
-        //llAgregarvehi.setOnClickListener(v ->
-        //        Navigation.findNavController(v).navigate(R.id.action_opt_mis_vehiculos_to_agregarVehiculoFragment));
+        iVehiculosFragmentPresenter = new VehiculosFragmentPresenter(this, userID);
+
+        llAgregarvehi.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_misVehiculosFragment_to_agregarVehiculoFragment));
         return view;
     }
 
@@ -49,9 +61,16 @@ public class MisVehiculosFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterVehiculo = new AdapterVehiculo(vehiculos, getContext());
         recyclerView.setAdapter(adapterVehiculo);
-
     }
 
 
+    @Override
+    public AdapterVehiculo crearAdaptador(ArrayList<Vehiculo> vehiculos) {
+        return new AdapterVehiculo(vehiculos ,getContext());
+    }
 
+    @Override
+    public void inicializarAdaptador(AdapterVehiculo adapterVehiculo) {
+        recyclerView.setAdapter(adapterVehiculo);
+    }
 }

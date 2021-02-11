@@ -48,7 +48,7 @@ public class AdapterVehiculo extends RecyclerView.Adapter<com.inndex.car.persona
 
         final Vehiculo vehiculo = lVehiculo.get(position);
         holder.marca.setText(vehiculo.getLinea().getMarca().getNombre());
-        holder.anio.setText(vehiculo.getAnio());
+        holder.anio.setText(String.valueOf(vehiculo.getAnio()));
         holder.placa.setText(vehiculo.getPlaca());
         holder.linea.setText(vehiculo.getLinea().getNombre());
 
