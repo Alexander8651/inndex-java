@@ -1,5 +1,5 @@
 #
-# generated on 2021/02/03 11:43:27
+# generated on 2021/02/08 07:21:33
 #
 # --table-start--
 dataClass=com.inndex.car.personas.model.Estaciones
@@ -25,6 +25,9 @@ fieldName=horario
 fieldName=calificacion
 # --field-end--
 # --field-start--
+fieldName=cantCalificacion
+# --field-end--
+# --field-start--
 fieldName=latitud
 # --field-end--
 # --field-start--
@@ -47,6 +50,9 @@ fieldName=descripcionCertificado
 # --field-end--
 # --field-start--
 fieldName=telefono
+# --field-end--
+# --field-start--
+fieldName=jsonCombustibles
 # --field-end--
 # --table-fields-end--
 # --table-end--

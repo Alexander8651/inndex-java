@@ -6,7 +6,8 @@ public enum ECombustibles {
     EXTRA(2L),
     DIESEL(3L),
     BIODIESEL(4L),
-    GNV(5L);
+    GNV(5L),
+    MAX_PRO_DIESEL(6L);
     private Long id;
 
     ECombustibles(Long id) {

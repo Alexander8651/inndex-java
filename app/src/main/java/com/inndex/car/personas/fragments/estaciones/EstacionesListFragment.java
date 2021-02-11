@@ -26,11 +26,20 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class EstacionesListFragment extends Fragment {
 
     private NavController navController;
+
+    private static final Integer ORDER_BY_DISTANCE = 1;
+    private static final Integer ORDER_BY_CALIFICATION = 2;
+    private static final Integer ORDER_BY_CORRIENTE = 3;
+    private static final Integer ORDER_BY_EXTRA = 4;
+    private static final Integer ORDER_BY_DIESEL = 5;
+    private static final Integer ORDER_BY_BIODIESEL = 6;
+    private static final Integer ORDER_BY_GNV = 7;
 
     public EstacionesListFragment() {
     }
@@ -55,8 +64,30 @@ public class EstacionesListFragment extends Fragment {
         tvTitulo.setText(getString(R.string.lista));
         ImageView imgMenu = view.findViewById(R.id.btnMenuToolbar);
         imgMenu.setVisibility(View.VISIBLE);
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), imgMenu);
         popupMenu.inflate(R.menu.menu_estaciones_list);
+        popupMenu.setOnMenuItemClickListener(item -> {
+
+            int itemId = item.getItemId();
+            if (itemId == R.id.optOrderByCalificacion) {
+                orderStations(ORDER_BY_CALIFICATION);
+            } else if (itemId == R.id.optOrderByDistancia) {
+                orderStations(ORDER_BY_DISTANCE);
+            } else if (itemId == R.id.optOrderByGasolinaCorriente) {
+                orderStations(ORDER_BY_CORRIENTE);
+            } else if (itemId == R.id.optOrderByGasolinaExtra) {
+                orderStations(ORDER_BY_EXTRA);
+            } else if (itemId == R.id.optOrderByPrecioBioDiesel) {
+                orderStations(ORDER_BY_BIODIESEL);
+            } else if (itemId == R.id.optOrderByPrecioDiesel) {
+                orderStations(ORDER_BY_DIESEL);
+            } else if (itemId == R.id.optOrderByPrecioGNV) {
+                orderStations(ORDER_BY_GNV);
+            }
+
+            return false;
+
+        });
         imgMenu.setOnClickListener(v -> popupMenu.show());
 
         ImageView imgBack = view.findViewById(R.id.btnBack);
@@ -70,13 +101,21 @@ public class EstacionesListFragment extends Fragment {
         }
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, Context.MODE_PRIVATE);
 
-        LatLng latLng = new LatLng(Float.parseFloat(sharedPreferences.getString(Constantes.LATITUD_KEY, "0")),
-                Float.parseFloat(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0")));
+        double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+        double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
 
+        LatLng latLng = new LatLng(latitud, longitud);
+        float distancia;
         try {
             Dao<Estaciones, Integer> daoEstaciones = helper.getDaoEstaciones();
             List<Estaciones> lEstaciones = daoEstaciones.queryForAll();
-            EstacionesAdapter adapter = new EstacionesAdapter(lEstaciones, getActivity(), latLng);
+            for (int i = 0; i < lEstaciones.size(); i++) {
+                lEstaciones.get(i).setListEstacionCombustibles(lEstaciones.get(i).getCombustiblesFromJson());
+                distancia = Constantes.getDistance(latLng, lEstaciones.get(i).getCoordenadas());
+                lEstaciones.get(i).setDistancia(distancia);
+            }
+            Collections.sort(lEstaciones, (est1, est2) -> Float.compare(est1.getDistancia(), est2.getDistancia()));
+            EstacionesAdapter adapter = new EstacionesAdapter(lEstaciones, getActivity());
             rvEstaciones.setLayoutManager(new LinearLayoutManager(getContext()));
             rvEstaciones.setAdapter(adapter);
         } catch (SQLException e) {
@@ -85,5 +124,8 @@ public class EstacionesListFragment extends Fragment {
         return view;
     }
 
+    public void orderStations(Integer option) {
+
+    }
 
 }

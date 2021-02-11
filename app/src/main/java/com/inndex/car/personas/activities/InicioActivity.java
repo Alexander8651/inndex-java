@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
@@ -75,13 +76,16 @@ public class InicioActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
                     if (response.isSuccessful()) {
                         List<Estaciones> list = response.body();
-
+                        Gson gson = new Gson();
                         if (list != null && list.size() > 0) {
-                                try {
-                                    dao.create(list);
-                                } catch (SQLException e1) {
-                                    Toast.makeText(InicioActivity.this, "Error en la base de datos.", Toast.LENGTH_SHORT).show();
-                                }
+                            for (int i = 0; i < list.size(); i++) {
+                                list.get(i).setJsonCombustibles(gson.toJson(list.get(i).getListEstacionCombustibles()));
+                            }
+                            try {
+                                dao.create(list);
+                            } catch (SQLException e1) {
+                                Toast.makeText(InicioActivity.this, "Error en la base de datos.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     } else {
                         Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();

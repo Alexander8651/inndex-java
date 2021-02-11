@@ -18,10 +18,12 @@ import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.model.UnidadRecorrido;
 import com.inndex.car.personas.model.Usuario;
 import com.inndex.car.personas.model.Vehiculo;
+import com.inndex.car.personas.to.EstacionesFiltros;
 import com.inndex.car.personas.utils.Constantes;
 import com.inndex.car.personas.utils.ResponseServices;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,8 +41,7 @@ public interface InndexApiServices {
                             @Body Usuario usuario);
 
     @POST(Constantes.POST_REGISTER_USER)
-    Call<ResponseServices> postRegisterUser(@Header("strUsuario") String jsonUsuario,
-                                            @Body String dummy);
+    Call<Usuario> postRegisterUser(@Body Usuario usuario);
 
     /**
      * USUARIO
@@ -82,6 +83,10 @@ public interface InndexApiServices {
 
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
     Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);
+
+    @POST(Constantes.POST_REGISTRAR_TANQUEADA)
+    Call<Map<String, Long>> postQueryCountByFilters(
+            @Body List<EstacionesFiltros> filtros);
 
     //TANQUEADAS
     @POST(Constantes.POST_REGISTRAR_TANQUEADA)

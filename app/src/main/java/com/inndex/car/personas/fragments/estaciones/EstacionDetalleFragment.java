@@ -126,22 +126,6 @@ public class EstacionDetalleFragment extends Fragment {
             //mainActivity.clickHome();
         });*/
 
-        final TextView titulocajeros = root.findViewById(R.id.titulocajero);
-        final TextView tituloCorresponsales = root.findViewById(R.id.titulo_corresponsales);
-        final TextView titulopuntopagos = root.findViewById(R.id.titulopuntospago);
-        final TextView titulotiendaconvivencia = root.findViewById(R.id.titulotiendaconvivencia);
-        final TextView titulosoat = root.findViewById(R.id.titulosoat);
-        final TextView titulorestaurantes = root.findViewById(R.id.titulorestaurantes);
-        final TextView titulohoteles = root.findViewById(R.id.titulohoteles);
-        final TextView titulobanios = root.findViewById(R.id.titulobanios);
-        final TextView titulolubricantes = root.findViewById(R.id.titulolubricantes);
-        final TextView titulollanteria = root.findViewById(R.id.titulollanteria);
-        final TextView titulolavaderos = root.findViewById(R.id.titulolavadero);
-        final ImageView menuBomba = root.findViewById(R.id.img_menu_estacion_servicios);
-        final TextView tvPreciosActualizados = root.findViewById(R.id.tv_estacion_servicios_precios_actualizados);
-
-        final TextView tvVerOpiniones = root.findViewById(R.id.tv_estacion_servicios_ver_opiniones);
-        final TextView tvCalificar = root.findViewById(R.id.tv_estacion_servicios_calificar);
         final TextView tvCalificacion = root.findViewById(R.id.tv_estacion_servicios_calificacion);
 /*        menuBomba.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(requireContext(), menuBomba);
@@ -165,6 +149,7 @@ public class EstacionDetalleFragment extends Fragment {
         restaurantes(root);
         hotel(root);
         bano(root);
+        farmacia(root);
         lubricantes(root);
         llanteria(root);
         lavaderos(root);
@@ -267,7 +252,7 @@ public class EstacionDetalleFragment extends Fragment {
 
                 } else {
 
-                    if (estaciones.getTelefono() != null){
+                    if (estaciones.getTelefono() != null) {
                         params.height = 1100;
                         LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
                         linearLayout.setVisibility(View.VISIBLE);
@@ -276,13 +261,13 @@ public class EstacionDetalleFragment extends Fragment {
 
                         final CardView botonLlamar = root.findViewById(R.id.botonllamar);
 
-                        botonLlamar.setOnClickListener(view ->{
+                        botonLlamar.setOnClickListener(view -> {
                             Intent i = new Intent(Intent.ACTION_DIAL);
-                            i.setData(Uri.parse("tel:" +estaciones.getTelefono()));
+                            i.setData(Uri.parse("tel:" + estaciones.getTelefono()));
                             requireContext().startActivity(i);
                         });
 
-                    }else {
+                    } else {
                         params.height = 900;
 
                         LinearLayout linearLayout = root.findViewById(R.id.llamarestacion);
@@ -836,6 +821,19 @@ public class EstacionDetalleFragment extends Fragment {
             ConstraintLayout bano = root.findViewById(R.id.banios);
             bano.setVisibility(View.GONE);
         }
+    }
+
+    private void farmacia(View root) {
+
+        if (estaciones.getTieneDroguerias() != null) {
+            if (estaciones.getTieneDroguerias()) {
+                ImageView lubricantes = root.findViewById(R.id.estacionFarmacia);
+                lubricantes.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+        ConstraintLayout lubricantes = root.findViewById(R.id.constFarmacias);
+        lubricantes.setVisibility(View.GONE);
     }
 
     private void lubricantes(View root) {

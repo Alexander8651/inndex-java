@@ -6,11 +6,11 @@
         android:checkable="false"
         android:title="Ordenar por:"
         app:showAsAction="always" />
-    <item android:title="Precios gasolina corriente" />
-    <item android:title="Precios gasolina extra" />
-    <item android:title="Precios Diesel" />
-    <item android:title="Precios BioDiesel" />
-    <item android:title="Precios GNV" />
-    <item android:title="@string/distancia" />
-    <item android:title="@string/calificacion" />
+    <item android:id="@+id/optOrderByGasolinaCorriente" android:title="Precios gasolina corriente" />
+    <item android:id="@+id/optOrderByGasolinaExtra" android:title="Precios gasolina extra" />
+    <item android:id="@+id/optOrderByPrecioDiesel" android:title="Precios Diesel" />
+    <item android:id="@+id/optOrderByPrecioBioDiesel" android:title="Precios BioDiesel" />
+    <item android:id="@+id/optOrderByPrecioGNV" android:title="Precios GNV" />
+    <item android:id="@+id/optOrderByDistancia" android:title="@string/distancia" />
+    <item android:id="@+id/optOrderByCalificacion" android:title="@string/calificacion" />
 </menu>

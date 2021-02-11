@@ -35,6 +35,7 @@ public class Constantes {
     public static final String UPDATE_STATION_GENERAL_DATA = "estaciones/update-general-data";
     public static final String UPDATE_STATION_FUEL_AND_SCHEDULE = "estaciones/update-fuel-schedule";
     public static final String UPDATE_STATION_OTHER_SERVICES = "estaciones/update-other-services";
+    public static final String POST_CONSULT_COUNT_BY_FILTERS = "estaciones/post_query_count_by_filters";
 
     //TANQUEADAS
     public static final String POST_REGISTRAR_TANQUEADA = "tanqueadas/postRegistrar";

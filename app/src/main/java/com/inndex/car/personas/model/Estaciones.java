@@ -1,10 +1,13 @@
 package com.inndex.car.personas.model;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @DatabaseTable(tableName = "estaciones")
@@ -49,6 +52,8 @@ public class Estaciones implements Serializable {
 
     private Boolean tieneVentaLubricante;
 
+    private Boolean tieneDroguerias;
+
     private List<Restaurante> listRestaurantes;
 
     private List<Hotel> listHoteles;
@@ -70,6 +75,9 @@ public class Estaciones implements Serializable {
     private Soat soat;
 
     private TipoEstacion tipoEstacion;
+
+    @DatabaseField
+    private String jsonCombustibles;
 
     public Estaciones() {
     }
@@ -97,7 +105,7 @@ public class Estaciones implements Serializable {
     }
 
     public float getDistancia() {
-        return 0;
+        return distancia;
     }
 
     public void setDistancia(Float distancia) {
@@ -228,6 +236,14 @@ public class Estaciones implements Serializable {
         this.tieneVentaLubricante = tieneVentaLubricante;
     }
 
+    public Boolean getTieneDroguerias() {
+        return tieneDroguerias;
+    }
+
+    public void setTieneDroguerias(Boolean tieneDroguerias) {
+        this.tieneDroguerias = tieneDroguerias;
+    }
+
     public List<Restaurante> getListRestaurantes() {
         return listRestaurantes;
     }
@@ -322,5 +338,23 @@ public class Estaciones implements Serializable {
 
     public void setCantCalificacion(int cantCalificacion) {
         this.cantCalificacion = cantCalificacion;
+    }
+
+    public String getJsonCombustibles() {
+        return jsonCombustibles;
+    }
+
+    public void setJsonCombustibles(String jsonCombustibles) {
+        this.jsonCombustibles = jsonCombustibles;
+    }
+
+    public List<EstacionCombustibles> getCombustiblesFromJson() {
+
+        List<EstacionCombustibles> estacionCombustiblesList = new ArrayList<>();
+        Gson gson = new Gson();
+        if (this.jsonCombustibles != null)
+            estacionCombustiblesList = gson.fromJson(this.jsonCombustibles, new TypeToken<List<EstacionCombustibles>>() {
+            }.getType());
+        return estacionCombustiblesList;
     }
 }

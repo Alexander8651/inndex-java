@@ -67,7 +67,6 @@
     <dimen name="size_img_secciones">80dp</dimen>
     <dimen name="margin_img_secciones">20dp</dimen>
 
-
     <!-- Estacion lista -->
-    <dimen name="margin_start_card_estaciones_list">10dp</dimen>
+    <dimen name="margin_start_card_estaciones_list">16dp</dimen>
 </resources>

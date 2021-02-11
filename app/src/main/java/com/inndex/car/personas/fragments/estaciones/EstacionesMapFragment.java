@@ -114,7 +114,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             myLocation = new LatLng(latitud, longitud);
         }
 
-        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        drawer =  getActivity().findViewById(R.id.drawer_layout);
         helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
 
         try {

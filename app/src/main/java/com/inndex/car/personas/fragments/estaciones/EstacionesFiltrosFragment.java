@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -18,13 +19,20 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.MarcaVehiculos;
-
+import com.inndex.car.personas.retrofit.MedidorApiAdapter;
+import com.inndex.car.personas.to.EstacionesFiltros;
 
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class EstacionesFiltrosFragment extends Fragment {
 
+    List<EstacionesFiltros> lEstacionesFiltros;
 
     public RelativeLayout relFilterMarcas;
 
@@ -206,7 +214,6 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-
     public void showTipoCombustiblesFilters() {
         String[] opciones = getResources().getStringArray(R.array.tipos_combustibles);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
@@ -240,6 +247,28 @@ public class EstacionesFiltrosFragment extends Fragment {
         });
         builder.create();
         builder.show();
+    }
+
+    private void getFilterCountResult() {
+        if(this.lEstacionesFiltros != null && this.lEstacionesFiltros.size() > 0) {
+
+            Call<Map<String, Long>> callPostQueryCountByFilter = MedidorApiAdapter.getApiService().postQueryCountByFilters(lEstacionesFiltros);
+            callPostQueryCountByFilter.enqueue(new Callback<Map<String, Long>>() {
+                @Override
+                public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
+                    if(response.isSuccessful()) {
+                        Map<String, Long> values = response.body();
+                        Long responseCount = values != null ? values.get("count") : null;
+                        btnFiltrarEstaciones.setText("");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+                    Toast.makeText(getActivity(), "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 
