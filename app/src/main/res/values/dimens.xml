@@ -29,7 +29,6 @@
     <dimen name="margin_lista_search">20dp</dimen>
 
 
-
     <dimen name="size_text_title_snippet">16sp</dimen>
     <dimen name="size_text_body_snippet">12sp</dimen>
 
@@ -68,4 +67,7 @@
     <dimen name="size_img_secciones">80dp</dimen>
     <dimen name="margin_img_secciones">20dp</dimen>
 
+
+    <!-- Estacion lista -->
+    <dimen name="margin_start_card_estaciones_list">10dp</dimen>
 </resources>

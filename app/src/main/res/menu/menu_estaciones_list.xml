@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:checkable="false"
+        android:title="Ordenar por:"
+        app:showAsAction="always" />
+    <item android:title="Precios gasolina corriente" />
+    <item android:title="Precios gasolina extra" />
+    <item android:title="Precios Diesel" />
+    <item android:title="Precios BioDiesel" />
+    <item android:title="Precios GNV" />
+    <item android:title="@string/distancia" />
+    <item android:title="@string/calificacion" />
+</menu>

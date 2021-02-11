@@ -23,6 +23,8 @@ public class Estaciones implements Serializable {
     @DatabaseField
     private double calificacion;
     @DatabaseField
+    private int cantCalificacion;
+    @DatabaseField
     private double latitud;
     @DatabaseField
     private double longitud;
@@ -314,4 +316,11 @@ public class Estaciones implements Serializable {
         this.tipoEstacion = tipoEstacion;
     }
 
+    public int getCantCalificacion() {
+        return cantCalificacion;
+    }
+
+    public void setCantCalificacion(int cantCalificacion) {
+        this.cantCalificacion = cantCalificacion;
+    }
 }

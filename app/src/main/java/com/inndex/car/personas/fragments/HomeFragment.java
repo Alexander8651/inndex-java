@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inndex.car.personas.R;
@@ -29,23 +28,10 @@ public class HomeFragment extends Fragment {
     private BottomNavigationView bottomNavigationView;
 
     public LinearLayout layButtonsStationSelected;
-    //public LinearLayout layLista;
     public RelativeLayout layBtnNavegar;
-    public RelativeLayout layBtnVerServicios;
 
     public RelativeLayout layBtnIndicaciones;
 
-
-    public ImageView imgBtnHome;
-    public ImageView imgBtnFiltros;
-    public ImageView imgBtnFavoritos;
-
-    public TextView tvHome;
-    public TextView tvFiltros;
-    public TextView tvFavoritos;
-
-    public View viewFirstDivision;
-    public View viewSecondDivision;
     private SharedViewModel sharedViewModel;
     private static final int HOME_CLICKED = 1;
     private static final int FILTER_CLICKED = 2;
@@ -74,7 +60,7 @@ public class HomeFragment extends Fragment {
         });
         //layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
 
-         return v;
+        return v;
     }
 
     @Override
@@ -82,6 +68,8 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(requireActivity(), R.id.fragContentApp);
         navController.navigate(R.id.estacionesMapFragment);
+        NavigationUI.setupWithNavController(bottomNavigationView,
+                navController);
     }
 
     @Override
