@@ -273,7 +273,6 @@ public class EstacionesFiltrosFragment extends Fragment {
 
 
     public void filtrarEstaciones() {
-        //mainActivity.filtrarEstaciones();
     }
 
 
