@@ -79,7 +79,6 @@ public class PresenterAgregarVehiculos implements IPresenterAgregarVehiculos {
 
                 if (marcaVehiculos.getId() != 0){
                     obtenerLinea(marcaVehiculos.getId());
-                    //vehiculo.setMarca
                 }
             }
 
@@ -142,7 +141,6 @@ public class PresenterAgregarVehiculos implements IPresenterAgregarVehiculos {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.modelo, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         modelo.setAdapter(adapter);
 
         modelo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -150,13 +148,12 @@ public class PresenterAgregarVehiculos implements IPresenterAgregarVehiculos {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String modelo = (String) adapterView.getItemAtPosition(i);
                 Log.d("modeloss", modelo);
-                //vehiculo.setModelo(modelo);
+                //vehiculo.setAnio(modelo);
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
@@ -177,11 +174,8 @@ public class PresenterAgregarVehiculos implements IPresenterAgregarVehiculos {
 
             @Override
             public void onFailure(Call<List<Combustibles>> call, Throwable t) {
-
             }
         });
-
-
     }
 
     @Override
@@ -203,14 +197,11 @@ public class PresenterAgregarVehiculos implements IPresenterAgregarVehiculos {
 
             }
         });
-
     }
-
 
     @Override
     public void obtenerColorVehiculo(int color, String colorHex) {
-        Log.d("coloressss", String.valueOf(color) + colorHex);
-
+        Log.d("coloressss",  colorHex);
     }
 
     @Override
