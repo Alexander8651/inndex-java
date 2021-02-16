@@ -6,7 +6,9 @@
     <CheckBox
         android:id="@+id/checkboxBanco"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorPrimary"
+        />
 
     <TextView
         android:id="@+id/nombreBanco"

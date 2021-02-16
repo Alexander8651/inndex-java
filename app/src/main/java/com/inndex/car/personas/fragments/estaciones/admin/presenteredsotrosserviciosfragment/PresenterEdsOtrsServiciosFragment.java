@@ -48,6 +48,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         obtenerPuntosPago();
         obtenerTiendasConvivencia();
         obtenerSeguros();
+        guardarUsuario();
+
     }
 
     @Override
@@ -210,7 +212,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         TiendaAdapter tiendaAdapter = new TiendaAdapter(tiendas, (ArrayList<Tiendas>) estaciones.getListTiendas());
 
-
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
         cajeros.setAdapter(tiendaAdapter);
 
@@ -309,7 +310,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                     iEdsOtrosServiciosFragment.restaurante().setChecked(true);
                 }
             }
-
              */
 
             estaciones.setTieneBanios(iEdsOtrosServiciosFragment.baniosPublicos().isChecked());

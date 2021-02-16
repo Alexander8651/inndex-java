@@ -335,6 +335,8 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         startActivityForResult(intent,REQUEST_IMAGE_GALEY);
     }
 
+
+    //convierte a base64
     String convertirImagenBase64(Bitmap userimage) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         userimage.compress(Bitmap.CompressFormat.JPEG , 100, baos);
