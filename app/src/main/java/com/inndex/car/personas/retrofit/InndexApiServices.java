@@ -6,6 +6,7 @@ import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Departamento;
 import com.inndex.car.personas.model.EstacionCombustibles;
+import com.inndex.car.personas.model.EstacionProblema;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
@@ -111,7 +112,13 @@ public interface InndexApiServices {
     Call<List<Promocion>> getPromocionesByEstacionId(@Query("estacionId") Long estacionId);
 
     @POST(IApiUrlConstants.POST_SAVE_PROMOCION)
-    Call<Promocion> postSavePromocion(Promocion promocion);
+    Call<Promocion> postSavePromocion(@Body Promocion promocion);
+
+    /**
+     * ESTACION PROBLEMA
+     */
+    @POST(IApiUrlConstants.POST_SAVE_ESTACION_PROBLEMA)
+    Call<EstacionProblema> postSaveEstacionProblema(@Body EstacionProblema problema);
 
     /**
      * COMBUSTIBLES

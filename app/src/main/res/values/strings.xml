@@ -273,6 +273,7 @@
     <string name="calificacion">Calificación</string>
     <string name="distancia">Distancia</string>
     <string name="farmacia">Farmacia</string>
+    <string name="max_pro_diesel">MAX PRO DIESEL</string>
 
     <string-array name="modelo">
         <item>2021</item>

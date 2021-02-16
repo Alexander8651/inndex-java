@@ -2,7 +2,6 @@ package com.inndex.car.personas.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,8 @@ import java.util.List;
 
 public class AdapterMisEds extends RecyclerView.Adapter<AdapterMisEds.ViewHOlder> {
 
-    private List<Estaciones> lEstaciones;
-    private LayoutInflater inflater;
+    private final List<Estaciones> lEstaciones;
+    private final LayoutInflater inflater;
     private Context context;
 
     public AdapterMisEds(List<Estaciones> itemList, Context context){
@@ -45,16 +44,12 @@ public class AdapterMisEds extends RecyclerView.Adapter<AdapterMisEds.ViewHOlder
         holder.nombreEstacionGaso.setText(estaciones.getNombre());
         holder.direccionEstacionGaso.setText(estaciones.getDireccion());
         holder.municipio.setText(estaciones.getMunicipio());
-        holder.departamento.setText(estaciones.getDepartamento());
+        holder.departamento.setText(estaciones.getDepartamento() + ",");
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("estacionIs",  estaciones);
-                Navigation.findNavController(v).navigate(R.id.action_misEdsFragment_to_editarEdsFragment, bundle);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("estacionIs",  estaciones);
+            Navigation.findNavController(v).navigate(R.id.action_misEdsFragment_to_editarEdsFragment, bundle);
         });
     }
 

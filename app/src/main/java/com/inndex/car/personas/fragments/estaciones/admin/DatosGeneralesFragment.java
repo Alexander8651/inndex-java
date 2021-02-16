@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,8 +27,6 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.IPresenterDataGeneralFragment;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.PresenterDatosGeneralesFragment;
 import com.inndex.car.personas.model.Estaciones;
-
-import java.lang.reflect.Array;
 
 
 public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallback {
@@ -48,12 +45,11 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     private EditText et_cel, et_direccion_eds;
     private IPresenterDataGeneralFragment iPresenterDataGeneralFragment;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            estacion = (Estaciones) getArguments().getParcelable("estacionIs");
+            estacion = getArguments().getParcelable("estacionIs");
         }
     }
 
@@ -145,31 +141,22 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             mapView.getMapAsync(this);
         }
 
-        btnActualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fijarUbicacionFragment);
+        btnActualizar.setOnClickListener(v -> {
+            //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fijarUbicacionFragment);
 
-            }
         });
 
-        lat = 4.6043166F;//(float) estaciones.getLatitud();
-        lon = -74.0651728F;//(float) estaciones.getLongitud();
+        lat = (float)estacion.getLatitud();
+        lon = (float)estacion.getLongitud();
 
-        img_estacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fotoEdsFragment);
-            }
+        img_estacion.setOnClickListener(v -> {
+            //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fotoEdsFragment);
         });
 
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-        map = googleMap;
-
         map = googleMap;
         float zoom = 16F;
         LatLng centerMap = new LatLng(lat, lon);
@@ -177,5 +164,6 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
         //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
         map.addMarker(new MarkerOptions().position(centerMap));
+        mapView.setClickable(false);
     }
 }

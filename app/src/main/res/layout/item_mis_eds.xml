@@ -1,96 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="20dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        app:cardElevation="10dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="9"
-            android:orientation="horizontal"
             android:padding="10dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/gasolinera_icono"/>
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/imgEstacionList"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:src="@drawable/gasolinera_icono" />
 
             <LinearLayout
 
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="7">
-
+                android:layout_toEndOf="@id/imgEstacionList"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tp_estacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="TERPEL"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/nombre_estacion_gaso"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="EDS la esperanza"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/direccion_estacion_gaso"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
                     android:text="cl.22 # 68d-20"
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tv_departamento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+
                         android:text="Bogotá DC, "
-                        android:textSize="16sp"
-                        />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_municipio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+
                         android:text=" Bogotá DC"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />
                 </LinearLayout>
 
 
-
             </LinearLayout>
 
-
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,11 +17,7 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.fragments.estaciones.admin.presenteredsotrosserviciosfragment.IEdsOtrosServiciosFragment;
 import com.inndex.car.personas.fragments.estaciones.admin.presenteredsotrosserviciosfragment.IPresenterEdsOtrosServicios;
 import com.inndex.car.personas.fragments.estaciones.admin.presenteredsotrosserviciosfragment.PresenterEdsOtrsServiciosFragment;
-import com.inndex.car.personas.fragments.estaciones.admin.presentermisedsfragment.IPresenterMisEdsFragment;
-import com.inndex.car.personas.fragments.estaciones.admin.presentermisedsfragment.PresenterMisEdsFragment;
 import com.inndex.car.personas.model.Estaciones;
-
-import java.util.ArrayList;
 
 
 public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServiciosFragment {
@@ -34,13 +30,12 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
 
     private IPresenterEdsOtrosServicios iPresenterEdsOtrosServicios;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            estacion = (Estaciones) getArguments().getParcelable("estacionIs");
+            estacion =  getArguments().getParcelable("estacionIs");
         }
     }
 
@@ -69,10 +64,6 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         iPresenterEdsOtrosServicios = new PresenterEdsOtrsServiciosFragment(requireContext(),this, estacion);
 
         titulo.setText("Otros Servicios");
-
-
-
-
 
         btnBack.setOnClickListener(v ->{
             Navigation.findNavController(v).navigateUp();

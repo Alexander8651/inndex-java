@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.estaciones.admin.CombustibleYHorarioFragment">
+
+    <include layout="@layout/my_toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +23,9 @@
                 android:id="@+id/cb_gaso_corriente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/gasolina_corriente_cyh" />
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/gasolina_corriente_cyh"
+                android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
             <LinearLayout
                 android:id="@+id/ll_gaso_corriente"
@@ -45,7 +50,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:hint="@string/signo_peso_cyh"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 
@@ -53,7 +59,9 @@
                 android:id="@+id/cb_gaso_extra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/gasolina_extra" />
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/gasolina_extra"
+                android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
             <LinearLayout
                 android:id="@+id/ll_gaso_extra"
@@ -78,7 +86,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:hint="@string/signo_peso_cyh"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 
@@ -86,7 +95,9 @@
                 android:id="@+id/cb_diesel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/diesel_cyh" />
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/diesel_cyh"
+                android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
             <LinearLayout
                 android:id="@+id/ll_diesel"
@@ -111,7 +122,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:hint="@string/signo_peso_cyh"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 
@@ -119,7 +131,9 @@
                 android:id="@+id/cb_biodiesel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/biodiesel_cyh" />
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/biodiesel_cyh"
+                android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
             <LinearLayout
                 android:id="@+id/ll_biodiesel"
@@ -144,7 +158,8 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:hint="@string/signo_peso_cyh"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 
@@ -152,7 +167,9 @@
                 android:id="@+id/cb_gnv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/gnv_cyh" />
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/gnv_cyh"
+                android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
             <LinearLayout
                 android:id="@+id/ll_gnv"
@@ -178,7 +195,45 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:hint="@string/signo_peso_cyh"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cb_max_pro_diesel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/max_pro_diesel"
+                android:textSize="@dimen/text_combustibles__horarios_checkbox" />
+
+            <LinearLayout
+                android:id="@+id/ll_max_pro_diesel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/precio_cyh" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:hint="@string/signo_peso_cyh"
+                    android:inputType="number"
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 
@@ -220,7 +275,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="Domingo" />
+                    android:text="Domingo"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -232,6 +288,7 @@
                         android:id="@+id/cb_domingo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
                     <LinearLayout
@@ -263,7 +320,8 @@
                             android:gravity="center"
                             android:text="@string/separacion_aper_cierre"
                             android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
                         <EditText
                             android:layout_width="0dp"
@@ -294,7 +352,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/lunes_cyh" />
+                    android:text="@string/lunes_cyh"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -306,6 +365,7 @@
                         android:id="@+id/cb_lunes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
 
@@ -369,7 +429,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/martes_cyh" />
+                    android:text="@string/martes_cyh"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -381,6 +442,7 @@
                         android:id="@+id/cb_martes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
 
@@ -442,7 +504,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/miercoles_cyh" />
+                    android:text="@string/miercoles_cyh"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -454,6 +517,7 @@
                         android:id="@+id/cb_miercoles"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
 
@@ -515,7 +579,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/jueves_cyh" />
+                    android:text="@string/jueves_cyh"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -527,6 +592,7 @@
                         android:id="@+id/cb_jueves"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
 
@@ -588,7 +654,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/viernes_cyh" />
+                    android:text="@string/viernes_cyh"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -600,6 +667,7 @@
                         android:id="@+id/cb_viernes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
 
@@ -661,7 +729,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/sabado_cyh" />
+                    android:text="@string/sabado_cyh"
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -673,6 +742,7 @@
                         android:id="@+id/cb_sabado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
 
@@ -724,7 +794,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
             <Button
                 android:id="@+id/btn_guardar_cambios_cyh"
                 android:layout_width="match_parent"
@@ -734,12 +803,12 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@android:color/black"
-                android:textColor="@android:color/white"
-                android:text="Guardar cambios" />
+                android:text="Guardar cambios"
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>
 
     </ScrollView>
 
-</FrameLayout>
+</LinearLayout>

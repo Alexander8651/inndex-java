@@ -9,4 +9,7 @@ public interface IApiUrlConstants {
 
     // ESTACION COMBUSTIBLES
     String POST_SAVE_ALL_ESTACION_COMBUSTIBLE = "estaciones-combustibles/saveAll";
+
+    //ESTACION PROBLEMA
+    String POST_SAVE_ESTACION_PROBLEMA = "estacion-problema/save";
 }

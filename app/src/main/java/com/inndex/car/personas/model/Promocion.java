@@ -10,6 +10,12 @@ public class Promocion implements Serializable {
 
     private String descripcion;
 
+    private Double precio;
+
+    private String tipo;
+
+    private String categoria;
+
     private String foto;
 
     private Boolean active;
@@ -65,5 +71,29 @@ public class Promocion implements Serializable {
 
     public void setEstaciones(Estaciones estaciones) {
         this.estaciones = estaciones;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
