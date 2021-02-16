@@ -133,7 +133,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
                                 }else{
                                     irACamara();
                                 }
-
                                 return true;
                             case R.id.galeria:
 
@@ -146,7 +145,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
                                 } else {
                                     abrirGaleria();
                                 }
-
                                 return true;
                             default:
                                 return  false;
@@ -154,10 +152,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
                     }
                 });
         });
-
-
-
-
 
         //Cambiamos a masculino en negro
         btnMasculino.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +181,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
 
 
 /*
-
         saveChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +190,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
             }
         });
 */
-
         //Captura el click de fecha de nacimiento
         tvFecNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,12 +226,10 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         String fullNumber = ccp.getFullNumber() + etText.getText().toString();
     }
 
-
     @Override
     public EditText createTextViewName() {
         return tvName;
     }
-
 
     @Override
     public EditText createTextViewLastName() {
