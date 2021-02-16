@@ -17,13 +17,15 @@ import androidx.navigation.Navigation;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
+import com.inndex.car.personas.databinding.FragmentEstacionesFiltrosBinding;
+import com.inndex.car.personas.enums.EEstacionesFiltros;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.MarcaVehiculos;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.to.EstacionesFiltros;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,7 +101,9 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     private List<Certificados> lCertificados;
 
-    public EstacionesFiltrosFragment( DataBaseHelper helper) {
+    FragmentEstacionesFiltrosBinding binding;
+
+    public EstacionesFiltrosFragment(DataBaseHelper helper) {
 
         this.helper = helper;
         checkedBrands = null;
@@ -125,15 +129,59 @@ public class EstacionesFiltrosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
-        TextView tvTitulo = view.findViewById(R.id.tv_toolbar_titulo);
+        //View view = inflater.inflate(R.layout.fragment_estaciones_filtros, container, false);
+        binding = FragmentEstacionesFiltrosBinding.inflate(inflater, container, false);
+
+        TextView tvTitulo = binding.getRoot().findViewById(R.id.tv_toolbar_titulo);
         tvTitulo.setText("Filtros");
-        ImageView imgBack = view.findViewById(R.id.btnBack);
+        ImageView imgBack = binding.getRoot().findViewById(R.id.btnBack);
         navController = Navigation.findNavController(requireActivity(), R.id.fragContentApp);
         imgBack.setOnClickListener(v -> {
             navController.navigate(R.id.estacionesMapFragment);
         });
-        return view;
+        this.lEstacionesFiltros = new ArrayList<>();
+        initFilterViewEvents();
+        initFilterData();
+
+        return binding.getRoot();
+    }
+
+    private void initFilterViewEvents() {
+        binding.swFilterBanios.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.BANIOS.getId());
+        });
+        binding.swFilterHoteles.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.HOTELES.getId());
+        });
+        binding.swFilterLavaderos.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.LAVADEROS.getId());
+        });
+        binding.swFilterLlanterias.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.LLANTERIA.getId());
+        });
+        binding.swFilterVentaLubricantes.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.LUBRICANTES.getId());
+        });
+        binding.swFilterSoat.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.SOAT.getId());
+        });
+        binding.swFilterRestaurantes.setOnCheckedChangeListener((compoundButton, b) -> {
+            setBooleanFilter(b, EEstacionesFiltros.RESTAURANTES.getId());
+        });
+    }
+
+    private void initFilterData() {
+
+    }
+
+    private void setBooleanFilter(boolean b, Long filterId) {
+        removeExistingFilter(filterId);
+        if (b) {
+            EstacionesFiltros filtro = new EstacionesFiltros();
+            filtro.setId(filterId);
+            lEstacionesFiltros.add(filtro);
+        }
+        getFilterCountResult();
     }
 
     public void showBrandFilters() {
@@ -192,7 +240,6 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-
     public void showCalificacionFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_calificacion);
@@ -250,27 +297,39 @@ public class EstacionesFiltrosFragment extends Fragment {
     }
 
     private void getFilterCountResult() {
-        if(this.lEstacionesFiltros != null && this.lEstacionesFiltros.size() > 0) {
+        if (this.lEstacionesFiltros != null && this.lEstacionesFiltros.size() > 0) {
 
-            Call<Map<String, Long>> callPostQueryCountByFilter = MedidorApiAdapter.getApiService().postQueryCountByFilters(lEstacionesFiltros);
-            callPostQueryCountByFilter.enqueue(new Callback<Map<String, Long>>() {
+            Call<Long> callPostQueryCountByFilter = MedidorApiAdapter.getApiService().postQueryCountByFilters(lEstacionesFiltros);
+            callPostQueryCountByFilter.enqueue(new Callback<Long>() {
                 @Override
-                public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
-                    if(response.isSuccessful()) {
-                        Map<String, Long> values = response.body();
-                        Long responseCount = values != null ? values.get("count") : null;
-                        btnFiltrarEstaciones.setText("");
+                public void onResponse(Call<Long> call, Response<Long> response) {
+                    if (response.isSuccessful()) {
+
+                        Long responseCount = response.body();
+                        binding.btnFiltrarEstaciones.setText("VER RESULTADOS: " + responseCount);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+                public void onFailure(Call<Long> call, Throwable t) {
                     Toast.makeText(getActivity(), "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
+    private void removeExistingFilter(Long filterId) {
+
+        if (lEstacionesFiltros.size() > 0) {
+            for (EstacionesFiltros filtro :
+                    lEstacionesFiltros) {
+                if (filtro.getId().equals(filterId)) {
+                    lEstacionesFiltros.remove(filtro);
+                    break;
+                }
+            }
+        }
+    }
 
     public void filtrarEstaciones() {
     }

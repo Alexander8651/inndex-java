@@ -1,9 +1,11 @@
 package com.inndex.car.personas.retrofit;
 
+import com.inndex.car.personas.constantes.IApiUrlConstants;
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Departamento;
+import com.inndex.car.personas.model.EstacionCombustibles;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.HistorialEstadoVehiculos;
@@ -11,6 +13,7 @@ import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.MarcaVehiculos;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
+import com.inndex.car.personas.model.Promocion;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Soat;
 import com.inndex.car.personas.model.Tanqueadas;
@@ -23,7 +26,6 @@ import com.inndex.car.personas.utils.Constantes;
 import com.inndex.car.personas.utils.ResponseServices;
 
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -84,8 +86,8 @@ public interface InndexApiServices {
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
     Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);
 
-    @POST(Constantes.POST_REGISTRAR_TANQUEADA)
-    Call<Map<String, Long>> postQueryCountByFilters(
+    @POST(Constantes.POST_CONSULT_COUNT_BY_FILTERS)
+    Call<Long> postQueryCountByFilters(
             @Body List<EstacionesFiltros> filtros);
 
     //TANQUEADAS
@@ -95,6 +97,21 @@ public interface InndexApiServices {
 
     @GET(Constantes.GET_TANQUEADAS_BY_USER + "{id}")
     Call<List<Tanqueadas>> getTanqueadasByUser(@Path("id") String id);
+
+    /**
+     * ESTACION COMBUSTIBLES
+     */
+    @POST(IApiUrlConstants.POST_SAVE_ALL_ESTACION_COMBUSTIBLE)
+    Call<List<EstacionCombustibles>> postSaveAllEstacionesCombustibles(@Body List<EstacionCombustibles> listEstacionCombustibles);
+
+    /**
+     * PROMOCIONES
+     */
+    @GET(IApiUrlConstants.GET_PROMOCIONES_BY_ESTACION_ID)
+    Call<List<Promocion>> getPromocionesByEstacionId(@Query("estacionId") Long estacionId);
+
+    @POST(IApiUrlConstants.POST_SAVE_PROMOCION)
+    Call<Promocion> postSavePromocion(Promocion promocion);
 
     /**
      * COMBUSTIBLES

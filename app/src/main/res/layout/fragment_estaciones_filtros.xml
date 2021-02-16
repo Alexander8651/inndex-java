@@ -7,15 +7,16 @@
 
     <include
         android:id="@+id/toolbar_filtros"
+        layout="@layout/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/my_toolbar"/>
+        android:layout_height="wrap_content" />
 
     <ScrollView
-        android:layout_below="@id/toolbar_filtros"
         android:id="@+id/sv_filters"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_filtros"
+        android:layout_above="@id/btnFiltrarEstaciones">
 
         <LinearLayout
             android:id="@+id/lay_filter"
@@ -90,7 +91,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/ic_right" />
-
 
             </RelativeLayout>
 
@@ -292,7 +292,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_abiero_ahora"
+                    android:id="@+id/swFilterAbiertoAhora"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -468,7 +468,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_cajeros"
+                    android:id="@+id/swFilterSoat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -506,7 +506,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_restaurantes"
+                    android:id="@+id/swFilterRestaurantes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -544,7 +544,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_hoteles"
+                    android:id="@+id/swFilterHoteles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -582,7 +582,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_banios"
+                    android:id="@+id/swFilterBanios"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -620,7 +620,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_venta_lubricantes"
+                    android:id="@+id/swFilterVentaLubricantes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -658,7 +658,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_llanterias"
+                    android:id="@+id/swFilterLlanterias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -696,7 +696,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <Switch
-                    android:id="@+id/sw_filter_lavaderos"
+                    android:id="@+id/swFilterLavaderos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -715,24 +715,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/gris" />
-
-            <Button
-                android:id="@+id/btn_filtrar_estaciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="76dp"
-                android:background="@color/colorPrimary"
-                android:fontFamily="@font/roboto_light"
-                android:text="@string/filtrar"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnFiltrarEstaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/filtrar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>
