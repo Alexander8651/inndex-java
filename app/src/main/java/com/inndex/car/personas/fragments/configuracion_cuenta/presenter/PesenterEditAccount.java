@@ -91,7 +91,7 @@ public class PesenterEditAccount implements IpresenterEditAccount {
             }
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.d("llegoesto", t.getMessage());
+                imagenCarga.setVisibility(View.GONE);
             }
         });
     }

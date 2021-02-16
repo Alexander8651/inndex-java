@@ -34,7 +34,6 @@ public class MisVehiculosFragment extends Fragment implements IMisVehiculosFragm
     IVehiculosFragmentPresenter iVehiculosFragmentPresenter;
     private SharedPreferences myPreferences;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -62,7 +61,6 @@ public class MisVehiculosFragment extends Fragment implements IMisVehiculosFragm
         adapterVehiculo = new AdapterVehiculo(vehiculos, getContext());
         recyclerView.setAdapter(adapterVehiculo);
     }
-
 
     @Override
     public AdapterVehiculo crearAdaptador(ArrayList<Vehiculo> vehiculos) {

@@ -72,7 +72,7 @@ public interface InndexApiServices {
                                                @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_GENERAL_DATA)
-    Call<ResponseServices> updateStationGeneralData(@Header("Content-Type") String headerContentType,
+    Call<ResponseServices> updateStationGeneralData(
                                                     @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_FUEL_AND_SCHEDULE)
@@ -80,7 +80,7 @@ public interface InndexApiServices {
                                                         @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_OTHER_SERVICES)
-    Call<ResponseServices> updateStationOtherServices(@Header("Content-Type") String headerContentType,
+    Call<ResponseServices> updateStationOtherServices(
                                                       @Body Estaciones estaciones);
 
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
