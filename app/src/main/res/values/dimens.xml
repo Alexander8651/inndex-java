@@ -70,4 +70,5 @@
     <!-- Estacion lista -->
     <dimen name="margin_start_card_estaciones_list">16dp</dimen>
     <dimen name="text_combustibles__horarios_checkbox">16sp</dimen>
+    <dimen name="altootrosservicios">80dp</dimen>
 </resources>

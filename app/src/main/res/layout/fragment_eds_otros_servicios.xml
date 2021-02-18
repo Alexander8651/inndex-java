@@ -27,75 +27,125 @@
                 android:layout_margin="8dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cajeros Electrónicos" />
-
-                <Button
+                <androidx.cardview.widget.CardView
                     android:id="@+id/cajeros_electronicos_otros_servicios"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Selecciona los cajeros electronicos"
-                    android:textColor="@color/white" />
+                    android:layout_height="@dimen/altootrosservicios"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+                    <TextView
+                        android:id="@+id/cajerosSeleccionados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start|center"
+                        android:maxLines="2"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="Selecciona los cajeros electronicos"
+                        android:textSize="30sp" />
+                </androidx.cardview.widget.CardView>
 
-
-                <TextView
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Corresponsales bancarios" />
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
 
-                <Button
+                <androidx.cardview.widget.CardView
                     android:id="@+id/corresponsales_bancarios_otros_servicios"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Selecciona los corresponsales"
-                    android:textColor="@color/white" />
+                    android:layout_height="@dimen/altootrosservicios"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/corresponsalesSeleccionados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start|center"
+                        android:maxLines="2"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="Selecciona los corresponsales"
+                        android:textSize="30sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Puntos de pagos" />
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
 
-                <Button
+                <androidx.cardview.widget.CardView
                     android:id="@+id/puntos_pago_otros_servicios"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Selecciona los puntos de pagos"
-                    android:textColor="@color/white" />
+                    android:layout_height="@dimen/altootrosservicios"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/puntosPagoSeleccionados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start|center"
+                        android:maxLines="2"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="Selecciona los puntos de pagos"
+                        android:textSize="30sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Tiendas de convivencia" />
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
 
-                <Button
+                <androidx.cardview.widget.CardView
                     android:id="@+id/tiendas_convivencia_otros_servicios"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Selecciona las tiendas"
-                    android:textColor="@color/white" />
+                    android:layout_height="@dimen/altootrosservicios"
+                    android:padding="15dp">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/tiendasSeleccionados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start|center"
+                        android:maxLines="2"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="Selecciona las tiendas"
+                        android:textSize="30sp" />
+
+                </androidx.cardview.widget.CardView>
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="SOAT" />
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
 
-                <Button
+                <androidx.cardview.widget.CardView
                     android:id="@+id/soat_otros_servicios"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Selecciona los seguros"
-                    android:textColor="@color/white" />
+                    android:layout_height="@dimen/altootrosservicios"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/segurosSeleccionados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start|center"
+                        android:maxLines="2"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="Selecciona los seguros"
+                        android:textSize="30sp" />
+
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"

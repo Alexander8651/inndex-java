@@ -16,4 +16,6 @@ public interface IPresenterEdsOtrosServicios {
     void setearChecbox();
     void guardarUsuario();
 
+    void setearOtrosServicosData();
+
 }

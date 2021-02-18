@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -23,9 +24,10 @@ import com.inndex.car.personas.model.Estaciones;
 public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServiciosFragment {
 
     private ImageButton btnBack;
-    private TextView titulo;
+    private TextView titulo, cajerosSeleccionados, corresponsalesSeleccionados, puntosPagoSeleccionados, tiendasSeleccionados, segurosSeleccionados;
     private Estaciones estacion;
-    private Button cajeros, corresponsales, puntosPago, tiendasConvivencia, soat, guardarUsuario;
+    private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia,soat;
+    private Button   guardarUsuario;
     private CheckBox restaurate, hotel, banios, lubricantes,llanteria, lavadero;
 
     private IPresenterEdsOtrosServicios iPresenterEdsOtrosServicios;
@@ -53,6 +55,12 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         tiendasConvivencia = root.findViewById(R.id.tiendas_convivencia_otros_servicios);
         soat = root.findViewById(R.id.soat_otros_servicios);
         guardarUsuario = root.findViewById(R.id.guardar_usuario);
+
+        cajerosSeleccionados = root.findViewById(R.id.cajerosSeleccionados);
+        corresponsalesSeleccionados = root.findViewById(R.id.corresponsalesSeleccionados);
+        puntosPagoSeleccionados = root.findViewById(R.id.puntosPagoSeleccionados);
+        tiendasSeleccionados = root.findViewById(R.id.tiendasSeleccionados);
+        segurosSeleccionados = root.findViewById(R.id.segurosSeleccionados);
 
         restaurate = root.findViewById(R.id.estacionRestaurante);
         hotel = root.findViewById(R.id.estacionHotel);
@@ -136,5 +144,30 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     @Override
     public Button botonGuardar() {
         return guardarUsuario;
+    }
+
+    @Override
+    public TextView cajerosSeleccionados() {
+        return cajerosSeleccionados;
+    }
+
+    @Override
+    public TextView corresponsalesSeleccionados() {
+        return corresponsalesSeleccionados;
+    }
+
+    @Override
+    public TextView puntosPagoSeleccionados() {
+        return puntosPagoSeleccionados;
+    }
+
+    @Override
+    public TextView tiendasSeleccionados() {
+        return tiendasSeleccionados;
+    }
+
+    @Override
+    public TextView segurosSeleccionados() {
+        return segurosSeleccionados;
     }
 }
