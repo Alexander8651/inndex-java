@@ -2,6 +2,9 @@ package com.inndex.car.personas.fragments.estaciones.admin.presenteredsotrosserv
 
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 
 public interface IEdsOtrosServiciosFragment {
@@ -13,4 +16,10 @@ public interface IEdsOtrosServiciosFragment {
     CheckBox lavadero();
 
     Button botonGuardar();
+
+    TextView cajerosSeleccionados();
+    TextView corresponsalesSeleccionados();
+    TextView puntosPagoSeleccionados();
+    TextView tiendasSeleccionados();
+    TextView segurosSeleccionados();
 }
