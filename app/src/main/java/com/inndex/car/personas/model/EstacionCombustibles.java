@@ -9,7 +9,7 @@ public class EstacionCombustibles implements Serializable {
 
     private Long id;
 
-    private Double precio;
+    private int precio;
 
     private Combustibles combustible;
 
@@ -23,11 +23,11 @@ public class EstacionCombustibles implements Serializable {
 		this.id = id;
 	}
 
-	public Double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 

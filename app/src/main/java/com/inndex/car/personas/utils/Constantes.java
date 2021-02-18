@@ -33,7 +33,7 @@ public class Constantes {
     public static final String GET_BY_USUARIO_ADMIN = "estaciones-usuario/getAllByUsuarioAdmin";
     public static final String POST_REGISTER_STATION = "estaciones/postRegistrar";
     public static final String UPDATE_STATION_GENERAL_DATA = "estaciones/update-general-data";
-    public static final String UPDATE_STATION_FUEL_AND_SCHEDULE = "estaciones/update-fuel-schedule";
+    public static final String UPDATE_STATION_SCHEDULE = "estaciones/update-schedule";
     public static final String UPDATE_STATION_OTHER_SERVICES = "estaciones/update-other-services";
     public static final String POST_CONSULT_COUNT_BY_FILTERS = "estaciones/post_query_count_by_filters";
 

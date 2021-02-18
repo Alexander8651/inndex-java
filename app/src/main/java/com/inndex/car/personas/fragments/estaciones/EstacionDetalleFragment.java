@@ -212,7 +212,7 @@ public class EstacionDetalleFragment extends Fragment {
                     nombreCombustible.setText(bomba.getCombustible().getNombre());
                     DecimalFormat formatter = new DecimalFormat("###,###");
 
-                    String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio().intValue()));
+                    String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio()));
 
                     //    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
                     precioCombustible.setText(getString(R.string.precio_combustible_placeholder, sPrecio.replace(",", ".")));

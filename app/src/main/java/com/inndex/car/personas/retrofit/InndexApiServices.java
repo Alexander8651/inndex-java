@@ -74,15 +74,15 @@ public interface InndexApiServices {
 
     @PUT(Constantes.UPDATE_STATION_GENERAL_DATA)
     Call<ResponseServices> updateStationGeneralData(
-                                                    @Body Estaciones estaciones);
+            @Body Estaciones estaciones);
 
-    @PUT(Constantes.UPDATE_STATION_FUEL_AND_SCHEDULE)
-    Call<ResponseServices> updateStationFuelAndSchedule(@Header("Content-Type") String headerContentType,
-                                                        @Body Estaciones estaciones);
+    @PUT(Constantes.UPDATE_STATION_SCHEDULE)
+    Call<ResponseServices> updateStationSchedule(
+            @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_OTHER_SERVICES)
     Call<ResponseServices> updateStationOtherServices(
-                                                      @Body Estaciones estaciones);
+            @Body Estaciones estaciones);
 
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
     Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);
@@ -103,7 +103,7 @@ public interface InndexApiServices {
      * ESTACION COMBUSTIBLES
      */
     @POST(IApiUrlConstants.POST_SAVE_ALL_ESTACION_COMBUSTIBLE)
-    Call<List<EstacionCombustibles>> postSaveAllEstacionesCombustibles(@Body List<EstacionCombustibles> listEstacionCombustibles);
+    Call<List<EstacionCombustibles>> postSaveAllEstacionesCombustibles(@Query("idEstacion") Long idEstacion, @Body List<EstacionCombustibles> listEstacionCombustibles);
 
     /**
      * PROMOCIONES

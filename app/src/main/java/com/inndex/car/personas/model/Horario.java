@@ -14,7 +14,7 @@ public class Horario implements Serializable {
 
 	private Long dia;
 
-	private Boolean abiertoSiempre;
+	private boolean abiertoSiempre;
 
 	private Estaciones estaciones;
 

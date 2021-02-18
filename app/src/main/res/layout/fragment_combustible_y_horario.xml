@@ -45,6 +45,7 @@
                     android:text="@string/precio_cyh" />
 
                 <EditText
+                    android:id="@+id/edtPrecioCorriente"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -81,6 +82,7 @@
                     android:text="@string/precio_cyh" />
 
                 <EditText
+                    android:id="@+id/edtPrecioExtra"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -117,6 +119,7 @@
                     android:text="@string/precio_cyh" />
 
                 <EditText
+                    android:id="@+id/edtPrecioDiesel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -153,6 +156,7 @@
                     android:text="@string/precio_cyh" />
 
                 <EditText
+                    android:id="@+id/edtPrecioBioDiesel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -190,6 +194,7 @@
                     android:text="@string/precio_cyh" />
 
                 <EditText
+                    android:id="@+id/edtPrecioGNV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -227,6 +232,7 @@
                     android:text="@string/precio_cyh" />
 
                 <EditText
+                    android:id="@+id/edtPrecioMaxProDiesel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -276,7 +282,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="Domingo"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -299,10 +305,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtDomigoIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -320,10 +327,10 @@
                             android:gravity="center"
                             android:text="@string/separacion_aper_cierre"
                             android:textSize="24sp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtDomingoFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -336,9 +343,7 @@
 
                     </LinearLayout>
 
-
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -353,7 +358,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/lunes_cyh"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -368,7 +373,6 @@
                         android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
-
                     <LinearLayout
                         android:id="@+id/ll_lunes"
                         android:layout_width="match_parent"
@@ -377,10 +381,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtLunesIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -401,6 +406,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtLunesFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -413,9 +419,7 @@
 
                     </LinearLayout>
 
-
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -430,7 +434,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/martes_cyh"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -445,7 +449,6 @@
                         android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
-
                     <LinearLayout
                         android:id="@+id/ll_martes"
                         android:layout_width="match_parent"
@@ -454,10 +457,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtMartesIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -478,6 +482,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtMartesFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -489,7 +494,6 @@
                             android:padding="10dp" />
 
                     </LinearLayout>
-
 
                 </LinearLayout>
             </LinearLayout>
@@ -505,7 +509,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/miercoles_cyh"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -520,7 +524,6 @@
                         android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
-
                     <LinearLayout
                         android:id="@+id/ll_miercoles"
                         android:layout_width="match_parent"
@@ -529,10 +532,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtMiercolesIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -553,6 +557,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtMiercolesFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -564,7 +569,6 @@
                             android:padding="10dp" />
 
                     </LinearLayout>
-
 
                 </LinearLayout>
             </LinearLayout>
@@ -580,7 +584,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/jueves_cyh"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -604,10 +608,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtJuevesIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -628,6 +633,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtJuevesFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -655,7 +661,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/viernes_cyh"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -679,10 +685,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtViernesIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -703,6 +710,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtViernesFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -730,7 +738,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/sabado_cyh"
-                    android:textSize="@dimen/text_combustibles__horarios_checkbox"/>
+                    android:textSize="@dimen/text_combustibles__horarios_checkbox" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -745,7 +753,6 @@
                         android:buttonTint="@color/colorPrimary"
                         android:text="@string/todo_el_dia_cyh" />
 
-
                     <LinearLayout
                         android:id="@+id/ll_sabado"
                         android:layout_width="match_parent"
@@ -754,10 +761,11 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:weightSum="9">
 
                         <EditText
+                            android:id="@+id/edtSabadoIni"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -778,6 +786,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edtSabadoFin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -789,7 +798,6 @@
                             android:padding="10dp" />
 
                     </LinearLayout>
-
 
                 </LinearLayout>
             </LinearLayout>
@@ -804,8 +812,8 @@
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@android:color/black"
                 android:text="Guardar cambios"
-                android:textColor="@android:color/white" />
-
+                android:textColor="@android:color/white"
+                android:textSize="22sp"/>
 
         </LinearLayout>
 

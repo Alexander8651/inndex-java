@@ -132,7 +132,7 @@ public class EstacionesAdapter extends RecyclerView.Adapter<EstacionesAdapter.Es
                 if (nombreCombustible != null && precioCombustible != null) {
                     nombreCombustible.setText(bomba.getCombustible().getNombre());
                     DecimalFormat formatter = new DecimalFormat("###,###");
-                    String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio().intValue()));
+                    String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio()));
                     precioCombustible.setText(context.getString(R.string.precio_combustible_placeholder, sPrecio.replace(",", ".")));
                 }
             }

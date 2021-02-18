@@ -10,6 +10,15 @@ public enum ECombustibles {
     MAX_PRO_DIESEL(6L);
     private Long id;
 
+    public static ECombustibles getECombustiblesById(Long id) {
+        for (ECombustibles e : ECombustibles.values()) {
+            if (e.getId().equals(id)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     ECombustibles(Long id) {
         this.id = id;
     }

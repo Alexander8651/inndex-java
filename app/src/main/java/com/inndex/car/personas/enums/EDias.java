@@ -13,6 +13,15 @@ public enum EDias {
     private Long id;
     private String nombre;
 
+    public static EDias getEDiasById(Long id) {
+        for (EDias e : EDias.values()) {
+            if (e.getId().equals(id)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     EDias(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
