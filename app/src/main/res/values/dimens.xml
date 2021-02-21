@@ -12,7 +12,7 @@
     <dimen name="elevation">50dp</dimen>
 
     <dimen name="margin_status_bar">28dp</dimen>
-    <dimen name="height_toolbar">100dp</dimen>
+    <dimen name="height_toolbar">90dp</dimen>
 
     <dimen name="texto_info_personal">14sp</dimen>
     <dimen name="texto_edt_info_personal">18sp</dimen>
