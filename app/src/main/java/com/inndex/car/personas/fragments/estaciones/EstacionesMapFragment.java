@@ -31,12 +31,14 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.maps.android.clustering.ClusterManager;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.databinding.FragmentEstacionesMapBinding;
 import com.inndex.car.personas.dto.distance.DistanceApiResponse;
 import com.inndex.car.personas.enums.EEvents;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.renderer.EstacionRenderer;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.retrofit.distanceapi.DistanceApiAdapter;
 import com.inndex.car.personas.services.ILocationService;
@@ -44,6 +46,7 @@ import com.inndex.car.personas.services.IMapService;
 import com.inndex.car.personas.services.InndexLocationService;
 import com.inndex.car.personas.services.MapService;
 import com.inndex.car.personas.shared.SharedViewModel;
+import com.inndex.car.personas.to.InndexMarkerItem;
 import com.inndex.car.personas.utils.Constantes;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -81,6 +84,12 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private Estaciones estacionSeleccionada;
 
     private FragmentEstacionesMapBinding binding;
+
+    /**
+     * Map service fields
+     */
+    private ClusterManager<InndexMarkerItem> mClusterManager;
+    private InndexMarkerItem itemStationSelected;
 
     public EstacionesMapFragment() {
         // Required empty public constructor
@@ -229,8 +238,9 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         mMap = googleMap;
         mapService = new MapService(mMap, getContext(), this);
         if (estaciones.size() > 0) {
-            mapService.setEstaciones(estaciones);
-            mapService.addStations();
+            initCluster();
+            //mapService.setEstaciones(estaciones);
+            //mapService.addStations();
         }
         if (inndexLocationService.getMyLocation() != null) {
             mapService.setMyLocation(inndexLocationService.getMyLocation());
@@ -453,6 +463,9 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onStart() {
         super.onStart();
+        if(mClusterManager != null) {
+            initCluster();
+        }
     }
 
     @Override
@@ -464,6 +477,43 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("ON", "onDestroy");
+    }
+
+    private void initCluster() {
+        if (mClusterManager != null){
+            mClusterManager.clearItems();
+        }
+
+        mClusterManager = new ClusterManager<>(getContext(), mMap);
+        mClusterManager.setRenderer(new EstacionRenderer(getContext(), mMap, mClusterManager));
+        this.mMap.setOnMarkerClickListener(mClusterManager);
+        this.mMap.setOnCameraIdleListener(mClusterManager);
+        int sum = 0;
+        for (Estaciones estacion :
+                estaciones) {
+            LatLng latLng = new LatLng(estacion.getLatitud(), estacion.getLongitud());
+            InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(), latLng,
+                    estacion.getId(), sum);
+            mClusterManager.addItem(item);
+            sum++;
+        }
+        mClusterManager.cluster();
+        mClusterManager.setOnClusterItemClickListener(item -> {
+            itemStationSelected = item;
+            onEstacionMarkerClick(getEstacionSeleccionada());
+            return false;
+        });
+        mClusterManager.setOnClusterItemInfoWindowClickListener(item ->
+                goToStreetView(itemStationSelected.getPosition().latitude + ","
+                        + itemStationSelected.getPosition().longitude));
+    }
+
+    public Estaciones getEstacionSeleccionada() {
+        if (this.itemStationSelected != null && this.estaciones != null && this.estaciones.size() > 0) {
+            return this.estaciones.get(itemStationSelected.getPositionInList());
+        } else {
+            Toast.makeText(getContext(), "ERROR estaciones null", Toast.LENGTH_SHORT).show();
+        }
+        return null;
     }
 }

@@ -4,12 +4,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.model.Bancos;
+import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
-import com.inndex.car.personas.model.HistorialEstadoVehiculos;
 import com.inndex.car.personas.model.LineasVehiculos;
+import com.inndex.car.personas.model.MarcaEstacion;
+import com.inndex.car.personas.model.MetodoPago;
+import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Recorrido;
+import com.inndex.car.personas.model.Soat;
 import com.inndex.car.personas.model.Tanqueadas;
+import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.model.UnidadRecorrido;
 import com.inndex.car.personas.model.Usuario;
 import com.inndex.car.personas.model.Vehiculo;
@@ -29,9 +35,6 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Usuario, Integer> daoUsuario = null;
     private RuntimeExceptionDao<Usuario, Integer> usuarioRuntimeDao = null;
 
-    private Dao<Tanqueadas, Integer> daoTanqueadas = null;
-    private RuntimeExceptionDao<Tanqueadas, Integer> tanqueadasRuntimeDao = null;
-
     private Dao<Estaciones, Integer> daoEstaciones = null;
     private RuntimeExceptionDao<Estaciones, Integer> estacionesRuntimeDao = null;
 
@@ -47,11 +50,29 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<UnidadRecorrido, Integer> daoUnidadRecorrido = null;
     private RuntimeExceptionDao<UnidadRecorrido, Integer> unidadRecorridoRuntimeDao = null;
 
-    private Dao<Estados, Integer> daoEstados= null;
+    private Dao<Estados, Integer> daoEstados = null;
     private RuntimeExceptionDao<Estados, Integer> estadoRuntimeDao = null;
 
-    private Dao<HistorialEstadoVehiculos, Integer> daoHistorialEstados= null;
-    private RuntimeExceptionDao<HistorialEstadoVehiculos, Integer> historialEstadosRuntimeDao = null;
+    private Dao<MarcaEstacion, Long> daoMarcaEstacion = null;
+    private RuntimeExceptionDao<MarcaEstacion, Long> MarcaEstacionRuntimeDao = null;
+
+    private Dao<Combustibles, Long> daoCombustibles = null;
+    private RuntimeExceptionDao<Combustibles, Long> combustiblesRuntimeDao = null;
+
+    private Dao<Tiendas, Long> daoTiendas = null;
+    private RuntimeExceptionDao<Tiendas, Long> tiendasRuntimeDao = null;
+
+    private Dao<Bancos, Long> daoBancos = null;
+    private RuntimeExceptionDao<Bancos, Long> bancosRuntimeDao = null;
+
+    private Dao<Soat, Long> daoSoat = null;
+    private RuntimeExceptionDao<Soat, Long> soatRuntimeDao = null;
+
+    private Dao<PuntoPago, Long> daoPuntoPago = null;
+    private RuntimeExceptionDao<PuntoPago, Long> puntoPagoRuntimeDao = null;
+
+    private Dao<MetodoPago, Long> daoMetodoPago = null;
+    private RuntimeExceptionDao<MetodoPago, Long> metodoPagoRuntimeDao = null;
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION, R.raw.medidor_config);
@@ -61,10 +82,16 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
 
         try {
+            TableUtils.createTable(connectionSource, MetodoPago.class);
+            TableUtils.createTable(connectionSource, PuntoPago.class);
+            TableUtils.createTable(connectionSource, Tiendas.class);
+            TableUtils.createTable(connectionSource, Bancos.class);
+            TableUtils.createTable(connectionSource, Soat.class);
+            TableUtils.createTable(connectionSource, Combustibles.class);
             TableUtils.createTable(connectionSource, Estaciones.class);
             TableUtils.createTable(connectionSource, Estados.class);
-            TableUtils.createTable(connectionSource, HistorialEstadoVehiculos.class);
             TableUtils.createTable(connectionSource, LineasVehiculos.class);
+            TableUtils.createTable(connectionSource, MarcaEstacion.class);
             TableUtils.createTable(connectionSource, Recorrido.class);
             TableUtils.createTable(connectionSource, Tanqueadas.class);
             TableUtils.createTable(connectionSource, UnidadRecorrido.class);
@@ -81,15 +108,21 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connection, int oldVersion, int newVersion) {
 
         try {
+            TableUtils.dropTable(connection, MetodoPago.class, true);
+            TableUtils.dropTable(connection, PuntoPago.class, true);
+            TableUtils.dropTable(connection, Tiendas.class, true);
+            TableUtils.dropTable(connection, Bancos.class, true);
+            TableUtils.dropTable(connection, Soat.class, true);
+            TableUtils.dropTable(connection, Combustibles.class, true);
             TableUtils.dropTable(connection, Estados.class, true);
             TableUtils.dropTable(connection, Usuario.class, true);
             TableUtils.dropTable(connection, Estaciones.class, true);
             TableUtils.dropTable(connection, Tanqueadas.class, true);
             TableUtils.dropTable(connection, Recorrido.class, true);
-            TableUtils.dropTable(connection, LineasVehiculos.class,true);
-            TableUtils.dropTable(connection, UnidadRecorrido.class,true);
-            TableUtils.dropTable(connection, Vehiculo.class,true);
-            TableUtils.dropTable(connection, HistorialEstadoVehiculos.class,true);
+            TableUtils.dropTable(connection, LineasVehiculos.class, true);
+            TableUtils.dropTable(connection, MarcaEstacion.class, true);
+            TableUtils.dropTable(connection, UnidadRecorrido.class, true);
+            TableUtils.dropTable(connection, Vehiculo.class, true);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -98,32 +131,23 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public Dao<Usuario, Integer> getDaoUsuario() throws SQLException {
-        if(daoUsuario == null) daoUsuario = getDao(Usuario.class);
+        if (daoUsuario == null) daoUsuario = getDao(Usuario.class);
         return daoUsuario;
     }
 
     public RuntimeExceptionDao<Usuario, Integer> getUsuarioRuntimeDao() {
-        if(usuarioRuntimeDao == null) usuarioRuntimeDao = getRuntimeExceptionDao(Usuario.class);
+        if (usuarioRuntimeDao == null) usuarioRuntimeDao = getRuntimeExceptionDao(Usuario.class);
         return usuarioRuntimeDao;
     }
 
-    public Dao<Tanqueadas, Integer> getDaoTanqueadas() throws SQLException {
-        if(daoTanqueadas == null) daoTanqueadas = getDao(Tanqueadas.class);
-        return daoTanqueadas;
-    }
-
-    public RuntimeExceptionDao<Tanqueadas, Integer> getTanqueadasRuntimeDao() {
-        if(tanqueadasRuntimeDao == null) tanqueadasRuntimeDao = getRuntimeExceptionDao(Tanqueadas.class);
-        return tanqueadasRuntimeDao;
-    }
-
     public Dao<Estaciones, Integer> getDaoEstaciones() throws SQLException {
-        if(daoEstaciones == null) daoEstaciones = getDao(Estaciones.class);
+        if (daoEstaciones == null) daoEstaciones = getDao(Estaciones.class);
         return daoEstaciones;
     }
 
     public RuntimeExceptionDao<Estaciones, Integer> getEstacionesRuntimeDao() {
-        if(estacionesRuntimeDao == null) estacionesRuntimeDao = getRuntimeExceptionDao(Estaciones.class);
+        if (estacionesRuntimeDao == null)
+            estacionesRuntimeDao = getRuntimeExceptionDao(Estaciones.class);
         return estacionesRuntimeDao;
     }
 
@@ -133,10 +157,10 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public RuntimeExceptionDao<Recorrido, Integer> getRecorridosRuntimeDao() {
-        if(recorridoRuntimeDao == null) recorridoRuntimeDao = getRuntimeExceptionDao(Recorrido.class);
+        if (recorridoRuntimeDao == null)
+            recorridoRuntimeDao = getRuntimeExceptionDao(Recorrido.class);
         return recorridoRuntimeDao;
     }
-
 
 
     public Dao<LineasVehiculos, Integer> getDaoModelos() throws SQLException {
@@ -145,7 +169,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public RuntimeExceptionDao<LineasVehiculos, Integer> getUsua() {
-        if(modelosRuntimeDao == null) modelosRuntimeDao = getRuntimeExceptionDao(LineasVehiculos.class);
+        if (modelosRuntimeDao == null)
+            modelosRuntimeDao = getRuntimeExceptionDao(LineasVehiculos.class);
         return modelosRuntimeDao;
     }
 
@@ -155,7 +180,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public RuntimeExceptionDao<Vehiculo, Integer> getUsuarioHasModeloCarroIntegerRuntimeDao() {
-        if(usuarioHasModeloCarroRuntimeDao == null) usuarioHasModeloCarroRuntimeDao = getRuntimeExceptionDao(Vehiculo.class);
+        if (usuarioHasModeloCarroRuntimeDao == null)
+            usuarioHasModeloCarroRuntimeDao = getRuntimeExceptionDao(Vehiculo.class);
         return usuarioHasModeloCarroRuntimeDao;
     }
 
@@ -166,41 +192,118 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public RuntimeExceptionDao<UnidadRecorrido, Integer> getUnidadRecorridoRuntimeDao() {
-        if(unidadRecorridoRuntimeDao == null) unidadRecorridoRuntimeDao = getRuntimeExceptionDao(UnidadRecorrido.class);
+        if (unidadRecorridoRuntimeDao == null)
+            unidadRecorridoRuntimeDao = getRuntimeExceptionDao(UnidadRecorrido.class);
 
         return unidadRecorridoRuntimeDao;
     }
 
     public Dao<Estados, Integer> getDaoEstados() throws SQLException {
-        if (daoEstados == null) daoEstados= getDao(Estados.class);
+        if (daoEstados == null) daoEstados = getDao(Estados.class);
         return daoEstados;
     }
 
     public RuntimeExceptionDao<Estados, Integer> getEstadoRuntimeDao() {
-        if(estadoRuntimeDao == null) estadoRuntimeDao = getRuntimeExceptionDao(Estados.class);
+        if (estadoRuntimeDao == null) estadoRuntimeDao = getRuntimeExceptionDao(Estados.class);
         return estadoRuntimeDao;
     }
 
-    public Dao<HistorialEstadoVehiculos, Integer> getDaoHistorialEstados() throws SQLException {
-        if (daoHistorialEstados == null) daoHistorialEstados= getDao(HistorialEstadoVehiculos.class);
-        return daoHistorialEstados;
+    public Dao<MarcaEstacion, Long> getDaoMarcaEstacion() throws SQLException {
+        if (daoMarcaEstacion == null) daoMarcaEstacion = getDao(MarcaEstacion.class);
+        return daoMarcaEstacion;
     }
 
-    public RuntimeExceptionDao<HistorialEstadoVehiculos, Integer> getHistorialEstadosRuntimeDao() {
-        if(historialEstadosRuntimeDao == null) historialEstadosRuntimeDao = getRuntimeExceptionDao(HistorialEstadoVehiculos.class);
-        return historialEstadosRuntimeDao;
+    public RuntimeExceptionDao<MarcaEstacion, Long> getMarcaEstacionRuntimeDao() {
+        if (MarcaEstacionRuntimeDao == null)
+            MarcaEstacionRuntimeDao = getRuntimeExceptionDao(MarcaEstacion.class);
+        return MarcaEstacionRuntimeDao;
+    }
+
+    public Dao<Combustibles, Long> getDaoCombustibles() throws SQLException {
+        if (daoCombustibles == null) daoCombustibles = getDao(Combustibles.class);
+        return daoCombustibles;
+    }
+
+    public RuntimeExceptionDao<Combustibles, Long> getCombustiblesRuntimeDao() {
+        if (combustiblesRuntimeDao == null)
+            combustiblesRuntimeDao = getRuntimeExceptionDao(Combustibles.class);
+        return combustiblesRuntimeDao;
+    }
+
+    public Dao<Tiendas, Long> getDaoTiendas() throws SQLException {
+        if (daoTiendas == null)
+            daoTiendas = getDao(Tiendas.class);
+        return daoTiendas;
+    }
+
+    public RuntimeExceptionDao<Tiendas, Long> getTiendasRuntimeDao() {
+        if (tiendasRuntimeDao == null)
+            tiendasRuntimeDao = getRuntimeExceptionDao(Tiendas.class);
+        return tiendasRuntimeDao;
+    }
+
+    public Dao<Bancos, Long> getDaoBancos() throws SQLException {
+        if (daoBancos == null)
+            daoBancos = getDao(Bancos.class);
+        return daoBancos;
+    }
+
+    public RuntimeExceptionDao<Bancos, Long> getBancosRuntimeDao() {
+        if (bancosRuntimeDao == null)
+            bancosRuntimeDao = getRuntimeExceptionDao(Bancos.class);
+        return bancosRuntimeDao;
+    }
+
+    public Dao<Soat, Long> getDaoSoat() throws SQLException {
+        if (daoSoat == null)
+            daoSoat = getDao(Soat.class);
+        return daoSoat;
+    }
+
+    public RuntimeExceptionDao<Soat, Long> getSoatRuntimeDao() {
+        if (soatRuntimeDao == null)
+            soatRuntimeDao = getRuntimeExceptionDao(Soat.class);
+        return soatRuntimeDao;
+    }
+
+    public Dao<PuntoPago, Long> getDaoPuntoPago() throws SQLException {
+        if (daoPuntoPago == null)
+            daoPuntoPago = getDao(PuntoPago.class);
+        return daoPuntoPago;
+    }
+
+    public RuntimeExceptionDao<PuntoPago, Long> getPuntoPagoRuntimeDao() {
+        if (puntoPagoRuntimeDao == null)
+            puntoPagoRuntimeDao = getRuntimeExceptionDao(PuntoPago.class);
+        return puntoPagoRuntimeDao;
+    }
+
+    public Dao<MetodoPago, Long> getDaoMetodoPago() throws SQLException {
+        if (daoMetodoPago == null)
+            daoMetodoPago = getDao(MetodoPago.class);
+        return daoMetodoPago;
+    }
+
+    public RuntimeExceptionDao<MetodoPago, Long> getMetodoPagoRuntimeDao() {
+        if (metodoPagoRuntimeDao == null)
+            metodoPagoRuntimeDao = getRuntimeExceptionDao(MetodoPago.class);
+        return metodoPagoRuntimeDao;
     }
 
     @Override
     public void close() {
         super.close();
+        daoMetodoPago = null;
+        daoSoat = null;
+        daoBancos = null;
+        daoTiendas = null;
+        daoCombustibles = null;
+        daoMarcaEstacion = null;
         daoUsuario = null;
         daoEstaciones = null;
-        daoTanqueadas = null;
         daoRecorrido = null;
         daoModelos = null;
         daoUsuarioHasModeloCarros = null;
-        tanqueadasRuntimeDao = null;
         estacionesRuntimeDao = null;
         recorridoRuntimeDao = null;
         usuarioRuntimeDao = null;

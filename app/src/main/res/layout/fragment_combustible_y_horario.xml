@@ -804,16 +804,18 @@
 
             <Button
                 android:id="@+id/btn_guardar_cambios_cyh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp"
-                android:backgroundTint="@android:color/black"
-                android:text="Guardar cambios"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"/>
+                android:layout_width="308dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/guardar_cambios"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_regular"/>
 
         </LinearLayout>
 

@@ -57,6 +57,8 @@ public class Estaciones implements Serializable, Parcelable {
 
     private Boolean tieneDroguerias;
 
+    private Boolean tieneServiteca;
+
     private List<Restaurante> listRestaurantes;
 
     private List<Hotel> listHoteles;
@@ -125,6 +127,9 @@ public class Estaciones implements Serializable, Parcelable {
         tieneVentaLubricante = tmpTieneVentaLubricante == 0 ? null : tmpTieneVentaLubricante == 1;
         byte tmpTieneDroguerias = in.readByte();
         tieneDroguerias = tmpTieneDroguerias == 0 ? null : tmpTieneDroguerias == 1;
+        byte tmpTieneServiteca = in.readByte();
+        tieneServiteca = tmpTieneServiteca == 0 ? null : tmpTieneServiteca == 1;
+
         jsonCombustibles = in.readString();
     }
 
@@ -400,6 +405,14 @@ public class Estaciones implements Serializable, Parcelable {
         this.jsonCombustibles = jsonCombustibles;
     }
 
+    public Boolean getTieneServiteca() {
+        return tieneServiteca;
+    }
+
+    public void setTieneServiteca(Boolean tieneServiteca) {
+        this.tieneServiteca = tieneServiteca;
+    }
+
     public List<EstacionCombustibles> getCombustiblesFromJson() {
 
         List<EstacionCombustibles> estacionCombustiblesList = new ArrayList<>();
@@ -442,6 +455,7 @@ public class Estaciones implements Serializable, Parcelable {
         parcel.writeByte((byte) (certificada ? 1 : 0));
         parcel.writeString(descripcionCertificado);
         parcel.writeString(telefono);
+        parcel.writeByte((byte) (tieneServiteca == null ? 0 : tieneServiteca ? 1 : 2));
         parcel.writeByte((byte) (tieneBanios == null ? 0 : tieneBanios ? 1 : 2));
         parcel.writeByte((byte) (tieneLlanteria == null ? 0 : tieneLlanteria ? 1 : 2));
         parcel.writeByte((byte) (tieneLavadero == null ? 0 : tieneLavadero ? 1 : 2));

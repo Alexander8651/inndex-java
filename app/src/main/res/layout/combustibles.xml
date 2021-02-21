@@ -156,6 +156,34 @@
                     tools:text="$8.740" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/maxProDiesel"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:fontFamily="@font/roboto_light"
+                    android:id="@+id/nombreMaxProDiesel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_combustibles_titulos"
+                    tools:text="Extra" />
+
+                <TextView
+                    android:fontFamily="@font/roboto_light"
+                    android:id="@+id/precioMaxProDiesel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_combustibles_precios"
+                    tools:text="$8.740" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </HorizontalScrollView>

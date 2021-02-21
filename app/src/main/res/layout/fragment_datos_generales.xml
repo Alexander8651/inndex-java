@@ -7,11 +7,12 @@
     android:orientation="vertical"
     tools:context=".fragments.estaciones.admin.DatosGeneralesFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <include layout="@layout/my_toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -22,11 +23,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
+                <!--ImageView
                     android:id="@+id/img_estacion"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@drawable/gasolinera" />
+                    android:background="@drawable/gasolinera" /-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -37,15 +38,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:text="Nombres"
-                        android:textColor="@color/colorPrimary"
-                        />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
                         android:id="@+id/et_nombre_eds"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
 
                     <TextView
@@ -53,8 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Marca"
-                        android:textColor="@color/colorPrimary"
-                        />
+                        android:textColor="@color/colorPrimary" />
 
 
                     <LinearLayout
@@ -240,10 +238,18 @@
 
                     <Button
                         android:id="@+id/btn_guardar_cambios_eds"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:text="Guardar Cambios" />
+                        android:layout_width="308dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_gravity="center_horizontal"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="@string/guardar_cambios"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_regular" />
 
                 </LinearLayout>
 

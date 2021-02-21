@@ -1,14 +1,10 @@
 package com.inndex.car.personas.services;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.inndex.car.personas.database.DataBaseHelper;
-import com.inndex.car.personas.model.Estados;
-import com.inndex.car.personas.model.HistorialEstadoVehiculos;
 import com.inndex.car.personas.model.UnidadRecorrido;
-import com.inndex.car.personas.model.Vehiculo;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.utils.Constantes;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -28,7 +24,6 @@ import static com.inndex.car.personas.utils.Constantes.LIMIT_UNIT_RECORRIDO;
 
 public class UploadRecorridosService {
 
-    private Dao<HistorialEstadoVehiculos, Integer> daoHistorial;
     private Dao<UnidadRecorrido, Integer> daoUnidadRecorrido;
     private DataBaseHelper helper;
     private Context context;
@@ -44,8 +39,6 @@ public class UploadRecorridosService {
         try {
             if(daoUnidadRecorrido == null)
                 daoUnidadRecorrido = helper.getDaoUnidadRecorrido();
-            if(daoHistorial == null)
-                daoHistorial = helper.getDaoHistorialEstados();
             //     if(helper == null)
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,13 +73,6 @@ public class UploadRecorridosService {
             if(lUnidadRecorrido != null && lUnidadRecorrido.size() > 0)
                 this.uploadSingleTrip(lUnidadRecorrido);
 
-            List<HistorialEstadoVehiculos> lHistorialEstados = daoHistorial.queryForEq("uploaded", false);
-            if (lHistorialEstados != null && lHistorialEstados.size() > 0) {
-                HistorialEstadoVehiculos newStateHistoryRecord = lHistorialEstados.get(0);
-                newStateHistoryRecord.setVehiculo(new Vehiculo(newStateHistoryRecord.getIdVehiculo()));
-                newStateHistoryRecord.setEstado(new Estados(newStateHistoryRecord.getIdEstado()));
-                uploadHistorialEstado(newStateHistoryRecord);
-            }
         } catch (SQLException e) {
             Toast.makeText(context, "Ocurrió un error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
@@ -125,30 +111,7 @@ public class UploadRecorridosService {
         });
     }
 
-    private void uploadHistorialEstado(HistorialEstadoVehiculos newStateHistoryRecord){
-        Call<HistorialEstadoVehiculos> callUpdateState = MedidorApiAdapter.getApiService()
-                .postHistorialEstadosSave(Constantes.CONTENT_TYPE_JSON, newStateHistoryRecord);
-
-        callUpdateState.enqueue(new Callback<HistorialEstadoVehiculos>() {
-            @Override
-            public void onResponse(Call<HistorialEstadoVehiculos> call, Response<HistorialEstadoVehiculos> response) {
-                if (response.isSuccessful()) {
-                    newStateHistoryRecord.setUploaded(true);
-                    try {
-                        daoHistorial.update(newStateHistoryRecord);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HistorialEstadoVehiculos> call, Throwable t) {
-            }
-        });
-    }
-
-    private void deleteUploadedUnidadRecorridos(List<UnidadRecorrido> listUnidadRecorrido) {
+      private void deleteUploadedUnidadRecorridos(List<UnidadRecorrido> listUnidadRecorrido) {
 
         try {
             if (listUnidadRecorrido != null && listUnidadRecorrido.size() > 0) {

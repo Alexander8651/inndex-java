@@ -57,10 +57,6 @@
     <string name="gal">Gl /</string>
     <string name="historial">Historial</string>
 
-    <string name="iniciarAdqModelo">Iniciar adquicisión de datos</string>
-    <string name="finalizarAdqModelo">Finalizar adquicisión de datos</string>
-    <string name="datosAdqModeloOk">Datos adquiridos correctamente</string>
-
     <string-array name="optCantDeseada">
         <item>COP</item>
         <item>Gal</item>
@@ -91,7 +87,7 @@
     <string name="correo">Correo electrónico</string>
     <string name="n_mero_de_tel_fono">Número de teléfono</string>
     <string name="nombres_y_apellidos">Nombres y Apellidos</string>
-    <string name="guardar_cambios">Guardar Cambios</string>
+    <string name="guardar_cambios">Guardar cambios</string>
     <string name="hint_placa">PLACA</string>
     <string name="hint_password">********</string>
     <string name="tiene_2_tanques">Tiene 2 tanques?</string>
@@ -120,29 +116,6 @@
         <item>Corriente</item>
         <item>Extra</item>
         <item>Diesel</item>
-    </string-array>
-
-    <string-array name="marcas_estaciones">
-        <item>AYATAWACOOP</item>
-        <item>BIOMAX</item>
-        <item>BRIO</item>
-        <item>CASAMOTOR</item>
-        <item>COOMULPINORT</item>
-        <item>ECOS</item>
-        <item>ESSO</item>
-        <item>DISCOWACOOP</item>
-        <item>GULF</item>
-        <item>MOBIL</item>
-        <item>OCTANO</item>
-        <item>PETROBRAS</item>
-        <item>PETROMIL</item>
-        <item>PROXXON</item>
-        <item>PUMA</item>
-        <item>SAVE</item>
-        <item>TERPEL</item>
-        <item>TEXACO</item>
-        <item>ZAP Y VELASQUEZ</item>
-        <item>ZEUS</item>
     </string-array>
 
     <string-array name="opciones_filtro_distancia">
@@ -274,6 +247,14 @@
     <string name="distancia">Distancia</string>
     <string name="farmacia">Farmacia</string>
     <string name="max_pro_diesel">Max Pro Diesel</string>
+    <string name="selecciona_los_corresponsales">Selecciona los corresponsales</string>
+    <string name="selecciona_los_cajeros_electronicos">Selecciona los cajeros electronicos</string>
+    <string name="selecciona_los_puntos_de_pagos">Selecciona los puntos de pagos</string>
+    <string name="selecciona_las_tiendas">Selecciona las tiendas</string>
+    <string name="datos_generales">Datos generales</string>
+    <string name="banios">Baños</string>
+    <string name="selecciona_soat">Seleccionar SOAT</string>
+    <string name="selecciona_los_metodos_de_pago">Selecciona los metodos de pago</string>
 
     <string-array name="modelo">
         <item>2021</item>

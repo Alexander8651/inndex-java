@@ -2,10 +2,10 @@ package com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneral
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
 import com.inndex.car.personas.model.Estaciones;
@@ -30,21 +30,16 @@ public class PresenterDatosGeneralesFragment implements IPresenterDataGeneralFra
 
         actualizarDataGeneral.enqueue(new Callback<ResponseServices>() {
             @Override
-            public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
+            public void onResponse(@NonNull Call<ResponseServices> call, @NonNull Response<ResponseServices> response) {
 
                 if (response.isSuccessful()){
-                    ResponseServices responseServices = response.body();
-                   // Log.d("meejecuto", responseServices.getMsg());
-
-
-                    Toast.makeText(context, "Se actualizo el usuario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Se actualizo la información", Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(view).navigateUp();
-
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseServices> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseServices> call, @NonNull Throwable t) {
 
             }
         });

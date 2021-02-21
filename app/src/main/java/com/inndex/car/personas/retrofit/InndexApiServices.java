@@ -9,9 +9,10 @@ import com.inndex.car.personas.model.EstacionCombustibles;
 import com.inndex.car.personas.model.EstacionProblema;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
-import com.inndex.car.personas.model.HistorialEstadoVehiculos;
 import com.inndex.car.personas.model.LineasVehiculos;
+import com.inndex.car.personas.model.MarcaEstacion;
 import com.inndex.car.personas.model.MarcaVehiculos;
+import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
 import com.inndex.car.personas.model.Promocion;
@@ -150,12 +151,23 @@ public interface InndexApiServices {
     @GET(Constantes.GET_SOAT)
     Call<List<Soat>> getSoat();
 
-
     /**
      * MARCAS VEHICULOS
      */
     @GET(Constantes.GET_MARCAS_VEHICULOS)
     Call<List<MarcaVehiculos>> getMarcasVehiculos();
+
+    /**
+     * MARCAS ESTACIONES
+     */
+    @GET(IApiUrlConstants.GET_MARCAS_ESTACIONES)
+    Call<List<MarcaEstacion>> getMarcasEstaciones();
+
+    /**
+     * METODOS PAGO
+     */
+    @GET(IApiUrlConstants.GET_METODOS_PAGO)
+    Call<List<MetodoPago>> getMetodosPago();
 
     /**
      * MODELOS CARROS
@@ -177,12 +189,6 @@ public interface InndexApiServices {
     @GET(Constantes.GET_ESTADOS)
     Call<List<Estados>> getEstados();
 
-    /**
-     * HISTORIAL ESTADOS
-     */
-    @POST(Constantes.POST_SAVE_HISTORIAL_ESTADO)
-    Call<HistorialEstadoVehiculos> postHistorialEstadosSave(@Header("Content-Type") String headerContentType,
-                                                            @Body HistorialEstadoVehiculos historialEstadoVehiculos);
 
     /**
      * CERTIFICADOS

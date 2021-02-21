@@ -21,7 +21,6 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.inndex.car.personas.model.Estaciones;
-import com.inndex.car.personas.renderer.EstacionRenderer;
 import com.inndex.car.personas.rutas.DirectionFinder;
 import com.inndex.car.personas.rutas.PasarUbicacion;
 import com.inndex.car.personas.rutas.Route;
@@ -97,8 +96,8 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         if (rutas != null && rutas.size() > 0) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             if (polylinePaths != null && polylinePaths.size() > 0) {
-                for (Polyline pol:
-                     polylinePaths) {
+                for (Polyline pol :
+                        polylinePaths) {
                     pol.remove();
                 }
             }
@@ -162,7 +161,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         mMap.setMyLocationEnabled(true);
     }
 
-    public void addStations() {
+    /*public void addStations() {
         mClusterManager = new ClusterManager<>(context, mMap);
         mClusterManager.setRenderer(new EstacionRenderer(context, mMap, mClusterManager));
         this.mMap.setOnMarkerClickListener(mClusterManager);
@@ -174,13 +173,6 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
             InndexMarkerItem item = new InndexMarkerItem(estacion.isCertificada(), latLng,
                     estacion.getId(), sum);
             mClusterManager.addItem(item);
-            /*
-            if (!estacion.isCertificada())
-                mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
-                        .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_sin_certificado)));
-            else
-                mapService.getmMap().addMarker(new MarkerOptions().position(latLng).title(estacion.getMarca())
-                        .snippet(estacion.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.eds_certificada)));*/
             sum++;
         }
         mClusterManager.cluster();
@@ -189,13 +181,10 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
             imapService.onEstacionMarkerClick(getEstacionSeleccionada());
             return false;
         });
-        mClusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<InndexMarkerItem>() {
-            @Override
-            public void onClusterItemInfoWindowClick(InndexMarkerItem item) {
-                imapService.goToStreetView(itemStationSelected.getPosition().latitude + "," + itemStationSelected.getPosition().longitude);
-            }
-        });
-    }
+        mClusterManager.setOnClusterItemInfoWindowClickListener(item ->
+                imapService.goToStreetView(itemStationSelected.getPosition().latitude + ","
+                        + itemStationSelected.getPosition().longitude));
+    }*/
 
     public void updateMyPosition() {
         if (myLocation == null) {
@@ -234,10 +223,29 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         if (this.itemStationSelected != null && this.estaciones != null && this.estaciones.size() > 0) {
             return this.estaciones.get(itemStationSelected.getPositionInList());
         } else {
-            Toast.makeText(context, "ERROR estaciones null" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "ERROR estaciones null", Toast.LENGTH_SHORT).show();
         }
         return null;
     }
 
+    public IMapService getImapService() {
+        return imapService;
+    }
 
+    public void setImapService(IMapService imapService) {
+        this.imapService = imapService;
+    }
+
+    public void resetCluster() {
+        mClusterManager.cluster();
+        mClusterManager.setOnClusterItemClickListener(item -> {
+            itemStationSelected = item;
+            imapService.onEstacionMarkerClick(getEstacionSeleccionada());
+            return false;
+        });
+        mClusterManager.setOnClusterItemInfoWindowClickListener(item ->
+                imapService.goToStreetView(itemStationSelected.getPosition().latitude + ","
+                        + itemStationSelected.getPosition().longitude));
+
+    }
 }

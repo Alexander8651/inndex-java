@@ -194,11 +194,18 @@ public class EstacionDetalleFragment extends Fragment {
                     precioCombustible = root.findViewById(R.id.precioDiesel);
                 }
 
-                if (bomba.getCombustible().getId().equals(ECombustibles.DIESEL.getId())) {
-                    final LinearLayout diesel = root.findViewById(R.id.DIESEL);
-                    diesel.setVisibility(View.VISIBLE);
-                    nombreCombustible = root.findViewById(R.id.nombreDiesel);
-                    precioCombustible = root.findViewById(R.id.precioDiesel);
+                if (bomba.getCombustible().getId().equals(ECombustibles.GNV.getId())) {
+                    final LinearLayout gnv = root.findViewById(R.id.GNV);
+                    gnv.setVisibility(View.VISIBLE);
+                    nombreCombustible = root.findViewById(R.id.nombreGNV);
+                    precioCombustible = root.findViewById(R.id.precioGNV);
+                }
+
+                if (bomba.getCombustible().getId().equals(ECombustibles.MAX_PRO_DIESEL.getId())) {
+                    final LinearLayout maxProDiesel = root.findViewById(R.id.maxProDiesel);
+                    maxProDiesel.setVisibility(View.VISIBLE);
+                    nombreCombustible = root.findViewById(R.id.nombreMaxProDiesel);
+                    precioCombustible = root.findViewById(R.id.precioMaxProDiesel);
                 }
 
                 if (bomba.getCombustible().getId().equals(ECombustibles.BIODIESEL.getId())) {

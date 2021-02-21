@@ -12,4 +12,6 @@ public interface IApiUrlConstants {
 
     //ESTACION PROBLEMA
     String POST_SAVE_ESTACION_PROBLEMA = "estacion-problema/save";
+    String GET_MARCAS_ESTACIONES = "marca-estacion/getAll";
+    String GET_METODOS_PAGO = "metodos-pago/getAll";
 }

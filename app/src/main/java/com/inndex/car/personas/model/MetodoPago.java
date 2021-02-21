@@ -1,11 +1,16 @@
 package com.inndex.car.personas.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
+@DatabaseTable(tableName = "metodos_pago")
 public class MetodoPago implements Serializable {
 
+    @DatabaseField
     private Long id;
-
+    @DatabaseField
     private String nombre;
 
     public MetodoPago() {

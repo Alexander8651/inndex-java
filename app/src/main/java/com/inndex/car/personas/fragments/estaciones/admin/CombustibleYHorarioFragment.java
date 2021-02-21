@@ -1,7 +1,6 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class CombustibleYHorarioFragment extends Fragment {
     private LinearLayout llGasoCorri, llGasoExtra, llDiesel, llBiodiesel, llGnv, llMaxProDiesel;
     private LinearLayout llLunes, llMartes, llMiercoles, llJueves, llViernes, llSabado, llDomingo;
     private Estaciones estacion, estacionWithOnlyId;
-
+    ImageButton btnBack;
     private List<Horario> listHorarios;
     private List<EstacionCombustibles> listEstacionCombustibles;
 
@@ -70,7 +69,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_combustible_y_horario, container, false);
         TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
         titulo.setText("Combustibles y horarios");
-        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        btnBack = view.findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp()
@@ -126,6 +125,15 @@ public class CombustibleYHorarioFragment extends Fragment {
                 llGnv.setVisibility(View.VISIBLE);
             } else {
                 llGnv.setVisibility(View.GONE);
+            }
+        });
+        //edtPrecioMaxProDiesel
+
+        cbMaxProDiesel.setOnCheckedChangeListener((v, b) -> {
+            if (b) {
+                llMaxProDiesel.setVisibility(View.VISIBLE);
+            } else {
+                llMaxProDiesel.setVisibility(View.GONE);
             }
         });
 
@@ -203,7 +211,7 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void callUpdateEstacionCombustible() {
-        Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(),listEstacionCombustibles);
+        Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(), listEstacionCombustibles);
         postSaveEstacionCombustibles.enqueue(new Callback<List<EstacionCombustibles>>() {
             @Override
             public void onResponse(Call<List<EstacionCombustibles>> call, Response<List<EstacionCombustibles>> response) {
@@ -228,19 +236,16 @@ public class CombustibleYHorarioFragment extends Fragment {
         updateStationSchedule.enqueue(new Callback<ResponseServices>() {
             @Override
             public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
-                Log.e("CODE", String.valueOf(response.code()));
-                Log.e("MESS", response.message());
-
-                if (response.isSuccessful())
+                if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "INFORMACIÓN GUARDADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
-                else
+                    Navigation.findNavController(btnBack).navigateUp();
+                } else
                     Toast.makeText(getContext(), "NOT SUCCESSFULL HORARIOS", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ResponseServices> call, Throwable t) {
                 Toast.makeText(getContext(), "ERROR EN HORARIOS", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -567,7 +572,5 @@ public class CombustibleYHorarioFragment extends Fragment {
         edtViernesFin = view.findViewById(R.id.edtViernesFin);
         edtSabadoFin = view.findViewById(R.id.edtSabadoFin);
         edtDomingoFin = view.findViewById(R.id.edtDomingoFin);
-
-
     }
 }
