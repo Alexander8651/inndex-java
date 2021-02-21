@@ -1,5 +1,7 @@
 package com.inndex.car.personas.fragments.estaciones.admin.presentermisedsfragment;
 
+import android.util.Log;
+
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 
@@ -35,6 +37,7 @@ public class PresenterMisEdsFragment implements IPresenterMisEdsFragment {
                 if (response.isSuccessful()){
                     estaciones = (ArrayList<Estaciones>) response.body();
                     mostrarEds();
+                    Log.d("llego", String.valueOf(estaciones.size()));
                 }
             }
 

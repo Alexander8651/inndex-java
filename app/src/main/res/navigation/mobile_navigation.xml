@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_editarEdsFragment_to_edsOtrosServiciosFragment"
             app:destination="@id/edsOtrosServiciosFragment" />
+        <action
+            android:id="@+id/action_editarEdsFragment_to_promocionListFragment"
+            app:destination="@id/promocionListFragment" />
     </fragment>
     <fragment
         android:id="@+id/opt_administrar_eds"
@@ -96,4 +99,18 @@
         android:name="com.inndex.car.personas.fragments.estaciones.admin.EdsOtrosServiciosFragment"
         android:label="fragment_eds_otros_servicios"
         tools:layout="@layout/fragment_eds_otros_servicios" />
+    <fragment
+        android:id="@+id/promocionListFragment"
+        android:name="com.inndex.car.personas.fragments.promociones.PromocionListFragment"
+        android:label="fragment_promocion_list"
+        tools:layout="@layout/fragment_promocion_list" >
+        <action
+            android:id="@+id/action_promocionListFragment_to_promocionFormFragment"
+            app:destination="@id/promocionFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/promocionFormFragment"
+        android:name="com.inndex.car.personas.fragments.promociones.PromocionFormFragment"
+        android:label="fragment_promocion_form"
+        tools:layout="@layout/fragment_promocion_form" />
 </navigation>

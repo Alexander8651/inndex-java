@@ -18,6 +18,7 @@ import com.inndex.car.personas.model.Estaciones;
 public class EditarEdsFragment extends Fragment {
 
     private Estaciones estacion;
+
     Bundle bundle;
 
     @Override
@@ -39,6 +40,7 @@ public class EditarEdsFragment extends Fragment {
         TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
         TextView datosGenerales = view.findViewById(R.id.tv_datos_generales);
         TextView editar_eds_otro_servicios = view.findViewById(R.id.editar_eds_otro_servicios);
+        TextView editar_eds_promociones = view.findViewById(R.id.tv_promociones);
         bundle = new Bundle();
         bundle.putParcelable("estacionIs", estacion);
 
@@ -56,6 +58,11 @@ public class EditarEdsFragment extends Fragment {
         editar_eds_otro_servicios.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_edsOtrosServiciosFragment, bundle)
         );
+        editar_eds_promociones.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_promocionListFragment, bundle)
+        );
+
+
 
         llCombustiblesYHorarios.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_combustibleYHorarioFragment, bundle));
 

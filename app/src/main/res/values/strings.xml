@@ -192,6 +192,20 @@
 
     </string-array>
 
+    <string-array name="tipo_oferta">
+        <item>Promoción</item>
+        <item>Sorteo</item>
+        <item>Otra</item>
+
+    </string-array>
+
+    <string-array name="categoria_oferta">
+        <item>Soat</item>
+        <item>Combustible</item>
+        <item>Lubricantes</item>
+        <item>Otro</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="buscar">Buscar</string>
     <string name="filtrar">Filtrar</string>

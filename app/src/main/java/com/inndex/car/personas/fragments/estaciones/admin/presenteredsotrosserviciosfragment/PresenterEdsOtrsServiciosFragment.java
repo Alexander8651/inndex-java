@@ -52,7 +52,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         obtenerTiendasConvivencia();
         obtenerSeguros();
         guardarUsuario();
-
     }
 
     @Override
