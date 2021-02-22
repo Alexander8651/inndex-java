@@ -287,8 +287,8 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             String origins = this.myLocation.latitude + "," + this.myLocation.longitude;
             String destination = estacion.getLatitud() + "," + estacion.getLongitud();
 
-            openStationBottomSheet(estacion);
-            //calculateDistance(origins, destination, estacion);
+            //openStationBottomSheet(estacion);
+            calculateDistance(origins, destination, estacion);
 
         } catch (Exception ex) {
             Toast.makeText(getActivity(), "EXCEPTION " + ex.getMessage(), Toast.LENGTH_SHORT).show();
