@@ -85,5 +85,25 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/promociones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+
+            <TextView
+                android:id="@+id/tv_promociones"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Promociones"
+                android:textSize="20sp"
+                android:gravity="start|center"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/colorPrimary"/>
+
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>
