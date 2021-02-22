@@ -1,12 +1,19 @@
 package com.inndex.car.personas.adapter;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +48,29 @@ public class AdapterPromociones extends RecyclerView.Adapter<AdapterPromociones.
             holder.precio.setText(promocion.getPrecio().toString());
         }
         Glide.with(holder.itemView).load(promocion.getFoto()).into(holder.fotoPromocion);
+
+        holder.menuPromocionAdapter.setOnClickListener(v ->{
+            PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+            popupMenu.inflate(R.menu.menuadapterpromociones);
+            popupMenu.show();
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.opcion_1:
+
+                            return true;
+                        case R.id.opcion_2:
+
+
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+            });
+        });
     }
 
     @Override

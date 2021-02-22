@@ -280,7 +280,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
-        ArrayList<Soat> soata = new ArrayList<>();
 
         SegurosAdapter soat = new SegurosAdapter(soats, estaciones.getSoat());
 

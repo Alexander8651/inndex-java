@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -30,6 +33,9 @@ import com.inndex.car.personas.enums.EMetodosPago;
 import com.inndex.car.personas.enums.EPuntoPago;
 import com.inndex.car.personas.enums.ESoat;
 import com.inndex.car.personas.enums.ETiendas;
+import com.inndex.car.personas.fragments.estaciones.presenterDetalles.IEstacionDetalleFragment;
+import com.inndex.car.personas.fragments.estaciones.presenterDetalles.IPresenterDetalles;
+import com.inndex.car.personas.fragments.estaciones.presenterDetalles.PresenterDetalles;
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.EstacionCombustibles;
 import com.inndex.car.personas.model.Estaciones;
@@ -45,7 +51,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class EstacionDetalleFragment extends Fragment {
+public class EstacionDetalleFragment extends Fragment implements IEstacionDetalleFragment {
 
     private Estaciones estaciones;
     private float distancia = 0;
@@ -80,6 +86,10 @@ public class EstacionDetalleFragment extends Fragment {
     public TextView tvCombustibleThirdPrecio;
 
     private LatLng myPosition;
+
+    private ImageView menuDetalle;
+
+    IPresenterDetalles iPresenterDetalles;
 
     public EstacionDetalleFragment(Estaciones estacion, Float distance,
                                    LatLng position) {
@@ -117,6 +127,40 @@ public class EstacionDetalleFragment extends Fragment {
         final TextView tvDistancia = root.findViewById(R.id.tv_estacion_servicios_distancia);
         final ImageView botonBack = root.findViewById(R.id.botonbackdetallebomba);
         final ImageView imgDrawRoute = root.findViewById(R.id.estaciones_servicios_route);
+
+        iPresenterDetalles = new PresenterDetalles(this,requireContext());
+
+        menuDetalle = root.findViewById(R.id.menuDetalleEstacion);
+
+        menuDetalle.setOnClickListener(v ->{
+            PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+            popupMenu.inflate(R.menu.menuadapterpromociones);
+            popupMenu.show();
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.compartir:
+
+                            return true;
+                        case R.id.reportar_problema:
+
+                            iPresenterDetalles.MostrarDialogReportes();
+
+
+                            return true;
+                        case R.id.editar:
+
+
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+            });
+        });
+
         imgDrawRoute.setOnClickListener(v -> {
             model.setHomeEvents(EEvents.DRAW_ROUTE.getId());
         });

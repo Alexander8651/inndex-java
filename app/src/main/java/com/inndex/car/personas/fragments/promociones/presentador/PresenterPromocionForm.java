@@ -101,7 +101,7 @@ public class PresenterPromocionForm implements IPresenterPromocionForm{
                 promocion.setTitulo(tituoOferta.getText().toString());
                 promocion.setPrecio(Double.valueOf(PrecioOferta.getText().toString()));
                 promocion.setDescripcion(DescripcionOferta.getText().toString());
-                
+
 
                 Call<Promocion> promocionCall = MedidorApiAdapter.getApiService().postSavePromocion(promocion);
 
