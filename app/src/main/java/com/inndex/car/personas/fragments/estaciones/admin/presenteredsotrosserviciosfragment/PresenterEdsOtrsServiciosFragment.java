@@ -340,13 +340,19 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     public void guardarCambios() {
         iEdsOtrosServiciosFragment.botonGuardar().setOnClickListener(v -> {
 
+            Estaciones estacionOnlyId = new Estaciones();
+            estacionOnlyId.setId(estaciones.getId());
+
             //restauurants have been removed
             if (!iEdsOtrosServiciosFragment.restaurante().isChecked() && estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
                 estaciones.setListRestaurantes(null);
             } else {
                 Restaurante restaurante = new Restaurante();
-                restaurante.setEstaciones(estaciones);
+                restaurante.setEstaciones(estacionOnlyId);
                 restaurante.setNombre("AUTO-GENERATED");
+                List<Restaurante> listRestaurante = new ArrayList<>();
+                listRestaurante.add(restaurante);
+                estaciones.setListRestaurantes(listRestaurante);
             }
 
             //hotels have been removed
@@ -354,8 +360,11 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                 estaciones.setListHoteles(null);
             } else {
                 Hotel hotel = new Hotel();
-                hotel.setEstaciones(estaciones);
+                hotel.setEstaciones(estacionOnlyId);
                 hotel.setNombre("AUTO-GENERATED");
+                List<Hotel> listHotel = new ArrayList<>();
+                listHotel.add(hotel);
+                estaciones.setListHoteles(listHotel);
             }
 
             estaciones.setTieneBanios(iEdsOtrosServiciosFragment.baniosPublicos().isChecked());
@@ -366,6 +375,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             estaciones.setTieneDroguerias(iEdsOtrosServiciosFragment.cbFarmacia().isChecked());
             estaciones.setTieneServiteca(iEdsOtrosServiciosFragment.cbServiteca().isChecked());
 
+            //Gson gson = new Gson();
+            //Log.e("EST", gson.toJson(estaciones));
 
             Call<ResponseServices> guardar = MedidorApiAdapter.getApiService().updateStationOtherServices(estaciones);
             guardar.enqueue(new Callback<ResponseServices>() {
@@ -375,12 +386,15 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                     if (response.isSuccessful()) {
                         Toast.makeText(context, "INFORMACION ACTUALIZADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(v).navigateUp();
+                    } else {
+                        Toast.makeText(context, "CODE " + response.code(), Toast.LENGTH_SHORT).show();
+
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseServices> call, Throwable t) {
-
+                    Toast.makeText(context, "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -419,7 +433,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         }
     }
 
-
     private void validateCorresponsales() {
         iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText(context.getString(R.string.selecciona_los_corresponsales));
 
@@ -454,7 +467,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         }
     }
 
-
     private void validateTiendas() {
         iEdsOtrosServiciosFragment.tiendasSeleccionados().setText(
                 context.getString(R.string.selecciona_las_tiendas)
@@ -473,7 +485,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             }
         }
     }
-
 
     private void validatePuntosPago() {
         iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText(context.getString(R.string.selecciona_los_puntos_de_pagos));

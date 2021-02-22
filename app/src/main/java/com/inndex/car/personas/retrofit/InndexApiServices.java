@@ -69,6 +69,9 @@ public interface InndexApiServices {
     @GET(Constantes.GET_BY_USUARIO_ADMIN)
     Call<List<Estaciones>> getEstacionesByUserAdmin(@Query("id") Long idUsuario);
 
+    @GET(IApiUrlConstants.GET_ESTACIONES_NEAR_USER)
+    Call<List<Estaciones>> getEstacionesNearUser(@Query("latitud") Double latitud, @Query("longitud") Double longitud);
+
     @POST(Constantes.POST_REGISTER_STATION)
     Call<ResponseServices> postRegisterStation(@Header("Content-Type") String headerContentType,
                                                @Body Estaciones estaciones);

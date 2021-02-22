@@ -9,13 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.activities.mainactivity.MainActivity;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Combustibles;
-import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.MarcaEstacion;
 import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.Soat;
@@ -53,7 +51,6 @@ public class InicioActivity extends AppCompatActivity {
                 irMain();
             } else {
                 try {
-                    getAllStations();
                     getAllSoat();
                     getAllBancos();
                     getAllTiendas();
@@ -76,40 +73,6 @@ public class InicioActivity extends AppCompatActivity {
         finish();
     }
 
-    private void getAllStations() throws SQLException {
-
-        final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
-        if (!(dao.queryForAll().size() > 0)) {
-
-            Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().getEstaciones();
-            callGetStations.enqueue(new Callback<List<Estaciones>>() {
-                @Override
-                public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
-                    if (response.isSuccessful()) {
-                        List<Estaciones> list = response.body();
-                        Gson gson = new Gson();
-                        if (list != null && list.size() > 0) {
-                            for (int i = 0; i < list.size(); i++) {
-                                list.get(i).setJsonCombustibles(gson.toJson(list.get(i).getListEstacionCombustibles()));
-                            }
-                            try {
-                                dao.create(list);
-                            } catch (SQLException e1) {
-                                Toast.makeText(InicioActivity.this, "Error en la base de datos.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    } else {
-                        Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
-                    Toast.makeText(InicioActivity.this, "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
 
     private void getAllSoat() throws SQLException {
         final Dao<Soat, Long> dao = helper.getDaoSoat();

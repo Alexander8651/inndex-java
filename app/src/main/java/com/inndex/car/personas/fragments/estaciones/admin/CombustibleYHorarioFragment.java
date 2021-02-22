@@ -1,6 +1,7 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.enums.ECombustibles;
 import com.inndex.car.personas.enums.EDias;
@@ -27,6 +29,7 @@ import com.inndex.car.personas.model.Horario;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.utils.ResponseServices;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -211,6 +214,8 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void callUpdateEstacionCombustible() {
+        Gson gson = new Gson();
+        Log.e("Comb", gson.toJson(listEstacionCombustibles));
         Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(), listEstacionCombustibles);
         postSaveEstacionCombustibles.enqueue(new Callback<List<EstacionCombustibles>>() {
             @Override
@@ -220,7 +225,6 @@ public class CombustibleYHorarioFragment extends Fragment {
                     callUpdateHorarios();
                 else
                     Toast.makeText(getContext(), "NOT SUCCESSFULL COMBUSTIBLES", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -342,7 +346,7 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void addCombustible(Long idCombustible, String precio) {
-        boolean noExists = false;
+        boolean noExists = true;
         for (EstacionCombustibles combustible :
                 listEstacionCombustibles) {
             if (combustible.getCombustible() != null && idCombustible.equals(combustible.getCombustible().getId())) {
@@ -350,8 +354,6 @@ public class CombustibleYHorarioFragment extends Fragment {
                 combustible.setEstaciones(estacionWithOnlyId);
                 noExists = false;
                 break;
-            } else {
-                noExists = true;
             }
         }
 
@@ -398,8 +400,8 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void initDataCombustibles() {
+        listEstacionCombustibles = estacion.getListEstacionCombustibles();
         if (listEstacionCombustibles != null && listEstacionCombustibles.size() > 0) {
-            listEstacionCombustibles = estacion.getListEstacionCombustibles();
             for (EstacionCombustibles combustible :
                     listEstacionCombustibles) {
                 switch (Objects.requireNonNull(ECombustibles.getECombustiblesById(combustible.getCombustible().getId()))) {
@@ -435,6 +437,8 @@ public class CombustibleYHorarioFragment extends Fragment {
                         break;
                 }
             }
+        } else {
+            listEstacionCombustibles = new ArrayList<>();
         }
     }
 

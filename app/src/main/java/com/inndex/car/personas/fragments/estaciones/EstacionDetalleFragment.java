@@ -51,34 +51,6 @@ public class EstacionDetalleFragment extends Fragment {
     private float distancia = 0;
     private SharedViewModel model;
 
-    public TextView tvCalificacion;
-
-    public TextView tvCalificar;
-
-    public TextView tvDireciion;
-
-    public TextView tvDistancia;
-
-    public TextView tvHorario;
-
-    public TextView tvMarca;
-
-    public TextView tvNombre;
-
-    public TextView tvVerOpiniones;
-
-    public TextView tvCombustiblePrincipalTitulo;
-
-    public TextView tvCombustiblePrincipalPrecio;
-
-    public TextView tvCombustibleSecondTitulo;
-
-    public TextView tvCombustibleSecondPrecio;
-
-    public TextView tvCombustibleThirdTitulo;
-
-    public TextView tvCombustibleThirdPrecio;
-
     private LatLng myPosition;
 
     public EstacionDetalleFragment(Estaciones estacion, Float distance,
@@ -93,8 +65,7 @@ public class EstacionDetalleFragment extends Fragment {
     }
 
     public static EstacionDetalleFragment newInstance(String param1, String param2) {
-        EstacionDetalleFragment fragment = new EstacionDetalleFragment();
-        return fragment;
+        return new EstacionDetalleFragment();
     }
 
     @Override
@@ -154,6 +125,7 @@ public class EstacionDetalleFragment extends Fragment {
         llanteria(root);
         lavaderos(root);
         metodosPago(root);
+        initServiteca(root);
 
         if (distancia < 1000) {
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
@@ -162,6 +134,16 @@ public class EstacionDetalleFragment extends Fragment {
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f km", distancia));
         }
         return root;
+    }
+
+    private void initServiteca(View root) {
+        if (estaciones.getTieneServiteca() != null && estaciones.getTieneServiteca()) {
+            ImageView serviteca = root.findViewById(R.id.estacionServiteca);
+            serviteca.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout lyServiteca = root.findViewById(R.id.layServiteca);
+            lyServiteca.setVisibility(View.GONE);
+        }
     }
 
     private void combustibles(View root) {
@@ -231,8 +213,6 @@ public class EstacionDetalleFragment extends Fragment {
     }
 
     private void horariosycontacto(View root) {
-
-
         ExpandableListView spin = root.findViewById(R.id.expanded_horarios);
         ArrayList<String> listCategorias = new ArrayList<>();
         Map<String, ArrayList<Horario>> mapChild = new HashMap<>();
@@ -353,7 +333,7 @@ public class EstacionDetalleFragment extends Fragment {
                 }
             }
         } else {
-            LinearLayout layout = root.findViewById(R.id.layMetodosPago);
+            LinearLayout layout = root.findViewById(R.id.lay_metodos_pago);
             layout.setVisibility(View.GONE);
         }
 

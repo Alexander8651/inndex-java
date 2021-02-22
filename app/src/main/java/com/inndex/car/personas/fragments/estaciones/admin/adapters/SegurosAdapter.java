@@ -1,6 +1,5 @@
 package com.inndex.car.personas.fragments.estaciones.admin.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.model.Soat;
-import com.inndex.car.personas.model.Tiendas;
 
 import java.util.ArrayList;
 
-public class SegurosAdapter  extends RecyclerView.Adapter<SegurosAdapter.ViewHolder> {
+public class SegurosAdapter extends RecyclerView.Adapter<SegurosAdapter.ViewHolder> {
 
     ArrayList<Soat> soatService;
     Soat soatEstacion;
@@ -40,14 +38,15 @@ public class SegurosAdapter  extends RecyclerView.Adapter<SegurosAdapter.ViewHol
         final Soat soat = soatService.get(position);
         holder.soat.setText(soat.getNombre());
 
+        if (soatEstacion == null)
+            return;
 
+        Long idTienda = soatEstacion.getId();
 
-            Long idTienda = soatEstacion.getId();
-
-            if (soat.getId().equals(idTienda)) {
-                holder.checkBox.setChecked(true);
-                soatEditado.add(soat);
-            }
+        if (soat.getId().equals(idTienda)) {
+            holder.checkBox.setChecked(true);
+            soatEditado.add(soat);
+        }
 
 
         holder.checkBox.setOnClickListener(v -> {
@@ -78,7 +77,7 @@ public class SegurosAdapter  extends RecyclerView.Adapter<SegurosAdapter.ViewHol
         return soatService.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox checkBox;
         TextView soat;
@@ -91,7 +90,7 @@ public class SegurosAdapter  extends RecyclerView.Adapter<SegurosAdapter.ViewHol
         }
     }
 
-    public Soat obtenerSoat(){
+    public Soat obtenerSoat() {
         return soatEstacion;
     }
 }

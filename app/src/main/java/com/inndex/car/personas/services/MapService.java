@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.renderer.EstacionRenderer;
 import com.inndex.car.personas.rutas.DirectionFinder;
 import com.inndex.car.personas.rutas.PasarUbicacion;
 import com.inndex.car.personas.rutas.Route;
@@ -161,7 +162,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         mMap.setMyLocationEnabled(true);
     }
 
-    /*public void addStations() {
+    public void addStations() {
         mClusterManager = new ClusterManager<>(context, mMap);
         mClusterManager.setRenderer(new EstacionRenderer(context, mMap, mClusterManager));
         this.mMap.setOnMarkerClickListener(mClusterManager);
@@ -184,7 +185,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
         mClusterManager.setOnClusterItemInfoWindowClickListener(item ->
                 imapService.goToStreetView(itemStationSelected.getPosition().latitude + ","
                         + itemStationSelected.getPosition().longitude));
-    }*/
+    }
 
     public void updateMyPosition() {
         if (myLocation == null) {
