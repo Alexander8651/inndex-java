@@ -1,18 +1,25 @@
 package com.inndex.car.personas.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
-
+@DatabaseTable(tableName = "bancos")
 public class Bancos implements Serializable {
 
     private static final long serialVersionUID = 5753635278466659564L;
 
+    @DatabaseField
     private Long id;
 
+    @DatabaseField
     private String nombre;
 
+    @DatabaseField
     private Boolean corresponsal;
 
+    @DatabaseField
     private Boolean cajero;
 
     public Bancos() {

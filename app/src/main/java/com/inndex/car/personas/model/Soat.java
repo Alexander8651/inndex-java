@@ -1,13 +1,18 @@
 package com.inndex.car.personas.model;
 
-import java.io.Serializable;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+@DatabaseTable(tableName = "soat")
 public class Soat implements Serializable {
 
 	private static final long serialVersionUID = 7040708063406647146L;
 
+	@DatabaseField
 	private Long id;
 
+	@DatabaseField
 	private String nombre;
 
 	public Soat() {

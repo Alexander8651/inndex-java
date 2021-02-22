@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.enums.ECombustibles;
 import com.inndex.car.personas.enums.EDias;
@@ -28,6 +29,7 @@ import com.inndex.car.personas.model.Horario;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.utils.ResponseServices;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +48,7 @@ public class CombustibleYHorarioFragment extends Fragment {
     private LinearLayout llGasoCorri, llGasoExtra, llDiesel, llBiodiesel, llGnv, llMaxProDiesel;
     private LinearLayout llLunes, llMartes, llMiercoles, llJueves, llViernes, llSabado, llDomingo;
     private Estaciones estacion, estacionWithOnlyId;
-
+    ImageButton btnBack;
     private List<Horario> listHorarios;
     private List<EstacionCombustibles> listEstacionCombustibles;
 
@@ -70,7 +72,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_combustible_y_horario, container, false);
         TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
         titulo.setText("Combustibles y horarios");
-        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        btnBack = view.findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp()
@@ -126,6 +128,15 @@ public class CombustibleYHorarioFragment extends Fragment {
                 llGnv.setVisibility(View.VISIBLE);
             } else {
                 llGnv.setVisibility(View.GONE);
+            }
+        });
+        //edtPrecioMaxProDiesel
+
+        cbMaxProDiesel.setOnCheckedChangeListener((v, b) -> {
+            if (b) {
+                llMaxProDiesel.setVisibility(View.VISIBLE);
+            } else {
+                llMaxProDiesel.setVisibility(View.GONE);
             }
         });
 
@@ -203,7 +214,9 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void callUpdateEstacionCombustible() {
-        Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(),listEstacionCombustibles);
+        Gson gson = new Gson();
+        Log.e("Comb", gson.toJson(listEstacionCombustibles));
+        Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(), listEstacionCombustibles);
         postSaveEstacionCombustibles.enqueue(new Callback<List<EstacionCombustibles>>() {
             @Override
             public void onResponse(Call<List<EstacionCombustibles>> call, Response<List<EstacionCombustibles>> response) {
@@ -212,7 +225,6 @@ public class CombustibleYHorarioFragment extends Fragment {
                     callUpdateHorarios();
                 else
                     Toast.makeText(getContext(), "NOT SUCCESSFULL COMBUSTIBLES", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -228,19 +240,16 @@ public class CombustibleYHorarioFragment extends Fragment {
         updateStationSchedule.enqueue(new Callback<ResponseServices>() {
             @Override
             public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
-                Log.e("CODE", String.valueOf(response.code()));
-                Log.e("MESS", response.message());
-
-                if (response.isSuccessful())
+                if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "INFORMACIÓN GUARDADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
-                else
+                    Navigation.findNavController(btnBack).navigateUp();
+                } else
                     Toast.makeText(getContext(), "NOT SUCCESSFULL HORARIOS", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ResponseServices> call, Throwable t) {
                 Toast.makeText(getContext(), "ERROR EN HORARIOS", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -337,7 +346,7 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void addCombustible(Long idCombustible, String precio) {
-        boolean noExists = false;
+        boolean noExists = true;
         for (EstacionCombustibles combustible :
                 listEstacionCombustibles) {
             if (combustible.getCombustible() != null && idCombustible.equals(combustible.getCombustible().getId())) {
@@ -345,8 +354,6 @@ public class CombustibleYHorarioFragment extends Fragment {
                 combustible.setEstaciones(estacionWithOnlyId);
                 noExists = false;
                 break;
-            } else {
-                noExists = true;
             }
         }
 
@@ -393,8 +400,8 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void initDataCombustibles() {
+        listEstacionCombustibles = estacion.getListEstacionCombustibles();
         if (listEstacionCombustibles != null && listEstacionCombustibles.size() > 0) {
-            listEstacionCombustibles = estacion.getListEstacionCombustibles();
             for (EstacionCombustibles combustible :
                     listEstacionCombustibles) {
                 switch (Objects.requireNonNull(ECombustibles.getECombustiblesById(combustible.getCombustible().getId()))) {
@@ -430,6 +437,8 @@ public class CombustibleYHorarioFragment extends Fragment {
                         break;
                 }
             }
+        } else {
+            listEstacionCombustibles = new ArrayList<>();
         }
     }
 
@@ -567,7 +576,5 @@ public class CombustibleYHorarioFragment extends Fragment {
         edtViernesFin = view.findViewById(R.id.edtViernesFin);
         edtSabadoFin = view.findViewById(R.id.edtSabadoFin);
         edtDomingoFin = view.findViewById(R.id.edtDomingoFin);
-
-
     }
 }

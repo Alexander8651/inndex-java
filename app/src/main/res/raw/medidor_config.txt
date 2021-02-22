@@ -1,6 +1,38 @@
 #
-# generated on 2021/02/08 07:21:33
+# generated on 2021/02/19 11:12:35
 #
+# --table-start--
+dataClass=com.inndex.car.personas.model.Bancos
+tableName=bancos
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --field-start--
+fieldName=corresponsal
+# --field-end--
+# --field-start--
+fieldName=cajero
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Combustibles
+tableName=combustibles
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
 # --table-start--
 dataClass=com.inndex.car.personas.model.Estaciones
 tableName=estaciones
@@ -72,35 +104,22 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.HistorialEstadoVehiculos
-tableName=historial_vehiculos_estado
+dataClass=com.inndex.car.personas.model.LineasVehiculos
+tableName=lineas_vehiculos
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=fechaFin
-# --field-end--
-# --field-start--
-fieldName=fechaInicio
-# --field-end--
-# --field-start--
-fieldName=uploaded
-# --field-end--
-# --field-start--
-fieldName=idEstado
-# --field-end--
-# --field-start--
-fieldName=idVehiculo
+fieldName=nombre
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.LineasVehiculos
-tableName=lineas_vehiculos
+dataClass=com.inndex.car.personas.model.MarcaEstacion
+tableName=marcas_estacion
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -119,6 +138,32 @@ tableName=marcas_vehiculos
 # --field-start--
 fieldName=id
 generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.MetodoPago
+tableName=metodos_pago
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=nombre
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.PuntoPago
+tableName=punto_pago
+# --table-fields-start--
+# --field-start--
+fieldName=id
 # --field-end--
 # --field-start--
 fieldName=nombre
@@ -162,6 +207,19 @@ fieldName=fecha
 # --field-end--
 # --field-start--
 fieldName=stFechaInicio
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Soat
+tableName=soat
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=nombre
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -217,6 +275,19 @@ fieldName=idUsuario
 # --field-end--
 # --field-start--
 fieldName=idRecorrido
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.inndex.car.personas.model.Tiendas
+tableName=tiendas
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=nombre
 # --field-end--
 # --table-fields-end--
 # --table-end--

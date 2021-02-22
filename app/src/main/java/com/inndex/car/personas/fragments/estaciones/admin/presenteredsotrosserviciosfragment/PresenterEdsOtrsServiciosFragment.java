@@ -6,24 +6,32 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.database.DataBaseHelper;
+import com.inndex.car.personas.fragments.estaciones.admin.adapters.MetodosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.PuntosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.SegurosAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.TiendaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.bancosEdsotrosServiciosAdapter;
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.model.Hotel;
+import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.PuntoPago;
+import com.inndex.car.personas.model.Restaurante;
 import com.inndex.car.personas.model.Soat;
 import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.utils.ResponseServices;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,24 +48,27 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     ArrayList<PuntoPago> puntoPagos;
     ArrayList<Tiendas> tiendas;
     ArrayList<Soat> soats;
+    List<MetodoPago> metodoPagoList;
+    DataBaseHelper helper;
 
     public PresenterEdsOtrsServiciosFragment(Context context, IEdsOtrosServiciosFragment iEdsOtrosServiciosFragment, Estaciones estaciones) {
         this.context = context;
         this.iEdsOtrosServiciosFragment = iEdsOtrosServiciosFragment;
         this.estaciones = estaciones;
+        helper = OpenHelperManager.getHelper(context, DataBaseHelper.class);
         setearOtrosServicosData();
         setearChecbox();
         obtenerBancos();
         obtenerPuntosPago();
         obtenerTiendasConvivencia();
         obtenerSeguros();
-        guardarUsuario();
+        obtenerMetodosPago();
+        guardarCambios();
+
     }
 
     @Override
     public void obtenerBancos() {
-
-
         Call<List<Bancos>> bancosCall = MedidorApiAdapter.getApiService().getBancos();
         bancosCall.enqueue(new Callback<List<Bancos>>() {
             @Override
@@ -76,11 +87,9 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     @Override
     public void obtenerPuntosPago() {
         Call<List<PuntoPago>> puntoPagoCall = MedidorApiAdapter.getApiService().getPuntosPago();
-
         puntoPagoCall.enqueue(new Callback<List<PuntoPago>>() {
             @Override
             public void onResponse(Call<List<PuntoPago>> call, Response<List<PuntoPago>> response) {
-
                 if (response.isSuccessful()) {
                     puntoPagos = (ArrayList<PuntoPago>) response.body();
                 }
@@ -96,7 +105,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     @Override
     public void obtenerTiendasConvivencia() {
         Call<List<Tiendas>> tiendasCall = MedidorApiAdapter.getApiService().getTiendas();
-
         tiendasCall.enqueue(new Callback<List<Tiendas>>() {
             @Override
             public void onResponse(Call<List<Tiendas>> call, Response<List<Tiendas>> response) {
@@ -104,7 +112,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                 if (response.isSuccessful()) {
                     tiendas = (ArrayList<Tiendas>) response.body();
                 }
-
             }
 
             @Override
@@ -117,11 +124,9 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     @Override
     public void obtenerSeguros() {
         Call<List<Soat>> soatCall = MedidorApiAdapter.getApiService().getSoat();
-
         soatCall.enqueue(new Callback<List<Soat>>() {
             @Override
             public void onResponse(Call<List<Soat>> call, Response<List<Soat>> response) {
-
                 if (response.isSuccessful()) {
                     soats = (ArrayList<Soat>) response.body();
                 }
@@ -132,6 +137,16 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
             }
         });
+    }
+
+    @Override
+    public void obtenerMetodosPago() {
+        try {
+            Dao<MetodoPago, Long> metodoPagoDao = helper.getDaoMetodoPago();
+            metodoPagoList = metodoPagoDao.queryForAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
@@ -147,17 +162,9 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         cajeros.setAdapter(cajerosEdsotrosServicios);
 
         builder.setView(v);
-
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setListCajeros(cajerosEdsotrosServicios.obtenerListaBancos());
-            Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
-            iEdsOtrosServiciosFragment.cajerosSeleccionados().setText("");
-            for (Bancos e : estaciones.getListCajeros()) {
-
-                iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
-                iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
-
-            }
+            validateCajeros();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
@@ -172,8 +179,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
 
         bancosEdsotrosServiciosAdapter bancosEdsotrosServiciosAdapter = new bancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCorresponsales());
-
-
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
         cajeros.setAdapter(bancosEdsotrosServiciosAdapter);
 
@@ -183,18 +188,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             estaciones.setListCorresponsales(bancosEdsotrosServiciosAdapter.obtenerListaBancos());
             Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
 
-            iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText("");
-            for (Bancos e : estaciones.getListCorresponsales()) {
-
-                if (estaciones.getListCorresponsales().size() == 1){
-                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre());
-                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setGravity(Gravity.CENTER);
-                }else {
-                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre() + "," + " ");
-                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setGravity(Gravity.CENTER);
-                }
-
-            }
+            validateCorresponsales();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
@@ -219,19 +213,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setListPuntosPago(puntosPagoAdapter.obtenerListapuntosPago());
-            Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
-
-            iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText("");
-            for (PuntoPago e : estaciones.getListPuntosPago()) {
-
-                if (estaciones.getListPuntosPago().size() == 1) {
-                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre());
-                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setGravity(Gravity.CENTER);
-                } else {
-                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre() + "," + " ");
-                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setGravity(Gravity.CENTER);
-                }
-            }
+            validatePuntosPago();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
@@ -255,18 +237,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setListTiendas(tiendaAdapter.obtenerListaTiendas());
-            Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
-
-            iEdsOtrosServiciosFragment.tiendasSeleccionados().setText("");
-            for (Tiendas e : estaciones.getListTiendas()) {
-                if (estaciones.getListTiendas().size() ==1){
-                    iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre());
-                }else {
-                    iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre() + "," + " ");
-                }
-                iEdsOtrosServiciosFragment.tiendasSeleccionados().setGravity(Gravity.CENTER);
-
-            }
+            validateTiendas();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
@@ -280,9 +251,11 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
+<<<<<<< HEAD
 
+=======
+>>>>>>> ed30a0a9873a995a692ea435f8d4f9b5219412e5
         SegurosAdapter soat = new SegurosAdapter(soats, estaciones.getSoat());
-
 
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
         cajeros.setAdapter(soat);
@@ -291,8 +264,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setSoat(soat.obtenerSoat());
-            Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
-
             iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
 
             iEdsOtrosServiciosFragment.segurosSeleccionados().append(estaciones.getSoat().getNombre());
@@ -301,29 +272,44 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
         builder.show();
+    }
 
+    @Override
+    public void mostrarDialogoMetodosPago() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
+        MetodosPagoAdapter adapter = new MetodosPagoAdapter(metodoPagoList, estaciones.getListMetodosPago());
+
+        RecyclerView rvMetodosPago = v.findViewById(R.id.rvCajerosEds);
+        rvMetodosPago.setAdapter(adapter);
+
+        builder.setView(v);
+
+        builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
+            estaciones.setListMetodosPago(adapter.obtenerListapuntosPago());
+            validateMetodosPago();
+        });
+        builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
+        }));
+        builder.show();
     }
 
     @Override
     public void setearChecbox() {
 
-        if (estaciones.getListRestaurantes() != null) {
-            if (estaciones.getListRestaurantes().size() > 0) {
-                iEdsOtrosServiciosFragment.restaurante().setChecked(true);
-            }
+        if (estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
+            iEdsOtrosServiciosFragment.restaurante().setChecked(true);
         }
 
-        if (estaciones.getListHoteles() != null) {
-            if (estaciones.getListHoteles().size() > 0) {
-                iEdsOtrosServiciosFragment.restaurante().setChecked(true);
-            }
+        if (estaciones.getListHoteles() != null && estaciones.getListHoteles().size() > 0) {
+            iEdsOtrosServiciosFragment.hotel().setChecked(true);
         }
 
         if (estaciones.getTieneBanios() != null) {
             if (estaciones.getTieneBanios()) {
                 iEdsOtrosServiciosFragment.baniosPublicos().setChecked(true);
             }
-
         }
 
         if (estaciones.getTieneVentaLubricante() != null) {
@@ -343,32 +329,58 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                 iEdsOtrosServiciosFragment.lavadero().setChecked(true);
             }
         }
+
+        if (estaciones.getTieneDroguerias() != null && estaciones.getTieneDroguerias()) {
+            iEdsOtrosServiciosFragment.cbFarmacia().setChecked(true);
+        }
+
+        if (estaciones.getTieneServiteca() != null && estaciones.getTieneServiteca()) {
+            iEdsOtrosServiciosFragment.cbServiteca().setChecked(true);
+        }
+
     }
 
     @Override
-    public void guardarUsuario() {
+    public void guardarCambios() {
         iEdsOtrosServiciosFragment.botonGuardar().setOnClickListener(v -> {
 
-            /*
-            if (estaciones.getListRestaurantes() != null){
-                if (estaciones.getListRestaurantes().size() > 0){
-                    iEdsOtrosServiciosFragment.restaurante().setChecked(true);
-                }
+            Estaciones estacionOnlyId = new Estaciones();
+            estacionOnlyId.setId(estaciones.getId());
+
+            //restauurants have been removed
+            if (!iEdsOtrosServiciosFragment.restaurante().isChecked() && estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
+                estaciones.setListRestaurantes(null);
+            } else {
+                Restaurante restaurante = new Restaurante();
+                restaurante.setEstaciones(estacionOnlyId);
+                restaurante.setNombre("AUTO-GENERATED");
+                List<Restaurante> listRestaurante = new ArrayList<>();
+                listRestaurante.add(restaurante);
+                estaciones.setListRestaurantes(listRestaurante);
             }
 
-            if (estaciones.getListHoteles() != null){
-                if (estaciones.getListHoteles().size() > 0){
-                    iEdsOtrosServiciosFragment.restaurante().setChecked(true);
-                }
+            //hotels have been removed
+            if (!iEdsOtrosServiciosFragment.hotel().isChecked() && estaciones.getListHoteles() != null && estaciones.getListHoteles().size() > 0) {
+                estaciones.setListHoteles(null);
+            } else {
+                Hotel hotel = new Hotel();
+                hotel.setEstaciones(estacionOnlyId);
+                hotel.setNombre("AUTO-GENERATED");
+                List<Hotel> listHotel = new ArrayList<>();
+                listHotel.add(hotel);
+                estaciones.setListHoteles(listHotel);
             }
-             */
 
             estaciones.setTieneBanios(iEdsOtrosServiciosFragment.baniosPublicos().isChecked());
-
             estaciones.setTieneVentaLubricante(iEdsOtrosServiciosFragment.lubricantes().isChecked());
-
             estaciones.setTieneLlanteria(iEdsOtrosServiciosFragment.llanteria().isChecked());
             estaciones.setTieneLavadero(iEdsOtrosServiciosFragment.lavadero().isChecked());
+
+            estaciones.setTieneDroguerias(iEdsOtrosServiciosFragment.cbFarmacia().isChecked());
+            estaciones.setTieneServiteca(iEdsOtrosServiciosFragment.cbServiteca().isChecked());
+
+            //Gson gson = new Gson();
+            //Log.e("EST", gson.toJson(estaciones));
 
             Call<ResponseServices> guardar = MedidorApiAdapter.getApiService().updateStationOtherServices(estaciones);
             guardar.enqueue(new Callback<ResponseServices>() {
@@ -376,13 +388,17 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                 public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
 
                     if (response.isSuccessful()) {
+                        Toast.makeText(context, "INFORMACION ACTUALIZADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(v).navigateUp();
+                    } else {
+                        Toast.makeText(context, "CODE " + response.code(), Toast.LENGTH_SHORT).show();
+
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseServices> call, Throwable t) {
-
+                    Toast.makeText(context, "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -391,52 +407,102 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
     @Override
     public void setearOtrosServicosData() {
-        iEdsOtrosServiciosFragment.cajerosSeleccionados().setText("");
-        for (Bancos e : estaciones.getListCajeros()) {
-
-            if (estaciones.getListCajeros().size() == 1){
-                iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre());
-            }else {
-                iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
-            }
-            iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
+        validateTiendas();
+        validateCajeros();
+        validateCorresponsales();
+        validatePuntosPago();
+        validateMetodosPago();
+        if (estaciones.getSoat() != null) {
+            iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
+            iEdsOtrosServiciosFragment.segurosSeleccionados().append(estaciones.getSoat().getNombre());
+            iEdsOtrosServiciosFragment.segurosSeleccionados().setGravity(Gravity.CENTER);
+        } else {
+            iEdsOtrosServiciosFragment.segurosSeleccionados().setText(context.getString(R.string.selecciona_soat));
         }
+    }
 
-        iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText("");
-        for (Bancos e : estaciones.getListCorresponsales()) {
-            if (estaciones.getListCorresponsales().size() == 1){
-                iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre());
-            }else {
-                iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre() + "," + " ");
+    private void validateCajeros() {
+        iEdsOtrosServiciosFragment.cajerosSeleccionados().setText(context.getString(R.string.selecciona_los_cajeros_electronicos));
+        if (estaciones.getListCajeros() != null && estaciones.getListCajeros().size() > 0) {
+            iEdsOtrosServiciosFragment.cajerosSeleccionados().setText("");
+            for (Bancos e : estaciones.getListCajeros()) {
+
+                if (estaciones.getListCajeros().size() == 1) {
+                    iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre());
+                } else {
+                    iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
+                }
+                iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
             }
-            iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setGravity(Gravity.CENTER);
         }
+    }
 
-        iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText("");
-        for (PuntoPago e : estaciones.getListPuntosPago()) {
+    private void validateCorresponsales() {
+        iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText(context.getString(R.string.selecciona_los_corresponsales));
 
-            if (estaciones.getListPuntosPago().size() == 1) {
-                iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre());
-            } else {
-                iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre() + "," + " ");
+        if (estaciones.getListCorresponsales() != null && estaciones.getListCorresponsales().size() > 0) {
+            iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText("");
+            for (Bancos e : estaciones.getListCorresponsales()) {
+                if (estaciones.getListCorresponsales().size() == 1) {
+                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre());
+                } else {
+                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre() + "," + " ");
+                }
+                iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setGravity(Gravity.CENTER);
             }
-            iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setGravity(Gravity.CENTER);
         }
+    }
 
-        iEdsOtrosServiciosFragment.tiendasSeleccionados().setText("");
-        for (Tiendas e : estaciones.getListTiendas()) {
+    private void validateMetodosPago() {
+        iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setText(
+                context.getString(R.string.selecciona_los_metodos_de_pago)
+        );
+        if (estaciones.getListMetodosPago() != null && estaciones.getListMetodosPago().size() > 0) {
+            iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setText("");
+            for (MetodoPago e : estaciones.getListMetodosPago()) {
 
-            if (estaciones.getListTiendas().size() == 0){
-                iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre());
-            }else {
-                iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre() + "," + " ");
+                if (estaciones.getListMetodosPago().size() == 0) {
+                    iEdsOtrosServiciosFragment.metodosPagoSeleccionados().append(e.getNombre());
+                } else {
+                    iEdsOtrosServiciosFragment.metodosPagoSeleccionados().append(e.getNombre() + "," + " ");
+                }
+                iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setGravity(Gravity.CENTER);
             }
-            iEdsOtrosServiciosFragment.tiendasSeleccionados().setGravity(Gravity.CENTER);
-
         }
+    }
 
-        iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
-        iEdsOtrosServiciosFragment.segurosSeleccionados().append(estaciones.getSoat().getNombre());
-        iEdsOtrosServiciosFragment.segurosSeleccionados().setGravity(Gravity.CENTER);
+    private void validateTiendas() {
+        iEdsOtrosServiciosFragment.tiendasSeleccionados().setText(
+                context.getString(R.string.selecciona_las_tiendas)
+        );
+
+        if (estaciones.getListTiendas() != null && estaciones.getListTiendas().size() > 0) {
+            iEdsOtrosServiciosFragment.tiendasSeleccionados().setText("");
+            for (Tiendas e : estaciones.getListTiendas()) {
+
+                if (estaciones.getListTiendas().size() == 0) {
+                    iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre());
+                } else {
+                    iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre() + "," + " ");
+                }
+                iEdsOtrosServiciosFragment.tiendasSeleccionados().setGravity(Gravity.CENTER);
+            }
+        }
+    }
+
+    private void validatePuntosPago() {
+        iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText(context.getString(R.string.selecciona_los_puntos_de_pagos));
+
+        if (estaciones.getListPuntosPago() != null && estaciones.getListPuntosPago().size() > 0) {
+            iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText("");
+            for (PuntoPago e : estaciones.getListPuntosPago()) {
+                if (estaciones.getListPuntosPago().size() == 1) {
+                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre());
+                } else {
+                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre() + "," + " ");
+                }
+                iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setGravity(Gravity.CENTER);
+            }
+        }
     }
 }

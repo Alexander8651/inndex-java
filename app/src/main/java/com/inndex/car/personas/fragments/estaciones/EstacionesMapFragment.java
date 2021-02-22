@@ -31,6 +31,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.gson.Gson;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.databinding.FragmentEstacionesMapBinding;
@@ -115,15 +116,12 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             myLocation = new LatLng(latitud, longitud);
         }
 
-        drawer =  getActivity().findViewById(R.id.drawer_layout);
+        drawer = getActivity().findViewById(R.id.drawer_layout);
         helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
 
-        try {
-            getAllStations();
-        } catch (SQLException throwables) {
-            Toast.makeText(getActivity(), "ERROR CONSULTANDO ESTACIONES", Toast.LENGTH_SHORT).show();
-            throwables.printStackTrace();
-        }
+
+        getAllStations();
+
         inndexLocationService = new InndexLocationService(getActivity(), this, this);
         //inndexLocationService.init();
         checkGPSState();
@@ -215,7 +213,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         binding.fabNavegacion.setOnClickListener(v -> {
             if (selectedPlace != null) {
                 gotToWaze(selectedPlace.getLatLng());
-            } else if(estacionSeleccionada != null) {
+            } else if (estacionSeleccionada != null) {
                 gotToWaze(estacionSeleccionada.getCoordenadas());
             }
         });
@@ -229,8 +227,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         mMap = googleMap;
         mapService = new MapService(mMap, getContext(), this);
         if (estaciones.size() > 0) {
-            mapService.setEstaciones(estaciones);
-            mapService.addStations();
+            initCluster();
         }
         if (inndexLocationService.getMyLocation() != null) {
             mapService.setMyLocation(inndexLocationService.getMyLocation());
@@ -256,6 +253,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             return;
         }
 
+        getAllStations();
         this.mapService.setMyLocation(location);
         this.myLocation = new LatLng(location.getLatitude(), location.getLongitude());
         if (!myLocationZoomed) {
@@ -289,7 +287,8 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             String origins = this.myLocation.latitude + "," + this.myLocation.longitude;
             String destination = estacion.getLatitud() + "," + estacion.getLongitud();
 
-            calculateDistance(origins, destination, estacion);
+            openStationBottomSheet(estacion);
+            //calculateDistance(origins, destination, estacion);
 
         } catch (Exception ex) {
             Toast.makeText(getActivity(), "EXCEPTION " + ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -303,16 +302,13 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         getDistance.enqueue(new Callback<DistanceApiResponse>() {
             @Override
             public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
-
-
                 if (response.isSuccessful()) {
                     DistanceApiResponse res = response.body();
                     if (res != null) {
 
                         distancia = (float) res.getDistanceValue();
                         openStationBottomSheet(estacion);
-                    } else
-                        Log.e("DIS", "SOMETHING HAPPEND");
+                    }
 
                 } else {
                     Log.e("RESPONSE", "NOT SUCCESSFULL " + response.code());
@@ -343,7 +339,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                             inndexLocationService.getMyLocation().getLongitude());*/
                         //verServiciosButtonClicked = true;
 
-                        if(getActivity() != null) {
+                        if (getActivity() != null) {
                             getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_estacion_detalle_container, miFragment).commit();
                             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
                             binding.fabUbicacion.hide();
@@ -382,9 +378,47 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         startActivity(mapIntent);
     }
 
-    private void getAllStations() throws SQLException {
-        final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
-        estaciones = dao.queryForAll();
+    private void getAllStations() {
+        try {
+            final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
+            if (!(estaciones.size() > 0)) {
+                estaciones = dao.queryForAll();
+            }
+            if (estaciones.size() > 0 || myLocation == null)
+                return;
+            Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().getEstacionesNearUser(myLocation.latitude, myLocation.longitude);
+            callGetStations.enqueue(new Callback<List<Estaciones>>() {
+                @Override
+                public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
+                    if (response.isSuccessful()) {
+                        estaciones = response.body();
+                        Gson gson = new Gson();
+                        if (estaciones != null && estaciones.size() > 0) {
+                            for (int i = 0; i < estaciones.size(); i++) {
+                                estaciones.get(i).setJsonCombustibles(gson.toJson(estaciones.get(i).getListEstacionCombustibles()));
+                            }
+                            try {
+                                dao.create(estaciones);
+                                initCluster();
+                            } catch (SQLException e1) {
+                                Toast.makeText(getContext(), "Error en la base de datos.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
+                    Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (SQLException ex) {
+            Toast.makeText(getContext(), "ERROR inicializando DAO.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void checkGPSState() {
@@ -398,7 +432,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             alert.show();
         }
     }
-
 
     private void gotToWaze(LatLng location) {
         if (location != null) {
@@ -453,6 +486,12 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onStart() {
         super.onStart();
+
+    }
+
+    private void initCluster() {
+        mapService.setEstaciones(estaciones);
+        mapService.addStations();
     }
 
     @Override
@@ -464,6 +503,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("ON", "onDestroy");
     }
+
 }

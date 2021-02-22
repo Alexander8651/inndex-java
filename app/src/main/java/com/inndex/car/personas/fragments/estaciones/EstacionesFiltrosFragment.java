@@ -185,7 +185,8 @@ public class EstacionesFiltrosFragment extends Fragment {
     }
 
     public void showBrandFilters() {
-        String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);
+        //String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);
+        String[] opciones = new String[]{"",""};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Marcas");
         builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {

@@ -25,10 +25,12 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
 
     private ImageButton btnBack;
     private TextView titulo, cajerosSeleccionados, corresponsalesSeleccionados, puntosPagoSeleccionados, tiendasSeleccionados, segurosSeleccionados;
+    private TextView metodosPagoSeleccionados;
     private Estaciones estacion;
-    private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia,soat;
-    private Button   guardarUsuario;
-    private CheckBox restaurate, hotel, banios, lubricantes,llanteria, lavadero;
+    private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia, soat, cvMetodosPago;
+    private Button guardarUsuario;
+    private CheckBox restaurate, hotel, banios, lubricantes, llanteria, lavadero;
+    private CheckBox cbFarmacia, cbServiteca;
 
     private IPresenterEdsOtrosServicios iPresenterEdsOtrosServicios;
 
@@ -37,23 +39,24 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            estacion =  getArguments().getParcelable("estacionIs");
+            estacion = getArguments().getParcelable("estacionIs");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_eds_otros_servicios, container,false);
+        View root = inflater.inflate(R.layout.fragment_eds_otros_servicios, container, false);
 
         btnBack = root.findViewById(R.id.btnBack);
         titulo = root.findViewById(R.id.tv_toolbar_titulo);
 
-        cajeros =  root.findViewById(R.id.cajeros_electronicos_otros_servicios);
+        cajeros = root.findViewById(R.id.cajeros_electronicos_otros_servicios);
         corresponsales = root.findViewById(R.id.corresponsales_bancarios_otros_servicios);
         puntosPago = root.findViewById(R.id.puntos_pago_otros_servicios);
         tiendasConvivencia = root.findViewById(R.id.tiendas_convivencia_otros_servicios);
         soat = root.findViewById(R.id.soat_otros_servicios);
+        cvMetodosPago = root.findViewById(R.id.metodos_pago_otros_servicios);
         guardarUsuario = root.findViewById(R.id.guardar_usuario);
 
         cajerosSeleccionados = root.findViewById(R.id.cajerosSeleccionados);
@@ -61,6 +64,7 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         puntosPagoSeleccionados = root.findViewById(R.id.puntosPagoSeleccionados);
         tiendasSeleccionados = root.findViewById(R.id.tiendasSeleccionados);
         segurosSeleccionados = root.findViewById(R.id.segurosSeleccionados);
+        metodosPagoSeleccionados = root.findViewById(R.id.metodosPagoSeleccionados);
 
         restaurate = root.findViewById(R.id.estacionRestaurante);
         hotel = root.findViewById(R.id.estacionHotel);
@@ -68,43 +72,47 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         lubricantes = root.findViewById(R.id.estacionVentaLubricantes);
         llanteria = root.findViewById(R.id.estacionLlanteria);
         lavadero = root.findViewById(R.id.estacionLavaderos);
-
-        iPresenterEdsOtrosServicios = new PresenterEdsOtrsServiciosFragment(requireContext(),this, estacion);
+        cbFarmacia = root.findViewById(R.id.cbFarmacia);
+        cbServiteca = root.findViewById(R.id.cbServiteca);
+        iPresenterEdsOtrosServicios = new PresenterEdsOtrsServiciosFragment(requireContext(), this, estacion);
 
         titulo.setText("Otros Servicios");
 
-        btnBack.setOnClickListener(v ->{
+        btnBack.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
         });
 
-        cajeros.setOnClickListener(v ->{
+        cajeros.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoCajeros();
         });
 
-        corresponsales.setOnClickListener(v ->{
+        corresponsales.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoCorresponsales();
         });
 
-        puntosPago.setOnClickListener(v ->{
+        puntosPago.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoPuntosPago();
         });
 
-        tiendasConvivencia.setOnClickListener(v ->{
+        tiendasConvivencia.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoTiendas();
         });
 
-        soat.setOnClickListener(v ->{
+        soat.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoSoat();
+        });
+        cvMetodosPago.setOnClickListener(v -> {
+            iPresenterEdsOtrosServicios.mostrarDialogoMetodosPago();
         });
 
 
         return root;
     }
 
-    private void restaurantes(){
+    private void restaurantes() {
 
-        if (estacion.getListRestaurantes() != null){
-            if (estacion.getListRestaurantes().size() > 0){
+        if (estacion.getListRestaurantes() != null) {
+            if (estacion.getListRestaurantes().size() > 0) {
                 restaurate.setChecked(true);
             }
         }
@@ -142,6 +150,16 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     }
 
     @Override
+    public CheckBox cbFarmacia() {
+        return cbFarmacia;
+    }
+
+    @Override
+    public CheckBox cbServiteca() {
+        return cbServiteca;
+    }
+
+    @Override
     public Button botonGuardar() {
         return guardarUsuario;
     }
@@ -169,5 +187,10 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     @Override
     public TextView segurosSeleccionados() {
         return segurosSeleccionados;
+    }
+
+    @Override
+    public TextView metodosPagoSeleccionados() {
+        return metodosPagoSeleccionados;
     }
 }

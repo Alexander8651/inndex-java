@@ -13,7 +13,17 @@ public class Hotel implements Serializable {
 
     private int numeroHabitaciones;
 
+	private Estaciones estaciones;
+
 	public Hotel() {
+	}
+
+	public Estaciones getEstaciones() {
+		return estaciones;
+	}
+
+	public void setEstaciones(Estaciones estaciones) {
+		this.estaciones = estaciones;
 	}
 
 	public Long getId() {

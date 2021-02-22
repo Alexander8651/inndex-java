@@ -57,34 +57,6 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
     private float distancia = 0;
     private SharedViewModel model;
 
-    public TextView tvCalificacion;
-
-    public TextView tvCalificar;
-
-    public TextView tvDireciion;
-
-    public TextView tvDistancia;
-
-    public TextView tvHorario;
-
-    public TextView tvMarca;
-
-    public TextView tvNombre;
-
-    public TextView tvVerOpiniones;
-
-    public TextView tvCombustiblePrincipalTitulo;
-
-    public TextView tvCombustiblePrincipalPrecio;
-
-    public TextView tvCombustibleSecondTitulo;
-
-    public TextView tvCombustibleSecondPrecio;
-
-    public TextView tvCombustibleThirdTitulo;
-
-    public TextView tvCombustibleThirdPrecio;
-
     private LatLng myPosition;
 
     private ImageView menuDetalle;
@@ -103,8 +75,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
     }
 
     public static EstacionDetalleFragment newInstance(String param1, String param2) {
-        EstacionDetalleFragment fragment = new EstacionDetalleFragment();
-        return fragment;
+        return new EstacionDetalleFragment();
     }
 
     @Override
@@ -198,6 +169,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         llanteria(root);
         lavaderos(root);
         metodosPago(root);
+        initServiteca(root);
 
         if (distancia < 1000) {
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
@@ -206,6 +178,16 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f km", distancia));
         }
         return root;
+    }
+
+    private void initServiteca(View root) {
+        if (estaciones.getTieneServiteca() != null && estaciones.getTieneServiteca()) {
+            ImageView serviteca = root.findViewById(R.id.estacionServiteca);
+            serviteca.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout lyServiteca = root.findViewById(R.id.layServiteca);
+            lyServiteca.setVisibility(View.GONE);
+        }
     }
 
     private void combustibles(View root) {
@@ -238,11 +220,18 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     precioCombustible = root.findViewById(R.id.precioDiesel);
                 }
 
-                if (bomba.getCombustible().getId().equals(ECombustibles.DIESEL.getId())) {
-                    final LinearLayout diesel = root.findViewById(R.id.DIESEL);
-                    diesel.setVisibility(View.VISIBLE);
-                    nombreCombustible = root.findViewById(R.id.nombreDiesel);
-                    precioCombustible = root.findViewById(R.id.precioDiesel);
+                if (bomba.getCombustible().getId().equals(ECombustibles.GNV.getId())) {
+                    final LinearLayout gnv = root.findViewById(R.id.GNV);
+                    gnv.setVisibility(View.VISIBLE);
+                    nombreCombustible = root.findViewById(R.id.nombreGNV);
+                    precioCombustible = root.findViewById(R.id.precioGNV);
+                }
+
+                if (bomba.getCombustible().getId().equals(ECombustibles.MAX_PRO_DIESEL.getId())) {
+                    final LinearLayout maxProDiesel = root.findViewById(R.id.maxProDiesel);
+                    maxProDiesel.setVisibility(View.VISIBLE);
+                    nombreCombustible = root.findViewById(R.id.nombreMaxProDiesel);
+                    precioCombustible = root.findViewById(R.id.precioMaxProDiesel);
                 }
 
                 if (bomba.getCombustible().getId().equals(ECombustibles.BIODIESEL.getId())) {
@@ -268,8 +257,6 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
     }
 
     private void horariosycontacto(View root) {
-
-
         ExpandableListView spin = root.findViewById(R.id.expanded_horarios);
         ArrayList<String> listCategorias = new ArrayList<>();
         Map<String, ArrayList<Horario>> mapChild = new HashMap<>();
@@ -390,7 +377,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                 }
             }
         } else {
-            LinearLayout layout = root.findViewById(R.id.layMetodosPago);
+            LinearLayout layout = root.findViewById(R.id.lay_metodos_pago);
             layout.setVisibility(View.GONE);
         }
 

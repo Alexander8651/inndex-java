@@ -2,7 +2,6 @@ package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,9 +26,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.IPresenterDataGeneralFragment;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.PresenterDatosGeneralesFragment;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.model.MarcaEstacion;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallback {
@@ -37,7 +46,7 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     private Button btnActualizar, btnGuardarCambios;
     private float lat;
     private float lon;
-    private ImageView img_estacion;
+    //private ImageView img_estacion;
     private Spinner spMarcaGaso;
     private Estaciones estacion;
     private EditText nombreEds;
@@ -57,8 +66,13 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_datos_generales, container, false);
+
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
+        titulo.setText(R.string.datos_generales);
+
         mapView = view.findViewById(R.id.map_datos_generales);
-        img_estacion = view.findViewById(R.id.img_estacion);
+        //img_estacion = view.findViewById(R.id.img_estacion);
         spMarcaGaso = view.findViewById(R.id.spn_marca_gaso);
         btnGuardarCambios = view.findViewById(R.id.btn_guardar_cambios_eds);
         btnActualizar = view.findViewById(R.id.btn_actualizar);
@@ -66,7 +80,41 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         et_cel = view.findViewById(R.id.et_cel);
         et_direccion_eds = view.findViewById(R.id.et_direccion_eds);
 
-        array = getResources().getStringArray(R.array.marcas_estaciones);
+        DataBaseHelper helper = OpenHelperManager.getHelper(this.getContext(), DataBaseHelper.class);
+
+        try {
+            Dao<MarcaEstacion, Long> marcaEstacionLongDao = helper.getDaoMarcaEstacion();
+            List<MarcaEstacion> marcaEstacionList = marcaEstacionLongDao.queryForAll();
+            array = new String[marcaEstacionList.size()];
+            for (int i = 0; i < marcaEstacionList.size(); i++) {
+                array[i] = marcaEstacionList.get(i).getNombre();
+            }
+            ArrayAdapter<String> adapterMarcaGaso = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_item, array);
+            adapterMarcaGaso.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spMarcaGaso.setAdapter(adapterMarcaGaso);
+            spMarcaGaso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    //Toast.makeText(parent.getContext(), "Seleccionaste: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                    String marca = (String) parent.getItemAtPosition(position);
+                    estacion.setMarca(marca);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            if (estacion.getMarca() != null) {
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i].equals(estacion.getMarca())) {
+                        spMarcaGaso.setSelection(i);
+                    }
+                }
+            }
+        }catch (SQLException ex) {
+            Toast.makeText(requireActivity(), "NO SE PUDO INICIALIZAR LA MARCA.", Toast.LENGTH_SHORT).show();
+        }
 
         iPresenterDataGeneralFragment = new PresenterDatosGeneralesFragment(requireContext());
 
@@ -75,47 +123,9 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         btnActualizar.setBackgroundColor(Color.BLACK);
         btnActualizar.setTextColor(Color.WHITE);
 
-        Log.d("tamañooas", String.valueOf(array.length));
-
-        ArrayAdapter<CharSequence> adapterMarcaGaso = ArrayAdapter.createFromResource(this.getContext(), R.array.marcas_estaciones,
-                android.R.layout.simple_spinner_item);
-        adapterMarcaGaso.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spMarcaGaso.setAdapter(adapterMarcaGaso);
-
-        if (estacion.getMarca() != null) {
-
-            nombreEds.setText(estacion.getNombre());
-            et_cel.setText(estacion.getTelefono());
-            et_direccion_eds.setText(estacion.getDireccion());
-
-
-            for (int i = 0; i < array.length; i++) {
-
-                if (array[i].equals(estacion.getMarca())) {
-                    spMarcaGaso.setSelection(i);
-
-                }
-            }
-        }
-
-
-        spMarcaGaso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                //Toast.makeText(parent.getContext(), "Seleccionaste: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-                String marca = (String) parent.getItemAtPosition(position);
-                estacion.setMarca(marca);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-
-            }
-        });
+        nombreEds.setText(estacion.getNombre());
+        et_cel.setText(estacion.getTelefono());
+        et_direccion_eds.setText(estacion.getDireccion());
 
         btnGuardarCambios.setOnClickListener(v -> {
             //Toast.makeText(view.getContext(), "Se han guardado los cambios", Toast.LENGTH_SHORT).show();
@@ -124,6 +134,9 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             estacion.setTelefono(et_cel.getText().toString());
 
             iPresenterDataGeneralFragment.actualizarDataGeneral(estacion, v);
+        });
+        btnBack.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigateUp();
         });
 
 
@@ -146,13 +159,12 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
 
         });
 
-        lat = (float)estacion.getLatitud();
-        lon = (float)estacion.getLongitud();
+        lat = (float) estacion.getLatitud();
+        lon = (float) estacion.getLongitud();
 
-        img_estacion.setOnClickListener(v -> {
+        /*img_estacion.setOnClickListener(v -> {
             //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fotoEdsFragment);
-        });
-
+        });*/
     }
 
     @Override
