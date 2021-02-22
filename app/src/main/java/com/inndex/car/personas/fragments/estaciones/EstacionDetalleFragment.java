@@ -105,7 +105,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
 
         menuDetalle.setOnClickListener(v ->{
             PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-            popupMenu.inflate(R.menu.menuadapterpromociones);
+            popupMenu.inflate(R.menu.menudetalleestacion);
             popupMenu.show();
 
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

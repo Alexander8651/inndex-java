@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,7 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
     List<MetodoPago> metodoPagoEstacion;
     List<MetodoPago> metodoPagoEditado = new ArrayList<>();
 
-    public MetodosPagoAdapter(List<MetodoPago> metodoPagoService, List<MetodoPago> metodoPagoEstacion) {
+    public MetodosPagoAdapter(List<MetodoPago> metodoPagoService, List<MetodoPago> metodoPagoEstacion ){
         this.metodoPagoService = metodoPagoService;
         this.metodoPagoEstacion = metodoPagoEstacion;
     }
@@ -59,6 +60,8 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
                 metodoPagoEditado.remove(metodoPago);
             }
         });
+
+
     }
 
     @Override
@@ -73,9 +76,9 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             checkBox = itemView.findViewById(R.id.checkboxBanco);
             tvMetodoPago = itemView.findViewById(R.id.nombreBanco);
+
         }
     }
 

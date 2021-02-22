@@ -251,10 +251,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
-<<<<<<< HEAD
-
-=======
->>>>>>> ed30a0a9873a995a692ea435f8d4f9b5219412e5
         SegurosAdapter soat = new SegurosAdapter(soats, estaciones.getSoat());
 
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);

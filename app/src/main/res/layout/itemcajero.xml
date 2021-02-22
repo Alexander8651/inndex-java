@@ -9,6 +9,13 @@
         android:layout_height="wrap_content"
         android:buttonTint="@color/colorPrimary"
         />
+    <RadioButton
+        android:id="@+id/radiobuttonBanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorPrimary"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/nombreBanco"

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ public class SegurosAdapter extends RecyclerView.Adapter<SegurosAdapter.ViewHold
     ArrayList<Soat> soatService;
     Soat soatEstacion;
     ArrayList<Soat> soatEditado = new ArrayList<>();
+
 
     public SegurosAdapter(ArrayList<Soat> soatService, Soat soatEstacion) {
         this.soatService = soatService;
@@ -38,6 +40,8 @@ public class SegurosAdapter extends RecyclerView.Adapter<SegurosAdapter.ViewHold
         final Soat soat = soatService.get(position);
         holder.soat.setText(soat.getNombre());
 
+
+
         if (soatEstacion == null)
             return;
 
@@ -53,20 +57,15 @@ public class SegurosAdapter extends RecyclerView.Adapter<SegurosAdapter.ViewHold
             if (holder.checkBox.isChecked()) {
                 soatEstacion.setNombre(soat.getNombre());
                 soatEstacion.setId(soat.getId());
-                /*
-                if (!soatEditado.contains(soat)) {
-                    soatEditado.add(soat);
-                    Log.d("mejecuti", "poner");
+            }
+        });
+
+        holder.radioButton.setOnClickListener( v ->{
+            if (holder.checkBox.isChecked()) {
+                if (holder.checkBox.isChecked()) {
+                    soatEstacion.setNombre(soat.getNombre());
+                    soatEstacion.setId(soat.getId());
                 }
-
-                 */
-            } else {
-                /*
-                soatEditado.remove(soat);
-                Log.d("mejecutir", soat.getNombre());
-                Log.d("mejecuti", String.valueOf(soatEditado.size()));
-
-                 */
             }
         });
 
@@ -81,12 +80,18 @@ public class SegurosAdapter extends RecyclerView.Adapter<SegurosAdapter.ViewHold
 
         CheckBox checkBox;
         TextView soat;
+        RadioButton radioButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             checkBox = itemView.findViewById(R.id.checkboxBanco);
             soat = itemView.findViewById(R.id.nombreBanco);
+            radioButton = itemView.findViewById(R.id.radiobuttonBanco);
+            
+            checkBox.setVisibility(View.GONE);
+            radioButton.setVisibility(View.VISIBLE);
+
         }
     }
 
