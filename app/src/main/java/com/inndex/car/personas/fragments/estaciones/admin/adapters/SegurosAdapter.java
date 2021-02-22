@@ -88,7 +88,7 @@ public class SegurosAdapter extends RecyclerView.Adapter<SegurosAdapter.ViewHold
             checkBox = itemView.findViewById(R.id.checkboxBanco);
             soat = itemView.findViewById(R.id.nombreBanco);
             radioButton = itemView.findViewById(R.id.radiobuttonBanco);
-            
+
             checkBox.setVisibility(View.GONE);
             radioButton.setVisibility(View.VISIBLE);
 

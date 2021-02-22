@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -82,6 +83,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private Estaciones estacionSeleccionada;
 
     private FragmentEstacionesMapBinding binding;
+    private RelativeLayout status_api;
 
     public EstacionesMapFragment() {
         // Required empty public constructor
@@ -104,6 +106,8 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_estaciones_map, container, false);
+
+        status_api = v.findViewById(R.id.status_api);
 
         sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
         estaciones = new ArrayList<>();
@@ -297,12 +301,14 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
     private void calculateDistance(String origins, String destination, Estaciones estacion) {
+        status_api.setVisibility(View.VISIBLE);
         Call<DistanceApiResponse> getDistance = DistanceApiAdapter.getApiService().getDistanceBetween(origins,
                 destination, Constantes.API_KEY_PLACES);
         getDistance.enqueue(new Callback<DistanceApiResponse>() {
             @Override
             public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
                 if (response.isSuccessful()) {
+                    status_api.setVisibility(View.GONE);
                     DistanceApiResponse res = response.body();
                     if (res != null) {
 

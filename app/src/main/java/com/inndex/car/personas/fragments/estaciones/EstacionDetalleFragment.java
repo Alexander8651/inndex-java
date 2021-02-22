@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
     private ImageView menuDetalle;
 
     IPresenterDetalles iPresenterDetalles;
+    RelativeLayout status_api;
 
     public EstacionDetalleFragment(Estaciones estacion, Float distance,
                                    LatLng position) {
@@ -102,6 +104,8 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         iPresenterDetalles = new PresenterDetalles(this,requireContext());
 
         menuDetalle = root.findViewById(R.id.menuDetalleEstacion);
+
+        status_api = root.findViewById(R.id.status_api);
 
         menuDetalle.setOnClickListener(v ->{
             PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
