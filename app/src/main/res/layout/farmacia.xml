@@ -32,7 +32,7 @@
                     android:id="@+id/estacionFarmacia"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
-                    android:src="@drawable/bano"
+                    android:src="@drawable/farmacia"
                     android:visibility="gone"
                     android:contentDescription="@string/farmacia"/>
             </LinearLayout>

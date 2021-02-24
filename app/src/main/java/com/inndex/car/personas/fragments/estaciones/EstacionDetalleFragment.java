@@ -623,7 +623,6 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     imgCorresponsal.setLayoutParams(params);
                 }
                 counter++;
-
             }
         } else {
             ConstraintLayout cajeros = root.findViewById(R.id.constrait_corresponsales);

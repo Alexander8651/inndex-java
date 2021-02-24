@@ -1,6 +1,7 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +130,6 @@ public class CombustibleYHorarioFragment extends Fragment {
                 llGnv.setVisibility(View.GONE);
             }
         });
-        //edtPrecioMaxProDiesel
 
         cbMaxProDiesel.setOnCheckedChangeListener((v, b) -> {
             if (b) {
@@ -142,7 +142,6 @@ public class CombustibleYHorarioFragment extends Fragment {
         //Clicks visi o invi horarios
         cbLunes.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Lunes 24 Horas", Toast.LENGTH_SHORT).show();
                 llLunes.setVisibility(View.GONE);
             } else {
                 llLunes.setVisibility(View.VISIBLE);
@@ -151,7 +150,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
         cbMartes.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Martes 24 Horas", Toast.LENGTH_SHORT).show();
                 llMartes.setVisibility(View.GONE);
             } else {
                 llMartes.setVisibility(View.VISIBLE);
@@ -160,7 +158,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
         cbMiercoles.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Miercoles 24 Horas", Toast.LENGTH_SHORT).show();
                 llMiercoles.setVisibility(View.GONE);
             } else {
                 llMiercoles.setVisibility(View.VISIBLE);
@@ -169,7 +166,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
         cbJueves.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Jueves 24 Horas", Toast.LENGTH_SHORT).show();
                 llJueves.setVisibility(View.GONE);
             } else {
                 llJueves.setVisibility(View.VISIBLE);
@@ -178,7 +174,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
         cbViernes.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Viernes 24 Horas", Toast.LENGTH_SHORT).show();
                 llViernes.setVisibility(View.GONE);
             } else {
                 llViernes.setVisibility(View.VISIBLE);
@@ -187,7 +182,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
         cbSabado.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Sabado 24 Horas", Toast.LENGTH_SHORT).show();
                 llSabado.setVisibility(View.GONE);
             } else {
                 llSabado.setVisibility(View.VISIBLE);
@@ -196,7 +190,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
         cbDomingo.setOnCheckedChangeListener((v, b) -> {
             if (b) {
-                Toast.makeText(view.getContext(), "Domingo 24 Horas", Toast.LENGTH_SHORT).show();
                 llDomingo.setVisibility(View.GONE);
             } else {
                 llDomingo.setVisibility(View.VISIBLE);
@@ -213,7 +206,7 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void callUpdateEstacionCombustible() {
-        Gson gson = new Gson();
+
         Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(), listEstacionCombustibles);
         postSaveEstacionCombustibles.enqueue(new Callback<List<EstacionCombustibles>>() {
             @Override
@@ -234,6 +227,8 @@ public class CombustibleYHorarioFragment extends Fragment {
     }
 
     private void callUpdateHorarios() {
+        Gson gson = new Gson();
+        Log.e("GSON", gson.toJson(estacionWithOnlyId));
         Call<ResponseServices> updateStationSchedule = MedidorApiAdapter.getApiService().updateStationSchedule(estacionWithOnlyId);
         updateStationSchedule.enqueue(new Callback<ResponseServices>() {
             @Override
@@ -370,6 +365,9 @@ public class CombustibleYHorarioFragment extends Fragment {
     private void updateHorario(Long idDia, boolean abiertoSiempre, String horaInicio, String horaFin) {
 
         boolean exists = true;
+        if (listHorarios.size() == 0) {
+            exists = false;
+        }
         for (Horario horario :
                 listHorarios) {
             if (horario.getDia().equals(idDia)) {
@@ -380,7 +378,6 @@ public class CombustibleYHorarioFragment extends Fragment {
                 break;
             } else {
                 exists = false;
-
             }
         }
         if (!exists) {
