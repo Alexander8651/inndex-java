@@ -61,7 +61,6 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
             }
         });
 
-
     }
 
     @Override

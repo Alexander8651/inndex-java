@@ -85,10 +85,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private FragmentEstacionesMapBinding binding;
     private RelativeLayout status_api;
 
-    public EstacionesMapFragment() {
-        // Required empty public constructor
-    }
-
     public static EstacionesMapFragment newInstance(String param1, String param2) {
         EstacionesMapFragment fragment = new EstacionesMapFragment();
         Bundle args = new Bundle();
@@ -308,16 +304,16 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             @Override
             public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
                 if (response.isSuccessful()) {
-                    status_api.setVisibility(View.GONE);
                     DistanceApiResponse res = response.body();
                     if (res != null) {
-
                         distancia = (float) res.getDistanceValue();
                         openStationBottomSheet(estacion);
+                        status_api.setVisibility(View.GONE);
                     }
 
                 } else {
                     Log.e("RESPONSE", "NOT SUCCESSFULL " + response.code());
+                    status_api.setVisibility(View.GONE);
                 }
             }
 
