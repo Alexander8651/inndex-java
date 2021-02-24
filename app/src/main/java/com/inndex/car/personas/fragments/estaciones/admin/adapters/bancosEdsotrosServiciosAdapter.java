@@ -1,6 +1,5 @@
 package com.inndex.car.personas.fragments.estaciones.admin.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,16 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.model.Bancos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosEdsotrosServiciosAdapter.Viewholder> {
 
-    ArrayList<Bancos> bancosServicio;
+    List<Bancos> bancosServicio;
     ArrayList<Bancos> bancosEstacion;
     ArrayList<Bancos> editada = new ArrayList<>();
 
 
-    public bancosEdsotrosServiciosAdapter(ArrayList<Bancos> bancosServicio, ArrayList<Bancos> bancosEstacion) {
+    public bancosEdsotrosServiciosAdapter(List<Bancos> bancosServicio, ArrayList<Bancos> bancosEstacion) {
         this.bancosServicio = bancosServicio;
         this.bancosEstacion = bancosEstacion;
     }
@@ -50,18 +50,24 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
             }
         }
 
-        holder.checkBox.setOnClickListener(v -> {
-            if (holder.checkBox.isChecked()) {
+        holder.checkBox.setOnCheckedChangeListener((v, b) -> {
+            if (b) {
                 if (!editada.contains(bancos)) {
                     editada.add(bancos);
-                    Log.d("mejecuti", "poner");
                 }
             } else {
                 editada.remove(bancos);
-                Log.d("mejecutir", bancos.getNombre());
-                Log.d("mejecuti", String.valueOf(editada.size()));
             }
         });
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull Viewholder holder) {
+
+        if (holder.checkBox != null) {
+            holder.checkBox.setOnClickListener(null);
+        }
+        super.onViewRecycled(holder);
     }
 
     @Override

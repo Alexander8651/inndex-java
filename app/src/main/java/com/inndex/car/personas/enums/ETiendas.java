@@ -8,7 +8,8 @@ public enum ETiendas {
     EXITO_EXPRESS(4L),
     JUSTO_Y_BUENO(5L),
     OLIMPICA(6L),
-    TIGER_MARKET(7L);
+    TIGER_MARKET(7L),
+    BEST_MART(8L);
 
     private Long id;
 

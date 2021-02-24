@@ -15,37 +15,36 @@
         android:id="@+id/llamarestacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/botonllamar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:backgroundTint="@android:color/black">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
                 android:layout_marginTop="8dp"
-                >
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/telefono_blanco"/>
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/telefono_blanco" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:textColor="@color/white"
                     android:layout_marginLeft="16dp"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Llamar"/>
+                    android:text="Llamar"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -53,11 +52,11 @@
         <TextView
             android:id="@+id/numero_estacion"
             android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/azul_texto_enlace"
             android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto_light"
-            android:textSize="25sp"/>
+            android:textColor="@color/azul_texto_enlace"
+            android:textSize="25sp" />
 
     </LinearLayout>
 

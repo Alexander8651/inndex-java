@@ -7,250 +7,250 @@
     android:orientation="vertical"
     tools:context=".fragments.estaciones.admin.EdsOtrosServiciosFragment">
 
-        <include layout="@layout/my_toolbar" />
+    <include layout="@layout/my_toolbar" />
 
-        <ScrollView
-            android:id="@+id/scrollView2"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@+id/scrollView2"
+        app:layout_anchorGravity="center"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_anchor="@+id/scrollView2"
-            app:layout_anchorGravity="center"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/metodos_pago_otros_servicios"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/metodosPagoSeleccionados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_los_metodos_de_pago"
+                    android:textSize="18sp" />
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cajeros_electronicos_otros_servicios"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/cajerosSeleccionados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_los_cajeros_electronicos"
+                    android:textSize="18sp" />
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/corresponsales_bancarios_otros_servicios"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/corresponsalesSeleccionados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_los_corresponsales"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/puntos_pago_otros_servicios"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/puntosPagoSeleccionados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_los_puntos_de_pagos"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tiendas_convivencia_otros_servicios"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tiendasSeleccionados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_las_tiendas"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/soat_otros_servicios"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/segurosSeleccionados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="Selecciona los seguros"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <CheckBox
+                android:id="@+id/cbFarmacia"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
+                android:buttonTint="@color/colorPrimary"
+                android:text="Farmacia" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/metodos_pago_otros_servicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/altootrosservicios"
-                    android:orientation="horizontal"
-                    android:padding="15dp">
+            <CheckBox
+                android:id="@+id/estacionRestaurante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Restaurante" />
 
-                    <TextView
-                        android:id="@+id/metodosPagoSeleccionados"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="@string/selecciona_los_metodos_de_pago"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_light"/>
-                </androidx.cardview.widget.CardView>
+            <CheckBox
+                android:id="@+id/estacionHotel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Hotel" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
+            <CheckBox
+                android:id="@+id/estacionBaniosPublicos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/banios" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cajeros_electronicos_otros_servicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/altootrosservicios"
-                    android:orientation="horizontal"
-                    android:padding="15dp">
+            <CheckBox
+                android:id="@+id/estacionVentaLubricantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Venta de lubricantes" />
 
-                    <TextView
-                        android:id="@+id/cajerosSeleccionados"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="@string/selecciona_los_cajeros_electronicos"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_light"/>
-                </androidx.cardview.widget.CardView>
+            <CheckBox
+                android:id="@+id/estacionLlanteria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Llantería" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
+            <CheckBox
+                android:id="@+id/estacionLavaderos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Lavadero" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/corresponsales_bancarios_otros_servicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/altootrosservicios"
-                    android:orientation="horizontal"
-                    android:padding="15dp">
+            <CheckBox
+                android:id="@+id/cbServiteca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Serviteca" />
 
-                    <TextView
-                        android:id="@+id/corresponsalesSeleccionados"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="@string/selecciona_los_corresponsales"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_light"/>
+            <Button
+                android:id="@+id/guardar_usuario"
+                android:layout_width="308dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
 
-                </androidx.cardview.widget.CardView>
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/guardar_cambios"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
+        </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/puntos_pago_otros_servicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/altootrosservicios"
-                    android:orientation="horizontal"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:id="@+id/puntosPagoSeleccionados"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="@string/selecciona_los_puntos_de_pagos"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_light"/>
-
-                </androidx.cardview.widget.CardView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/tiendas_convivencia_otros_servicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/altootrosservicios"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:id="@+id/tiendasSeleccionados"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="@string/selecciona_las_tiendas"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_light"/>
-
-                </androidx.cardview.widget.CardView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/soat_otros_servicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/altootrosservicios"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:id="@+id/segurosSeleccionados"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:text="Selecciona los seguros"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_light"/>
-
-                </androidx.cardview.widget.CardView>
-
-                <CheckBox
-                    android:id="@+id/cbFarmacia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Farmacia" />
-
-                <CheckBox
-                    android:id="@+id/estacionRestaurante"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Restaurante" />
-
-                <CheckBox
-                    android:id="@+id/estacionHotel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Hotel" />
-
-                <CheckBox
-                    android:id="@+id/estacionBaniosPublicos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="@string/banios" />
-
-                <CheckBox
-                    android:id="@+id/estacionVentaLubricantes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Venta de lubricantes" />
-
-                <CheckBox
-                    android:id="@+id/estacionLlanteria"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Llanteria" />
-
-
-                <CheckBox
-                    android:id="@+id/estacionLavaderos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Lavadero" />
-
-                <CheckBox
-                    android:id="@+id/cbServiteca"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="Serviteca" />
-
-                <Button
-                    android:id="@+id/guardar_usuario"
-                    android:layout_width="308dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_gravity="center_horizontal"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/guardar_cambios"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:layout_marginBottom="15dp"/>
-
-            </LinearLayout>
-
-        </ScrollView>
+    </ScrollView>
 
 </LinearLayout>

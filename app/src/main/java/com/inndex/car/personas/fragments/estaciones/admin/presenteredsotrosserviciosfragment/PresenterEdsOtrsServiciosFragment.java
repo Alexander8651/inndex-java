@@ -35,6 +35,7 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,7 +47,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     Context context;
     IEdsOtrosServiciosFragment iEdsOtrosServiciosFragment;
     Estaciones estaciones;
-    ArrayList<Bancos> bancos;
+    List<Bancos> bancos;
     ArrayList<PuntoPago> puntoPagos;
     ArrayList<Tiendas> tiendas;
     ArrayList<Soat> soats;
@@ -71,19 +72,15 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
     @Override
     public void obtenerBancos() {
-        Call<List<Bancos>> bancosCall = MedidorApiAdapter.getApiService().getBancos();
-        bancosCall.enqueue(new Callback<List<Bancos>>() {
-            @Override
-            public void onResponse(Call<List<Bancos>> call, Response<List<Bancos>> response) {
-                if (response.isSuccessful()) {
-                    bancos = (ArrayList<Bancos>) response.body();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Bancos>> call, Throwable t) {
-            }
-        });
+        try {
+            Dao<Bancos, Long> daoBancos = helper.getDaoBancos();
+            bancos = daoBancos.queryForAll();
+            Collections.sort(bancos, (b1, b2) -> b1.getNombre().compareTo(b2.getNombre()));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
@@ -113,6 +110,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
                 if (response.isSuccessful()) {
                     tiendas = (ArrayList<Tiendas>) response.body();
+                    Collections.sort(tiendas, (b1, b2) -> b1.getNombre().compareTo(b2.getNombre()));
                 }
             }
 

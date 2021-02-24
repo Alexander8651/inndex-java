@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.ContactoAdminFragment">
+
+    <include layout="@layout/my_toolbar" />
+
+    <TextView
+        android:id="@+id/tvMensajeAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/mensaje_admin"
+        android:textAlignment="gravity"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvInndexEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/inndex_email"
+        android:textAlignment="gravity"
+        android:textSize="24sp"
+        android:textColor="@color/azul_texto_enlace"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/enviar_correo"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+</LinearLayout>

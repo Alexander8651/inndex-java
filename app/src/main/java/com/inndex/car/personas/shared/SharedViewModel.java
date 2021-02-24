@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.inndex.car.personas.model.Estaciones;
+
 public class SharedViewModel extends ViewModel {
 
-    private MutableLiveData<Integer> events = new MutableLiveData<>();
+    private final MutableLiveData<Integer> events = new MutableLiveData<>();
 
-    private MutableLiveData<Integer> homeEvent = new MutableLiveData<>();
+    private final MutableLiveData<Integer> homeEvent = new MutableLiveData<>();
+
+    private final MutableLiveData<Estaciones> editarEstacionEvent = new MutableLiveData<>();
 
     public LiveData<Integer> getEvents() {
         return events;
@@ -25,4 +29,13 @@ public class SharedViewModel extends ViewModel {
     public void setHomeEvents(Integer event) {
         homeEvent.setValue(event);
     }
+
+    public LiveData<Estaciones> getEditarEstacionEvent() {
+        return editarEstacionEvent;
+    }
+    public void setEditarEdsEvent(Estaciones estacion) {
+        editarEstacionEvent.setValue(estacion);
+    }
+
+
 }
