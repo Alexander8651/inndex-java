@@ -24,7 +24,6 @@ public class EditarEdsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             estacion = getArguments().getParcelable("estacionIs");
         }
@@ -49,21 +48,15 @@ public class EditarEdsFragment extends Fragment {
         btnBack.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp()
         );
-
         datosGenerales.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_datosGeneralesFragment, bundle)
         );
-
-
         editar_eds_otro_servicios.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_edsOtrosServiciosFragment, bundle)
         );
         editar_eds_promociones.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_promocionListFragment, bundle)
         );
-
-
-
         llCombustiblesYHorarios.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_combustibleYHorarioFragment, bundle));
 
         return view;

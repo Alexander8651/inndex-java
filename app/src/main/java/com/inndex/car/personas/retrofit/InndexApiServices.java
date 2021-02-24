@@ -106,7 +106,7 @@ public interface InndexApiServices {
     /**
      * ESTACION COMBUSTIBLES
      */
-    @POST(IApiUrlConstants.POST_SAVE_ALL_ESTACION_COMBUSTIBLE)
+    @PUT(IApiUrlConstants.POST_SAVE_ALL_ESTACION_COMBUSTIBLE)
     Call<List<EstacionCombustibles>> postSaveAllEstacionesCombustibles(@Query("idEstacion") Long idEstacion, @Body List<EstacionCombustibles> listEstacionCombustibles);
 
     /**

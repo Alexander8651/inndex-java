@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 isEstacionesMapFragmentVisible = false;
             }
         });
+        model.getEditarEstacionEvent().observe(this, estacion -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("estacionIs", estacion);
+            navController.navigate(R.id.opt_agregar_eds  ,bundle);
+        });
 
         TextView tvNombres = navigationView.getHeaderView(0).findViewById(R.id.tvUsuario);
         TextView tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tvEmailUsuario);

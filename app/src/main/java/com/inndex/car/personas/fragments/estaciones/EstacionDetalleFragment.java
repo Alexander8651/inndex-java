@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,12 +62,14 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
 
     IPresenterDetalles iPresenterDetalles;
     RelativeLayout status_api;
+    private SharedViewModel sharedViewModel;
 
     public EstacionDetalleFragment(Estaciones estacion, Float distance,
-                                   LatLng position) {
+                                   LatLng position, SharedViewModel model) {
         this.estaciones = estacion;
         this.myPosition = position;
         this.distancia = distance;
+        this.sharedViewModel = model;
     }
 
     public EstacionDetalleFragment() {
@@ -101,38 +101,27 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         final ImageView botonBack = root.findViewById(R.id.botonbackdetallebomba);
         final ImageView imgDrawRoute = root.findViewById(R.id.estaciones_servicios_route);
 
-        iPresenterDetalles = new PresenterDetalles(this,requireContext());
+        iPresenterDetalles = new PresenterDetalles(this, requireContext(), this.sharedViewModel);
 
         menuDetalle = root.findViewById(R.id.menuDetalleEstacion);
 
         status_api = root.findViewById(R.id.status_api);
 
-        menuDetalle.setOnClickListener(v ->{
+        menuDetalle.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
             popupMenu.inflate(R.menu.menudetalleestacion);
             popupMenu.show();
 
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.compartir:
+            popupMenu.setOnMenuItemClickListener(item -> {
 
-                            return true;
-                        case R.id.reportar_problema:
+                if (item.getItemId() == R.id.compartir) {
 
-                            iPresenterDetalles.MostrarDialogReportes();
-
-
-                            return true;
-                        case R.id.editar:
-
-
-                            return true;
-                        default:
-                            return false;
-                    }
+                } else if (item.getItemId() == R.id.reportar_problema) {
+                    iPresenterDetalles.MostrarDialogReportes();
+                } else if (item.getItemId() == R.id.editar) {
+                    iPresenterDetalles.editarEDS(estaciones);
                 }
+                return true;
             });
         });
 
@@ -248,9 +237,10 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                 if (nombreCombustible != null && precioCombustible != null) {
                     nombreCombustible.setText(bomba.getCombustible().getNombre());
                     DecimalFormat formatter = new DecimalFormat("###,###");
-
-                    String sPrecio = formatter.format(Double.valueOf(bomba.getPrecio()));
-
+                    String sPrecio = "-";
+                    if (!(bomba.getPrecio() == 0)) {
+                        sPrecio = formatter.format(Double.valueOf(bomba.getPrecio()));
+                    }
                     //    precioCombustible.setText(getString(R.string.precio_combustible_placeholder, bomba.getPrecio().intValue()));
                     precioCombustible.setText(getString(R.string.precio_combustible_placeholder, sPrecio.replace(",", ".")));
                 }
@@ -752,6 +742,10 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
 
                 if (tienda.getId().equals(ETiendas.ALTOQUE.getId())) {
                     imgTienda = root.findViewById(R.id.tiendaAltoque);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+                if (tienda.getId().equals(ETiendas.BEST_MART.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaBestMart);
                     imgTienda.setVisibility(View.VISIBLE);
                 }
                 if (counter == 0 && imgTienda != null) {

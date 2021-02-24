@@ -200,9 +200,8 @@
     <!-- PLACEHOLDERS -->
     <string name="precio_combustible_placeholder">$ %1$s</string>
 
-
     <string name="pais">Pais</string>
-    <string name="cel">319 461 7069</string>
+    <string name="cel">Celular</string>
     <string name="celular">Celular</string>
     <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
     <string name="tvModFecNacimiento">Fecha de nacimiento</string>
@@ -269,6 +268,10 @@
     <string name="banios">Baños</string>
     <string name="selecciona_soat">Seleccionar SOAT</string>
     <string name="selecciona_los_metodos_de_pago">Selecciona los metodos de pago</string>
+    <string name="agregar_eds">Agregar EDS</string>
+    <string name="enviar_correo">Enviar correo</string>
+    <string name="mensaje_admin">Si eres dueño, gerente ó administrador de una estación de servicios y solo tú quieres gestionar y editar la información de tu EDS. Comunícate con nosotros al correo:</string>
+    <string name="inndex_email">inndexco@gmail.com</string>
 
     <string-array name="modelo">
         <item>2021</item>

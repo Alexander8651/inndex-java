@@ -1,7 +1,6 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,7 +214,6 @@ public class CombustibleYHorarioFragment extends Fragment {
 
     private void callUpdateEstacionCombustible() {
         Gson gson = new Gson();
-        Log.e("Comb", gson.toJson(listEstacionCombustibles));
         Call<List<EstacionCombustibles>> postSaveEstacionCombustibles = MedidorApiAdapter.getApiService().postSaveAllEstacionesCombustibles(estacion.getId(), listEstacionCombustibles);
         postSaveEstacionCombustibles.enqueue(new Callback<List<EstacionCombustibles>>() {
             @Override
@@ -362,7 +360,8 @@ public class CombustibleYHorarioFragment extends Fragment {
             combustibles.setId(idCombustible);
             EstacionCombustibles estacionCombustibles = new EstacionCombustibles();
             estacionCombustibles.setCombustible(combustibles);
-            estacionCombustibles.setPrecio(Integer.parseInt(precio));
+            if (!precio.equals(""))
+                estacionCombustibles.setPrecio(Integer.parseInt(precio));
             estacionCombustibles.setEstaciones(estacionWithOnlyId);
             listEstacionCombustibles.add(estacionCombustibles);
         }
@@ -513,6 +512,14 @@ public class CombustibleYHorarioFragment extends Fragment {
                         break;
                 }
             }
+        } else {
+            llLunes.setVisibility(View.VISIBLE);
+            llMartes.setVisibility(View.VISIBLE);
+            llMiercoles.setVisibility(View.VISIBLE);
+            llJueves.setVisibility(View.VISIBLE);
+            llViernes.setVisibility(View.VISIBLE);
+            llSabado.setVisibility(View.VISIBLE);
+            llDomingo.setVisibility(View.VISIBLE);
         }
     }
 

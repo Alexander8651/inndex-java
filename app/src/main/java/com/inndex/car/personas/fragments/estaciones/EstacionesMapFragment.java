@@ -123,7 +123,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         drawer = getActivity().findViewById(R.id.drawer_layout);
         helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
 
-
         getAllStations();
 
         inndexLocationService = new InndexLocationService(getActivity(), this, this);
@@ -285,8 +284,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             return;
         }
 
-        //this.myLocation = new LatLng(inndexLocationService.getMyLocation().getLatitude(), inndexLocationService.getMyLocation().getLongitude());
-
         try {
             String origins = this.myLocation.latitude + "," + this.myLocation.longitude;
             String destination = estacion.getLatitud() + "," + estacion.getLongitud();
@@ -339,7 +336,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                 if (response.isSuccessful()) {
                     try {
                         Estaciones estResponse = response.body();
-                        EstacionDetalleFragment miFragment = new EstacionDetalleFragment(estResponse, distancia, myLocation);
+                        EstacionDetalleFragment miFragment = new EstacionDetalleFragment(estResponse, distancia, myLocation, sharedViewModel);
                         //viewMap.setVisibility(View.GONE);
                     /*LatLng myPosition = new LatLng(inndexLocationService.getMyLocation().getLatitude(),
                             inndexLocationService.getMyLocation().getLongitude());*/
@@ -492,8 +489,9 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onStart() {
         super.onStart();
-
     }
+
+
 
     private void initCluster() {
         mapService.setEstaciones(estaciones);

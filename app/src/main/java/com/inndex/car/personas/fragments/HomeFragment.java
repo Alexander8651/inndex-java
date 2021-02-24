@@ -33,9 +33,6 @@ public class HomeFragment extends Fragment {
     public RelativeLayout layBtnIndicaciones;
 
     private SharedViewModel sharedViewModel;
-    private static final int HOME_CLICKED = 1;
-    private static final int FILTER_CLICKED = 2;
-    private static final int FAVOURITES_CLICKED = 3;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -75,8 +72,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //mViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-
         sharedViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         sharedViewModel.getEvents().observe(getViewLifecycleOwner(),
                 integer -> {
@@ -91,19 +86,8 @@ public class HomeFragment extends Fragment {
                             break;
                     }
                 });
+
+
     }
 
-    private void onItemMenuClick(int itemClicked) {
-
-        switch (itemClicked) {
-            case HOME_CLICKED:
-                break;
-            case FILTER_CLICKED:
-                navController.navigate(R.id.estacionesFiltrosFragment);
-                break;
-            case FAVOURITES_CLICKED:
-                navController.navigate(R.id.estacionesFavoritasFragment);
-                break;
-        }
-    }
 }
