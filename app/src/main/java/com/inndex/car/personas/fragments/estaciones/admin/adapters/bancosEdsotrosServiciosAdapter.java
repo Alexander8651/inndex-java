@@ -37,6 +37,7 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
     @Override
     public void onBindViewHolder(@NonNull bancosEdsotrosServiciosAdapter.Viewholder holder, int position) {
 
+        holder.setIsRecyclable(false);
         final Bancos bancos = bancosServicio.get(position);
         holder.nombreBanco.setText(bancos.getNombre());
 

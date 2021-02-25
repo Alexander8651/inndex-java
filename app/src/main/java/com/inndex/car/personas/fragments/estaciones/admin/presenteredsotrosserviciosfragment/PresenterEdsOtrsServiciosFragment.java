@@ -184,8 +184,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setListCorresponsales(bancosEdsotrosServiciosAdapter.obtenerListaBancos());
-            Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
-
             validateCorresponsales();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
@@ -202,7 +200,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
 
         PuntosPagoAdapter puntosPagoAdapter = new PuntosPagoAdapter(puntoPagos, (ArrayList<PuntoPago>) estaciones.getListPuntosPago());
-
 
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
         cajeros.setAdapter(puntosPagoAdapter);
