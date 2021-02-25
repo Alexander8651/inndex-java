@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.navigation.Navigation;
@@ -157,11 +159,15 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         bancosEdsotrosServiciosAdapter cajerosEdsotrosServicios = new bancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCajeros());
 
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
+        //cajeros.getRecycledViewPool().setMaxRecycledViews(0,0);
         cajeros.setAdapter(cajerosEdsotrosServicios);
+
+
 
         builder.setView(v);
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
-            estaciones.setListCajeros(cajerosEdsotrosServicios.obtenerListaBancos());
+            List<Bancos> listBancos = cajerosEdsotrosServicios.obtenerListaBancos();
+            estaciones.setListCajeros(listBancos);
             validateCajeros();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
@@ -416,15 +422,18 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         iEdsOtrosServiciosFragment.cajerosSeleccionados().setText(context.getString(R.string.selecciona_los_cajeros_electronicos));
         if (estaciones.getListCajeros() != null && estaciones.getListCajeros().size() > 0) {
             iEdsOtrosServiciosFragment.cajerosSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
             for (Bancos e : estaciones.getListCajeros()) {
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+//                iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
 
-                if (estaciones.getListCajeros().size() == 1) {
-                    iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre());
-                } else {
-                    iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
+                if (estaciones.getListCajeros().indexOf(e) == estaciones.getListCajeros().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 1);
                 }
-                iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
             }
+            iEdsOtrosServiciosFragment.cajerosSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
+
         }
     }
 
