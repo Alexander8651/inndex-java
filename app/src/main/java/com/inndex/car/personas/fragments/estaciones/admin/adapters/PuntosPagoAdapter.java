@@ -37,6 +37,8 @@ public class PuntosPagoAdapter extends RecyclerView.Adapter<PuntosPagoAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull PuntosPagoAdapter.ViewHolder holder, int position) {
 
+
+        holder.setIsRecyclable(false);
         final PuntoPago puntoPago = puntoPagosService.get(position);
         holder.puntoPago.setText(puntoPago.getNombre());
 

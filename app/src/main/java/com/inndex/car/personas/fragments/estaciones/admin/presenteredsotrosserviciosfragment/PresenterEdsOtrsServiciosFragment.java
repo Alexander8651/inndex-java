@@ -6,6 +6,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+<<<<<<< HEAD
+=======
+import android.widget.CheckBox;
+>>>>>>> 936853420b9c35999cfd4662b22c8eeb4c5d7689
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -164,11 +168,24 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         cajerosEdsOtroServiciosAdapter.notifyDataSetChanged();
 
+<<<<<<< HEAD
+=======
+        RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
+        //cajeros.getRecycledViewPool().setMaxRecycledViews(0,0);
+        cajeros.setAdapter(cajerosEdsotrosServicios);
+>>>>>>> 936853420b9c35999cfd4662b22c8eeb4c5d7689
+
+
 
         builder.setView(v);
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
+<<<<<<< HEAD
             Log.d("cajerosss", String.valueOf(cajerosEdsOtroServiciosAdapter.obtenerListaBancos().size()));
             estaciones.setListCajeros(cajerosEdsOtroServiciosAdapter.obtenerListaBancos());
+=======
+            List<Bancos> listBancos = cajerosEdsotrosServicios.obtenerListaBancos();
+            estaciones.setListCajeros(listBancos);
+>>>>>>> 936853420b9c35999cfd4662b22c8eeb4c5d7689
             validateCajeros();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
@@ -192,8 +209,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setListCorresponsales(bancosEdsotrosServiciosAdapter.obtenerListaBancos());
-            Log.d("bancorr", String.valueOf(estaciones.getListCajeros().size()));
-
             validateCorresponsales();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
@@ -211,11 +226,16 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         PuntosPagoAdapter puntosPagoAdapter = new PuntosPagoAdapter(puntoPagos, (ArrayList<PuntoPago>) estaciones.getListPuntosPago());
 
+<<<<<<< HEAD
         Log.d("estoooooo",estaciones.getListPuntosPago().get(0).getNombre());
 
 
         ListView cajeros = v.findViewById(R.id.rvCajerosEds);
         //cajeros.setAdapter(puntosPagoAdapter);
+=======
+        RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
+        cajeros.setAdapter(puntosPagoAdapter);
+>>>>>>> 936853420b9c35999cfd4662b22c8eeb4c5d7689
 
         builder.setView(v);
 
@@ -429,15 +449,18 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         iEdsOtrosServiciosFragment.cajerosSeleccionados().setText(context.getString(R.string.selecciona_los_cajeros_electronicos));
         if (estaciones.getListCajeros() != null && estaciones.getListCajeros().size() > 0) {
             iEdsOtrosServiciosFragment.cajerosSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
             for (Bancos e : estaciones.getListCajeros()) {
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+//                iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
 
-                if (estaciones.getListCajeros().size() == 1) {
-                    iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre());
-                } else {
-                    iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
+                if (estaciones.getListCajeros().indexOf(e) == estaciones.getListCajeros().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 1);
                 }
-                iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
             }
+            iEdsOtrosServiciosFragment.cajerosSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
+
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class TiendaAdapter  extends RecyclerView.Adapter<TiendaAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull TiendaAdapter.ViewHolder holder, int position) {
 
+        holder.setIsRecyclable(false);
         final Tiendas tienda =tiendasService.get(position);
         holder.tienda.setText(tienda.getNombre());
 
@@ -48,18 +50,14 @@ public class TiendaAdapter  extends RecyclerView.Adapter<TiendaAdapter.ViewHolde
                 tiendasEditadas.add(tienda);
             }
         }
-
         holder.checkBox.setOnClickListener(v -> {
             if (holder.checkBox.isChecked()) {
                 if (!tiendasEditadas.contains(tienda)) {
                     tiendasEditadas.add(tienda);
-                    Log.d("mejecuti", "poner");
                 }
             } else {
                 tiendasEditadas.remove(tienda);
-                Log.d("mejecutir", tienda.getNombre());
-                Log.d("mejecuti", String.valueOf(tiendasEditadas.size()));
-            }
+           }
         });
 
     }

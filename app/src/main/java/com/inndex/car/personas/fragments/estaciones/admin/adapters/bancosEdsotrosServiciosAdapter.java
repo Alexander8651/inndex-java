@@ -1,5 +1,6 @@
 package com.inndex.car.personas.fragments.estaciones.admin.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,26 +38,27 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
     @Override
     public void onBindViewHolder(@NonNull bancosEdsotrosServiciosAdapter.Viewholder holder, int position) {
 
+        holder.setIsRecyclable(false);
         final Bancos bancos = bancosServicio.get(position);
         holder.nombreBanco.setText(bancos.getNombre());
 
-        for (int i = 0; i < bancosEstacion.size(); i++) {
-
-            Long idBanco = bancosEstacion.get(i).getId();
-
-            if (bancos.getId().equals(idBanco)) {
+        for (Bancos bancoEstacion : bancosEstacion) {
+            if (bancos.getId().equals(bancoEstacion.getId())) {
                 holder.checkBox.setChecked(true);
-                editada.add(bancos);
+                editada.add(bancoEstacion);
+                break;
             }
         }
 
+
         holder.checkBox.setOnCheckedChangeListener((v, b) -> {
+            Log.e("CHECK", "bancos ");
             if (b) {
-                if (!editada.contains(bancos)) {
-                    editada.add(bancos);
+                if (!bancosEstacion.contains(bancos)) {
+                    bancosEstacion.add(bancos);
                 }
             } else {
-                editada.remove(bancos);
+                bancosEstacion.remove(bancos);
             }
         });
     }
@@ -64,9 +66,9 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
     @Override
     public void onViewRecycled(@NonNull Viewholder holder) {
 
-        if (holder.checkBox != null) {
+        /*if (holder.checkBox != null) {
             holder.checkBox.setOnClickListener(null);
-        }
+        }*/
         super.onViewRecycled(holder);
     }
 
@@ -76,7 +78,7 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
     }
 
     public ArrayList<Bancos> obtenerListaBancos() {
-        return editada;
+        return bancosEstacion;
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
