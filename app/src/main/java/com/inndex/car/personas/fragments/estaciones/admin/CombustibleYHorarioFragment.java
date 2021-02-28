@@ -1,5 +1,6 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +74,8 @@ public class CombustibleYHorarioFragment extends Fragment {
         TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
         titulo.setText("Combustibles y horarios");
         btnBack = view.findViewById(R.id.btnBack);
+
+        requireActivity().getWindow().setStatusBarColor(Color.BLACK);
 
         btnBack.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp()

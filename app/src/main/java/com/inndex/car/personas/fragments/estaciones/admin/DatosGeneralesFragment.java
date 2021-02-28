@@ -1,7 +1,10 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -29,6 +33,7 @@ import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.IPresenterDataGeneralFragment;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.PresenterDatosGeneralesFragment;
+import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.MarcaEstacion;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -42,8 +47,8 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
 
     private View view;
     private GoogleMap map;
-    private MapView mapView;
-    private Button btnActualizar, btnGuardarCambios;
+    private MapView mapView, map_datos_generales_actualizar;
+    private Button btnActualizar, btnGuardarCambios, btn_listo;
     private float lat;
     private float lon;
     //private ImageView img_estacion;
@@ -138,6 +143,41 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         btnBack.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
         });
+        btnActualizar.setOnClickListener(v -> {
+            Log.d("meejecuto","meejecuto");
+
+
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            LayoutInflater inflater1 = LayoutInflater.from(requireContext());
+            View view = inflater1.inflate(R.layout.dialogmapadatosgenerales, null);
+
+            builder.setView(view);
+            Dialog dialog = builder.show();
+
+
+            MapView mMapView ;
+            MapsInitializer.initialize(getActivity());
+
+            mMapView = (MapView) view.findViewById(R.id.map_datos_generales_actualizar);
+            btn_listo = view.findViewById(R.id.btn_listo);
+            mMapView.onCreate(null);
+            mMapView.onResume();// needed to get the map to display immediately
+
+            mMapView.getMapAsync(googleMap -> {
+                float zoom = 16F;
+                LatLng centerMap = new LatLng(lat, lon);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
+                //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
+                googleMap.addMarker(new MarkerOptions().position(centerMap));
+                mMapView.setClickable(false);
+
+                btn_listo.setOnClickListener(v1 ->{
+                    dialog.dismiss();
+                });
+
+            });
+        });
 
 
         return view;
@@ -153,11 +193,6 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             mapView.onResume();
             mapView.getMapAsync(this);
         }
-
-        btnActualizar.setOnClickListener(v -> {
-            //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fijarUbicacionFragment);
-
-        });
 
         lat = (float) estacion.getLatitud();
         lon = (float) estacion.getLongitud();

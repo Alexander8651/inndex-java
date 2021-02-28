@@ -183,12 +183,21 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         BancosEdsotrosServiciosAdapter cajerosEdsotrosServicios = new BancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCajeros());
 
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
-        //cajeros.getRecycledViewPool().setMaxRecycledViews(0,0);
         cajeros.setAdapter(cajerosEdsotrosServicios);
 
+        //cajerosEdsOtroServiciosAdapter.notifyDataSetChanged();
+
+
+        RecyclerView cajeross = v.findViewById(R.id.rvCajerosEds);
+        //cajeros.getRecycledViewPool().setMaxRecycledViews(0,0);
+        cajeross.setAdapter(cajerosEdsotrosServicios);
 
         builder.setView(v);
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
+
+            Log.d("cajerosss", String.valueOf(cajerosEdsotrosServicios.obtenerListaBancos().size()));
+            estaciones.setListCajeros(cajerosEdsotrosServicios.obtenerListaBancos());
+
             List<Bancos> listBancos = cajerosEdsotrosServicios.obtenerListaBancos();
             estaciones.setListCajeros(listBancos);
             validateCajeros();
@@ -230,8 +239,14 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         PuntosPagoAdapter puntosPagoAdapter = new PuntosPagoAdapter(puntoPagos, (ArrayList<PuntoPago>) estaciones.getListPuntosPago());
 
-        RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
-        cajeros.setAdapter(puntosPagoAdapter);
+
+        Log.d("estoooooo",estaciones.getListPuntosPago().get(0).getNombre());
+
+
+        ListView cajeros = v.findViewById(R.id.rvCajerosEds);
+        //cajeros.setAdapter(puntosPagoAdapter);
+        RecyclerView puntosPago = v.findViewById(R.id.rvCajerosEds);
+        puntosPago.setAdapter(puntosPagoAdapter);
 
         builder.setView(v);
 

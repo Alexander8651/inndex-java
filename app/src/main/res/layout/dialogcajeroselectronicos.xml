@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,13 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCajerosEds"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="22"
-        tools:listitem="@layout/itemcajero" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCajerosEds"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="22"
+            tools:listitem="@layout/itemcajero" />
 
 </LinearLayout>
