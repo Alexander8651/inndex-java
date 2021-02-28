@@ -12,6 +12,7 @@ import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.MarcaEstacion;
 import com.inndex.car.personas.model.MarcaVehiculos;
+import com.inndex.car.personas.model.Mensajeria;
 import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
@@ -171,6 +172,12 @@ public interface InndexApiServices {
      */
     @GET(IApiUrlConstants.GET_METODOS_PAGO)
     Call<List<MetodoPago>> getMetodosPago();
+
+    /**
+     * MENSAJERIA
+     */
+    @GET(IApiUrlConstants.GET_MENSAJERIA)
+    Call<List<Mensajeria>> getMensajeria();
 
     /**
      * MODELOS CARROS

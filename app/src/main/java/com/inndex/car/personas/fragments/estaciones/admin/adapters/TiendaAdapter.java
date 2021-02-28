@@ -12,12 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Tiendas;
 
 import java.util.ArrayList;
 
-public class TiendaAdapter  extends RecyclerView.Adapter<TiendaAdapter.ViewHolder> {
+public class TiendaAdapter extends RecyclerView.Adapter<TiendaAdapter.ViewHolder> {
     ArrayList<Tiendas> tiendasService;
     ArrayList<Tiendas> tiendasEstacion;
     ArrayList<Tiendas> tiendasEditadas = new ArrayList<>();
@@ -38,28 +39,36 @@ public class TiendaAdapter  extends RecyclerView.Adapter<TiendaAdapter.ViewHolde
     public void onBindViewHolder(@NonNull TiendaAdapter.ViewHolder holder, int position) {
 
         holder.setIsRecyclable(false);
-        final Tiendas tienda =tiendasService.get(position);
+        final Tiendas tienda = tiendasService.get(position);
         holder.tienda.setText(tienda.getNombre());
 
         for (int i = 0; i < tiendasEstacion.size(); i++) {
-
             Long idTienda = tiendasEstacion.get(i).getId();
-
             if (tienda.getId().equals(idTienda)) {
                 holder.checkBox.setChecked(true);
                 tiendasEditadas.add(tienda);
             }
         }
-        holder.checkBox.setOnClickListener(v -> {
-            if (holder.checkBox.isChecked()) {
-                if (!tiendasEditadas.contains(tienda)) {
-                    tiendasEditadas.add(tienda);
-                }
-            } else {
-                tiendasEditadas.remove(tienda);
-           }
-        });
+        holder.checkBox.setOnCheckedChangeListener((v,b) -> {
 
+            Tiendas tiendaSelected = tiendasService.get(position);
+            boolean exists = false;
+            int positionInBancosEstacion = 0;
+            for (int i = 0; i < tiendasEstacion.size(); i++) {
+                if(tiendasEstacion.get(i).getId().equals(tiendaSelected.getId())) {
+                    exists = true;
+                    positionInBancosEstacion = i;
+                    break;
+                }
+            }
+
+            if (!exists && b){
+                tiendasEstacion.add(tiendaSelected);
+            } else
+            {
+                tiendasEstacion.remove(positionInBancosEstacion);
+            }
+        });
     }
 
     @Override
@@ -67,7 +76,7 @@ public class TiendaAdapter  extends RecyclerView.Adapter<TiendaAdapter.ViewHolde
         return tiendasService.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox checkBox;
         TextView tienda;
@@ -79,7 +88,7 @@ public class TiendaAdapter  extends RecyclerView.Adapter<TiendaAdapter.ViewHolde
         }
     }
 
-    public ArrayList<Tiendas> obtenerListaTiendas(){
-        return tiendasEditadas;
+    public ArrayList<Tiendas> obtenerListaTiendas() {
+        return tiendasEstacion;
     }
 }

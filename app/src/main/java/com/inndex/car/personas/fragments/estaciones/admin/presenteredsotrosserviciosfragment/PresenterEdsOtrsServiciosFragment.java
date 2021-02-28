@@ -2,12 +2,9 @@ package com.inndex.car.personas.fragments.estaciones.admin.presenteredsotrosserv
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.navigation.Navigation;
@@ -15,14 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
+import com.inndex.car.personas.fragments.estaciones.admin.adapters.MensajeriaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.MetodosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.PuntosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.SegurosAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.TiendaAdapter;
-import com.inndex.car.personas.fragments.estaciones.admin.adapters.bancosEdsotrosServiciosAdapter;
+import com.inndex.car.personas.fragments.estaciones.admin.adapters.BancosEdsotrosServiciosAdapter;
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Hotel;
+import com.inndex.car.personas.model.Mensajeria;
 import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Restaurante;
@@ -48,6 +47,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     IEdsOtrosServiciosFragment iEdsOtrosServiciosFragment;
     Estaciones estaciones;
     List<Bancos> bancos;
+    List<Mensajeria> listMensajeria;
     ArrayList<PuntoPago> puntoPagos;
     ArrayList<Tiendas> tiendas;
     ArrayList<Soat> soats;
@@ -59,15 +59,16 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         this.iEdsOtrosServiciosFragment = iEdsOtrosServiciosFragment;
         this.estaciones = estaciones;
         helper = OpenHelperManager.getHelper(context, DataBaseHelper.class);
-        setearOtrosServicosData();
+
         setearChecbox();
         obtenerBancos();
         obtenerPuntosPago();
         obtenerTiendasConvivencia();
         obtenerSeguros();
         obtenerMetodosPago();
-        guardarCambios();
-
+        obtenerMensajeria();
+        iEdsOtrosServiciosFragment.botonGuardar().setOnClickListener(this::guardarCambios
+        );
     }
 
     @Override
@@ -77,7 +78,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             Dao<Bancos, Long> daoBancos = helper.getDaoBancos();
             bancos = daoBancos.queryForAll();
             Collections.sort(bancos, (b1, b2) -> b1.getNombre().compareTo(b2.getNombre()));
-
+            validateCorresponsales();
+            validateCajeros();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -91,6 +93,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             public void onResponse(Call<List<PuntoPago>> call, Response<List<PuntoPago>> response) {
                 if (response.isSuccessful()) {
                     puntoPagos = (ArrayList<PuntoPago>) response.body();
+                    validatePuntosPago();
                 }
             }
 
@@ -107,10 +110,10 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         tiendasCall.enqueue(new Callback<List<Tiendas>>() {
             @Override
             public void onResponse(Call<List<Tiendas>> call, Response<List<Tiendas>> response) {
-
                 if (response.isSuccessful()) {
                     tiendas = (ArrayList<Tiendas>) response.body();
                     Collections.sort(tiendas, (b1, b2) -> b1.getNombre().compareTo(b2.getNombre()));
+                    validateTiendas();
                 }
             }
 
@@ -129,6 +132,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             public void onResponse(Call<List<Soat>> call, Response<List<Soat>> response) {
                 if (response.isSuccessful()) {
                     soats = (ArrayList<Soat>) response.body();
+                    validateSoat();
                 }
             }
 
@@ -144,9 +148,29 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         try {
             Dao<MetodoPago, Long> metodoPagoDao = helper.getDaoMetodoPago();
             metodoPagoList = metodoPagoDao.queryForAll();
+            validateMetodosPago();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    @Override
+    public void obtenerMensajeria() {
+        Call<List<Mensajeria>> mensajeriaCall = MedidorApiAdapter.getApiService().getMensajeria();
+        mensajeriaCall.enqueue(new Callback<List<Mensajeria>>() {
+            @Override
+            public void onResponse(Call<List<Mensajeria>> call, Response<List<Mensajeria>> response) {
+                if (response.isSuccessful()) {
+                    listMensajeria = response.body();
+                    validateMensajeria();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Mensajeria>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -156,12 +180,11 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
 
-        bancosEdsotrosServiciosAdapter cajerosEdsotrosServicios = new bancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCajeros());
+        BancosEdsotrosServiciosAdapter cajerosEdsotrosServicios = new BancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCajeros());
 
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
         //cajeros.getRecycledViewPool().setMaxRecycledViews(0,0);
         cajeros.setAdapter(cajerosEdsotrosServicios);
-
 
 
         builder.setView(v);
@@ -182,7 +205,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
 
-        bancosEdsotrosServiciosAdapter bancosEdsotrosServiciosAdapter = new bancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCorresponsales());
+        BancosEdsotrosServiciosAdapter bancosEdsotrosServiciosAdapter = new BancosEdsotrosServiciosAdapter(bancos, (ArrayList<Bancos>) estaciones.getListCorresponsales());
         RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
         cajeros.setAdapter(bancosEdsotrosServiciosAdapter);
 
@@ -293,6 +316,27 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     }
 
     @Override
+    public void mostrarDialogoMensajeria() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
+        MensajeriaAdapter adapter = new MensajeriaAdapter(listMensajeria, estaciones.getListMensajeria());
+
+        RecyclerView rvMensajeria = v.findViewById(R.id.rvCajerosEds);
+        rvMensajeria.setAdapter(adapter);
+
+        builder.setView(v);
+
+        builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
+            estaciones.setListMensajeria(adapter.obtenerListaMensajeria());
+            validateMensajeria();
+        });
+        builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
+        }));
+        builder.show();
+    }
+
+    @Override
     public void setearChecbox() {
 
         if (estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
@@ -338,77 +382,75 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     }
 
     @Override
-    public void guardarCambios() {
-        iEdsOtrosServiciosFragment.botonGuardar().setOnClickListener(v -> {
+    public void guardarCambios(View v) {
 
-            Estaciones estacionOnlyId = new Estaciones();
-            estacionOnlyId.setId(estaciones.getId());
+        Estaciones estacionOnlyId = new Estaciones();
+        estacionOnlyId.setId(estaciones.getId());
 
-            //restauurants have been removed
-            if (!iEdsOtrosServiciosFragment.restaurante().isChecked() && estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
-                estaciones.setListRestaurantes(null);
-            } else {
-                Restaurante restaurante = new Restaurante();
-                restaurante.setEstaciones(estacionOnlyId);
-                restaurante.setNombre("AUTO-GENERATED");
-                List<Restaurante> listRestaurante = new ArrayList<>();
-                listRestaurante.add(restaurante);
-                estaciones.setListRestaurantes(listRestaurante);
+        //restauurants have been removed
+        if (estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0 && !iEdsOtrosServiciosFragment.restaurante().isChecked()) {
+
+            estaciones.setListRestaurantes(null);
+        } else if (iEdsOtrosServiciosFragment.restaurante().isChecked()) {
+            Restaurante restaurante = new Restaurante();
+            restaurante.setEstaciones(estacionOnlyId);
+            restaurante.setNombre("AUTO-GENERATED");
+            List<Restaurante> listRestaurante = new ArrayList<>();
+            listRestaurante.add(restaurante);
+            estaciones.setListRestaurantes(listRestaurante);
+        }
+
+        //hotels have been removed
+        if (estaciones.getListHoteles() != null && estaciones.getListHoteles().size() > 0 && !iEdsOtrosServiciosFragment.hotel().isChecked()) {
+            estaciones.setListHoteles(null);
+        } else if (iEdsOtrosServiciosFragment.hotel().isChecked()) {
+            Hotel hotel = new Hotel();
+            hotel.setEstaciones(estacionOnlyId);
+            hotel.setNombre("AUTO-GENERATED");
+            List<Hotel> listHotel = new ArrayList<>();
+            listHotel.add(hotel);
+            estaciones.setListHoteles(listHotel);
+        }
+
+        estaciones.setTieneBanios(iEdsOtrosServiciosFragment.baniosPublicos().isChecked());
+        estaciones.setTieneVentaLubricante(iEdsOtrosServiciosFragment.lubricantes().isChecked());
+        estaciones.setTieneLlanteria(iEdsOtrosServiciosFragment.llanteria().isChecked());
+        estaciones.setTieneLavadero(iEdsOtrosServiciosFragment.lavadero().isChecked());
+
+        estaciones.setTieneDroguerias(iEdsOtrosServiciosFragment.cbFarmacia().isChecked());
+        estaciones.setTieneServiteca(iEdsOtrosServiciosFragment.cbServiteca().isChecked());
+
+        //Gson gson = new Gson();
+        //Log.e("EST", gson.toJson(estaciones));
+
+        Call<ResponseServices> guardar = MedidorApiAdapter.getApiService().updateStationOtherServices(estaciones);
+        guardar.enqueue(new Callback<ResponseServices>() {
+            @Override
+            public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
+
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "INFORMACION ACTUALIZADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(v).navigateUp();
+                } else {
+                    Toast.makeText(context, "CODE " + response.code(), Toast.LENGTH_SHORT).show();
+
+                }
             }
 
-            //hotels have been removed
-            if (!iEdsOtrosServiciosFragment.hotel().isChecked() && estaciones.getListHoteles() != null && estaciones.getListHoteles().size() > 0) {
-                estaciones.setListHoteles(null);
-            } else {
-                Hotel hotel = new Hotel();
-                hotel.setEstaciones(estacionOnlyId);
-                hotel.setNombre("AUTO-GENERATED");
-                List<Hotel> listHotel = new ArrayList<>();
-                listHotel.add(hotel);
-                estaciones.setListHoteles(listHotel);
+            @Override
+            public void onFailure(Call<ResponseServices> call, Throwable t) {
+                Toast.makeText(context, "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-            estaciones.setTieneBanios(iEdsOtrosServiciosFragment.baniosPublicos().isChecked());
-            estaciones.setTieneVentaLubricante(iEdsOtrosServiciosFragment.lubricantes().isChecked());
-            estaciones.setTieneLlanteria(iEdsOtrosServiciosFragment.llanteria().isChecked());
-            estaciones.setTieneLavadero(iEdsOtrosServiciosFragment.lavadero().isChecked());
-
-            estaciones.setTieneDroguerias(iEdsOtrosServiciosFragment.cbFarmacia().isChecked());
-            estaciones.setTieneServiteca(iEdsOtrosServiciosFragment.cbServiteca().isChecked());
-
-            //Gson gson = new Gson();
-            //Log.e("EST", gson.toJson(estaciones));
-
-            Call<ResponseServices> guardar = MedidorApiAdapter.getApiService().updateStationOtherServices(estaciones);
-            guardar.enqueue(new Callback<ResponseServices>() {
-                @Override
-                public void onResponse(Call<ResponseServices> call, Response<ResponseServices> response) {
-
-                    if (response.isSuccessful()) {
-                        Toast.makeText(context, "INFORMACION ACTUALIZADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(v).navigateUp();
-                    } else {
-                        Toast.makeText(context, "CODE " + response.code(), Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseServices> call, Throwable t) {
-                    Toast.makeText(context, "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
         });
+
     }
 
     @Override
     public void setearOtrosServicosData() {
-        validateTiendas();
-        validateCajeros();
-        validateCorresponsales();
-        validatePuntosPago();
-        validateMetodosPago();
+
+    }
+
+    private void validateSoat() {
         if (estaciones.getSoat() != null) {
             iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
             iEdsOtrosServiciosFragment.segurosSeleccionados().append(estaciones.getSoat().getNombre());
@@ -425,15 +467,12 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             StringBuilder stringBuilder = new StringBuilder();
             for (Bancos e : estaciones.getListCajeros()) {
                 stringBuilder.append(e.getNombre()).append(",").append(" ");
-//                iEdsOtrosServiciosFragment.cajerosSeleccionados().append(e.getNombre() + "," + " ");
-
                 if (estaciones.getListCajeros().indexOf(e) == estaciones.getListCajeros().size() - 1) {
-                    stringBuilder.setLength(stringBuilder.length() - 1);
+                    stringBuilder.setLength(stringBuilder.length() - 2);
                 }
             }
             iEdsOtrosServiciosFragment.cajerosSeleccionados().setText(stringBuilder.toString());
             iEdsOtrosServiciosFragment.cajerosSeleccionados().setGravity(Gravity.CENTER);
-
         }
     }
 
@@ -442,14 +481,15 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         if (estaciones.getListCorresponsales() != null && estaciones.getListCorresponsales().size() > 0) {
             iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
             for (Bancos e : estaciones.getListCorresponsales()) {
-                if (estaciones.getListCorresponsales().size() == 1) {
-                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre());
-                } else {
-                    iEdsOtrosServiciosFragment.corresponsalesSeleccionados().append(e.getNombre() + "," + " ");
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListCorresponsales().indexOf(e) == estaciones.getListCorresponsales().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
                 }
-                iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setGravity(Gravity.CENTER);
             }
+            iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.corresponsalesSeleccionados().setGravity(Gravity.CENTER);
         }
     }
 
@@ -459,15 +499,15 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         );
         if (estaciones.getListMetodosPago() != null && estaciones.getListMetodosPago().size() > 0) {
             iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
             for (MetodoPago e : estaciones.getListMetodosPago()) {
-
-                if (estaciones.getListMetodosPago().size() == 0) {
-                    iEdsOtrosServiciosFragment.metodosPagoSeleccionados().append(e.getNombre());
-                } else {
-                    iEdsOtrosServiciosFragment.metodosPagoSeleccionados().append(e.getNombre() + "," + " ");
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListMetodosPago().indexOf(e) == estaciones.getListMetodosPago().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
                 }
-                iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setGravity(Gravity.CENTER);
             }
+            iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.metodosPagoSeleccionados().setGravity(Gravity.CENTER);
         }
     }
 
@@ -475,18 +515,17 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         iEdsOtrosServiciosFragment.tiendasSeleccionados().setText(
                 context.getString(R.string.selecciona_las_tiendas)
         );
-
         if (estaciones.getListTiendas() != null && estaciones.getListTiendas().size() > 0) {
             iEdsOtrosServiciosFragment.tiendasSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
             for (Tiendas e : estaciones.getListTiendas()) {
-
-                if (estaciones.getListTiendas().size() == 0) {
-                    iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre());
-                } else {
-                    iEdsOtrosServiciosFragment.tiendasSeleccionados().append(e.getNombre() + "," + " ");
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListTiendas().indexOf(e) == estaciones.getListTiendas().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
                 }
-                iEdsOtrosServiciosFragment.tiendasSeleccionados().setGravity(Gravity.CENTER);
             }
+            iEdsOtrosServiciosFragment.tiendasSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.tiendasSeleccionados().setGravity(Gravity.CENTER);
         }
     }
 
@@ -495,14 +534,32 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         if (estaciones.getListPuntosPago() != null && estaciones.getListPuntosPago().size() > 0) {
             iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
             for (PuntoPago e : estaciones.getListPuntosPago()) {
-                if (estaciones.getListPuntosPago().size() == 1) {
-                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre());
-                } else {
-                    iEdsOtrosServiciosFragment.puntosPagoSeleccionados().append(e.getNombre() + "," + " ");
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListPuntosPago().indexOf(e) == estaciones.getListPuntosPago().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
                 }
-                iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setGravity(Gravity.CENTER);
             }
+            iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.puntosPagoSeleccionados().setGravity(Gravity.CENTER);
+        }
+    }
+
+    private void validateMensajeria() {
+        iEdsOtrosServiciosFragment.mensajeriaSeleccionados().setText(context.getString(R.string.selecciona_las_empresas_de_mensajer_a));
+
+        if (estaciones.getListMensajeria() != null && estaciones.getListMensajeria().size() > 0) {
+            iEdsOtrosServiciosFragment.mensajeriaSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Mensajeria e : estaciones.getListMensajeria()) {
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListMensajeria().indexOf(e) == estaciones.getListMensajeria().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
+                }
+            }
+            iEdsOtrosServiciosFragment.mensajeriaSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.mensajeriaSeleccionados().setGravity(Gravity.CENTER);
         }
     }
 }

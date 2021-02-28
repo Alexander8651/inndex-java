@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.model.MetodoPago;
+import com.inndex.car.personas.model.Tiendas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
     List<MetodoPago> metodoPagoEstacion;
     List<MetodoPago> metodoPagoEditado = new ArrayList<>();
 
-    public MetodosPagoAdapter(List<MetodoPago> metodoPagoService, List<MetodoPago> metodoPagoEstacion ){
+    public MetodosPagoAdapter(List<MetodoPago> metodoPagoService, List<MetodoPago> metodoPagoEstacion) {
         this.metodoPagoService = metodoPagoService;
         this.metodoPagoEstacion = metodoPagoEstacion;
     }
@@ -51,17 +52,24 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
             }
         }
 
-        holder.checkBox.setOnClickListener(v -> {
-            if (holder.checkBox.isChecked()) {
-                if (!metodoPagoEditado.contains(metodoPago)) {
-                    metodoPagoEditado.add(metodoPago);
+        holder.checkBox.setOnCheckedChangeListener((v, b) -> {
+            MetodoPago metodoPagoSelected = metodoPagoService.get(position);
+            boolean exists = false;
+            int positionInBancosEstacion = 0;
+            for (int i = 0; i < metodoPagoEstacion.size(); i++) {
+                if (metodoPagoEstacion.get(i).getId().equals(metodoPagoSelected.getId())) {
+                    exists = true;
+                    positionInBancosEstacion = i;
+                    break;
                 }
+            }
+
+            if (!exists && b) {
+                metodoPagoEstacion.add(metodoPagoSelected);
             } else {
-                metodoPagoEditado.remove(metodoPago);
+                metodoPagoEstacion.remove(positionInBancosEstacion);
             }
         });
-
-
     }
 
     @Override
@@ -69,7 +77,7 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
         return metodoPagoService.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox checkBox;
         TextView tvMetodoPago;
@@ -82,7 +90,7 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
         }
     }
 
-    public List<MetodoPago> obtenerListapuntosPago(){
-        return metodoPagoEditado;
+    public List<MetodoPago> obtenerListapuntosPago() {
+        return metodoPagoEstacion;
     }
 }

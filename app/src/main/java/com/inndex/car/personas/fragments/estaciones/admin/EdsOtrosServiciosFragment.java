@@ -26,8 +26,9 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     private ImageButton btnBack;
     private TextView titulo, cajerosSeleccionados, corresponsalesSeleccionados, puntosPagoSeleccionados, tiendasSeleccionados, segurosSeleccionados;
     private TextView metodosPagoSeleccionados;
+    private TextView tvMensajeriaSeleccionados;
     private Estaciones estacion;
-    private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia, soat, cvMetodosPago;
+    private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia, soat, cvMetodosPago, cvMensajeria;
     private Button guardarUsuario;
     private CheckBox restaurate, hotel, banios, lubricantes, llanteria, lavadero;
     private CheckBox cbFarmacia, cbServiteca;
@@ -57,6 +58,7 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         tiendasConvivencia = root.findViewById(R.id.tiendas_convivencia_otros_servicios);
         soat = root.findViewById(R.id.soat_otros_servicios);
         cvMetodosPago = root.findViewById(R.id.metodos_pago_otros_servicios);
+        cvMensajeria = root.findViewById(R.id.cvMensajeria);
         guardarUsuario = root.findViewById(R.id.guardar_usuario);
 
         cajerosSeleccionados = root.findViewById(R.id.cajerosSeleccionados);
@@ -65,6 +67,7 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         tiendasSeleccionados = root.findViewById(R.id.tiendasSeleccionados);
         segurosSeleccionados = root.findViewById(R.id.segurosSeleccionados);
         metodosPagoSeleccionados = root.findViewById(R.id.metodosPagoSeleccionados);
+        tvMensajeriaSeleccionados = root.findViewById(R.id.tvMensajeria);
 
         restaurate = root.findViewById(R.id.estacionRestaurante);
         hotel = root.findViewById(R.id.estacionHotel);
@@ -104,8 +107,9 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         cvMetodosPago.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoMetodosPago();
         });
-
-
+        cvMensajeria.setOnClickListener(v -> {
+            iPresenterEdsOtrosServicios.mostrarDialogoMensajeria();
+        });
         return root;
     }
 
@@ -192,5 +196,10 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     @Override
     public TextView metodosPagoSeleccionados() {
         return metodosPagoSeleccionados;
+    }
+
+    @Override
+    public TextView mensajeriaSeleccionados() {
+        return tvMensajeriaSeleccionados;
     }
 }

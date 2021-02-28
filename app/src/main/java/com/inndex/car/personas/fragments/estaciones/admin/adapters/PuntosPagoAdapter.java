@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.model.PuntoPago;
+import com.inndex.car.personas.model.Tiendas;
 
 import java.util.ArrayList;
 
@@ -43,25 +44,29 @@ public class PuntosPagoAdapter extends RecyclerView.Adapter<PuntosPagoAdapter.Vi
         holder.puntoPago.setText(puntoPago.getNombre());
 
         for (int i = 0; i < puntoPagosEstacion.size(); i++) {
-
             Long idPuntoPago = puntoPagosEstacion.get(i).getId();
-
             if (puntoPago.getId().equals(idPuntoPago)) {
                 holder.checkBox.setChecked(true);
                 puntoPagosEditado.add(puntoPago);
             }
         }
 
-        holder.checkBox.setOnClickListener(v -> {
-            if (holder.checkBox.isChecked()) {
-                if (!puntoPagosEditado.contains(puntoPago)) {
-                    puntoPagosEditado.add(puntoPago);
-                    Log.d("mejecuti", "poner");
+        holder.checkBox.setOnCheckedChangeListener((v,b) -> {
+            PuntoPago puntoSelected = puntoPagosService.get(position);
+            boolean exists = false;
+            int positionInBancosEstacion = 0;
+            for (int i = 0; i < puntoPagosEstacion.size(); i++) {
+                if(puntoPagosEstacion.get(i).getId().equals(puntoSelected.getId())) {
+                    exists = true;
+                    positionInBancosEstacion = i;
+                    break;
                 }
-            } else {
-                puntoPagosEditado.remove(puntoPago);
-                Log.d("mejecutir", puntoPago.getNombre());
-                Log.d("mejecuti", String.valueOf(puntoPagosEditado.size()));
+            }
+            if (!exists && b){
+                puntoPagosEstacion.add(puntoSelected);
+            } else
+            {
+                puntoPagosEstacion.remove(positionInBancosEstacion);
             }
         });
 
@@ -86,6 +91,6 @@ public class PuntosPagoAdapter extends RecyclerView.Adapter<PuntosPagoAdapter.Vi
     }
 
     public ArrayList<PuntoPago> obtenerListapuntosPago(){
-        return puntoPagosEditado;
+        return puntoPagosEstacion;
     }
 }

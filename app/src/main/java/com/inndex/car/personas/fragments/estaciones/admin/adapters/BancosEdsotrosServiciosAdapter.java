@@ -1,6 +1,5 @@
 package com.inndex.car.personas.fragments.estaciones.admin.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,27 +15,27 @@ import com.inndex.car.personas.model.Bancos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosEdsotrosServiciosAdapter.Viewholder> {
+public class BancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<BancosEdsotrosServiciosAdapter.Viewholder> {
 
     List<Bancos> bancosServicio;
     ArrayList<Bancos> bancosEstacion;
     ArrayList<Bancos> editada = new ArrayList<>();
 
 
-    public bancosEdsotrosServiciosAdapter(List<Bancos> bancosServicio, ArrayList<Bancos> bancosEstacion) {
+    public BancosEdsotrosServiciosAdapter(List<Bancos> bancosServicio, ArrayList<Bancos> bancosEstacion) {
         this.bancosServicio = bancosServicio;
         this.bancosEstacion = bancosEstacion;
     }
 
     @NonNull
     @Override
-    public bancosEdsotrosServiciosAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BancosEdsotrosServiciosAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemcajero, parent, false);
         return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull bancosEdsotrosServiciosAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull BancosEdsotrosServiciosAdapter.Viewholder holder, int position) {
 
         holder.setIsRecyclable(false);
         final Bancos bancos = bancosServicio.get(position);
@@ -49,17 +48,26 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
                 break;
             }
         }
-
-
         holder.checkBox.setOnCheckedChangeListener((v, b) -> {
-            Log.e("CHECK", "bancos ");
-            if (b) {
-                if (!bancosEstacion.contains(bancos)) {
-                    bancosEstacion.add(bancos);
+
+            Bancos bancoSelected = bancosServicio.get(position);
+            boolean exists = false;
+            int positionInBancosEstacion = 0;
+            for (int i = 0; i < bancosEstacion.size(); i++) {
+                if(bancosEstacion.get(i).getId().equals(bancoSelected.getId())) {
+                    exists = true;
+                    positionInBancosEstacion = i;
+                    break;
                 }
-            } else {
-                bancosEstacion.remove(bancos);
             }
+
+            if (!exists && b){
+                bancosEstacion.add(bancoSelected);
+            } else 
+            {
+                bancosEstacion.remove(positionInBancosEstacion);
+            }
+
         });
     }
 

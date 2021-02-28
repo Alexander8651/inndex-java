@@ -35,4 +35,6 @@ public interface IEdsOtrosServiciosFragment {
     TextView segurosSeleccionados();
 
     TextView metodosPagoSeleccionados();
+
+    TextView mensajeriaSeleccionados();
 }

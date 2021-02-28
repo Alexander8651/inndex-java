@@ -73,6 +73,8 @@ public class Estaciones implements Serializable, Parcelable {
 
     private List<Tiendas> listTiendas;
 
+    private List<Mensajeria> listMensajeria;
+
     private List<PuntoPago> listPuntosPago;
 
     private List<MetodoPago> listMetodosPago;
@@ -371,6 +373,14 @@ public class Estaciones implements Serializable, Parcelable {
 
     public void setListPuntosPago(List<PuntoPago> listPuntosPago) {
         this.listPuntosPago = listPuntosPago;
+    }
+
+    public List<Mensajeria> getListMensajeria() {
+        return listMensajeria;
+    }
+
+    public void setListMensajeria(List<Mensajeria> listMensajeria) {
+        this.listMensajeria = listMensajeria;
     }
 
     public Soat getSoat() {

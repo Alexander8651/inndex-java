@@ -18,4 +18,7 @@ public interface IApiUrlConstants {
     //ESTACIONES
     String GET_ESTACIONES_NEAR_USER = "estaciones/getNearUser";
 
+    //MENSAJERIA
+    String GET_MENSAJERIA = "mensajeria/getAll";
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InndexCar</string>
+    <string name="app_name">Inndex</string>
     <string name="tab1">Ingresado</string>
     <string name="tab2">Rendimiento</string>
     <string name="title_activity_combustible">Medir Combustible</string>
@@ -272,6 +272,8 @@
     <string name="enviar_correo">Enviar correo</string>
     <string name="mensaje_admin">Si eres dueño, gerente ó administrador de una estación de servicios y solo tú quieres gestionar y editar la información de tu EDS. Comunícate con nosotros al correo:</string>
     <string name="inndex_email">inndexco@gmail.com</string>
+    <string name="mensajeria">Mensajería</string>
+    <string name="selecciona_las_empresas_de_mensajer_a">Selecciona las empresas de mensajería</string>
 
     <string-array name="modelo">
         <item>2021</item>

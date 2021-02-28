@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clMensajeria"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tituloMensajeria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/mensajeria"
+            android:textSize="@dimen/text_titulos_secciones"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/mensajeriaCuatroSetentayDos"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/cuatro_setenta_y_dos"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaAvianca"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/avianca"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaCadena"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/cadena"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaCaliExpress"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/caliexpress"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaCarvajal"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/carvajal"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaCentaurus"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/centaurus"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaCoordinadora"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/coordinadora"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaCopetran"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/copetran"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaDeprisa"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/deprisa"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaDhl"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/dhl"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaDomesa"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/domesa"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaDomina"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/domina"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaEis"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/eis"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaEnvia"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/envia"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaFedex"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/fedex"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaInterRapidisimo"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/interrapidisimo"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaMC"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/mc"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaServientrega"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/servientrega"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaTempoExpress"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/tempo_express"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/mensajeriaThomasExpress"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/thomas_express"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/gray_separator_services" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
