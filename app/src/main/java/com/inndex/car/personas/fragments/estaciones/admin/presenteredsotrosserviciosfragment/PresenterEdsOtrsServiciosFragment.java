@@ -195,7 +195,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         builder.setView(v);
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
 
-            Log.d("cajerosss", String.valueOf(cajerosEdsotrosServicios.obtenerListaBancos().size()));
             estaciones.setListCajeros(cajerosEdsotrosServicios.obtenerListaBancos());
 
             List<Bancos> listBancos = cajerosEdsotrosServicios.obtenerListaBancos();
@@ -240,10 +239,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         PuntosPagoAdapter puntosPagoAdapter = new PuntosPagoAdapter(puntoPagos, (ArrayList<PuntoPago>) estaciones.getListPuntosPago());
 
 
-        Log.d("estoooooo",estaciones.getListPuntosPago().get(0).getNombre());
-
-
-        ListView cajeros = v.findViewById(R.id.rvCajerosEds);
         //cajeros.setAdapter(puntosPagoAdapter);
         RecyclerView puntosPago = v.findViewById(R.id.rvCajerosEds);
         puntosPago.setAdapter(puntosPagoAdapter);
@@ -281,7 +276,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
         builder.show();
-
     }
 
     @Override
