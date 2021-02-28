@@ -1,37 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hola"/>
-=======
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
->>>>>>> eb8f83881391df8ac78d6fa5fc2c9ff4a8317964
 
-    <ListView
-        android:id="@+id/rvCajerosEds"
-        android:layout_width="match_parent"
-<<<<<<< HEAD
-        android:layout_height="200dp"
-        tools:listitem="@layout/itemcajero"/>
-=======
-        android:layout_height="400dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="22"
-        tools:listitem="@layout/itemcajero" />
 
->>>>>>> eb8f83881391df8ac78d6fa5fc2c9ff4a8317964
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCajerosEds"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="22"
+            tools:listitem="@layout/itemcajero" />
 
 </LinearLayout>

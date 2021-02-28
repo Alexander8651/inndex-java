@@ -50,7 +50,6 @@ public class bancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<bancosE
             }
         }
 
-
         holder.checkBox.setOnCheckedChangeListener((v, b) -> {
             Log.e("CHECK", "bancos ");
             if (b) {
