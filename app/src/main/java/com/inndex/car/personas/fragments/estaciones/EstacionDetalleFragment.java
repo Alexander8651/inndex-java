@@ -119,7 +119,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                 if (item.getItemId() == R.id.compartir) {
 
                 } else if (item.getItemId() == R.id.reportar_problema) {
-                    iPresenterDetalles.MostrarDialogReportes();
+                    iPresenterDetalles.mostrarDialogReportes(estaciones.getId());
                 } else if (item.getItemId() == R.id.editar) {
                     iPresenterDetalles.editarEDS(estaciones);
                 }

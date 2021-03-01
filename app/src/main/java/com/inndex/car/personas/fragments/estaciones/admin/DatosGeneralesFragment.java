@@ -42,7 +42,6 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallback {
 
     private View view;
@@ -58,6 +57,8 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     String[] array;
     private EditText et_cel, et_direccion_eds;
     private IPresenterDataGeneralFragment iPresenterDataGeneralFragment;
+    float zoom = 16F;
+    private LatLng estacionPosition;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,7 +118,7 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
                     }
                 }
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Toast.makeText(requireActivity(), "NO SE PUDO INICIALIZAR LA MARCA.", Toast.LENGTH_SHORT).show();
         }
 
@@ -132,57 +133,67 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         et_cel.setText(estacion.getTelefono());
         et_direccion_eds.setText(estacion.getDireccion());
 
-        btnGuardarCambios.setOnClickListener(v -> {
-            //Toast.makeText(view.getContext(), "Se han guardado los cambios", Toast.LENGTH_SHORT).show();
-            estacion.setNombre(nombreEds.getText().toString());
-            estacion.setDireccion(et_direccion_eds.getText().toString());
-            estacion.setTelefono(et_cel.getText().toString());
-
-            iPresenterDataGeneralFragment.actualizarDataGeneral(estacion, v);
-        });
-        btnBack.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
-        });
-        btnActualizar.setOnClickListener(v -> {
-            Log.d("meejecuto","meejecuto");
-
-
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            LayoutInflater inflater1 = LayoutInflater.from(requireContext());
-            View view = inflater1.inflate(R.layout.dialogmapadatosgenerales, null);
-
-            builder.setView(view);
-            Dialog dialog = builder.show();
-
-
-            MapView mMapView ;
-            MapsInitializer.initialize(getActivity());
-
-            mMapView = (MapView) view.findViewById(R.id.map_datos_generales_actualizar);
-            btn_listo = view.findViewById(R.id.btn_listo);
-            mMapView.onCreate(null);
-            mMapView.onResume();// needed to get the map to display immediately
-
-            mMapView.getMapAsync(googleMap -> {
-                float zoom = 16F;
-                LatLng centerMap = new LatLng(lat, lon);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
-                //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
-                googleMap.addMarker(new MarkerOptions().position(centerMap));
-                mMapView.setClickable(false);
-
-                btn_listo.setOnClickListener(v1 ->{
-                    dialog.dismiss();
-                });
-
-            });
-        });
-
-
+        btnGuardarCambios.setOnClickListener(this::guardarCambios);
+        btnBack.setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp()
+        );
+        btnActualizar.setOnClickListener(v -> showMapDialog());
         return view;
     }
 
+    private void showMapDialog() {
+        Log.d("meejecuto", "meejecuto");
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        LayoutInflater inflater1 = LayoutInflater.from(requireContext());
+        View view = inflater1.inflate(R.layout.dialogmapadatosgenerales, null);
+
+        builder.setView(view);
+        Dialog dialog = builder.show();
+
+        MapView mMapView;
+        MapsInitializer.initialize(getActivity());
+
+        mMapView = view.findViewById(R.id.map_datos_generales_actualizar);
+        btn_listo = view.findViewById(R.id.btn_listo);
+        mMapView.onCreate(null);
+        mMapView.onResume();// needed to get the map to display immediately
+
+        mMapView.getMapAsync(googleMap -> {
+            LatLng centerMap = new LatLng(lat, lon);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
+            //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
+            //googleMap.addMarker(new MarkerOptions().position(centerMap));
+            mMapView.setClickable(false);
+
+            googleMap.setOnCameraIdleListener(() -> {
+                estacionPosition = googleMap.getCameraPosition().target;
+            });
+            btn_listo.setOnClickListener(v1 -> {
+                updateMap();
+                dialog.dismiss();
+            });
+        });
+    }
+
+    private void guardarCambios(View v) {
+        estacion.setNombre(nombreEds.getText().toString());
+        estacion.setDireccion(et_direccion_eds.getText().toString());
+        estacion.setTelefono(et_cel.getText().toString());
+        if (estacionPosition != null) {
+            estacion.setLatitud(estacionPosition.latitude);
+            estacion.setLongitud(estacionPosition.longitude);
+        }
+        iPresenterDataGeneralFragment.actualizarDataGeneral(estacion, v);
+    }
+
+    private void updateMap() {
+        if (estacionPosition != null) {
+            lat = (float) estacionPosition.latitude;
+            lon = (float) estacionPosition.longitude;
+            onMapReady(map);
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -205,9 +216,8 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        float zoom = 16F;
+        map.clear();
         LatLng centerMap = new LatLng(lat, lon);
-
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
         //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
         map.addMarker(new MarkerOptions().position(centerMap));

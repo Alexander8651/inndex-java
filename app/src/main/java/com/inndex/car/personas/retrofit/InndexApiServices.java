@@ -5,8 +5,9 @@ import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Departamento;
+import com.inndex.car.personas.model.EstacionCalificacion;
 import com.inndex.car.personas.model.EstacionCombustibles;
-import com.inndex.car.personas.model.EstacionProblema;
+import com.inndex.car.personas.model.EstacionReporte;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.LineasVehiculos;
@@ -120,12 +121,6 @@ public interface InndexApiServices {
     Call<Promocion> postSavePromocion(@Body Promocion promocion);
 
     /**
-     * ESTACION PROBLEMA
-     */
-    @POST(IApiUrlConstants.POST_SAVE_ESTACION_PROBLEMA)
-    Call<EstacionProblema> postSaveEstacionProblema(@Body EstacionProblema problema);
-
-    /**
      * COMBUSTIBLES
      */
     @GET(Constantes.GET_COMBUSTIBLES_ALL)
@@ -185,6 +180,18 @@ public interface InndexApiServices {
     @GET(Constantes.GET_LINEAS_VEHICULOS_BY_MARCA)
     Call<List<LineasVehiculos>> getLineasVehiculosByMarca(
             @Query("idMarca") Long idMarca);
+
+    /**
+     * ESTACION REPORTE
+     */
+    @POST(IApiUrlConstants.POST_SAVE_ESTACION_REPORTE)
+    Call<EstacionReporte> postEstacionReporteSave(@Body EstacionReporte estacionReporte);
+
+    /**
+     * ESTACION CALIFICACION
+     */
+    @POST(IApiUrlConstants.POST_ESTACION_CALIFICACION_SAVE)
+    Call<EstacionCalificacion> postEstacionCalificacionSave(@Body EstacionCalificacion estacionCalificacion);
 
     /**
      * RECORRIDOS

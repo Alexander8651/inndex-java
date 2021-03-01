@@ -10,14 +10,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.inndex.car.personas.R;
-import com.inndex.car.personas.model.EstacionProblema;
+import com.inndex.car.personas.enums.ETipoReporte;
+import com.inndex.car.personas.model.EstacionReporte;
 import com.inndex.car.personas.model.Estaciones;
+import com.inndex.car.personas.model.TipoReporte;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 import com.inndex.car.personas.shared.SharedViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class PresenterDetalles implements IPresenterDetalles {
 
@@ -32,8 +35,9 @@ public class PresenterDetalles implements IPresenterDetalles {
     }
 
     @Override
-    public void MostrarDialogReportes() {
+    public void mostrarDialogReportes(Long idEstacion) {
 
+        Estaciones estacionSeleccionada = new Estaciones(idEstacion);
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 
         dialog.setTitle("¿Que problema hay?");
@@ -47,28 +51,30 @@ public class PresenterDetalles implements IPresenterDetalles {
             RadioButton rbDuplicado = v.findViewById(R.id.rbDuplicado);
             RadioButton rbCerradoMovido = v.findViewById(R.id.rbCerradoMovido);
             RadioButton rbDetallesIncorrectos = v.findViewById(R.id.rbDetallesIncorrectos);
-            EstacionProblema estacionProblema = new EstacionProblema();
+            EstacionReporte estacionReporte = new EstacionReporte();
+            TipoReporte tipoReporte = new TipoReporte();
 
             if (rbDuplicado.isChecked()) {
-                estacionProblema.setNombre("Duplicado");
+                tipoReporte.setId(ETipoReporte.DUPLICADO.getId());
             } else if (rbCerradoMovido.isChecked()) {
-                estacionProblema.setNombre("Cerrado o movido");
+                tipoReporte.setId(ETipoReporte.CERRADO_O_MOVIDO.getId());
             } else if (rbDetallesIncorrectos.isChecked()) {
-                estacionProblema.setNombre("Detalles incorrectos");
+                tipoReporte.setId(ETipoReporte.DETALLES_INCORRECTOS.getId());
             }
 
-            Call<EstacionProblema> estacionProblemaCall = MedidorApiAdapter.getApiService().postSaveEstacionProblema(estacionProblema);
-            estacionProblemaCall.enqueue(new Callback<EstacionProblema>() {
-                @Override
-                public void onResponse(@NonNull Call<EstacionProblema> call, @NonNull Response<EstacionProblema> response) {
+            estacionReporte.setTipoReporte(tipoReporte);
+            estacionReporte.setEstaciones(estacionSeleccionada);
 
+            Call<EstacionReporte> estacionReporteCall = MedidorApiAdapter.getApiService().postEstacionReporteSave(estacionReporte);
+            estacionReporteCall.enqueue(new Callback<EstacionReporte>() {
+                @Override
+                public void onResponse(@NonNull Call<EstacionReporte> call, @NonNull Response<EstacionReporte> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(context, "Se creo el reporte", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
-                public void onFailure(@NonNull Call<EstacionProblema> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<EstacionReporte> call, @NonNull Throwable t) {
                 }
             });
         }));

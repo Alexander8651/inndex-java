@@ -10,10 +10,14 @@ public interface IApiUrlConstants {
     // ESTACION COMBUSTIBLES
     String POST_SAVE_ALL_ESTACION_COMBUSTIBLE = "estaciones/update-fuel";
 
-    //ESTACION PROBLEMA
-    String POST_SAVE_ESTACION_PROBLEMA = "estacion-problema/save";
+    //ESTACION REPORTE
+    String POST_SAVE_ESTACION_REPORTE = "estacion-reporte/save";
+
     String GET_MARCAS_ESTACIONES = "marca-estacion/getAll";
     String GET_METODOS_PAGO = "metodos-pago/getAll";
+
+    //ESTACION CALIFICACION
+    String POST_ESTACION_CALIFICACION_SAVE = "estacion-calificacion/save";
 
     //ESTACIONES
     String GET_ESTACIONES_NEAR_USER = "estaciones/getNearUser";

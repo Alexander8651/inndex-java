@@ -9,6 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/bottom_menu_filtros_selector"
+        android:contentDescription="@string/mensajeria"/>
+
     <Button
         android:id="@+id/btn_listo"
         android:layout_width="350dp"

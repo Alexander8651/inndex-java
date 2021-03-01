@@ -89,6 +89,10 @@ public class Estaciones implements Serializable, Parcelable {
     public Estaciones() {
     }
 
+    public Estaciones(Long id) {
+        this.id = id;
+    }
+
     public Estaciones(String nombre, double latitud, double longitud) {
         this.nombre = nombre;
         this.latitud = latitud;

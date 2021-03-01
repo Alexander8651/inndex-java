@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         //View view = activityMainBinding.getRoot();
         setContentView(R.layout.activity_main);
-        this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        this.getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         SharedPreferences preferences = getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
 
