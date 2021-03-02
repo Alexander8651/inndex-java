@@ -1,6 +1,5 @@
 package com.inndex.car.personas.fragments.estaciones.admin.adapters;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,15 +41,14 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
         final MetodoPago metodoPago = metodoPagoService.get(position);
         holder.tvMetodoPago.setText(metodoPago.getNombre());
 
-        for (int i = 0; i < metodoPagoEstacion.size(); i++) {
-
-            Long id = metodoPagoEstacion.get(i).getId();
-
-            if (metodoPago.getId().equals(id)) {
-                holder.checkBox.setChecked(true);
-                metodoPagoEditado.add(metodoPago);
+        if (metodoPagoEstacion != null)
+            for (int i = 0; i < metodoPagoEstacion.size(); i++) {
+                Long id = metodoPagoEstacion.get(i).getId();
+                if (metodoPago.getId().equals(id)) {
+                    holder.checkBox.setChecked(true);
+                    metodoPagoEditado.add(metodoPago);
+                }
             }
-        }
 
         holder.checkBox.setOnCheckedChangeListener((v, b) -> {
             MetodoPago metodoPagoSelected = metodoPagoService.get(position);
@@ -63,7 +61,6 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
                     break;
                 }
             }
-
             if (!exists && b) {
                 metodoPagoEstacion.add(metodoPagoSelected);
             } else {
@@ -86,7 +83,6 @@ public class MetodosPagoAdapter extends RecyclerView.Adapter<MetodosPagoAdapter.
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkboxBanco);
             tvMetodoPago = itemView.findViewById(R.id.nombreBanco);
-
         }
     }
 

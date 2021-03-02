@@ -2,9 +2,14 @@ package com.inndex.car.personas.fragments.estaciones.admin.presenteredsotrosserv
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.navigation.Navigation;
@@ -15,7 +20,6 @@ import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.MensajeriaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.MetodosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.PuntosPagoAdapter;
-import com.inndex.car.personas.fragments.estaciones.admin.adapters.SegurosAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.TiendaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.BancosEdsotrosServiciosAdapter;
 import com.inndex.car.personas.model.Bancos;
@@ -34,6 +38,7 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -281,25 +286,27 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     @Override
     public void mostrarDialogoSoat() {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
-        SegurosAdapter soat = new SegurosAdapter(soats, estaciones.getSoat());
-
-        RecyclerView cajeros = v.findViewById(R.id.rvCajerosEds);
-        cajeros.setAdapter(soat);
-
-        builder.setView(v);
-
-        builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
-            estaciones.setSoat(soat.obtenerSoat());
-            iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
-
-            iEdsOtrosServiciosFragment.segurosSeleccionados().append(estaciones.getSoat().getNombre());
-            iEdsOtrosServiciosFragment.segurosSeleccionados().setGravity(Gravity.CENTER);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.BlackDialogTheme);
+        String[] soatNombres = new String[soats.size()];
+        int checkedItem = -1;
+        for (int i = 0; i < soats.size(); i++) {
+            soatNombres[i] = soats.get(i).getNombre();
+            if (estaciones.getSoat() != null && soats.get(i).getId().equals(estaciones.getSoat().getId()))
+                checkedItem = i;
+        }
+        builder.setSingleChoiceItems(soatNombres, checkedItem, (dialog, which) -> {
+            Soat seguroSelected = soats.get(which);
+            estaciones.setSoat(seguroSelected);
         });
+        builder.setPositiveButton("Aceptar", (dialogInterface, i) ->
+                validateSoat()
+        );
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
+        builder.setNeutralButton("Eliminar", (dialogInterface, i) -> {
+           estaciones.setSoat(null);
+           validateSoat();
+        });
         builder.show();
     }
 
@@ -460,8 +467,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     }
 
     private void validateSoat() {
+        iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
         if (estaciones.getSoat() != null) {
-            iEdsOtrosServiciosFragment.segurosSeleccionados().setText("");
             iEdsOtrosServiciosFragment.segurosSeleccionados().append(estaciones.getSoat().getNombre());
             iEdsOtrosServiciosFragment.segurosSeleccionados().setGravity(Gravity.CENTER);
         } else {

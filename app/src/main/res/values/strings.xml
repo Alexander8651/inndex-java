@@ -274,6 +274,7 @@
     <string name="inndex_email">inndexco@gmail.com</string>
     <string name="mensajeria">Mensajería</string>
     <string name="selecciona_las_empresas_de_mensajer_a">Selecciona las empresas de mensajería</string>
+    <string name="editar_eds">Editar EDS</string>
 
     <string-array name="modelo">
         <item>2021</item>

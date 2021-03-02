@@ -2,6 +2,7 @@ package com.inndex.car.personas.fragments.estaciones.admin;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,11 +37,14 @@ import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGenerale
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.MarcaEstacion;
+import com.inndex.car.personas.utils.Constantes;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallback {
 
@@ -111,7 +115,7 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
 
                 }
             });
-            if (estacion.getMarca() != null) {
+            if (estacion != null && estacion.getMarca() != null) {
                 for (int i = 0; i < array.length; i++) {
                     if (array[i].equals(estacion.getMarca())) {
                         spMarcaGaso.setSelection(i);
@@ -129,9 +133,7 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         btnActualizar.setBackgroundColor(Color.BLACK);
         btnActualizar.setTextColor(Color.WHITE);
 
-        nombreEds.setText(estacion.getNombre());
-        et_cel.setText(estacion.getTelefono());
-        et_direccion_eds.setText(estacion.getDireccion());
+        initViewsData();
 
         btnGuardarCambios.setOnClickListener(this::guardarCambios);
         btnBack.setOnClickListener(v ->
@@ -177,8 +179,24 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     }
 
     private void guardarCambios(View v) {
-        estacion.setNombre(nombreEds.getText().toString());
-        estacion.setDireccion(et_direccion_eds.getText().toString());
+
+        String nombre = nombreEds.getText().toString();
+        String direccion = et_direccion_eds.getText().toString();
+        if (nombre.equals("")) {
+            Toast.makeText(getContext(), "DEBE INGRESAR UN NOMBRE", Toast.LENGTH_SHORT).show();
+            nombreEds.requestFocus();
+            return;
+        }
+
+        if (direccion.equals("")) {
+            Toast.makeText(getContext(), "DEBE INGRESAR UNA DIRECCIÓN", Toast.LENGTH_SHORT).show();
+            et_direccion_eds.requestFocus();
+            return;
+        }
+
+
+        estacion.setNombre(nombre);
+        estacion.setDireccion(direccion);
         estacion.setTelefono(et_cel.getText().toString());
         if (estacionPosition != null) {
             estacion.setLatitud(estacionPosition.latitude);
@@ -204,17 +222,20 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             mapView.onResume();
             mapView.getMapAsync(this);
         }
-
-        lat = (float) estacion.getLatitud();
-        lon = (float) estacion.getLongitud();
-
-        /*img_estacion.setOnClickListener(v -> {
-            //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fotoEdsFragment);
-        });*/
+        if (estacion.getLatitud() == 0.0 && estacion.getLongitud() == 0.0) {
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+            double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+            double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+            estacion.setLongitud(longitud);
+            estacion.setLatitud(latitud);
+        }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        lat = (float) estacion.getLatitud();
+        lon = (float) estacion.getLongitud();
         map = googleMap;
         map.clear();
         LatLng centerMap = new LatLng(lat, lon);
@@ -222,5 +243,14 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
         map.addMarker(new MarkerOptions().position(centerMap));
         mapView.setClickable(false);
+    }
+
+    private void initViewsData() {
+
+        if (estacion != null) {
+            nombreEds.setText(estacion.getNombre());
+            et_cel.setText(estacion.getTelefono());
+            et_direccion_eds.setText(estacion.getDireccion());
+        }
     }
 }

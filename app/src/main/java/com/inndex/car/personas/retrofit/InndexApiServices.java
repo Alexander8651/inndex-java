@@ -21,6 +21,7 @@ import com.inndex.car.personas.model.Promocion;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Soat;
 import com.inndex.car.personas.model.Tanqueadas;
+import com.inndex.car.personas.model.Textos;
 import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.model.UnidadRecorrido;
 import com.inndex.car.personas.model.Usuario;
@@ -79,7 +80,7 @@ public interface InndexApiServices {
                                                @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_GENERAL_DATA)
-    Call<ResponseServices> updateStationGeneralData(
+    Call<Estaciones> updateStationGeneralData(
             @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_SCHEDULE)
@@ -230,4 +231,10 @@ public interface InndexApiServices {
      */
     @GET(Constantes.GET_MUNICIPIOS_BY_DEPT_ID)
     Call<List<Municipio>> getMunicipiosByDeptId(@Query("id") Long id);
+
+    /**
+     * TEXTOS
+     */
+    @GET(IApiUrlConstants.GET_TEXTO_BY_ID)
+    Call<Textos> getTextoById(@Query("id") Long id);
 }

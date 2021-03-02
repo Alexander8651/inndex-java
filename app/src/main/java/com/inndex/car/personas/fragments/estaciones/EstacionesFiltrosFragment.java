@@ -246,9 +246,9 @@ public class EstacionesFiltrosFragment extends Fragment {
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_calificacion);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Calificación");
-        builder.setSingleChoiceItems(opciones, opcionCalificacionSelected, (dialog, which) -> {
-            opcionCalificacionSelected = which;
-        });
+        builder.setSingleChoiceItems(opciones, opcionCalificacionSelected, (dialog, which) ->
+            opcionCalificacionSelected = which
+        );
         builder.setPositiveButton("OK", (dialog, which) -> {
             tvFiltroCalificacion.setText(opciones[opcionCalificacionSelected]);
             dialog.dismiss();

@@ -43,6 +43,9 @@ public class PuntosPagoAdapter extends RecyclerView.Adapter<PuntosPagoAdapter.Vi
         final PuntoPago puntoPago = puntoPagosService.get(position);
         holder.puntoPago.setText(puntoPago.getNombre());
 
+        if(puntoPagosEstacion == null)
+            puntoPagosEstacion = new ArrayList<>();
+
         for (int i = 0; i < puntoPagosEstacion.size(); i++) {
             Long idPuntoPago = puntoPagosEstacion.get(i).getId();
             if (puntoPago.getId().equals(idPuntoPago)) {

@@ -42,6 +42,9 @@ public class TiendaAdapter extends RecyclerView.Adapter<TiendaAdapter.ViewHolder
         final Tiendas tienda = tiendasService.get(position);
         holder.tienda.setText(tienda.getNombre());
 
+        if (tiendasEstacion == null)
+            tiendasEstacion = new ArrayList<>();
+
         for (int i = 0; i < tiendasEstacion.size(); i++) {
             Long idTienda = tiendasEstacion.get(i).getId();
             if (tienda.getId().equals(idTienda)) {
@@ -49,23 +52,22 @@ public class TiendaAdapter extends RecyclerView.Adapter<TiendaAdapter.ViewHolder
                 tiendasEditadas.add(tienda);
             }
         }
-        holder.checkBox.setOnCheckedChangeListener((v,b) -> {
+        holder.checkBox.setOnCheckedChangeListener((v, b) -> {
 
             Tiendas tiendaSelected = tiendasService.get(position);
             boolean exists = false;
             int positionInBancosEstacion = 0;
             for (int i = 0; i < tiendasEstacion.size(); i++) {
-                if(tiendasEstacion.get(i).getId().equals(tiendaSelected.getId())) {
+                if (tiendasEstacion.get(i).getId().equals(tiendaSelected.getId())) {
                     exists = true;
                     positionInBancosEstacion = i;
                     break;
                 }
             }
 
-            if (!exists && b){
+            if (!exists && b) {
                 tiendasEstacion.add(tiendaSelected);
-            } else
-            {
+            } else {
                 tiendasEstacion.remove(positionInBancosEstacion);
             }
         });

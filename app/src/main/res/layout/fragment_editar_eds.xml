@@ -15,12 +15,11 @@
         <include layout="@layout/my_toolbar"/>
 
         <LinearLayout
-            android:id="@+id/datos_generales"
+            android:id="@+id/llDatosGenerales"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="15dp">
-
 
             <TextView
                 android:id="@+id/tv_datos_generales"
@@ -40,12 +39,11 @@
             android:background="@color/colorPrimary"/>
 
         <LinearLayout
-            android:id="@+id/combustible_y_horarios"
+            android:id="@+id/llCombustibleHorarios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="15dp">
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -64,6 +62,7 @@
             android:background="@color/colorPrimary"/>
 
         <LinearLayout
+            android:id="@+id/llOtrosServicios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -87,7 +86,7 @@
             android:background="@color/colorPrimary"/>
 
         <LinearLayout
-            android:id="@+id/promociones"
+            android:id="@+id/llPromociones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

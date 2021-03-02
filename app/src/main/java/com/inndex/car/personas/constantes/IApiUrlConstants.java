@@ -25,4 +25,7 @@ public interface IApiUrlConstants {
     //MENSAJERIA
     String GET_MENSAJERIA = "mensajeria/getAll";
 
+    //textos
+    String GET_TEXTO_BY_ID = "textos/getById";
+
 }

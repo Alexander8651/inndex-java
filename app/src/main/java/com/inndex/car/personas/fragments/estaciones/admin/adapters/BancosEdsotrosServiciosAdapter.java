@@ -41,6 +41,10 @@ public class BancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<BancosE
         final Bancos bancos = bancosServicio.get(position);
         holder.nombreBanco.setText(bancos.getNombre());
 
+        if(bancosEstacion == null){
+            bancosEstacion = new ArrayList<>();
+        }
+
         for (Bancos bancoEstacion : bancosEstacion) {
             if (bancos.getId().equals(bancoEstacion.getId())) {
                 holder.checkBox.setChecked(true);
