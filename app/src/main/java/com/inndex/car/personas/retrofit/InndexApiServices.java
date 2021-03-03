@@ -5,13 +5,15 @@ import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Combustibles;
 import com.inndex.car.personas.model.Departamento;
+import com.inndex.car.personas.model.EstacionCalificacion;
 import com.inndex.car.personas.model.EstacionCombustibles;
-import com.inndex.car.personas.model.EstacionProblema;
+import com.inndex.car.personas.model.EstacionReporte;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Estados;
 import com.inndex.car.personas.model.LineasVehiculos;
 import com.inndex.car.personas.model.MarcaEstacion;
 import com.inndex.car.personas.model.MarcaVehiculos;
+import com.inndex.car.personas.model.Mensajeria;
 import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.Municipio;
 import com.inndex.car.personas.model.Pais;
@@ -19,6 +21,7 @@ import com.inndex.car.personas.model.Promocion;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Soat;
 import com.inndex.car.personas.model.Tanqueadas;
+import com.inndex.car.personas.model.Textos;
 import com.inndex.car.personas.model.Tiendas;
 import com.inndex.car.personas.model.UnidadRecorrido;
 import com.inndex.car.personas.model.Usuario;
@@ -77,7 +80,7 @@ public interface InndexApiServices {
                                                @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_GENERAL_DATA)
-    Call<ResponseServices> updateStationGeneralData(
+    Call<Estaciones> updateStationGeneralData(
             @Body Estaciones estaciones);
 
     @PUT(Constantes.UPDATE_STATION_SCHEDULE)
@@ -117,12 +120,6 @@ public interface InndexApiServices {
 
     @POST(IApiUrlConstants.POST_SAVE_PROMOCION)
     Call<Promocion> postSavePromocion(@Body Promocion promocion);
-
-    /**
-     * ESTACION PROBLEMA
-     */
-    @POST(IApiUrlConstants.POST_SAVE_ESTACION_PROBLEMA)
-    Call<EstacionProblema> postSaveEstacionProblema(@Body EstacionProblema problema);
 
     /**
      * COMBUSTIBLES
@@ -173,11 +170,29 @@ public interface InndexApiServices {
     Call<List<MetodoPago>> getMetodosPago();
 
     /**
+     * MENSAJERIA
+     */
+    @GET(IApiUrlConstants.GET_MENSAJERIA)
+    Call<List<Mensajeria>> getMensajeria();
+
+    /**
      * MODELOS CARROS
      */
     @GET(Constantes.GET_LINEAS_VEHICULOS_BY_MARCA)
     Call<List<LineasVehiculos>> getLineasVehiculosByMarca(
             @Query("idMarca") Long idMarca);
+
+    /**
+     * ESTACION REPORTE
+     */
+    @POST(IApiUrlConstants.POST_SAVE_ESTACION_REPORTE)
+    Call<EstacionReporte> postEstacionReporteSave(@Body EstacionReporte estacionReporte);
+
+    /**
+     * ESTACION CALIFICACION
+     */
+    @POST(IApiUrlConstants.POST_ESTACION_CALIFICACION_SAVE)
+    Call<EstacionCalificacion> postEstacionCalificacionSave(@Body EstacionCalificacion estacionCalificacion);
 
     /**
      * RECORRIDOS
@@ -216,4 +231,10 @@ public interface InndexApiServices {
      */
     @GET(Constantes.GET_MUNICIPIOS_BY_DEPT_ID)
     Call<List<Municipio>> getMunicipiosByDeptId(@Query("id") Long id);
+
+    /**
+     * TEXTOS
+     */
+    @GET(IApiUrlConstants.GET_TEXTO_BY_ID)
+    Call<Textos> getTextoById(@Query("id") Long id);
 }

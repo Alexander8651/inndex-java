@@ -2,15 +2,15 @@ package com.inndex.car.personas.model;
 
 import java.io.Serializable;
 
-public class EstacionProblema implements Serializable {
+public class TipoReporte implements Serializable {
 
-    private static final long serialVersionUID = 5753635278466659564L;
+    private static final long serialVersionUID = 5753235278466659563L;
 
     private Long id;
 
     private String nombre;
 
-    public EstacionProblema() {
+    public TipoReporte() {
     }
 
     public Long getId() {
@@ -28,5 +28,4 @@ public class EstacionProblema implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }

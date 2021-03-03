@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,15 +7,8 @@
         android:id="@+id/checkboxBanco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/colorPrimary"
-        />
-    <RadioButton
-        android:id="@+id/radiobuttonBanco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:buttonTint="@color/colorPrimary"
-        android:visibility="gone"
-        />
+        android:buttonTint="@color/colorPrimary" />
+
 
     <TextView
         android:id="@+id/nombreBanco"

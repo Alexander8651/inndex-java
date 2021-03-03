@@ -4,7 +4,7 @@ import com.inndex.car.personas.model.Estaciones;
 
 public interface IPresenterDetalles {
 
-    void MostrarDialogReportes();
+    void mostrarDialogReportes(Long idEstacion);
 
     void editarEDS(Estaciones estacion);
 

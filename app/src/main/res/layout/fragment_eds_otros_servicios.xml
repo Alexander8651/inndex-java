@@ -156,6 +156,33 @@
                 android:background="@color/colorPrimary" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvMensajeria"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tvMensajeria"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_las_empresas_de_mensajer_a"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/soat_otros_servicios"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/altootrosservicios"
@@ -165,6 +192,7 @@
                     android:id="@+id/segurosSeleccionados"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto_light"

@@ -28,6 +28,7 @@ import com.inndex.car.personas.adapter.ExpLAdapter;
 import com.inndex.car.personas.enums.EBancos;
 import com.inndex.car.personas.enums.ECombustibles;
 import com.inndex.car.personas.enums.EEvents;
+import com.inndex.car.personas.enums.EMensajeria;
 import com.inndex.car.personas.enums.EMetodosPago;
 import com.inndex.car.personas.enums.EPuntoPago;
 import com.inndex.car.personas.enums.ESoat;
@@ -39,6 +40,7 @@ import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.EstacionCombustibles;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Horario;
+import com.inndex.car.personas.model.Mensajeria;
 import com.inndex.car.personas.model.MetodoPago;
 import com.inndex.car.personas.model.PuntoPago;
 import com.inndex.car.personas.model.Tiendas;
@@ -117,7 +119,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                 if (item.getItemId() == R.id.compartir) {
 
                 } else if (item.getItemId() == R.id.reportar_problema) {
-                    iPresenterDetalles.MostrarDialogReportes();
+                    iPresenterDetalles.mostrarDialogReportes(estaciones.getId());
                 } else if (item.getItemId() == R.id.editar) {
                     iPresenterDetalles.editarEDS(estaciones);
                 }
@@ -152,7 +154,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         cajeros(root);
         initCorresponsales(root);
         puntosPago(root);
-        tiendasConvivencia(root);
+        tiendasConveniencia(root);
         soat(root);
         restaurantes(root);
         hotel(root);
@@ -162,6 +164,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         llanteria(root);
         lavaderos(root);
         metodosPago(root);
+        mensajeria(root);
         initServiteca(root);
 
         if (distancia < 1000) {
@@ -171,6 +174,99 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f km", distancia));
         }
         return root;
+    }
+
+    private void mensajeria(View root) {
+        if (estaciones.getListMensajeria() != null && estaciones.getListMensajeria().size() > 0) {
+
+            int counter = 0;
+            ImageView imgMensajeria = null;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
+
+            for (Mensajeria mensajeria : estaciones.getListMensajeria()
+            ) {
+
+                switch (EMensajeria.getEMensajeriaById(mensajeria.getId())) {
+                    case AVIANCA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaAvianca);
+                        break;
+                    case CADENA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCadena);
+                        break;
+                    case CALI_EXPRESS:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCaliExpress);
+                        break;
+                    case CANTAURUS_MENSAJEROS:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCentaurus);
+                        break;
+                    case CARVAJAL:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCarvajal);
+                        break;
+                    case COORDINADORA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCoordinadora);
+                        break;
+                    case COPETRAN:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCopetran);
+                        break;
+                    case CUATRO_SETENTA_Y_DOS:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaCuatroSetentayDos);
+                        break;
+                    case DEPRISA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaDeprisa);
+                        break;
+                    case DHL:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaDhl);
+                        break;
+                    case DOMESA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaDomesa);
+                        break;
+                    case DOMINA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaDomina);
+                        break;
+                    case EIS:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaEis);
+                        break;
+                    case ENVIA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaEnvia);
+                        break;
+                    case FEDEX:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaFedex);
+                        break;
+                    case INTERRAPIDISIMO:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaInterRapidisimo);
+                        break;
+                    case MC:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaMC);
+                        break;
+                    case SERVI_ENTREGA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaServientrega);
+                        break;
+                    case THOMAS:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaThomasExpress);
+                        break;
+                    case TIEMPO_EXPRESS:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaTempoExpress);
+                        break;
+
+                }
+
+                if (imgMensajeria != null) {
+                    if (counter == 0) {
+                        params.setMargins(0, 0, 20, 0);
+                        imgMensajeria.setLayoutParams(params);
+                    } else if (counter > 0) {
+                        params.setMargins(20, 0, 20, 0);
+                        imgMensajeria.setLayoutParams(params);
+                    }
+                    imgMensajeria.setVisibility(View.VISIBLE);
+                    counter++;
+                }
+            }
+        } else {
+            ConstraintLayout layout = root.findViewById(R.id.clMensajeria);
+            layout.setVisibility(View.GONE);
+        }
     }
 
     private void initServiteca(View root) {
@@ -701,7 +797,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         }
     }
 
-    private void tiendasConvivencia(View root) {
+    private void tiendasConveniencia(View root) {
         if (estaciones.getListTiendas() != null && estaciones.getListTiendas().size() > 0) {
             int counter = 0;
             ImageView imgTienda = null;
@@ -710,7 +806,11 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             for (Tiendas tienda : estaciones.getListTiendas()) {
                 //
                 if (tienda.getId().equals(ETiendas.TIGER_MARKET.getId())) {
-                    imgTienda = root.findViewById(R.id.puntoPagoBaloto);
+                    imgTienda = root.findViewById(R.id.tiendaTigerMarket);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+                if (tienda.getId().equals(ETiendas.ARA.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaAra);
                     imgTienda.setVisibility(View.VISIBLE);
                 }
 
@@ -743,10 +843,12 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     imgTienda = root.findViewById(R.id.tiendaAltoque);
                     imgTienda.setVisibility(View.VISIBLE);
                 }
+
                 if (tienda.getId().equals(ETiendas.BEST_MART.getId())) {
                     imgTienda = root.findViewById(R.id.tiendaBestMart);
                     imgTienda.setVisibility(View.VISIBLE);
                 }
+
                 if (counter == 0 && imgTienda != null) {
 
                     params.setMargins(0, 0, 20, 0);

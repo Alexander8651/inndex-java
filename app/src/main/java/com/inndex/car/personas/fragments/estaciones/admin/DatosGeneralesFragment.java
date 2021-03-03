@@ -1,7 +1,10 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -29,6 +33,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.IPresenterDataGeneralFragment;
@@ -36,12 +41,14 @@ import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGenerale
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.MarcaEstacion;
+import com.inndex.car.personas.utils.Constantes;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 
 public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallback {
 
@@ -58,6 +65,8 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     String[] array;
     private EditText et_cel, et_direccion_eds;
     private IPresenterDataGeneralFragment iPresenterDataGeneralFragment;
+    float zoom = 16F;
+    private LatLng estacionPosition;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +93,6 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         nombreEds = view.findViewById(R.id.et_nombre_eds);
         et_cel = view.findViewById(R.id.et_cel);
         et_direccion_eds = view.findViewById(R.id.et_direccion_eds);
-
         DataBaseHelper helper = OpenHelperManager.getHelper(this.getContext(), DataBaseHelper.class);
 
         try {
@@ -110,14 +118,14 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
 
                 }
             });
-            if (estacion.getMarca() != null) {
+            if (estacion != null && estacion.getMarca() != null) {
                 for (int i = 0; i < array.length; i++) {
                     if (array[i].equals(estacion.getMarca())) {
                         spMarcaGaso.setSelection(i);
                     }
                 }
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Toast.makeText(requireActivity(), "NO SE PUDO INICIALIZAR LA MARCA.", Toast.LENGTH_SHORT).show();
         }
 
@@ -128,60 +136,106 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         btnActualizar.setBackgroundColor(Color.BLACK);
         btnActualizar.setTextColor(Color.WHITE);
 
-        nombreEds.setText(estacion.getNombre());
-        et_cel.setText(estacion.getTelefono());
-        et_direccion_eds.setText(estacion.getDireccion());
+        initViewsData();
 
-        btnGuardarCambios.setOnClickListener(v -> {
-            //Toast.makeText(view.getContext(), "Se han guardado los cambios", Toast.LENGTH_SHORT).show();
-            estacion.setNombre(nombreEds.getText().toString());
-            estacion.setDireccion(et_direccion_eds.getText().toString());
-            estacion.setTelefono(et_cel.getText().toString());
+        btnGuardarCambios.setOnClickListener(this::guardarCambios);
+        btnBack.setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp()
+        );
+        btnActualizar.setOnClickListener(v -> showMapDialog());
+        return view;
+    }
 
-            iPresenterDataGeneralFragment.actualizarDataGeneral(estacion, v);
+    private void showMapDialog() {
+        Log.d("meejecuto", "meejecuto");
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        LayoutInflater inflater1 = LayoutInflater.from(requireContext());
+        View view = inflater1.inflate(R.layout.dialogmapadatosgenerales, null);
+
+        builder.setView(view);
+        Dialog dialog = builder.show();
+
+        MapView mMapView;
+        MapsInitializer.initialize(getActivity());
+
+        mMapView = view.findViewById(R.id.map_datos_generales_actualizar);
+        FloatingActionButton fabEditarUbicacion = view.findViewById(R.id.fabEditarUbicacion);
+
+
+        btn_listo = view.findViewById(R.id.btn_listo);
+        mMapView.onCreate(null);
+        mMapView.onResume();// needed to get the map to display immediately
+
+        mMapView.getMapAsync(googleMap -> {
+            LatLng centerMap = new LatLng(lat, lon);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
+            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            googleMap.setMyLocationEnabled(true);
+            mMapView.setClickable(false);
+
+            googleMap.setOnCameraIdleListener(() ->
+                    estacionPosition = googleMap.getCameraPosition().target
+            );
+            btn_listo.setOnClickListener(v1 -> {
+                updateMap();
+                dialog.dismiss();
+            });
+            fabEditarUbicacion.setOnClickListener(v -> {
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+                double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+                double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+                LatLng latLng = new LatLng(latitud, longitud);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+            });
         });
-        btnBack.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
-        });
-        btnActualizar.setOnClickListener(v -> {
-            Log.d("meejecuto","meejecuto");
+    }
 
+    private void guardarCambios(View v) {
 
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            LayoutInflater inflater1 = LayoutInflater.from(requireContext());
-            View view = inflater1.inflate(R.layout.dialogmapadatosgenerales, null);
-
-            builder.setView(view);
-            Dialog dialog = builder.show();
-
-
-            MapView mMapView ;
-            MapsInitializer.initialize(getActivity());
-
-            mMapView = (MapView) view.findViewById(R.id.map_datos_generales_actualizar);
-            btn_listo = view.findViewById(R.id.btn_listo);
-            mMapView.onCreate(null);
-            mMapView.onResume();// needed to get the map to display immediately
-
-            mMapView.getMapAsync(googleMap -> {
-                float zoom = 16F;
-                LatLng centerMap = new LatLng(lat, lon);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
-                //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
-                googleMap.addMarker(new MarkerOptions().position(centerMap));
-                mMapView.setClickable(false);
-
+<<<<<<< HEAD
                 btn_listo.setOnClickListener(v1 ->{
                     dialog.dismiss();
                 });
             });
         });
+=======
+        String nombre = nombreEds.getText().toString();
+        String direccion = et_direccion_eds.getText().toString();
+        if (nombre.equals("")) {
+            Toast.makeText(getContext(), "DEBE INGRESAR UN NOMBRE", Toast.LENGTH_SHORT).show();
+            nombreEds.requestFocus();
+            return;
+        }
+
+        if (direccion.equals("")) {
+            Toast.makeText(getContext(), "DEBE INGRESAR UNA DIRECCIÓN", Toast.LENGTH_SHORT).show();
+            et_direccion_eds.requestFocus();
+            return;
+        }
+>>>>>>> 14e4f2e6c92677a7ee4af8f3ab23bb3f141f1eaf
 
 
-        return view;
+        estacion.setNombre(nombre);
+        estacion.setDireccion(direccion);
+        estacion.setTelefono(et_cel.getText().toString());
+        if (estacionPosition != null) {
+            estacion.setLatitud(estacionPosition.latitude);
+            estacion.setLongitud(estacionPosition.longitude);
+        }
+        iPresenterDataGeneralFragment.actualizarDataGeneral(estacion, v);
     }
 
+    private void updateMap() {
+        if (estacionPosition != null) {
+            lat = (float) estacionPosition.latitude;
+            lon = (float) estacionPosition.longitude;
+            onMapReady(map);
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -192,24 +246,35 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             mapView.onResume();
             mapView.getMapAsync(this);
         }
-
-        lat = (float) estacion.getLatitud();
-        lon = (float) estacion.getLongitud();
-
-        /*img_estacion.setOnClickListener(v -> {
-            //Navigation.findNavController(v).navigate(R.id.action_datos_generales_to_fotoEdsFragment);
-        });*/
+        if (estacion.getLatitud() == 0.0 && estacion.getLongitud() == 0.0) {
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+            double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+            double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+            estacion.setLongitud(longitud);
+            estacion.setLatitud(latitud);
+        }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        float zoom = 16F;
-        LatLng centerMap = new LatLng(lat, lon);
 
+        lat = (float) estacion.getLatitud();
+        lon = (float) estacion.getLongitud();
+        map = googleMap;
+        map.clear();
+        LatLng centerMap = new LatLng(lat, lon);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
         //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
         map.addMarker(new MarkerOptions().position(centerMap));
         mapView.setClickable(false);
+    }
+
+    private void initViewsData() {
+
+        if (estacion != null) {
+            nombreEds.setText(estacion.getNombre());
+            et_cel.setText(estacion.getTelefono());
+            et_direccion_eds.setText(estacion.getDireccion());
+        }
     }
 }

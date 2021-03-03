@@ -105,7 +105,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
         status_api = v.findViewById(R.id.status_api);
 
-        sharedPreferences = getActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
         estaciones = new ArrayList<>();
         //testDistanceApi();
 
@@ -116,12 +116,12 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             myLocation = new LatLng(latitud, longitud);
         }
 
-        drawer = getActivity().findViewById(R.id.drawer_layout);
+        drawer = requireActivity().findViewById(R.id.drawer_layout);
         helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
 
         getAllStations();
 
-        inndexLocationService = new InndexLocationService(getActivity(), this, this);
+        inndexLocationService = new InndexLocationService(requireActivity(), this, this);
         //inndexLocationService.init();
         checkGPSState();
         View bottomSheet = v.findViewById(R.id.fl_estacion_detalle_container);
@@ -380,15 +380,18 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private void getAllStations() {
         try {
             final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
-            if (!(estaciones.size() > 0)) {
+            /*if (!(estaciones.size() > 0)) {
                 estaciones = dao.queryForAll();
-            }
+            }*/
             if (estaciones.size() > 0 || myLocation == null)
                 return;
+
             Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().getEstacionesNearUser(myLocation.latitude, myLocation.longitude);
+            status_api.setVisibility(View.VISIBLE);
             callGetStations.enqueue(new Callback<List<Estaciones>>() {
                 @Override
                 public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
+                    status_api.setVisibility(View.GONE);
                     if (response.isSuccessful()) {
                         estaciones = response.body();
                         Gson gson = new Gson();
@@ -410,6 +413,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
                 @Override
                 public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
+                    status_api.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
                 }
             });
