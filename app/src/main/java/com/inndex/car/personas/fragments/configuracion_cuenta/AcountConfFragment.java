@@ -28,9 +28,13 @@ public class AcountConfFragment extends Fragment {
         tvTitulo.setText(getText(R.string.config));
         LinearLayout infoperso = view.findViewById(R.id.infoPersonal);
         LinearLayout layCloseSession = view.findViewById(R.id.layCloseSession);
+        LinearLayout info_privacidad = view.findViewById(R.id.info_privacidad);
         layCloseSession.setOnClickListener(v -> this.closeSession());
         infoperso.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.editProfileFragment));
+
+        info_privacidad.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_opt_configuracion_to_privacidadFragment));
 
         ImageButton btnBack = view.findViewById(R.id.btnBack);
 

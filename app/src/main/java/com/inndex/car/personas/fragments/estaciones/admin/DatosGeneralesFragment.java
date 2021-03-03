@@ -175,7 +175,6 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
                 btn_listo.setOnClickListener(v1 ->{
                     dialog.dismiss();
                 });
-
             });
         });
 

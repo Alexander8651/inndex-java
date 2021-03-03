@@ -222,9 +222,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         Log.d("estoooooo",estaciones.getListPuntosPago().get(0).getNombre());
 
-
-        ListView cajeros = v.findViewById(R.id.rvCajerosEds);
-        //cajeros.setAdapter(puntosPagoAdapter);
         RecyclerView puntosPago = v.findViewById(R.id.rvCajerosEds);
         puntosPago.setAdapter(puntosPagoAdapter);
 

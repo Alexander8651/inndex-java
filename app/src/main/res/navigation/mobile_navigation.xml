@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_opt_configuracion_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_opt_configuracion_to_privacidadFragment"
+            app:destination="@id/privacidadFragment" />
     </fragment>
     <fragment
         android:id="@+id/agregarVehiculoFragment"
@@ -124,4 +127,18 @@
         android:name="com.inndex.car.personas.fragments.ContactoAdminFragment"
         android:label="fragment_contacto_admin"
         tools:layout="@layout/fragment_contacto_admin" />
+    <fragment
+        android:id="@+id/privacidadFragment"
+        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.PrivacidadFragment"
+        android:label="fragment_privacidad"
+        tools:layout="@layout/fragment_privacidad" >
+        <action
+            android:id="@+id/action_privacidadFragment_to_ubicacionTextoFragment"
+            app:destination="@id/ubicacionTextoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ubicacionTextoFragment"
+        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.UbicacionTextoFragment"
+        android:label="fragment_ubicacion_texto"
+        tools:layout="@layout/fragment_ubicacion_texto" />
 </navigation>
