@@ -1,8 +1,10 @@
 package com.inndex.car.personas.fragments.estaciones.admin;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -164,8 +167,11 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         mMapView.getMapAsync(googleMap -> {
             LatLng centerMap = new LatLng(lat, lon);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerMap, zoom));
-            //map.addMarker(new MarkerOptions().position(centerMap).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_radio)));
-            //googleMap.addMarker(new MarkerOptions().position(centerMap));
+            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            googleMap.setMyLocationEnabled(true);
             mMapView.setClickable(false);
 
             googleMap.setOnCameraIdleListener(() -> {
