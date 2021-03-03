@@ -33,6 +33,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
 import com.inndex.car.personas.fragments.estaciones.admin.presenterdatosGeneralesFragment.IPresenterDataGeneralFragment;
@@ -92,7 +93,6 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         nombreEds = view.findViewById(R.id.et_nombre_eds);
         et_cel = view.findViewById(R.id.et_cel);
         et_direccion_eds = view.findViewById(R.id.et_direccion_eds);
-
         DataBaseHelper helper = OpenHelperManager.getHelper(this.getContext(), DataBaseHelper.class);
 
         try {
@@ -160,6 +160,9 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
         MapsInitializer.initialize(getActivity());
 
         mMapView = view.findViewById(R.id.map_datos_generales_actualizar);
+        FloatingActionButton fabEditarUbicacion = view.findViewById(R.id.fabEditarUbicacion);
+
+
         btn_listo = view.findViewById(R.id.btn_listo);
         mMapView.onCreate(null);
         mMapView.onResume();// needed to get the map to display immediately
@@ -174,12 +177,19 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             googleMap.setMyLocationEnabled(true);
             mMapView.setClickable(false);
 
-            googleMap.setOnCameraIdleListener(() -> {
-                estacionPosition = googleMap.getCameraPosition().target;
-            });
+            googleMap.setOnCameraIdleListener(() ->
+                    estacionPosition = googleMap.getCameraPosition().target
+            );
             btn_listo.setOnClickListener(v1 -> {
                 updateMap();
                 dialog.dismiss();
+            });
+            fabEditarUbicacion.setOnClickListener(v -> {
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+                double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+                double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+                LatLng latLng = new LatLng(latitud, longitud);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
             });
         });
     }

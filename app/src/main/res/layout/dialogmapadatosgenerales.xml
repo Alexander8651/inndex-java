@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map_datos_generales_actualizar"
@@ -12,9 +13,9 @@
     <ImageView
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/bottom_menu_filtros_selector"
+        android:layout_width="48dp"
+        android:layout_height="100dp"
+        android:src="@drawable/editar_ubicacion"
         android:contentDescription="@string/mensajeria"/>
 
     <Button
@@ -27,5 +28,17 @@
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/white"
         android:text="Listo" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabEditarUbicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/location"
+        app:backgroundTint="@color/white"
+        android:contentDescription="@string/mensajeria"
+        android:layout_above="@id/btn_listo"/>
 
 </RelativeLayout>
