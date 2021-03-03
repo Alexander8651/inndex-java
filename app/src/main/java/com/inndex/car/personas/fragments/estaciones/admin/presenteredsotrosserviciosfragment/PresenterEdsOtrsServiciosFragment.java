@@ -243,13 +243,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         PuntosPagoAdapter puntosPagoAdapter = new PuntosPagoAdapter(puntoPagos, (ArrayList<PuntoPago>) estaciones.getListPuntosPago());
 
-
-<<<<<<< HEAD
         Log.d("estoooooo",estaciones.getListPuntosPago().get(0).getNombre());
 
-=======
-        //cajeros.setAdapter(puntosPagoAdapter);
->>>>>>> 14e4f2e6c92677a7ee4af8f3ab23bb3f141f1eaf
         RecyclerView puntosPago = v.findViewById(R.id.rvCajerosEds);
         puntosPago.setAdapter(puntosPagoAdapter);
 

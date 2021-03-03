@@ -196,13 +196,12 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
 
     private void guardarCambios(View v) {
 
-<<<<<<< HEAD
+
                 btn_listo.setOnClickListener(v1 ->{
-                    dialog.dismiss();
+                    //dialog.dismiss();
                 });
-            });
-        });
-=======
+
+
         String nombre = nombreEds.getText().toString();
         String direccion = et_direccion_eds.getText().toString();
         if (nombre.equals("")) {
@@ -216,7 +215,6 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
             et_direccion_eds.requestFocus();
             return;
         }
->>>>>>> 14e4f2e6c92677a7ee4af8f3ab23bb3f141f1eaf
 
 
         estacion.setNombre(nombre);
