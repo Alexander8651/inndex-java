@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Promocion;
 import com.inndex.car.personas.retrofit.MedidorApiAdapter;
 
@@ -18,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PresenterPromocionForm implements IPresenterPromocionForm{
+public class PresenterPromocionForm implements IPresenterPromocionForm {
 
     IPromocionFormFragment iPromocionFormFragment;
     Spinner tipoOferta, categoriaOferta;
@@ -26,10 +27,13 @@ public class PresenterPromocionForm implements IPresenterPromocionForm{
     Button publicarOferta;
     EditText tituoOferta, PrecioOferta, DescripcionOferta;
     Promocion promocion = new Promocion();
+    Estaciones estacion;
 
-    public PresenterPromocionForm(IPromocionFormFragment iPromocionFormFragment, Context context) {
+    public PresenterPromocionForm(IPromocionFormFragment iPromocionFormFragment, Context context,
+                                  Estaciones est) {
         this.iPromocionFormFragment = iPromocionFormFragment;
         this.context = context;
+        this.estacion = new Estaciones(est.getId());
         mostrarSpinnerTipoOferta();
         mostrarSpinnerCategoriaOferta();
         publicarOferta();
@@ -53,7 +57,7 @@ public class PresenterPromocionForm implements IPresenterPromocionForm{
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                TextView tipoOferta =  adapterView.findViewById(R.id.itemSpinnerMarca);
+                TextView tipoOferta = adapterView.findViewById(R.id.itemSpinnerMarca);
                 tipoOferta.setText("Seleccione el tipo de oferta");
             }
         });
@@ -73,16 +77,14 @@ public class PresenterPromocionForm implements IPresenterPromocionForm{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String tipoOferta = (String) adapterView.getItemAtPosition(i);
                 promocion.setCategoria(tipoOferta);
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                TextView tipoOferta =  adapterView.findViewById(R.id.itemSpinnerMarca);
+                TextView tipoOferta = adapterView.findViewById(R.id.itemSpinnerMarca);
                 tipoOferta.setText("Seleccione la categoria");
             }
         });
-
     }
 
     @Override
@@ -93,39 +95,39 @@ public class PresenterPromocionForm implements IPresenterPromocionForm{
         PrecioOferta = iPromocionFormFragment.crearEditTextPresioOferta();
         DescripcionOferta = iPromocionFormFragment.crearEditTextDescripcionOferta();
 
+        publicarOferta.setOnClickListener(v -> {
 
-        publicarOferta.setOnClickListener(v->{
-
-            if (!tituoOferta.getText().toString().isEmpty() && !PrecioOferta.getText().toString().isEmpty() && !DescripcionOferta.getText().toString().isEmpty()){
+            if (!tituoOferta.getText().toString().isEmpty() &&
+                    !PrecioOferta.getText().toString().isEmpty() &&
+                    !DescripcionOferta.getText().toString().isEmpty()) {
 
                 promocion.setTitulo(tituoOferta.getText().toString());
                 promocion.setPrecio(Double.valueOf(PrecioOferta.getText().toString()));
                 promocion.setDescripcion(DescripcionOferta.getText().toString());
-
+                promocion.setActive(true);
+                promocion.setEstaciones(estacion);
 
                 Call<Promocion> promocionCall = MedidorApiAdapter.getApiService().postSavePromocion(promocion);
 
                 promocionCall.enqueue(new Callback<Promocion>() {
                     @Override
                     public void onResponse(Call<Promocion> call, Response<Promocion> response) {
-                        if (response.isSuccessful()){
-
+                        if (response.isSuccessful()) {
                             Toast.makeText(context, "Se creo promocion", Toast.LENGTH_SHORT).show();
-
+                        } else {
+                            Toast.makeText(context, "Error " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Promocion> call, Throwable t) {
-
+                        Toast.makeText(context, "ERROR " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
-            }else {
+            } else {
                 Toast.makeText(context, "Ingrese Todos los valores", Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
 }

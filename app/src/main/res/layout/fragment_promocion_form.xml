@@ -122,19 +122,10 @@
                     android:text="Descripcion"
                     android:textSize="20sp" />
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/decripcion_oferta"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:background="@drawable/shape_bordes"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/decripcion_oferta"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:outlineAmbientShadowColor="@color/colorPrimary" />
-
-                </LinearLayout>
+                    android:layout_height="150dp" />
 
                 <Button
                     android:id="@+id/botonPublicarOferta"
@@ -142,6 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@color/colorPrimary"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Publicar"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

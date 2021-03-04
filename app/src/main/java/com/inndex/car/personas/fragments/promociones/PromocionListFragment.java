@@ -64,15 +64,15 @@ public class PromocionListFragment extends Fragment implements IPromocionListFra
         agregar_promocion = root.findViewById(R.id.agregar_promocion);
 
         titulo.setText("Promociones");
-
-        btnBack.setOnClickListener(v ->{
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("estacionIs", estacion);
+        btnBack.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
         });
 
-        agregar_promocion.setOnClickListener(v ->{
-            Navigation.findNavController(v).navigate(R.id.action_promocionListFragment_to_promocionFormFragment);
+        agregar_promocion.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_promocionListFragment_to_promocionFormFragment, bundle);
         });
-
         return root;
     }
 
@@ -96,7 +96,6 @@ public class PromocionListFragment extends Fragment implements IPromocionListFra
     }
 
      */
-
 
 
 }
