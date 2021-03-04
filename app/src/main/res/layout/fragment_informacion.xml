@@ -1,14 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.informacion.InformacionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <include layout="@layout/my_toolbar" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/terminos_condiciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="start|center"
+            android:text="Terminos y Condiciones"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:id="@+id/politica_privacidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="start|center"
+            android:text="Política de Privacidad"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
+    <LinearLayout
+        android:id="@+id/autorizacion_trataiento_datos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="start|center"
+            android:text="Autorización de tratamiento de datos personales"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
+
+
+
+</LinearLayout>

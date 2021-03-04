@@ -24,7 +24,7 @@
         android:title="@string/ayuda" />
 
     <item
-        android:id="@+id/opt_informacion"
+        android:id="@+id/informacionFragment2"
         android:title="@string/informaci_n" />
 
     <item

@@ -3,64 +3,53 @@ package com.inndex.car.personas.fragments.informacion;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.fragments.informacion.presenterautorizacion.IAutorizacionFragment;
+import com.inndex.car.personas.fragments.informacion.presenterautorizacion.IPresenterAutorizacion;
+import com.inndex.car.personas.fragments.informacion.presenterautorizacion.PresenterAutorizacion;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AutorizacionFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AutorizacionFragment extends Fragment {
+public class AutorizacionFragment extends Fragment implements IAutorizacionFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ImageButton btnBack;
+    TextView titulo, bodyAutorizacion;
+    IPresenterAutorizacion iPresenterAutorizacion;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AutorizacionFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AutorizacionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AutorizacionFragment newInstance(String param1, String param2) {
-        AutorizacionFragment fragment = new AutorizacionFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_autorizacion, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_autorizacion, container, false);
+        btnBack = root.findViewById(R.id.btnBack);
+        titulo = root.findViewById(R.id.tv_toolbar_titulo);
+        bodyAutorizacion = root.findViewById(R.id.bodyAutorizacion);
+
+        btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        titulo.setText("Autorización");
+
+        iPresenterAutorizacion = new PresenterAutorizacion(this, requireContext());
+
+
+        return root;
+    }
+
+    @Override
+    public TextView creatTextviewBody() {
+        return bodyAutorizacion;
     }
 }

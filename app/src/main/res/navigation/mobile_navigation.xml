@@ -25,6 +25,9 @@
         <action
             android:id="@+id/opt_agregar_eds"
             app:destination="@id/editarEdsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_informacionFragment2"
+            app:destination="@id/informacionFragment2" />
     </fragment>
     <fragment
         android:id="@+id/opt_configuracion"
@@ -141,4 +144,34 @@
         android:name="com.inndex.car.personas.fragments.configuracion_cuenta.UbicacionTextoFragment"
         android:label="fragment_ubicacion_texto"
         tools:layout="@layout/fragment_ubicacion_texto" />
+    <fragment
+        android:id="@+id/informacionFragment2"
+        android:name="com.inndex.car.personas.fragments.informacion.InformacionFragment"
+        android:label="fragment_informacion"
+        tools:layout="@layout/fragment_informacion" >
+        <action
+            android:id="@+id/action_informacionFragment2_to_terminosYCondicionesFragment"
+            app:destination="@id/terminosYCondicionesFragment" />
+        <action
+            android:id="@+id/action_informacionFragment2_to_politicaPrivacidadFragment"
+            app:destination="@id/politicaPrivacidadFragment" />
+        <action
+            android:id="@+id/action_informacionFragment2_to_autorizacionFragment"
+            app:destination="@id/autorizacionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/terminosYCondicionesFragment"
+        android:name="com.inndex.car.personas.fragments.informacion.TerminosYCondicionesFragment"
+        android:label="fragment_terminos_y_condiciones"
+        tools:layout="@layout/fragment_terminos_y_condiciones" />
+    <fragment
+        android:id="@+id/politicaPrivacidadFragment"
+        android:name="com.inndex.car.personas.fragments.informacion.PoliticaPrivacidadFragment"
+        android:label="fragment_politica_privacidad"
+        tools:layout="@layout/fragment_politica_privacidad" />
+    <fragment
+        android:id="@+id/autorizacionFragment"
+        android:name="com.inndex.car.personas.fragments.informacion.AutorizacionFragment"
+        android:label="fragment_autorizacion"
+        tools:layout="@layout/fragment_autorizacion" />
 </navigation>
