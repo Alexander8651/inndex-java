@@ -20,7 +20,7 @@
         android:title="@string/compartir_app" />
 
     <item
-        android:id="@+id/opt_ayuda"
+        android:id="@+id/ayudaFragment"
         android:title="@string/ayuda" />
 
     <item

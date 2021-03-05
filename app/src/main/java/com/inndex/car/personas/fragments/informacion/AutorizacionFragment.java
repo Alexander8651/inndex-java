@@ -19,7 +19,7 @@ import com.inndex.car.personas.fragments.informacion.presenterautorizacion.Prese
 public class AutorizacionFragment extends Fragment implements IAutorizacionFragment {
 
     ImageButton btnBack;
-    TextView titulo, bodyAutorizacion;
+    TextView titulo, bodyAutorizacion, autorizacionPolitica, autorizacionTerminos;
     IPresenterAutorizacion iPresenterAutorizacion;
 
 
@@ -38,11 +38,16 @@ public class AutorizacionFragment extends Fragment implements IAutorizacionFragm
         btnBack = root.findViewById(R.id.btnBack);
         titulo = root.findViewById(R.id.tv_toolbar_titulo);
         bodyAutorizacion = root.findViewById(R.id.bodyAutorizacion);
+        autorizacionPolitica = root.findViewById(R.id.autorizacionPolitica);
+        autorizacionTerminos = root.findViewById(R.id.autorizacionTerminos);
 
         btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         titulo.setText("Autorización");
 
         iPresenterAutorizacion = new PresenterAutorizacion(this, requireContext());
+
+        autorizacionPolitica.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_autorizacionFragment_to_politicaPrivacidadFragment));
+        autorizacionTerminos.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_informacionFragment2_to_terminosYCondicionesFragment));
 
 
         return root;

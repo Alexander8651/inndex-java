@@ -8,28 +8,51 @@
 
     <include layout="@layout/my_toolbar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="16dp">
-
-        <TextView
-            android:id="@+id/headerTerminos"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
 
-        </TextView>
+            <TextView
+                android:id="@+id/headerTerminos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_light"
+                android:textStyle="bold">
 
-        <TextView
-            android:id="@+id/bodyTerminos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </TextView>
 
-        </TextView>
+            <TextView
+                android:id="@+id/bodyTerminos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light">
 
-    </LinearLayout>
+            </TextView>
+
+            <TextView
+                android:id="@+id/terminosPolitica"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_light"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
+                android:text="@string/pol_tica_de_tratamiento_de_datos_personales_pol_tica_de_privacidad"/>
+            <TextView
+                android:id="@+id/politicaAutorizacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/autorizacion_de_tratamiento_de_datos_personales_usuarios_inndez_company_s_a_s"/>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

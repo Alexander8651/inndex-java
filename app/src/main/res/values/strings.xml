@@ -275,6 +275,17 @@
     <string name="mensajeria">Mensajería</string>
     <string name="selecciona_las_empresas_de_mensajer_a">Selecciona las empresas de mensajería</string>
     <string name="editar_eds">Editar EDS</string>
+    <string name="olvidaste_tu_contrase_a">¿Olvidaste tu contraseña?</string>
+    <string name="iniciar_sesi_n_con_google">Iniciar sesión con Google</string>
+    <string name="iniciar_sesi_n_con_facebook">Iniciar sesión con Facebook</string>
+    <string name="no_tienes_una_cuenta">¿No tienes una cuenta?</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="si_tienes_alg_n_problema_de_la_plataforma_peticion_queja_o_reclamo_comunicate_con_nosotros_al_correo">Si tienes algún problema de la plataforma, peticion, queja o reclamo. Comunicate con nosotros al correo</string>
+    <string name="autorizaci_n_de_tratamiento_de_datos_personales_usuarios_inndex_company_s_a_s">Autorización de Tratamiento de datos personales Usuarios - INNDEX COMPANY S.A.S</string>
+    <string name="t_rminos_y_condiciones_de_uso_de_plataforma_inndex">Términos y Condiciones de Uso de Plataforma Inndex</string>
+    <string name="pol_tica_de_tratamiento_de_datos_pesonales_pol_tica_de_privacidad">Política de Tratamiento de Datos Pesonales (Política de Privacidad)</string>
+    <string name="pol_tica_de_tratamiento_de_datos_personales_pol_tica_de_privacidad">Política de Tratamiento de Datos Personales (Política de Privacidad)</string>
+    <string name="autorizacion_de_tratamiento_de_datos_personales_usuarios_inndez_company_s_a_s">Autorizacion de Tratamiento de datos personales Usuarios - Inndez Company S.A.S</string>
 
     <string-array name="modelo">
         <item>2021</item>

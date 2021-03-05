@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.AyudaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/my_toolbar"/>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="20sp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/si_tienes_alg_n_problema_de_la_plataforma_peticion_queja_o_reclamo_comunicate_con_nosotros_al_correo"/>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="inndexco@gmail.com"
+        android:textSize="20sp"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/roboto_light"
+        android:textColor="@color/blue"/>
+
+    <Button
+        android:id="@+id/enviarCorreo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar_correo"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+
+</LinearLayout>
