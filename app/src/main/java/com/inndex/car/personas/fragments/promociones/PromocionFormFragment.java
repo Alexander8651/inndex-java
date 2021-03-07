@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -98,6 +99,7 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
         DescripcionOferta = root.findViewById(R.id.decripcion_oferta);
 
         botonPublicarOferta = root.findViewById(R.id.botonPublicarOferta);
+        botonPublicarOferta.setOnClickListener(v -> iPresenterPromocionForm.publicarOferta(v));
 
         iPresenterPromocionForm = new PresenterPromocionForm(this, requireContext(), estacion);
 
@@ -107,8 +109,14 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
             Navigation.findNavController(v).navigateUp()
         );
 
-        agregar_foto_promocion.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(requireActivity(), new String[] {Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
+        } else {
+            agregar_foto_promocion.setOnClickListener(v -> {
+                irACamara();
+            });
+            PopupMenu popupMenu = new PopupMenu(agregar_foto_promocion.getContext(), agregar_foto_promocion);
             popupMenu.inflate(R.menu.menufotoperfil);
             popupMenu.show();
 
@@ -117,10 +125,10 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
                     case R.id.camara:
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                                 irACamara();
                             } else {
-                                ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
+                                ActivityCompat.requestPermissions((Activity) agregar_foto_promocion.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
                             }
                         } else {
                             irACamara();
@@ -129,10 +137,10 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
                     case R.id.galeria:
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                                 abrirGaleria();
                             } else {
-                                ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
+                                ActivityCompat.requestPermissions((Activity) agregar_foto_promocion.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
                             }
                         } else {
                             abrirGaleria();
@@ -142,7 +150,7 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
                         return false;
                 }
             });
-        });
+        }
         return root;
     }
 

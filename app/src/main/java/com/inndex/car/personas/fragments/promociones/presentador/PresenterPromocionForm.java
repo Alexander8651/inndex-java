@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Promocion;
@@ -36,7 +38,6 @@ public class PresenterPromocionForm implements IPresenterPromocionForm {
         this.estacion = new Estaciones(est.getId());
         mostrarSpinnerTipoOferta();
         mostrarSpinnerCategoriaOferta();
-        publicarOferta();
     }
 
     @Override
@@ -88,46 +89,44 @@ public class PresenterPromocionForm implements IPresenterPromocionForm {
     }
 
     @Override
-    public void publicarOferta() {
+    public void publicarOferta(View view) {
 
         publicarOferta = iPromocionFormFragment.crearBotonPublicarOferta();
         tituoOferta = iPromocionFormFragment.crearEditTextTituloOferta();
         PrecioOferta = iPromocionFormFragment.crearEditTextPresioOferta();
         DescripcionOferta = iPromocionFormFragment.crearEditTextDescripcionOferta();
 
-        publicarOferta.setOnClickListener(v -> {
+        if (!tituoOferta.getText().toString().isEmpty() &&
+                !PrecioOferta.getText().toString().isEmpty() &&
+                !DescripcionOferta.getText().toString().isEmpty()) {
 
-            if (!tituoOferta.getText().toString().isEmpty() &&
-                    !PrecioOferta.getText().toString().isEmpty() &&
-                    !DescripcionOferta.getText().toString().isEmpty()) {
+            promocion.setTitulo(tituoOferta.getText().toString());
+            promocion.setPrecio(Double.valueOf(PrecioOferta.getText().toString()));
+            promocion.setDescripcion(DescripcionOferta.getText().toString());
+            promocion.setActive(true);
+            promocion.setEstaciones(estacion);
 
-                promocion.setTitulo(tituoOferta.getText().toString());
-                promocion.setPrecio(Double.valueOf(PrecioOferta.getText().toString()));
-                promocion.setDescripcion(DescripcionOferta.getText().toString());
-                promocion.setActive(true);
-                promocion.setEstaciones(estacion);
+            Call<Promocion> promocionCall = MedidorApiAdapter.getApiService().postSavePromocion(promocion);
 
-                Call<Promocion> promocionCall = MedidorApiAdapter.getApiService().postSavePromocion(promocion);
-
-                promocionCall.enqueue(new Callback<Promocion>() {
-                    @Override
-                    public void onResponse(Call<Promocion> call, Response<Promocion> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(context, "Se creo promocion", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Error " + response.code(), Toast.LENGTH_SHORT).show();
-                        }
+            promocionCall.enqueue(new Callback<Promocion>() {
+                @Override
+                public void onResponse(Call<Promocion> call, Response<Promocion> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "Información guardada de manera exitosa.", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.promocionListFragment);
+                    } else {
+                        Toast.makeText(context, "Error " + response.code(), Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<Promocion> call, Throwable t) {
-                        Toast.makeText(context, "ERROR " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                @Override
+                public void onFailure(Call<Promocion> call, Throwable t) {
+                    Toast.makeText(context, "ERROR " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            } else {
-                Toast.makeText(context, "Ingrese Todos los valores", Toast.LENGTH_SHORT).show();
-            }
-        });
+        } else {
+            Toast.makeText(context, "Ingrese Todos los valores", Toast.LENGTH_SHORT).show();
+        }
     }
 }

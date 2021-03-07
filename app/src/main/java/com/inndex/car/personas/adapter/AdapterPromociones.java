@@ -1,11 +1,6 @@
 package com.inndex.car.personas.adapter;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -44,8 +38,9 @@ public class AdapterPromociones extends RecyclerView.Adapter<AdapterPromociones.
 
         holder.titulo.setText(promocion.getTitulo());
 
-        if (holder.precio != null){
-            holder.precio.setText(promocion.getPrecio().toString());
+        if(promocion.getPrecio() != null){
+            String precio = String.valueOf(promocion.getPrecio());
+            holder.precio.setText(precio);
         }
         Glide.with(holder.itemView).load(promocion.getFoto()).into(holder.fotoPromocion);
 
@@ -54,20 +49,17 @@ public class AdapterPromociones extends RecyclerView.Adapter<AdapterPromociones.
             popupMenu.inflate(R.menu.menuadapterpromociones);
             popupMenu.show();
 
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.opcion_1:
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.opcion_1:
 
-                            return true;
-                        case R.id.opcion_2:
+                        return true;
+                    case R.id.opcion_2:
 
 
-                            return true;
-                        default:
-                            return false;
-                    }
+                        return true;
+                    default:
+                        return false;
                 }
             });
         });
@@ -78,7 +70,7 @@ public class AdapterPromociones extends RecyclerView.Adapter<AdapterPromociones.
         return promocions.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView titulo;
         TextView precio;

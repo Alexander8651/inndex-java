@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:text="Llantería"
+            android:text="@string/montallantas"
             android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold" />
 

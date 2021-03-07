@@ -276,6 +276,8 @@
     <string name="selecciona_las_empresas_de_mensajer_a">Selecciona las empresas de mensajería</string>
     <string name="editar_eds">Editar EDS</string>
 
+    <string name="montallantas">Montallantas</string>
+
     <string-array name="modelo">
         <item>2021</item>
         <item>2020</item>

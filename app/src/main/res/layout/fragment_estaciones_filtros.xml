@@ -653,7 +653,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Llanterias"
+                    android:text="@string/montallantas"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
 
