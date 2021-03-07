@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Por favor ingrese Correo y Contraseña válidos.", Toast.LENGTH_LONG).show();
             }
         });
-        Button btnRegistrar = findViewById(R.id.btnRegistrar);
+        TextView btnRegistrar = findViewById(R.id.btnRegistrar);
         btnRegistrar.setTypeface(bold);
         btnRegistrar.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);

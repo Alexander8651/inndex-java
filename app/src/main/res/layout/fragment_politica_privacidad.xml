@@ -8,23 +8,46 @@
 
     <include layout="@layout/my_toolbar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
-
-        <TextView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Política de Tratamiento de Datos Personales (Política de Privacidad)"/>
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/bodyPoliticas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/pol_tica_de_tratamiento_de_datos_personales_pol_tica_de_privacidad"/>
+
+            <TextView
+                android:id="@+id/bodyPoliticas"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_light"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/politicaTerminos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/t_rminos_y_condiciones_de_uso_de_plataforma_inndex"/>
+
+            <TextView
+                android:id="@+id/politicaAutorizacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/autorizacion_de_tratamiento_de_datos_personales_usuarios_inndez_company_s_a_s"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

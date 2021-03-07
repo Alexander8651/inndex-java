@@ -6,18 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+    <ImageView
+        android:id="@+id/ivLogoName"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_inicio" />
 
-        <ImageView
-            android:id="@+id/ivLogoName"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:src="@drawable/logo_inicio" />
+    <LinearLayout
+        android:id="@+id/linearForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/ivLogoName"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -55,49 +57,137 @@
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvRecordar"
+        <Button
+            android:id="@+id/btnIngresar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="35dp"
-            android:paddingRight="30dp"
-            android:text="@string/recordar"
-            android:textColor="@color/colorPrimary"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:background="@color/colorAccent"
+            android:text="iniciar sesión"
+            android:textAllCaps="false"
+            android:layout_margin="25dp"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="40sp"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnRegistrar"
-                android:layout_width="130dp"
+            <View
+                android:layout_width="160dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/gray_separator_services"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:gravity="center_horizontal"
+                android:textSize="25sp"
+                android:textColor="@color/gray_separator_services"
+                android:text="o"/>
+
+            <View
+
+                android:layout_width="160dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/gray_separator_services"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="25sp"
+            android:background="@drawable/shape_bordes">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/cuenta_google" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="30dp"
-                android:background="@color/colorPrimary"
-                android:text="@string/registrar"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/iniciar_sesi_n_con_google"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-            <Button
-                android:id="@+id/btnIngresar"
-                android:layout_width="130dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_bordes"
+            android:layout_margin="25sp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/facebook"/>
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="30dp"
-                android:background="@color/colorAccent"
-                android:text="@string/ingresar"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:text="@string/iniciar_sesi_n_con_facebook"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_light"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
 
-        </RelativeLayout>
+
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvRecordar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearForm"
+        android:text="@string/olvidaste_tu_contrase_a"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_light"
+        android:textColor="@color/colorAccent"
+        android:layout_marginStart="25dp"
+        android:textSize="15sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvRecordar"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_tienes_una_cuenta"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/btnRegistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registrarse"
+            android:textAllCaps="false"
+            android:fontFamily="@font/roboto_light"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 </RelativeLayout>
