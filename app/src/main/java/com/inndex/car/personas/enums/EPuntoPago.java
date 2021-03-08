@@ -12,7 +12,8 @@ public enum EPuntoPago {
     REDEBAN(9L),
     SERVY_PAGOS(10L),
     SUPER_GIROS(11L),
-    WESTERN_UNION(12L);
+    WESTERN_UNION(12L),
+    OTRA(13L);
     private Long id;
 
     EPuntoPago(Long id) {

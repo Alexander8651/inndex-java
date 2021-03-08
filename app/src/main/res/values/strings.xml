@@ -288,6 +288,18 @@
     <string name="autorizacion_de_tratamiento_de_datos_personales_usuarios_inndez_company_s_a_s">Autorizacion de Tratamiento de datos personales Usuarios - Inndez Company S.A.S</string>
 
     <string name="montallantas">Montallantas</string>
+    <string name="bebidas">Bebidas</string>
+    <string name="venta_de_llantas">Venta de llantas</string>
+    <string name="venta_baterias">Venta de baterías</string>
+    <string name="mecanica_general">Mecánica general</string>
+    <string name="licoreria">Licorería</string>
+    <string name="ferreteria">Ferretería</string>
+    <string name="cda">CDA</string>
+    <string name="cambio_aceite">Cambio de aceite</string>
+    <string name="cafeteria">Cafetería y panadería</string>
+    <string name="compra_y_venta">Compra y venta</string>
+    <string name="accesorios">Accesorios y repuestos</string>
+    <string name="tiendas_de_conveniencia">Tiendas de conveniencia</string>
 
     <string-array name="modelo">
         <item>2021</item>

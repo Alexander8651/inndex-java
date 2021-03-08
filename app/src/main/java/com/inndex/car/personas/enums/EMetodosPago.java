@@ -13,7 +13,9 @@ public enum EMetodosPago {
     PSE(9L),
     PUNTOS_COLOMBIA(10L),
     TPAGA(11L),
-    VISA(12L);
+    VISA(12L),
+    MAESTRO(13L),
+    CREDITO_FACIL_CODENSA(14L);
 
     private Long id;
 

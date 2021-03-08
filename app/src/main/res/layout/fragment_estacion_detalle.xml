@@ -253,7 +253,7 @@
                 android:layout_marginTop="4dp" />
 
             <include
-                layout="@layout/farmacia"
+                layout="@layout/eds_servicio_compra_y_venta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp" />
@@ -262,6 +262,31 @@
                 layout="@layout/restaurantes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/eds_servicio_cafeteria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
+            <include
+                layout="@layout/eds_servicio_bebidas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
+            <include
+                layout="@layout/eds_servicio_licoreria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
+
+            <include
+                layout="@layout/farmacia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
 
             <include
                 layout="@layout/hoteles"
@@ -274,12 +299,38 @@
                 android:layout_height="wrap_content" />
 
             <include
+                layout="@layout/eds_servicio_accesorios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
                 layout="@layout/lubricantes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
+                layout="@layout/eds_servicio_venta_llantas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/eds_servicio_venta_baterias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/eds_servicio_ferreteria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <include
                 layout="@layout/llanteria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/eds_servicio_cambio_aceite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -290,6 +341,16 @@
 
             <include
                 layout="@layout/serviteca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/eds_servicio_cda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/eds_servicio_mecanica_general"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

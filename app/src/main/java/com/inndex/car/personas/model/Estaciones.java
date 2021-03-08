@@ -59,6 +59,24 @@ public class Estaciones implements Serializable, Parcelable {
 
     private Boolean tieneServiteca;
 
+    private Boolean tieneCafeteriaPanaderia;
+
+    private Boolean tieneCambioAceite;
+
+    private Boolean tieneVentaLLantas;
+
+    private Boolean tieneVentaBaterias;
+
+    private Boolean tieneFerreteria;
+
+    private Boolean tieneLicoreria;
+
+    private Boolean tieneBebidas;
+
+    private Boolean tieneCda;
+
+    private Boolean tieneMecanicaGeneral;
+
     private List<Restaurante> listRestaurantes;
 
     private List<Hotel> listHoteles;
@@ -78,6 +96,10 @@ public class Estaciones implements Serializable, Parcelable {
     private List<PuntoPago> listPuntosPago;
 
     private List<MetodoPago> listMetodosPago;
+
+    private List<AccesoriosYrepuestos> listAccesoriosYrepuestos;
+
+    private List<CompraYventa> listCompraYventa;
 
     private Soat soat;
 
@@ -135,7 +157,24 @@ public class Estaciones implements Serializable, Parcelable {
         tieneDroguerias = tmpTieneDroguerias == 0 ? null : tmpTieneDroguerias == 1;
         byte tmpTieneServiteca = in.readByte();
         tieneServiteca = tmpTieneServiteca == 0 ? null : tmpTieneServiteca == 1;
-
+        byte tmpTieneCafeteriaPanaderia = in.readByte();
+        tieneCafeteriaPanaderia = tmpTieneCafeteriaPanaderia == 0 ? null : tmpTieneCafeteriaPanaderia == 1;
+        byte tmpTieneCambioAceite = in.readByte();
+        tieneCambioAceite = tmpTieneCambioAceite == 0 ? null : tmpTieneCambioAceite == 1;
+        byte tmpTieneVentaLLantas = in.readByte();
+        tieneVentaLLantas = tmpTieneVentaLLantas == 0 ? null : tmpTieneVentaLLantas == 1;
+        byte tmpTieneVentaBaterias = in.readByte();
+        tieneVentaBaterias = tmpTieneVentaBaterias == 0 ? null : tmpTieneVentaBaterias == 1;
+        byte tmpTieneFerreteria = in.readByte();
+        tieneFerreteria = tmpTieneFerreteria == 0 ? null : tmpTieneFerreteria == 1;
+        byte tmpTieneLicoreria = in.readByte();
+        tieneLicoreria = tmpTieneLicoreria == 0 ? null : tmpTieneLicoreria == 1;
+        byte tmpTieneBebidas = in.readByte();
+        tieneBebidas = tmpTieneBebidas == 0 ? null : tmpTieneBebidas == 1;
+        byte tmpTieneCda = in.readByte();
+        tieneCda = tmpTieneCda == 0 ? null : tmpTieneCda == 1;
+        byte tmpTieneMecanicaGeneral = in.readByte();
+        tieneMecanicaGeneral = tmpTieneMecanicaGeneral == 0 ? null : tmpTieneMecanicaGeneral == 1;
         jsonCombustibles = in.readString();
     }
 
@@ -419,12 +458,100 @@ public class Estaciones implements Serializable, Parcelable {
         this.jsonCombustibles = jsonCombustibles;
     }
 
+    public Boolean getTieneCafeteriaPanaderia() {
+        return tieneCafeteriaPanaderia;
+    }
+
+    public void setTieneCafeteriaPanaderia(Boolean tieneCafeteriaPanaderia) {
+        this.tieneCafeteriaPanaderia = tieneCafeteriaPanaderia;
+    }
+
+    public Boolean getTieneCambioAceite() {
+        return tieneCambioAceite;
+    }
+
+    public void setTieneCambioAceite(Boolean tieneCambioAceite) {
+        this.tieneCambioAceite = tieneCambioAceite;
+    }
+
+    public Boolean getTieneVentaLLantas() {
+        return tieneVentaLLantas;
+    }
+
+    public void setTieneVentaLLantas(Boolean tieneVentaLLantas) {
+        this.tieneVentaLLantas = tieneVentaLLantas;
+    }
+
+    public Boolean getTieneVentaBaterias() {
+        return tieneVentaBaterias;
+    }
+
+    public void setTieneVentaBaterias(Boolean tieneVentaBaterias) {
+        this.tieneVentaBaterias = tieneVentaBaterias;
+    }
+
+    public Boolean getTieneFerreteria() {
+        return tieneFerreteria;
+    }
+
+    public void setTieneFerreteria(Boolean tieneFerreteria) {
+        this.tieneFerreteria = tieneFerreteria;
+    }
+
+    public Boolean getTieneLicoreria() {
+        return tieneLicoreria;
+    }
+
+    public void setTieneLicoreria(Boolean tieneLicoreria) {
+        this.tieneLicoreria = tieneLicoreria;
+    }
+
+    public Boolean getTieneBebidas() {
+        return tieneBebidas;
+    }
+
+    public void setTieneBebidas(Boolean tieneBebidas) {
+        this.tieneBebidas = tieneBebidas;
+    }
+
+    public Boolean getTieneCda() {
+        return tieneCda;
+    }
+
+    public void setTieneCda(Boolean tieneCda) {
+        this.tieneCda = tieneCda;
+    }
+
+    public Boolean getTieneMecanicaGeneral() {
+        return tieneMecanicaGeneral;
+    }
+
+    public void setTieneMecanicaGeneral(Boolean tieneMecanicaGeneral) {
+        this.tieneMecanicaGeneral = tieneMecanicaGeneral;
+    }
+
     public Boolean getTieneServiteca() {
         return tieneServiteca;
     }
 
     public void setTieneServiteca(Boolean tieneServiteca) {
         this.tieneServiteca = tieneServiteca;
+    }
+
+    public List<AccesoriosYrepuestos> getListAccesoriosYrepuestos() {
+        return listAccesoriosYrepuestos;
+    }
+
+    public void setListAccesoriosYrepuestos(List<AccesoriosYrepuestos> listAccesoriosYrepuestos) {
+        this.listAccesoriosYrepuestos = listAccesoriosYrepuestos;
+    }
+
+    public List<CompraYventa> getListCompraYventa() {
+        return listCompraYventa;
+    }
+
+    public void setListCompraYventa(List<CompraYventa> listCompraYventa) {
+        this.listCompraYventa = listCompraYventa;
     }
 
     public List<EstacionCombustibles> getCombustiblesFromJson() {
@@ -475,6 +602,15 @@ public class Estaciones implements Serializable, Parcelable {
         parcel.writeByte((byte) (tieneLavadero == null ? 0 : tieneLavadero ? 1 : 2));
         parcel.writeByte((byte) (tieneVentaLubricante == null ? 0 : tieneVentaLubricante ? 1 : 2));
         parcel.writeByte((byte) (tieneDroguerias == null ? 0 : tieneDroguerias ? 1 : 2));
+        parcel.writeByte((byte) (tieneCafeteriaPanaderia == null ? 0 : tieneCafeteriaPanaderia ? 1 : 2));
+        parcel.writeByte((byte) (tieneFerreteria == null ? 0 : tieneFerreteria ? 1 : 2));
+        parcel.writeByte((byte) (tieneCambioAceite == null ? 0 : tieneCambioAceite ? 1 : 2));
+        parcel.writeByte((byte) (tieneVentaLLantas == null ? 0 : tieneVentaLLantas ? 1 : 2));
+        parcel.writeByte((byte) (tieneVentaBaterias == null ? 0 : tieneVentaBaterias ? 1 : 2));
+        parcel.writeByte((byte) (tieneLicoreria == null ? 0 : tieneLicoreria ? 1 : 2));
+        parcel.writeByte((byte) (tieneBebidas == null ? 0 : tieneBebidas ? 1 : 2));
+        parcel.writeByte((byte) (tieneCda == null ? 0 : tieneCda ? 1 : 2));
+        parcel.writeByte((byte) (tieneMecanicaGeneral == null ? 0 : tieneMecanicaGeneral ? 1 : 2));
         parcel.writeString(jsonCombustibles);
     }
 }

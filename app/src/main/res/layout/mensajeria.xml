@@ -188,6 +188,14 @@
                     android:src="@drawable/thomas_express"
                     android:visibility="gone" />
 
+                <ImageView
+                    android:id="@+id/mensajeriaOtra"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/mensajeria"
+                    android:src="@drawable/otra_mensajeria"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
         </HorizontalScrollView>

@@ -9,7 +9,18 @@ public enum ETiendas {
     JUSTO_Y_BUENO(5L),
     OLIMPICA(6L),
     TIGER_MARKET(7L),
-    BEST_MART(8L);
+    BEST_MART(8L),
+    DOLLARCITY(9L),
+    OXXO(10L),
+    SPACIO_UNO(11L),
+    ON_THE_RUN(12L),
+    LA_DESPENSA(13L),
+    EXPRESS(14L),
+    MAKRO(15L),
+    STAR_MART(16L),
+    SURTIMAX(17L),
+    METRO(18L),
+    OTRA(19L);
 
     private Long id;
 
@@ -24,4 +35,4 @@ public enum ETiendas {
     public void setId(Long id) {
         this.id = id;
     }
-}
+    }

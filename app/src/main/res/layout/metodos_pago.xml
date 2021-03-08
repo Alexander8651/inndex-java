@@ -110,6 +110,20 @@
                 android:src="@drawable/american_express"
                 android:visibility="gone" />
 
+            <ImageView
+                android:id="@+id/metodoPagoMaestro"
+                android:layout_width="@dimen/size_img_secciones"
+                android:layout_height="@dimen/size_img_secciones"
+                android:src="@drawable/maestro"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/metodoPagoCreditoFacil"
+                android:layout_width="@dimen/size_img_secciones"
+                android:layout_height="@dimen/size_img_secciones"
+                android:src="@drawable/credito_facil_codensa"
+                android:visibility="gone" />
+
         </LinearLayout>
 
     </HorizontalScrollView>

@@ -25,8 +25,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.adapter.ExpLAdapter;
+import com.inndex.car.personas.enums.EAccesoriosRepuestos;
 import com.inndex.car.personas.enums.EBancos;
 import com.inndex.car.personas.enums.ECombustibles;
+import com.inndex.car.personas.enums.ECompraYventa;
 import com.inndex.car.personas.enums.EEvents;
 import com.inndex.car.personas.enums.EMensajeria;
 import com.inndex.car.personas.enums.EMetodosPago;
@@ -36,7 +38,9 @@ import com.inndex.car.personas.enums.ETiendas;
 import com.inndex.car.personas.fragments.estaciones.presenterDetalles.IEstacionDetalleFragment;
 import com.inndex.car.personas.fragments.estaciones.presenterDetalles.IPresenterDetalles;
 import com.inndex.car.personas.fragments.estaciones.presenterDetalles.PresenterDetalles;
+import com.inndex.car.personas.model.AccesoriosYrepuestos;
 import com.inndex.car.personas.model.Bancos;
+import com.inndex.car.personas.model.CompraYventa;
 import com.inndex.car.personas.model.EstacionCombustibles;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Horario;
@@ -51,6 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class EstacionDetalleFragment extends Fragment implements IEstacionDetalleFragment {
 
@@ -166,6 +171,17 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         metodosPago(root);
         mensajeria(root);
         initServiteca(root);
+        initCafeteria(root);
+        initCambioAceite(root);
+        initVentaLlantas(root);
+        initVentaBaterias(root);
+        initFerreteria(root);
+        initLicoreria(root);
+        initBebidas(root);
+        initCda(root);
+        initMecanica(root);
+        initAccesorios(root);
+        initCompraYventa(root);
 
         if (distancia < 1000) {
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
@@ -186,7 +202,6 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
 
             for (Mensajeria mensajeria : estaciones.getListMensajeria()
             ) {
-
                 switch (EMensajeria.getEMensajeriaById(mensajeria.getId())) {
                     case AVIANCA:
                         imgMensajeria = root.findViewById(R.id.mensajeriaAvianca);
@@ -248,7 +263,9 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     case TIEMPO_EXPRESS:
                         imgMensajeria = root.findViewById(R.id.mensajeriaTempoExpress);
                         break;
-
+                    case OTRA:
+                        imgMensajeria = root.findViewById(R.id.mensajeriaOtra);
+                        break;
                 }
 
                 if (imgMensajeria != null) {
@@ -415,7 +432,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             for (MetodoPago metodoPago : estaciones.getListMetodosPago()
             ) {
 
-                switch (EMetodosPago.getMetodosPagoById(metodoPago.getId())) {
+                switch (Objects.requireNonNull(EMetodosPago.getMetodosPagoById(metodoPago.getId()))) {
                     case PSE:
                         imgMetodoPago = root.findViewById(R.id.metodoPagoPse);
                         break;
@@ -452,6 +469,12 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     case VISA:
                         imgMetodoPago = root.findViewById(R.id.metodoPagoVisa);
                         break;
+                    case MAESTRO:
+                        imgMetodoPago = root.findViewById(R.id.metodoPagoMaestro);
+                        break;
+                    case CREDITO_FACIL_CODENSA:
+                        imgMetodoPago = root.findViewById(R.id.metodoPagoCreditoFacil);
+                        break;
                 }
 
                 if (imgMetodoPago != null) {
@@ -471,6 +494,91 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             layout.setVisibility(View.GONE);
         }
 
+    }
+
+    private void initAccesorios(View root) {
+
+        if (estaciones.getListAccesoriosYrepuestos() != null && estaciones.getListAccesoriosYrepuestos().size() > 0) {
+
+            int counter = 0;
+            ImageView imgAccesorios = null;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
+
+            for (AccesoriosYrepuestos accesoriosYrepuestos : estaciones.getListAccesoriosYrepuestos()
+            ) {
+
+                switch (Objects.requireNonNull(EAccesoriosRepuestos.getEAccesoriosById(accesoriosYrepuestos.getId()))) {
+                    case CARROS:
+                        imgAccesorios = root.findViewById(R.id.accesoriosCarros);
+                        break;
+                    case MOTOS:
+                        imgAccesorios = root.findViewById(R.id.accesoriosMotos);
+                        break;
+                }
+
+                if (imgAccesorios != null) {
+                    if (counter == 0) {
+                        params.setMargins(0, 0, 20, 0);
+                        imgAccesorios.setLayoutParams(params);
+                    } else if (counter > 0) {
+                        params.setMargins(20, 0, 20, 0);
+                        imgAccesorios.setLayoutParams(params);
+                    }
+                    imgAccesorios.setVisibility(View.VISIBLE);
+                    counter++;
+                }
+            }
+        } else {
+            LinearLayout layout = root.findViewById(R.id.lay_accesorios);
+            layout.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void initCompraYventa(View root) {
+
+        if (estaciones.getListCompraYventa() != null && estaciones.getListCompraYventa().size() > 0) {
+
+            int counter = 0;
+            ImageView imgCompraYventa = null;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.size_img_secciones),
+                    (int) getResources().getDimension(R.dimen.size_img_secciones));
+
+            for (CompraYventa compraYventa : estaciones.getListCompraYventa()
+            ) {
+
+                switch (Objects.requireNonNull(ECompraYventa.getEECompraYventaById(compraYventa.getId()))) {
+                    case CARROYA_PUNTO_COM:
+                        imgCompraYventa = root.findViewById(R.id.compraVentaCarroYa);
+                        break;
+                    case OLX_AUTOS:
+                        imgCompraYventa = root.findViewById(R.id.compraVentaOlxAutos);
+                        break;
+                    case OTRA:
+                        imgCompraYventa = root.findViewById(R.id.compraVentaOtra);
+                        break;
+                    case TUCARRO_PUNTO_COM:
+                        imgCompraYventa = root.findViewById(R.id.compraVentaTuCarro);
+                        break;
+                }
+
+                if (imgCompraYventa != null) {
+                    if (counter == 0) {
+                        params.setMargins(0, 0, 20, 0);
+                        imgCompraYventa.setLayoutParams(params);
+                    } else if (counter > 0) {
+                        params.setMargins(20, 0, 20, 0);
+                        imgCompraYventa.setLayoutParams(params);
+                    }
+                    imgCompraYventa.setVisibility(View.VISIBLE);
+                    counter++;
+                }
+            }
+        } else {
+            LinearLayout layout = root.findViewById(R.id.lay_compra_venta);
+            layout.setVisibility(View.GONE);
+        }
     }
 
     private void cajeros(View root) {
@@ -769,11 +877,17 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                 if (puntoPago.getId().equals(EPuntoPago.SERVY_PAGOS.getId())) {
                     imgPuntoPago = root.findViewById(R.id.puntoservypagos);
                 }
+
                 if (puntoPago.getId().equals(EPuntoPago.SUPER_GIROS.getId())) {
                     imgPuntoPago = root.findViewById(R.id.puntosupergiros);
                 }
+
                 if (puntoPago.getId().equals(EPuntoPago.PUNTO_RED.getId())) {
                     imgPuntoPago = root.findViewById(R.id.punto_red);
+                }
+
+                if (puntoPago.getId().equals(EPuntoPago.OTRA.getId())) {
+                    imgPuntoPago = root.findViewById(R.id.puntoOtro);
                 }
 
                 if (imgPuntoPago != null) {
@@ -787,9 +901,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     imgPuntoPago.setVisibility(View.VISIBLE);
                 }
 
-
                 counter++;
-
             }
         } else {
             ConstraintLayout puntosPagos = root.findViewById(R.id.puntospago);
@@ -809,6 +921,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                     imgTienda = root.findViewById(R.id.tiendaTigerMarket);
                     imgTienda.setVisibility(View.VISIBLE);
                 }
+
                 if (tienda.getId().equals(ETiendas.ARA.getId())) {
                     imgTienda = root.findViewById(R.id.tiendaAra);
                     imgTienda.setVisibility(View.VISIBLE);
@@ -846,6 +959,56 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
 
                 if (tienda.getId().equals(ETiendas.BEST_MART.getId())) {
                     imgTienda = root.findViewById(R.id.tiendaBestMart);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.LA_DESPENSA.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaDespensaExpress);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.DOLLARCITY.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaDollarCity);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.MAKRO.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaMakro);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.METRO.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaMetro);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.ON_THE_RUN.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaOnTheRun);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.SURTIMAX.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaSurtimax);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.STAR_MART.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaStarMart);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.SPACIO_UNO.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaSpaciouno);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.OXXO.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaOxxo);
+                    imgTienda.setVisibility(View.VISIBLE);
+                }
+
+                if (tienda.getId().equals(ETiendas.OTRA.getId())) {
+                    imgTienda = root.findViewById(R.id.tiendaOtraTienda);
                     imgTienda.setVisibility(View.VISIBLE);
                 }
 
@@ -915,6 +1078,17 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
                 ImageView soatSura = root.findViewById(R.id.soatSuraSeguros);
                 soatSura.setVisibility(View.VISIBLE);
             }
+
+            if (estaciones.getSoat().getId().equals(ESoat.DEO_SEGUROS.getId())) {
+                ImageView soatSura = root.findViewById(R.id.soatDeo);
+                soatSura.setVisibility(View.VISIBLE);
+            }
+
+            if (estaciones.getSoat().getId().equals(ESoat.OTRA.getId())) {
+                ImageView soatSura = root.findViewById(R.id.soatOtra);
+                soatSura.setVisibility(View.VISIBLE);
+            }
+
         } else {
             ConstraintLayout soat = root.findViewById(R.id.soat);
             soat.setVisibility(View.GONE);
@@ -950,6 +1124,105 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         } else {
             ConstraintLayout bano = root.findViewById(R.id.banios);
             bano.setVisibility(View.GONE);
+        }
+    }
+
+    private void initCafeteria(View root) {
+
+        if (estaciones.getTieneCafeteriaPanaderia() != null && estaciones.getTieneCafeteriaPanaderia()) {
+            ImageView imageView = root.findViewById(R.id.estacionCafeteria);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_cafeteria);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initCambioAceite(View root) {
+
+        if (estaciones.getTieneCambioAceite() != null && estaciones.getTieneCambioAceite()) {
+            ImageView imageView = root.findViewById(R.id.estacionCambioAceite);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_cambio_aceite);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initVentaLlantas(View root) {
+
+        if (estaciones.getTieneVentaLLantas() != null && estaciones.getTieneVentaLLantas()) {
+            ImageView imageView = root.findViewById(R.id.estacionVentaLlantas);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_venta_llantas);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initVentaBaterias(View root) {
+
+        if (estaciones.getTieneVentaBaterias() != null && estaciones.getTieneVentaBaterias()) {
+            ImageView imageView = root.findViewById(R.id.estacionVentaBaterias);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_venta_baterias);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initFerreteria(View root) {
+
+        if (estaciones.getTieneFerreteria() != null && estaciones.getTieneFerreteria()) {
+            ImageView imageView = root.findViewById(R.id.estacionFerreteria);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_ferreteria);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initLicoreria(View root) {
+
+        if (estaciones.getTieneLicoreria() != null && estaciones.getTieneLicoreria()) {
+            ImageView imageView = root.findViewById(R.id.estacionLicoreria);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_licoreria);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initBebidas(View root) {
+
+        if (estaciones.getTieneBebidas() != null && estaciones.getTieneBebidas()) {
+            ImageView imageView = root.findViewById(R.id.estacionBebidas);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_bebidas);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initCda(View root) {
+
+        if (estaciones.getTieneCda() != null && estaciones.getTieneCda()) {
+            ImageView imageView = root.findViewById(R.id.estacionCda);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_cda);
+            ll.setVisibility(View.GONE);
+        }
+    }
+
+    private void initMecanica(View root) {
+
+        if (estaciones.getTieneMecanicaGeneral() != null && estaciones.getTieneMecanicaGeneral()) {
+            ImageView imageView = root.findViewById(R.id.estacionMecanicaGeneral);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            LinearLayout ll = root.findViewById(R.id.lay_macanica_general);
+            ll.setVisibility(View.GONE);
         }
     }
 

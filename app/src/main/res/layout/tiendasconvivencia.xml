@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:text="Tiendas de conveniencia"
+            android:text="@string/tiendas_de_conveniencia"
             android:textSize="@dimen/text_titulos_secciones"
             android:textStyle="bold" />
 
@@ -32,6 +32,7 @@
                     android:id="@+id/tiendaTigerMarket"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/tigermarket"
                     android:visibility="gone" />
 
@@ -39,6 +40,7 @@
                     android:id="@+id/tiendaOlimpica"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/olimpica"
                     android:visibility="gone" />
 
@@ -46,6 +48,7 @@
                     android:id="@+id/tiendaJustoBueno"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/justoy_bueno"
                     android:visibility="gone" />
 
@@ -53,6 +56,7 @@
                     android:id="@+id/tiendaExitoExpress"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/exito"
                     android:visibility="gone" />
 
@@ -60,6 +64,7 @@
                     android:id="@+id/tiendaD1"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/d1"
                     android:visibility="gone" />
 
@@ -67,6 +72,7 @@
                     android:id="@+id/tiendaAra"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/ara"
                     android:visibility="gone" />
 
@@ -74,6 +80,7 @@
                     android:id="@+id/tiendaAltoque"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/altoque"
                     android:visibility="gone" />
 
@@ -81,7 +88,88 @@
                     android:id="@+id/tiendaBestMart"
                     android:layout_width="@dimen/size_img_secciones"
                     android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
                     android:src="@drawable/bestmart"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaDespensaExpress"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/despensa_express"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaDollarCity"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/dollarcity"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaMakro"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/makro"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaMetro"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/metro"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaOnTheRun"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/on_the_run"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaSurtimax"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/sutimax"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaStarMart"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/starmart"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaSpaciouno"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/spacio1"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaOxxo"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/oxxo"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tiendaOtraTienda"
+                    android:layout_width="@dimen/size_img_secciones"
+                    android:layout_height="@dimen/size_img_secciones"
+                    android:contentDescription="@string/farmacia"
+                    android:src="@drawable/otra_tienda"
                     android:visibility="gone" />
 
             </LinearLayout>

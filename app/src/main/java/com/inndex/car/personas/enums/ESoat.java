@@ -12,7 +12,9 @@ public enum ESoat {
     SEGUROS_EXITO(8L),
     SEGUROS_FALABELLA(9L),
     SEGUROS_LA_EQUIDAD(10L),
-    SURA_SEGUROS(11L);
+    SURA_SEGUROS(11L),
+    DEO_SEGUROS(12L),
+    OTRA(13L);
 
     private Long id;
 
