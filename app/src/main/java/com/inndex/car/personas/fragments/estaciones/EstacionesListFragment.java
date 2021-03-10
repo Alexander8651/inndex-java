@@ -62,34 +62,8 @@ public class EstacionesListFragment extends Fragment {
         DataBaseHelper helper = OpenHelperManager.getHelper(getActivity(), DataBaseHelper.class);
         TextView tvTitulo = view.findViewById(R.id.tv_toolbar_titulo);
         tvTitulo.setText(getString(R.string.lista));
-        ImageView imgMenu = view.findViewById(R.id.btnMenuToolbar);
-        imgMenu.setVisibility(View.VISIBLE);
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), imgMenu);
-        popupMenu.inflate(R.menu.menu_estaciones_list);
-        popupMenu.setOnMenuItemClickListener(item -> {
-
-            int itemId = item.getItemId();
-            if (itemId == R.id.optOrderByCalificacion) {
-                orderStations(ORDER_BY_CALIFICATION);
-            } else if (itemId == R.id.optOrderByDistancia) {
-                orderStations(ORDER_BY_DISTANCE);
-            } else if (itemId == R.id.optOrderByGasolinaCorriente) {
-                orderStations(ORDER_BY_CORRIENTE);
-            } else if (itemId == R.id.optOrderByGasolinaExtra) {
-                orderStations(ORDER_BY_EXTRA);
-            } else if (itemId == R.id.optOrderByPrecioBioDiesel) {
-                orderStations(ORDER_BY_BIODIESEL);
-            } else if (itemId == R.id.optOrderByPrecioDiesel) {
-                orderStations(ORDER_BY_DIESEL);
-            } else if (itemId == R.id.optOrderByPrecioGNV) {
-                orderStations(ORDER_BY_GNV);
-            }
-
-            return false;
-
-        });
-        imgMenu.setOnClickListener(v -> popupMenu.show());
-
+        //initMenu(view);
+        
         ImageView imgBack = view.findViewById(R.id.btnBack);
         navController = Navigation.findNavController(requireActivity(), R.id.fragContentApp);
         imgBack.setOnClickListener(v ->
@@ -122,6 +96,36 @@ public class EstacionesListFragment extends Fragment {
             e.printStackTrace();
         }
         return view;
+    }
+
+    private void initMenu(View view){
+        ImageView imgMenu = view.findViewById(R.id.btnMenuToolbar);
+        imgMenu.setVisibility(View.VISIBLE);
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), imgMenu);
+        popupMenu.inflate(R.menu.menu_estaciones_list);
+        popupMenu.setOnMenuItemClickListener(item -> {
+
+            int itemId = item.getItemId();
+            if (itemId == R.id.optOrderByCalificacion) {
+                orderStations(ORDER_BY_CALIFICATION);
+            } else if (itemId == R.id.optOrderByDistancia) {
+                orderStations(ORDER_BY_DISTANCE);
+            } else if (itemId == R.id.optOrderByGasolinaCorriente) {
+                orderStations(ORDER_BY_CORRIENTE);
+            } else if (itemId == R.id.optOrderByGasolinaExtra) {
+                orderStations(ORDER_BY_EXTRA);
+            } else if (itemId == R.id.optOrderByPrecioBioDiesel) {
+                orderStations(ORDER_BY_BIODIESEL);
+            } else if (itemId == R.id.optOrderByPrecioDiesel) {
+                orderStations(ORDER_BY_DIESEL);
+            } else if (itemId == R.id.optOrderByPrecioGNV) {
+                orderStations(ORDER_BY_GNV);
+            }
+
+            return false;
+
+        });
+        imgMenu.setOnClickListener(v -> popupMenu.show());
     }
 
     public void orderStations(Integer option) {

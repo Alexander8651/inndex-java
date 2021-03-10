@@ -17,12 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.database.DataBaseHelper;
+import com.inndex.car.personas.fragments.estaciones.admin.adapters.AccesoriosYrepuestosAdapter;
+import com.inndex.car.personas.fragments.estaciones.admin.adapters.CompraYventaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.MensajeriaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.MetodosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.PuntosPagoAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.TiendaAdapter;
 import com.inndex.car.personas.fragments.estaciones.admin.adapters.BancosEdsotrosServiciosAdapter;
+import com.inndex.car.personas.model.AccesoriosYrepuestos;
 import com.inndex.car.personas.model.Bancos;
+import com.inndex.car.personas.model.CompraYventa;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Hotel;
 import com.inndex.car.personas.model.Mensajeria;
@@ -57,6 +61,9 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     ArrayList<Tiendas> tiendas;
     ArrayList<Soat> soats;
     List<MetodoPago> metodoPagoList;
+    List<AccesoriosYrepuestos> listAccesorios;
+    List<CompraYventa> listCompraYventa;
+
     DataBaseHelper helper;
 
     public PresenterEdsOtrsServiciosFragment(Context context, IEdsOtrosServiciosFragment iEdsOtrosServiciosFragment, Estaciones estaciones) {
@@ -179,6 +186,45 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     }
 
     @Override
+    public void obtenerAccesoriosYRepuestos() {
+        Call<List<AccesoriosYrepuestos>> accesoriosCall = MedidorApiAdapter.getApiService().getAccesoriosYrepuestos();
+        accesoriosCall.enqueue(new Callback<List<AccesoriosYrepuestos>>() {
+            @Override
+            public void onResponse(Call<List<AccesoriosYrepuestos>> call, Response<List<AccesoriosYrepuestos>> response) {
+                if (response.isSuccessful()) {
+                    listAccesorios =response.body();
+                    validateAccesoriosYRepuestos();
+                } else
+                    Toast.makeText(context, "ERROR " + response.code(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<AccesoriosYrepuestos>> call, Throwable t) {
+                Toast.makeText(context, "ERROR " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void obtenerCompraYventa() {
+        Call<List<CompraYventa>> tiendasCall = MedidorApiAdapter.getApiService().getCompraYventa();
+        tiendasCall.enqueue(new Callback<List<CompraYventa>>() {
+            @Override
+            public void onResponse(Call<List<CompraYventa>> call, Response<List<CompraYventa>> response) {
+                if (response.isSuccessful()) {
+                    listCompraYventa =  response.body();
+                    validateCompraYventa();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CompraYventa>> call, Throwable t) {
+                Toast.makeText(context, "ERROR " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
     public void mostrarDialogoCajeros() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -242,8 +288,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
 
         PuntosPagoAdapter puntosPagoAdapter = new PuntosPagoAdapter(puntoPagos, (ArrayList<PuntoPago>) estaciones.getListPuntosPago());
-
-        Log.d("estoooooo",estaciones.getListPuntosPago().get(0).getNombre());
 
         RecyclerView puntosPago = v.findViewById(R.id.rvCajerosEds);
         puntosPago.setAdapter(puntosPagoAdapter);
@@ -353,6 +397,48 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     }
 
     @Override
+    public void mostrarDialogoAccesorios() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
+        AccesoriosYrepuestosAdapter adapter = new AccesoriosYrepuestosAdapter(listAccesorios, estaciones.getListAccesoriosYrepuestos());
+
+        RecyclerView rvAccesorios = v.findViewById(R.id.rvCajerosEds);
+        rvAccesorios.setAdapter(adapter);
+
+        builder.setView(v);
+
+        builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
+            estaciones.setListAccesoriosYrepuestos(adapter.obtenerListaaccesorios());
+            validateAccesoriosYRepuestos();
+        });
+        builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
+        }));
+        builder.show();
+    }
+
+    @Override
+    public void mostrarDialogoCompraYventa() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.dialogcajeroselectronicos, null);
+        CompraYventaAdapter adapter = new CompraYventaAdapter(listCompraYventa, estaciones.getListCompraYventa());
+
+        RecyclerView rvCompraYventa = v.findViewById(R.id.rvCajerosEds);
+        rvCompraYventa.setAdapter(adapter);
+
+        builder.setView(v);
+
+        builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
+            estaciones.setListCompraYventa(adapter.obtenerListaCompraYventas());
+            validateMetodosPago();
+        });
+        builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
+        }));
+        builder.show();
+    }
+
+    @Override
     public void setearChecbox() {
 
         if (estaciones.getListRestaurantes() != null && estaciones.getListRestaurantes().size() > 0) {
@@ -395,6 +481,42 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             iEdsOtrosServiciosFragment.cbServiteca().setChecked(true);
         }
 
+        if (estaciones.getTieneMecanicaGeneral() != null && estaciones.getTieneMecanicaGeneral()) {
+            iEdsOtrosServiciosFragment.cbMecanicaGeneral().setChecked(true);
+        }
+
+        if (estaciones.getTieneLicoreria() != null && estaciones.getTieneLicoreria()) {
+            iEdsOtrosServiciosFragment.cbLicoreria().setChecked(true);
+        }
+
+        if (estaciones.getTieneFerreteria() != null && estaciones.getTieneFerreteria()) {
+            iEdsOtrosServiciosFragment.cbFerreteria().setChecked(true);
+        }
+
+        if (estaciones.getTieneVentaBaterias() != null && estaciones.getTieneVentaBaterias()) {
+            iEdsOtrosServiciosFragment.cbVentaBaterias().setChecked(true);
+        }
+
+        if (estaciones.getTieneVentaLLantas() != null && estaciones.getTieneVentaLLantas()) {
+            iEdsOtrosServiciosFragment.cbVentaLlantas().setChecked(true);
+        }
+
+        if (estaciones.getTieneCambioAceite() != null && estaciones.getTieneCambioAceite()) {
+            iEdsOtrosServiciosFragment.cbCambioAceite().setChecked(true);
+        }
+
+        if (estaciones.getTieneCafeteriaPanaderia() != null && estaciones.getTieneCafeteriaPanaderia()) {
+            iEdsOtrosServiciosFragment.cbCafeteria().setChecked(true);
+        }
+
+        if (estaciones.getTieneBebidas() != null && estaciones.getTieneBebidas()) {
+            iEdsOtrosServiciosFragment.cbBebidas().setChecked(true);
+        }
+
+        if (estaciones.getTieneCda() != null && estaciones.getTieneCda()) {
+            iEdsOtrosServiciosFragment.cbCda().setChecked(true);
+        }
+
     }
 
     @Override
@@ -432,9 +554,18 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         estaciones.setTieneVentaLubricante(iEdsOtrosServiciosFragment.lubricantes().isChecked());
         estaciones.setTieneLlanteria(iEdsOtrosServiciosFragment.llanteria().isChecked());
         estaciones.setTieneLavadero(iEdsOtrosServiciosFragment.lavadero().isChecked());
-
         estaciones.setTieneDroguerias(iEdsOtrosServiciosFragment.cbFarmacia().isChecked());
         estaciones.setTieneServiteca(iEdsOtrosServiciosFragment.cbServiteca().isChecked());
+
+        estaciones.setTieneBebidas(iEdsOtrosServiciosFragment.cbBebidas().isChecked());
+        estaciones.setTieneCafeteriaPanaderia(iEdsOtrosServiciosFragment.cbCafeteria().isChecked());
+        estaciones.setTieneCambioAceite(iEdsOtrosServiciosFragment.cbCambioAceite().isChecked());
+        estaciones.setTieneCda(iEdsOtrosServiciosFragment.cbCda().isChecked());
+        estaciones.setTieneFerreteria(iEdsOtrosServiciosFragment.cbFerreteria().isChecked());
+        estaciones.setTieneLicoreria(iEdsOtrosServiciosFragment.cbLicoreria().isChecked());
+        estaciones.setTieneVentaBaterias(iEdsOtrosServiciosFragment.cbVentaBaterias().isChecked());
+        estaciones.setTieneVentaLLantas(iEdsOtrosServiciosFragment.cbVentaLlantas().isChecked());
+        estaciones.setTieneMecanicaGeneral(iEdsOtrosServiciosFragment.cbMecanicaGeneral().isChecked());
 
         //Gson gson = new Gson();
         //Log.e("EST", gson.toJson(estaciones));
@@ -458,12 +589,43 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                 Toast.makeText(context, "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override
     public void setearOtrosServicosData() {
 
+    }
+
+    private void validateCompraYventa() {
+        iEdsOtrosServiciosFragment.tvCompraYventaSeleccionados().setText(context.getString(R.string.selecciona_compra_y_venta));
+        if (estaciones.getListCompraYventa() != null && estaciones.getListCompraYventa().size() > 0) {
+            iEdsOtrosServiciosFragment.tvCompraYventaSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (CompraYventa e : estaciones.getListCompraYventa()) {
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListCompraYventa().indexOf(e) == estaciones.getListCompraYventa().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
+                }
+            }
+            iEdsOtrosServiciosFragment.tvCompraYventaSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.tvCompraYventaSeleccionados().setGravity(Gravity.CENTER);
+        }
+    }
+
+    private void validateAccesoriosYRepuestos() {
+        iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setText(context.getString(R.string.selecciona_los_cajeros_electronicos));
+        if (estaciones.getListAccesoriosYrepuestos() != null && estaciones.getListAccesoriosYrepuestos().size() > 0) {
+            iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setText("");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (AccesoriosYrepuestos e : estaciones.getListAccesoriosYrepuestos()) {
+                stringBuilder.append(e.getNombre()).append(",").append(" ");
+                if (estaciones.getListAccesoriosYrepuestos().indexOf(e) == estaciones.getListAccesoriosYrepuestos().size() - 1) {
+                    stringBuilder.setLength(stringBuilder.length() - 2);
+                }
+            }
+            iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setText(stringBuilder.toString());
+            iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setGravity(Gravity.CENTER);
+        }
     }
 
     private void validateSoat() {

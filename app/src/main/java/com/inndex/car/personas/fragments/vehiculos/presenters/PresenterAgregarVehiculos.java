@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.google.type.Color;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.adapter.AdapterSpinner;
 import com.inndex.car.personas.adapter.AdapterSpinnerCombustible;

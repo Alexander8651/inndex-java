@@ -15,6 +15,9 @@ public class Constantes {
     public static final String BASE_URL_FOURSQUARE = "https://api.foursquare.com/v2/venues/";
     public static final int LIMIT_RESPONSE = 5;
 
+    public static final String ESTACION_BUNDLE = "estacionIs";
+
+
     public static final String LATITUD_KEY = "latitud";
     public static final String LONGITUD_KEY = "longitud";
     public static final String SHARED_PREFERENCES_FILE_KEY = "inndex_preferences";

@@ -27,11 +27,23 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     private TextView titulo, cajerosSeleccionados, corresponsalesSeleccionados, puntosPagoSeleccionados, tiendasSeleccionados, segurosSeleccionados;
     private TextView metodosPagoSeleccionados;
     private TextView tvMensajeriaSeleccionados;
+    private TextView tvAccesoriosSeleccionados;
+    private TextView tvCompraYventaSeleccionados;
     private Estaciones estacion;
     private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia, soat, cvMetodosPago, cvMensajeria;
+
     private Button guardarUsuario;
     private CheckBox restaurate, hotel, banios, lubricantes, llanteria, lavadero;
     private CheckBox cbFarmacia, cbServiteca;
+    private CheckBox cbCafeteria;
+    private CheckBox cbCambioAceite;
+    private CheckBox cbVentaLlantas;
+    private CheckBox cbVentaBaterias;
+    private CheckBox cbFerreteria;
+    private CheckBox cbLicoreria;
+    private CheckBox cbBebidas;
+    private CheckBox cbCda;
+    private CheckBox cbMecanicaGeneral;
 
     private IPresenterEdsOtrosServicios iPresenterEdsOtrosServicios;
 
@@ -59,6 +71,10 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         soat = root.findViewById(R.id.soat_otros_servicios);
         cvMetodosPago = root.findViewById(R.id.metodos_pago_otros_servicios);
         cvMensajeria = root.findViewById(R.id.cvMensajeria);
+
+           CardView  cvCompraYventa = root.findViewById(R.id.cvCompraYventa);
+        CardView cvAccesorios = root.findViewById(R.id.cvAccesorios);
+
         guardarUsuario = root.findViewById(R.id.guardar_usuario);
 
         cajerosSeleccionados = root.findViewById(R.id.cajerosSeleccionados);
@@ -68,6 +84,8 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         segurosSeleccionados = root.findViewById(R.id.segurosSeleccionados);
         metodosPagoSeleccionados = root.findViewById(R.id.metodosPagoSeleccionados);
         tvMensajeriaSeleccionados = root.findViewById(R.id.tvMensajeria);
+        tvAccesoriosSeleccionados = root.findViewById(R.id.tvAccesorios);
+        tvCompraYventaSeleccionados = root.findViewById(R.id.tvCompraYventa);
 
         restaurate = root.findViewById(R.id.estacionRestaurante);
         hotel = root.findViewById(R.id.estacionHotel);
@@ -77,6 +95,16 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         lavadero = root.findViewById(R.id.estacionLavaderos);
         cbFarmacia = root.findViewById(R.id.cbFarmacia);
         cbServiteca = root.findViewById(R.id.cbServiteca);
+        cbCafeteria = root.findViewById(R.id.cbCafeteria);
+        cbCambioAceite = root.findViewById(R.id.cbCambioAceite);
+        cbVentaLlantas = root.findViewById(R.id.cbVentaLlantas);
+        cbVentaBaterias = root.findViewById(R.id.cbVentaBaterias);
+        cbFerreteria = root.findViewById(R.id.cbFerreteria);
+        cbLicoreria = root.findViewById(R.id.cbLicoreria);
+        cbBebidas = root.findViewById(R.id.cbBebidas);
+        cbCda = root.findViewById(R.id.cbCda);
+        cbMecanicaGeneral = root.findViewById(R.id.cbMecanicaGeneral);
+
         iPresenterEdsOtrosServicios = new PresenterEdsOtrsServiciosFragment(requireContext(), this, estacion);
 
         titulo.setText("Otros Servicios");
@@ -164,6 +192,51 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     }
 
     @Override
+    public CheckBox cbCafeteria() {
+        return cbCafeteria;
+    }
+
+    @Override
+    public CheckBox cbCambioAceite() {
+        return cbCambioAceite;
+    }
+
+    @Override
+    public CheckBox cbVentaLlantas() {
+        return cbVentaLlantas;
+    }
+
+    @Override
+    public CheckBox cbVentaBaterias() {
+        return cbVentaBaterias;
+    }
+
+    @Override
+    public CheckBox cbFerreteria() {
+        return cbFerreteria;
+    }
+
+    @Override
+    public CheckBox cbLicoreria() {
+        return cbLicoreria;
+    }
+
+    @Override
+    public CheckBox cbBebidas() {
+        return cbBebidas;
+    }
+
+    @Override
+    public CheckBox cbCda() {
+        return cbCda;
+    }
+
+    @Override
+    public CheckBox cbMecanicaGeneral() {
+        return cbMecanicaGeneral;
+    }
+
+    @Override
     public Button botonGuardar() {
         return guardarUsuario;
     }
@@ -201,5 +274,15 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     @Override
     public TextView mensajeriaSeleccionados() {
         return tvMensajeriaSeleccionados;
+    }
+
+    @Override
+    public TextView tvAccesoriosSeleccionados() {
+        return tvAccesoriosSeleccionados;
+    }
+
+    @Override
+    public TextView tvCompraYventaSeleccionados() {
+        return tvCompraYventaSeleccionados;
     }
 }

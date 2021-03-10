@@ -31,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class EstacionesFiltrosFragment extends Fragment {
 
     List<EstacionesFiltros> lEstacionesFiltros;
@@ -45,7 +44,6 @@ public class EstacionesFiltrosFragment extends Fragment {
     public RelativeLayout relFilterDistancia;
 
     public RelativeLayout relFilterTipoCombustible;
-
 
     public TextView tvFiltroCalificacion;
     //
@@ -83,14 +81,12 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     public TextView tvFiltroLlanterias;
 
-
     public Button btnFiltrarEstaciones;
 
     //private MainActivity mainActivity;
     private DataBaseHelper helper;
     private List<MarcaVehiculos> lMarcasVehiculos;
     private NavController navController;
-
 
     private boolean[] checkedBrands;
     private boolean[] checkedCertificados;
@@ -168,6 +164,9 @@ public class EstacionesFiltrosFragment extends Fragment {
         binding.swFilterRestaurantes.setOnCheckedChangeListener((compoundButton, b) -> {
             setBooleanFilter(b, EEstacionesFiltros.RESTAURANTES.getId());
         });
+        binding.swFilterPromocion.setOnCheckedChangeListener((compoundButton, b) ->
+                setBooleanFilter(b, EEstacionesFiltros.PROMOCION.getId())
+        );
     }
 
     private void initFilterData() {
@@ -186,7 +185,7 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     public void showBrandFilters() {
         //String[] opciones = getResources().getStringArray(R.array.marcas_estaciones);
-        String[] opciones = new String[]{"",""};
+        String[] opciones = new String[]{"", ""};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Marcas");
         builder.setMultiChoiceItems(opciones, checkedBrands, (dialog, which, isChecked) -> {
@@ -219,7 +218,6 @@ public class EstacionesFiltrosFragment extends Fragment {
         builder.show();
     }
 
-
     public void showDistanceFilters() {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_filtro_distancia);
@@ -247,7 +245,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.BlackDialogTheme);
         builder.setTitle("Calificación");
         builder.setSingleChoiceItems(opciones, opcionCalificacionSelected, (dialog, which) ->
-            opcionCalificacionSelected = which
+                opcionCalificacionSelected = which
         );
         builder.setPositiveButton("OK", (dialog, which) -> {
             tvFiltroCalificacion.setText(opciones[opcionCalificacionSelected]);
@@ -299,11 +297,13 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     private void getFilterCountResult() {
         if (this.lEstacionesFiltros != null && this.lEstacionesFiltros.size() > 0) {
+            binding.statusApi.setVisibility(View.VISIBLE);
 
             Call<Long> callPostQueryCountByFilter = MedidorApiAdapter.getApiService().postQueryCountByFilters(lEstacionesFiltros);
             callPostQueryCountByFilter.enqueue(new Callback<Long>() {
                 @Override
                 public void onResponse(Call<Long> call, Response<Long> response) {
+                    binding.statusApi.setVisibility(View.GONE);
                     if (response.isSuccessful()) {
 
                         Long responseCount = response.body();
@@ -313,6 +313,7 @@ public class EstacionesFiltrosFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<Long> call, Throwable t) {
+                    binding.statusApi.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });

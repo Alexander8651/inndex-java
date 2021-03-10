@@ -11,6 +11,9 @@ public interface IPresenterEdsOtrosServicios {
     void obtenerMetodosPago();
     void obtenerMensajeria();
 
+    void obtenerAccesoriosYRepuestos();
+    void obtenerCompraYventa();
+
     void mostrarDialogoCajeros();
     void mostrarDialogoCorresponsales();
     void mostrarDialogoPuntosPago();
@@ -19,6 +22,8 @@ public interface IPresenterEdsOtrosServicios {
     void mostrarDialogoMetodosPago();
     void mostrarDialogoMensajeria();
 
+    void mostrarDialogoAccesorios();
+    void mostrarDialogoCompraYventa();
 
     void setearChecbox();
     void guardarCambios(View v);

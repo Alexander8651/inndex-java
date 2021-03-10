@@ -28,4 +28,10 @@ public interface IApiUrlConstants {
     //textos
     String GET_TEXTO_BY_ID = "textos/getById";
 
+    //ACCESORIOS Y REPUESTOS
+    String GET_ACCESORRIOS_Y_REPUESTOS = "accesorios-y-repuestos/getAll";
+
+    //COMPRA Y VENTA
+    String GET_COMPRA_Y_VENTA = "compra-y-venta/getAll";
+
 }

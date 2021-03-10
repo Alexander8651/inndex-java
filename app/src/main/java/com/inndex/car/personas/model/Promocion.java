@@ -10,7 +10,7 @@ public class Promocion implements Serializable {
 
     private String descripcion;
 
-    private Double precio;
+    private Integer precio;
 
     private String tipo;
 
@@ -73,11 +73,11 @@ public class Promocion implements Serializable {
         this.estaciones = estaciones;
     }
 
-    public Double getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
 

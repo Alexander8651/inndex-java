@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,8 +16,8 @@
         android:id="@+id/sv_filters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_filtros"
-        android:layout_above="@id/btnFiltrarEstaciones">
+        android:layout_above="@id/btnFiltrarEstaciones"
+        android:layout_below="@id/toolbar_filtros">
 
         <LinearLayout
             android:id="@+id/lay_filter"
@@ -90,6 +91,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -119,6 +121,7 @@
                     android:textSize="@dimen/size_text_opt_filter" />
 
                 <ImageView
+                android:contentDescription="@string/mecanica_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -158,6 +161,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -193,6 +197,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -263,6 +268,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -338,6 +344,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -372,6 +379,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -406,6 +414,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
@@ -440,7 +449,47 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/mecanica_general"
                     android:src="@drawable/ic_right" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/gris" />
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_top_opcion_filtro"
+                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
+
+                <TextView
+                    android:id="@+id/tvFilterPromocion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/promocion"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/size_text_opt_filter" />
+
+                <Switch
+                    android:id="@+id/swFilterPromocion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_toEndOf="@id/tvFilterPromocion"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:shadowColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:theme="@style/BlackSwitch" />
 
             </RelativeLayout>
 
@@ -723,6 +772,7 @@
         android:id="@+id/btnFiltrarEstaciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
@@ -733,7 +783,27 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"/>
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/statusApi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="@color/colorPrimary" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/speedometer"
+            app:lottie_speed="2.5" />
+    </RelativeLayout>
 
 </RelativeLayout>

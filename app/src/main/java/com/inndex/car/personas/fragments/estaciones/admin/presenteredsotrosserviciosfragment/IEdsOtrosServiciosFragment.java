@@ -4,8 +4,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-
 public interface IEdsOtrosServiciosFragment {
+
     CheckBox restaurante();
 
     CheckBox hotel();
@@ -22,6 +22,16 @@ public interface IEdsOtrosServiciosFragment {
 
     CheckBox cbServiteca();
 
+    CheckBox cbCafeteria();
+    CheckBox cbCambioAceite();
+    CheckBox cbVentaLlantas();
+    CheckBox cbVentaBaterias();
+    CheckBox cbFerreteria();
+    CheckBox cbLicoreria();
+    CheckBox cbBebidas();
+    CheckBox cbCda();
+    CheckBox cbMecanicaGeneral();
+
     Button botonGuardar();
 
     TextView cajerosSeleccionados();
@@ -37,4 +47,8 @@ public interface IEdsOtrosServiciosFragment {
     TextView metodosPagoSeleccionados();
 
     TextView mensajeriaSeleccionados();
+
+    TextView tvAccesoriosSeleccionados();
+
+    TextView tvCompraYventaSeleccionados();
 }

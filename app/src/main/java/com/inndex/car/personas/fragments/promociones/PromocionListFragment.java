@@ -23,6 +23,7 @@ import com.inndex.car.personas.fragments.promociones.presentador.IPromocionListF
 import com.inndex.car.personas.fragments.promociones.presentador.PreseenterPromocionList;
 import com.inndex.car.personas.model.Estaciones;
 import com.inndex.car.personas.model.Promocion;
+import com.inndex.car.personas.utils.Constantes;
 
 import java.util.ArrayList;
 
@@ -46,9 +47,8 @@ public class PromocionListFragment extends Fragment implements IPromocionListFra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
-            estacion = getArguments().getParcelable("estacionIs");
+            estacion = getArguments().getParcelable(Constantes.ESTACION_BUNDLE);
         }
     }
 
@@ -84,7 +84,7 @@ public class PromocionListFragment extends Fragment implements IPromocionListFra
 
     @Override
     public AdapterPromociones crearAdapter(ArrayList<Promocion> promocions) {
-        return new AdapterPromociones(promocions);
+        return new AdapterPromociones(promocions, requireContext());
     }
 
     /*

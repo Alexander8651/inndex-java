@@ -35,7 +35,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.inndex.car.personas.R;
+import com.inndex.car.personas.activities.InicioActivity;
 import com.inndex.car.personas.adapter.AdapterSpinnerLinea;
 import com.inndex.car.personas.fragments.promociones.presentador.IPresenterPromocionForm;
 import com.inndex.car.personas.fragments.promociones.presentador.IPromocionFormFragment;
@@ -61,12 +67,17 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
     RelativeLayout agregar_foto_promocion;
     IPresenterPromocionForm iPresenterPromocionForm;
 
+    Bitmap bitmap;
+
     private Estaciones estacion;
+    private FirebaseAuth mAuth;
+    private RelativeLayout statusApi;
 
     private static final int REQUEST_PERMISSION_CAMERA = 100;
     private static final int REQUEST_IMAGE_CAMERA = 101;
     private static final int REQUEST_PERMISSION_GALERY = 102;
     private static final int REQUEST_IMAGE_GALEY = 103;
+    View root;
 
     public static PromocionFormFragment newInstance() {
         return new PromocionFormFragment();
@@ -85,7 +96,7 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_promocion_form, container, false);
+        root = inflater.inflate(R.layout.fragment_promocion_form, container, false);
 
         btnBack = root.findViewById(R.id.btnBack);
         titulo = root.findViewById(R.id.tv_toolbar_titulo);
@@ -93,6 +104,7 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
         agregar_foto_promocion = root.findViewById(R.id.agregar_foto_promocion);
         tipoOferta = root.findViewById(R.id.spn_tipo_oferta);
         categoriaOferta = root.findViewById(R.id.spn_categoria_oferta);
+        statusApi = root.findViewById(R.id.statusApiForm);
 
         tituloOferta = root.findViewById(R.id.titulo_oferta);
         precioOferta = root.findViewById(R.id.precio_oferta);
@@ -106,81 +118,64 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
         titulo.setText("Agregar Promoción");
 
         btnBack.setOnClickListener(v ->
-            Navigation.findNavController(v).navigateUp()
+                Navigation.findNavController(v).navigateUp()
         );
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(requireActivity(), new String[] {Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
-        } else {
-            agregar_foto_promocion.setOnClickListener(v -> {
-                irACamara();
-            });
-            PopupMenu popupMenu = new PopupMenu(agregar_foto_promocion.getContext(), agregar_foto_promocion);
-            popupMenu.inflate(R.menu.menufotoperfil);
-            popupMenu.show();
+        mAuth = FirebaseAuth.getInstance();
 
-            popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.camara:
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                                irACamara();
-                            } else {
-                                ActivityCompat.requestPermissions((Activity) agregar_foto_promocion.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
-                            }
-                        } else {
-                            irACamara();
-                        }
-                        return true;
-                    case R.id.galeria:
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                                abrirGaleria();
-                            } else {
-                                ActivityCompat.requestPermissions((Activity) agregar_foto_promocion.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
-                            }
-                        } else {
-                            abrirGaleria();
-                        }
-                        return true;
-                    default:
-                        return false;
-                }
-            });
-        }
+        String email = "inndexco@gmail.com";
+        String password = "Inndex2021%";
+        //checkCameraPermissions();
+        statusApi.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    statusApi.setVisibility(View.GONE);
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        checkCameraPermissions();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(requireContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        btnBack.callOnClick();
+                    }
+                });
         return root;
+    }
+
+    private void checkCameraPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_CAMERA);
+        } else {
+            initCameraAndGalleryButton();
+        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(PromocionFormViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //camara
         if (requestCode == REQUEST_PERMISSION_CAMERA) {
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                irACamara();
-            } else {
-                //Toast.makeText(view.getContext(), "Se necesitan los permisos", Toast.LENGTH_SHORT).show();
+            if (!(permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Navigation.findNavController(root).navigateUp();
+                return;
             }
         }
         //galeria
         if (requestCode == REQUEST_PERMISSION_GALERY) {
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                abrirGaleria();
-            } else {
-                //  Toast.makeText(view.getContext(), "Se necesitan los permisos", Toast.LENGTH_SHORT).show();
+            if (!(permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Navigation.findNavController(root).navigateUp();
+                return;
             }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        initCameraAndGalleryButton();
     }
 
     @Override
@@ -190,9 +185,9 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
         //camara
         if (requestCode == REQUEST_IMAGE_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
-                Bitmap bitmapCa = (Bitmap) data.getExtras().get("data");
+                bitmap = (Bitmap) data.getExtras().get("data");
                 tv_agregarfoto.setVisibility(View.GONE);
-                Drawable d = new BitmapDrawable(getResources(), bitmapCa);
+                Drawable d = new BitmapDrawable(getResources(), bitmap);
                 agregar_foto_promocion.setBackground(d);
             } else {
                 //Toast.makeText(view.getContext(), "Se requieren los permisos", Toast.LENGTH_SHORT).show();
@@ -201,27 +196,19 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
 
         if (requestCode == REQUEST_IMAGE_GALEY) {
             if (resultCode == Activity.RESULT_OK) {
-                Uri uriGa = data.getData();
+                if (data != null) {
+                    Uri uriGa = data.getData();
+                    tv_agregarfoto.setVisibility(View.GONE);
 
-                tv_agregarfoto.setVisibility(View.GONE);
-
-                Bitmap bm = null;
-                InputStream is = null;
-                BufferedInputStream bis = null;
-                try {
-                    URLConnection conn = new URL(uriGa.getPath()).openConnection();
-                    is = conn.getInputStream();
-                    bis = new BufferedInputStream(is, 8192);
-                    bm = BitmapFactory.decodeStream(bis);
-
-                    Drawable d = new BitmapDrawable(getResources(), bm);
-                    agregar_foto_promocion.setBackground(d);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+                        final InputStream imageStream = requireActivity().getContentResolver().openInputStream(uriGa);
+                        bitmap = BitmapFactory.decodeStream(imageStream);
+                        Drawable d = new BitmapDrawable(getResources(), bitmap);
+                        agregar_foto_promocion.setBackground(d);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
-                //img_eds.setImageURI(uriGa);
-
             } else {
                 //Toast.makeText(view.getContext(), "No elegiste ninguna imagen", Toast.LENGTH_SHORT).show();
             }
@@ -236,7 +223,7 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
     }
 
     private void abrirGaleria() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_IMAGE_GALEY);
     }
@@ -271,4 +258,53 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
         return botonPublicarOferta;
     }
 
+    @Override
+    public Bitmap getBitmap() {
+        return this.bitmap;
+    }
+
+    private void initCameraAndGalleryButton() {
+        agregar_foto_promocion.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(agregar_foto_promocion.getContext(), agregar_foto_promocion);
+            popupMenu.inflate(R.menu.menufotoperfil);
+            popupMenu.show();
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+
+                if (item.getItemId() == R.id.camara) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            irACamara();
+                        } else {
+
+                            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
+                        }
+                    } else {
+                        irACamara();
+                    }
+                    return true;
+                } else if (item.getItemId() == R.id.galeria) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            abrirGaleria();
+                        } else {
+                            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
+                        }
+                    } else {
+                        abrirGaleria();
+                    }
+                    return true;
+                }
+                return false;
+            });
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAuth != null) {
+            mAuth.signOut();
+        }
+        super.onDestroy();
+    }
 }

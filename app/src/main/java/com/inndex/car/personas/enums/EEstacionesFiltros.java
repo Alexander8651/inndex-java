@@ -17,7 +17,8 @@ public enum EEstacionesFiltros {
     RESTAURANTES(13L),
     SOAT(14L),
     TIENDAS(15L),
-    TIPO_COMBUSTIBLE(16L);
+    TIPO_COMBUSTIBLE(16L),
+    PROMOCION(17L);
 
     private Long id;
 

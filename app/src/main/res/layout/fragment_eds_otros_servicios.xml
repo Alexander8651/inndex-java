@@ -204,6 +204,65 @@
 
             </androidx.cardview.widget.CardView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAccesorios"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tvAccesorios"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_accesorios_y_repuestos"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvCompraYventa"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/altootrosservicios"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tvCompraYventa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="start|center"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:text="@string/selecciona_compra_y_venta"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
             <CheckBox
                 android:id="@+id/cbFarmacia"
                 android:layout_width="wrap_content"
@@ -260,6 +319,69 @@
                 android:buttonTint="@color/colorPrimary"
                 android:text="Serviteca" />
 
+            <CheckBox
+                android:id="@+id/cbCafeteria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/cafeteria" />
+
+            <CheckBox
+                android:id="@+id/cbCambioAceite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/cambio_aceite" />
+
+            <CheckBox
+                android:id="@+id/cbVentaLlantas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/venta_de_llantas" />
+
+            <CheckBox
+                android:id="@+id/cbVentaBaterias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/venta_baterias" />
+
+            <CheckBox
+                android:id="@+id/cbFerreteria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/ferreteria" />
+
+            <CheckBox
+                android:id="@+id/cbLicoreria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/licoreria" />
+
+            <CheckBox
+                android:id="@+id/cbBebidas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/bebidas" />
+
+            <CheckBox
+                android:id="@+id/cbCda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/cda" />
+
+            <CheckBox
+                android:id="@+id/cbMecanicaGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/mecanica_general" />
+
             <Button
                 android:id="@+id/guardar_usuario"
                 android:layout_width="308dp"
@@ -267,7 +389,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
-
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/colorPrimary"

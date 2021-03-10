@@ -1,19 +1,12 @@
 package com.inndex.car.personas.retrofit;
 
 import com.inndex.car.personas.utils.Constantes;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.inndex.car.personas.utils.Constantes.TIMEOUT;
 
 public class FourSquareService {
 

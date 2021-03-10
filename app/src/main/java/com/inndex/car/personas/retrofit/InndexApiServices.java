@@ -1,9 +1,11 @@
 package com.inndex.car.personas.retrofit;
 
 import com.inndex.car.personas.constantes.IApiUrlConstants;
+import com.inndex.car.personas.model.AccesoriosYrepuestos;
 import com.inndex.car.personas.model.Bancos;
 import com.inndex.car.personas.model.Certificados;
 import com.inndex.car.personas.model.Combustibles;
+import com.inndex.car.personas.model.CompraYventa;
 import com.inndex.car.personas.model.Departamento;
 import com.inndex.car.personas.model.EstacionCalificacion;
 import com.inndex.car.personas.model.EstacionCombustibles;
@@ -237,4 +239,16 @@ public interface InndexApiServices {
      */
     @GET(IApiUrlConstants.GET_TEXTO_BY_ID)
     Call<Textos> getTextoById(@Query("id") Long id);
+
+    /**
+     * ACCESORIOS Y REPUESTOS
+     */
+    @GET(IApiUrlConstants.GET_ACCESORRIOS_Y_REPUESTOS)
+    Call<List<AccesoriosYrepuestos>> getAccesoriosYrepuestos();
+
+    /**
+     * COMPRA Y VENTA
+     */
+    @GET(IApiUrlConstants.GET_COMPRA_Y_VENTA)
+    Call<List<CompraYventa>> getCompraYventa();
 }

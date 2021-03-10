@@ -1,5 +1,6 @@
 package com.inndex.car.personas.fragments.promociones.presentador;
 
+import android.graphics.Bitmap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,5 +14,7 @@ public interface IPromocionFormFragment {
     EditText crearEditTextPresioOferta();
     EditText crearEditTextDescripcionOferta();
     Button crearBotonPublicarOferta();
+
+    Bitmap getBitmap();
 
 }

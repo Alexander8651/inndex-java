@@ -141,6 +141,36 @@
 
             </LinearLayout>
 
+
         </LinearLayout>
+
+
     </ScrollView>
+
+
+
+    <RelativeLayout
+        android:id="@+id/statusApiForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:alpha="0.4"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/speedometer"
+            app:lottie_loop="true"
+            app:lottie_speed="2.5"/>
+    </RelativeLayout>
+
+
+
+
 </LinearLayout>
