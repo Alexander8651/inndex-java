@@ -21,10 +21,12 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.inndex.car.personas.R;
 import com.inndex.car.personas.adapter.ExpLAdapter;
+import com.inndex.car.personas.adapter.PromocionesDetalleAdapter;
 import com.inndex.car.personas.enums.EAccesoriosRepuestos;
 import com.inndex.car.personas.enums.EBancos;
 import com.inndex.car.personas.enums.ECombustibles;
@@ -182,7 +184,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         initMecanica(root);
         initAccesorios(root);
         initCompraYventa(root);
-
+        initPromociones(root);
         if (distancia < 1000) {
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f m", distancia));
         } else {
@@ -190,6 +192,20 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f km", distancia));
         }
         return root;
+    }
+
+    private void initPromociones(View root) {
+
+        if (estaciones.getListPromociones() != null && estaciones.getListPromociones().size() > 0) {
+
+            RecyclerView recyclerView = root.findViewById(R.id.rvPromocionesDetalle);
+            PromocionesDetalleAdapter adapter = new PromocionesDetalleAdapter(estaciones.getListPromociones(), getContext());
+            recyclerView.setAdapter(adapter);
+        } else {
+            LinearLayout layout = root.findViewById(R.id.lay_promociones);
+            layout.setVisibility(View.GONE);
+        }
+
     }
 
     private void mensajeria(View root) {

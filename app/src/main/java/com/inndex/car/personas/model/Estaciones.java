@@ -101,6 +101,8 @@ public class Estaciones implements Serializable, Parcelable {
 
     private List<CompraYventa> listCompraYventa;
 
+    private List<Promocion> listPromociones;
+
     private Soat soat;
 
     private TipoEstacion tipoEstacion;
@@ -424,6 +426,14 @@ public class Estaciones implements Serializable, Parcelable {
 
     public void setListMensajeria(List<Mensajeria> listMensajeria) {
         this.listMensajeria = listMensajeria;
+    }
+
+    public List<Promocion> getListPromociones() {
+        return listPromociones;
+    }
+
+    public void setListPromociones(List<Promocion> listPromociones) {
+        this.listPromociones = listPromociones;
     }
 
     public Soat getSoat() {

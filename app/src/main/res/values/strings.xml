@@ -303,6 +303,7 @@
     <string name="selecciona_accesorios_y_repuestos">Selecciona accesorios y repuestos</string>
     <string name="selecciona_compra_y_venta">Selecciona compra y venta</string>
     <string name="promocion">Promoción</string>
+    <string name="promociones">Promociones</string>
 
     <string-array name="modelo">
         <item>2021</item>

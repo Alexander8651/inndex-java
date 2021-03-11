@@ -71,7 +71,7 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp">
@@ -209,6 +209,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_separator_services" />
+
+            <include
+                layout="@layout/eds_servicio_promociones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
 
             <include
                 layout="@layout/metodos_pago"
@@ -356,8 +362,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
-
-
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
