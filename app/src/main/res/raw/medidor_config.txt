@@ -2,7 +2,7 @@
 # generated on 2021/02/19 11:12:35
 #
 # --table-start--
-dataClass=com.inndex.car.personas.model.Bancos
+dataClass=com.inndex.model.Bancos
 tableName=bancos
 # --table-fields-start--
 # --field-start--
@@ -21,7 +21,7 @@ fieldName=cajero
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Combustibles
+dataClass=com.inndex.model.Combustibles
 tableName=combustibles
 # --table-fields-start--
 # --field-start--
@@ -34,7 +34,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Estaciones
+dataClass=com.inndex.model.Estaciones
 tableName=estaciones
 # --table-fields-start--
 # --field-start--
@@ -90,7 +90,7 @@ fieldName=jsonCombustibles
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Estados
+dataClass=com.inndex.model.Estados
 tableName=estados
 # --table-fields-start--
 # --field-start--
@@ -104,7 +104,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.LineasVehiculos
+dataClass=com.inndex.model.LineasVehiculos
 tableName=lineas_vehiculos
 # --table-fields-start--
 # --field-start--
@@ -118,7 +118,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.MarcaEstacion
+dataClass=com.inndex.model.MarcaEstacion
 tableName=marcas_estacion
 # --table-fields-start--
 # --field-start--
@@ -132,7 +132,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.MarcaVehiculos
+dataClass=com.inndex.model.MarcaVehiculos
 tableName=marcas_vehiculos
 # --table-fields-start--
 # --field-start--
@@ -146,7 +146,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.MetodoPago
+dataClass=com.inndex.model.MetodoPago
 tableName=metodos_pago
 # --table-fields-start--
 # --field-start--
@@ -159,7 +159,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.PuntoPago
+dataClass=com.inndex.model.PuntoPago
 tableName=punto_pago
 # --table-fields-start--
 # --field-start--
@@ -172,7 +172,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Recorrido
+dataClass=com.inndex.model.Recorrido
 tableName=recorrido
 # --table-fields-start--
 # --field-start--
@@ -212,7 +212,7 @@ fieldName=stFechaInicio
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Soat
+dataClass=com.inndex.model.Soat
 tableName=soat
 # --table-fields-start--
 # --field-start--
@@ -225,7 +225,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Tanqueadas
+dataClass=com.inndex.model.Tanqueadas
 tableName=tanqueadas
 # --table-fields-start--
 # --field-start--
@@ -280,7 +280,7 @@ fieldName=idRecorrido
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Tiendas
+dataClass=com.inndex.model.Tiendas
 tableName=tiendas
 # --table-fields-start--
 # --field-start--
@@ -293,7 +293,7 @@ fieldName=nombre
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.UnidadRecorrido
+dataClass=com.inndex.model.UnidadRecorrido
 tableName=unidad_recorrido
 # --table-fields-start--
 # --field-start--
@@ -339,7 +339,7 @@ fieldName=estado
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Usuario
+dataClass=com.inndex.model.Usuario
 tableName=usuarios
 # --table-fields-start--
 # --field-start--
@@ -379,7 +379,7 @@ fieldName=genero
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.inndex.car.personas.model.Vehiculo
+dataClass=com.inndex.model.Vehiculo
 tableName=usuarios_has_modelos_carros
 # --table-fields-start--
 # --field-start--

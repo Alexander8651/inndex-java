@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/estacionesMapFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.EstacionesMapFragment"
+        android:name="com.inndex.fragments.estaciones.EstacionesMapFragment"
         android:label="fragment_estaciones_map"
         tools:layout="@layout/fragment_estaciones_map" >
         <action
@@ -22,17 +22,17 @@
     </fragment>
     <fragment
         android:id="@+id/estacionesFiltrosFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.EstacionesFiltrosFragment"
+        android:name="com.inndex.fragments.estaciones.EstacionesFiltrosFragment"
         android:label="fragment_estaciones_filtros"
         tools:layout="@layout/fragment_estaciones_filtros" />
     <fragment
         android:id="@+id/estacionesFavoritasFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.favoritas.EstacionesFavoritasFragment"
+        android:name="com.inndex.fragments.estaciones.favoritas.EstacionesFavoritasFragment"
         android:label="fragment_estaciones_favoritas"
         tools:layout="@layout/fragment_estaciones_favoritas" />
     <fragment
         android:id="@+id/estacionesListFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.EstacionesListFragment"
+        android:name="com.inndex.fragments.estaciones.EstacionesListFragment"
         android:label="fragment_estaciones_list"
         tools:layout="@layout/fragment_estaciones_list" />
 </navigation>

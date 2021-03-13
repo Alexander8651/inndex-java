@@ -1,4 +1,4 @@
-package com.inndex.car.personas;
+package com.inndex;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.inndex.car.personas", appContext.getPackageName());
+        assertEquals("com.inndex", appContext.getPackageName());
     }
 }

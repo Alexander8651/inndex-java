@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.inndex.car.personas">
+    package="com.inndex">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -39,7 +39,7 @@
         <activity
             android:name=".activities.mainactivity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -55,13 +55,13 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <service
+        <!--service
             android:name=".jobs.UploadRecorridoJob"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <receiver
             android:name=".receiver.UploadRecorridoReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" /-->
     </application>
 
 </manifest>

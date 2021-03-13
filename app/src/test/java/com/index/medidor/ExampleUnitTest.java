@@ -1,4 +1,4 @@
-package com.inndex.car.personas;
+package com.inndex;
 
 import org.junit.Test;
 

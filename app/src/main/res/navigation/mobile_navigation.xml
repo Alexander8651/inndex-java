@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.inndex.car.personas.fragments.HomeFragment"
+        android:name="com.inndex.fragments.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/opt_configuracion"
-        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.AcountConfFragment"
+        android:name="com.inndex.fragments.configuracion_cuenta.AcountConfFragment"
         android:label="fragment_acount_conf"
         tools:layout="@layout/fragment_acount_conf" >
         <action
@@ -46,17 +46,17 @@
     </fragment>
     <fragment
         android:id="@+id/agregarVehiculoFragment"
-        android:name="com.inndex.car.personas.fragments.vehiculos.AgregarVehiculoFragment"
+        android:name="com.inndex.fragments.vehiculos.AgregarVehiculoFragment"
         android:label="fragment_agregar_vehiculo"
         tools:layout="@layout/fragment_agregar_vehiculo" />
     <fragment
         android:id="@+id/editPasswordFragment"
-        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.EditPasswordFragment"
+        android:name="com.inndex.fragments.configuracion_cuenta.EditPasswordFragment"
         android:label="fragment_edit_password"
         tools:layout="@layout/fragment_edit_password" />
     <fragment
         android:id="@+id/opt_mis_vehiculos"
-        android:name="com.inndex.car.personas.fragments.vehiculos.MisVehiculosFragment"
+        android:name="com.inndex.fragments.vehiculos.MisVehiculosFragment"
         android:label="fragment_mis_vehiculos"
         tools:layout="@layout/fragment_mis_vehiculos" >
         <action
@@ -65,17 +65,17 @@
     </fragment>
     <fragment
         android:id="@+id/combustibleYHorarioFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.admin.CombustibleYHorarioFragment"
+        android:name="com.inndex.fragments.estaciones.admin.CombustibleYHorarioFragment"
         android:label="fragment_combustible_y_horario"
         tools:layout="@layout/fragment_combustible_y_horario" />
     <fragment
         android:id="@+id/datosGeneralesFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.admin.DatosGeneralesFragment"
+        android:name="com.inndex.fragments.estaciones.admin.DatosGeneralesFragment"
         android:label="fragment_datos_generales"
         tools:layout="@layout/fragment_datos_generales" />
     <fragment
         android:id="@+id/editarEdsFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.admin.EditarEdsFragment"
+        android:name="com.inndex.fragments.estaciones.admin.EditarEdsFragment"
         android:label="fragment_editar_eds"
         tools:layout="@layout/fragment_editar_eds" >
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/opt_administrar_eds"
-        android:name="com.inndex.car.personas.fragments.estaciones.admin.MisEdsFragment"
+        android:name="com.inndex.fragments.estaciones.admin.MisEdsFragment"
         android:label="fragment_mis_eds"
         tools:layout="@layout/fragment_mis_eds" >
         <action
@@ -102,7 +102,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.EditProfileFragment"
+        android:name="com.inndex.fragments.configuracion_cuenta.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
@@ -111,12 +111,12 @@
     </fragment>
     <fragment
         android:id="@+id/edsOtrosServiciosFragment"
-        android:name="com.inndex.car.personas.fragments.estaciones.admin.EdsOtrosServiciosFragment"
+        android:name="com.inndex.fragments.estaciones.admin.EdsOtrosServiciosFragment"
         android:label="fragment_eds_otros_servicios"
         tools:layout="@layout/fragment_eds_otros_servicios" />
     <fragment
         android:id="@+id/promocionListFragment"
-        android:name="com.inndex.car.personas.fragments.promociones.PromocionListFragment"
+        android:name="com.inndex.fragments.promociones.PromocionListFragment"
         android:label="fragment_promocion_list"
         tools:layout="@layout/fragment_promocion_list" >
         <action
@@ -125,17 +125,17 @@
     </fragment>
     <fragment
         android:id="@+id/promocionFormFragment"
-        android:name="com.inndex.car.personas.fragments.promociones.PromocionFormFragment"
+        android:name="com.inndex.fragments.promociones.PromocionFormFragment"
         android:label="fragment_promocion_form"
         tools:layout="@layout/fragment_promocion_form" />
     <fragment
         android:id="@+id/contactoAdminFragment"
-        android:name="com.inndex.car.personas.fragments.ContactoAdminFragment"
+        android:name="com.inndex.fragments.ContactoAdminFragment"
         android:label="fragment_contacto_admin"
         tools:layout="@layout/fragment_contacto_admin" />
     <fragment
         android:id="@+id/privacidadFragment"
-        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.PrivacidadFragment"
+        android:name="com.inndex.fragments.configuracion_cuenta.PrivacidadFragment"
         android:label="fragment_privacidad"
         tools:layout="@layout/fragment_privacidad" >
         <action
@@ -144,12 +144,12 @@
     </fragment>
     <fragment
         android:id="@+id/ubicacionTextoFragment"
-        android:name="com.inndex.car.personas.fragments.configuracion_cuenta.UbicacionTextoFragment"
+        android:name="com.inndex.fragments.configuracion_cuenta.UbicacionTextoFragment"
         android:label="fragment_ubicacion_texto"
         tools:layout="@layout/fragment_ubicacion_texto" />
     <fragment
         android:id="@+id/informacionFragment2"
-        android:name="com.inndex.car.personas.fragments.informacion.InformacionFragment"
+        android:name="com.inndex.fragments.informacion.InformacionFragment"
         android:label="fragment_informacion"
         tools:layout="@layout/fragment_informacion" >
         <action
@@ -164,7 +164,7 @@
     </fragment>
     <fragment
         android:id="@+id/terminosYCondicionesFragment"
-        android:name="com.inndex.car.personas.fragments.informacion.TerminosYCondicionesFragment"
+        android:name="com.inndex.fragments.informacion.TerminosYCondicionesFragment"
         android:label="fragment_terminos_y_condiciones"
         tools:layout="@layout/fragment_terminos_y_condiciones" >
         <action
@@ -176,7 +176,7 @@
     </fragment>
     <fragment
         android:id="@+id/politicaPrivacidadFragment"
-        android:name="com.inndex.car.personas.fragments.informacion.PoliticaPrivacidadFragment"
+        android:name="com.inndex.fragments.informacion.PoliticaPrivacidadFragment"
         android:label="fragment_politica_privacidad"
         tools:layout="@layout/fragment_politica_privacidad" >
         <action
@@ -188,7 +188,7 @@
     </fragment>
     <fragment
         android:id="@+id/autorizacionFragment"
-        android:name="com.inndex.car.personas.fragments.informacion.AutorizacionFragment"
+        android:name="com.inndex.fragments.informacion.AutorizacionFragment"
         android:label="fragment_autorizacion"
         tools:layout="@layout/fragment_autorizacion" >
         <action
@@ -200,7 +200,7 @@
     </fragment>
     <fragment
         android:id="@+id/ayudaFragment"
-        android:name="com.inndex.car.personas.fragments.AyudaFragment"
+        android:name="com.inndex.fragments.AyudaFragment"
         android:label="fragment_ayuda"
         tools:layout="@layout/fragment_ayuda" />
 </navigation>

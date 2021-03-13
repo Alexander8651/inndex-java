@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:764230071719:android:8bbafc4d4c210f02c6b282",
         "android_client_info": {
-          "package_name": "com.inndex.car.personas"
+          "package_name": "com.inndex"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "764230071719-krbdkar2s2dhd4crjql2v9hak4fevhr0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.inndex.car.personas",
+            "package_name": "com.inndex",
             "certificate_hash": "e60d0d8f3a0f2c16f61f86060e336d44b2b8cbbf"
           }
         },
