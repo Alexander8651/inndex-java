@@ -21,8 +21,8 @@
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:gravity="start|center"
-            android:text="Terminos y Condiciones"
-            android:textSize="30sp" />
+            android:text="@string/terminos_y_condiciones"
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:layout_marginStart="10dp"
             android:gravity="start|center"
             android:text="Política de Privacidad"
-            android:textSize="30sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -65,7 +65,7 @@
             android:layout_marginStart="10dp"
             android:gravity="start|center"
             android:text="Autorización de tratamiento de datos personales"
-            android:textSize="30sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 

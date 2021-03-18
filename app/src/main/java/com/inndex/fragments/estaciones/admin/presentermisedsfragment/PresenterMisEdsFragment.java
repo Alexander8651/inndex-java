@@ -33,17 +33,15 @@ public class PresenterMisEdsFragment implements IPresenterMisEdsFragment {
         estacionesByUserAdmin.enqueue(new Callback<List<Estaciones>>() {
             @Override
             public void onResponse(Call<List<Estaciones>> call, Response<List<Estaciones>> response) {
-
                 if (response.isSuccessful()){
                     estaciones = (ArrayList<Estaciones>) response.body();
-                    mostrarEds();
-                    Log.d("llego", String.valueOf(estaciones.size()));
                 }
+                mostrarEds();
             }
 
             @Override
             public void onFailure(Call<List<Estaciones>> call, Throwable t) {
-
+                mostrarEds();
             }
         });
     }
@@ -51,6 +49,5 @@ public class PresenterMisEdsFragment implements IPresenterMisEdsFragment {
     @Override
     public void mostrarEds() {
         iMisEdsFragment.InicializarAdapter(iMisEdsFragment.crearAdater(estaciones));
-
     }
 }

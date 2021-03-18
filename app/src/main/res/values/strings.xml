@@ -304,6 +304,9 @@
     <string name="selecciona_compra_y_venta">Selecciona compra y venta</string>
     <string name="promocion">Promoción</string>
     <string name="promociones">Promociones</string>
+    <string name="terminos_y_condiciones">Términos y Condiciones</string>
+    <string name="separator_or">o</string>
+    <string name="escr_benos_al_whatsapp">Escríbenos al Whatsapp</string>
 
     <string-array name="modelo">
         <item>2021</item>

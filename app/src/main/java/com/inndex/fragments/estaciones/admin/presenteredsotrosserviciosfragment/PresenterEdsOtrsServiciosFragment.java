@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.inndex.R;
 import com.inndex.database.DataBaseHelper;
 import com.inndex.fragments.estaciones.admin.adapters.AccesoriosYrepuestosAdapter;
@@ -70,6 +71,24 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         this.context = context;
         this.iEdsOtrosServiciosFragment = iEdsOtrosServiciosFragment;
         this.estaciones = estaciones;
+
+        if (estaciones.getListAccesoriosYrepuestos() == null)
+            estaciones.setListAccesoriosYrepuestos(new ArrayList<>());
+        if (estaciones.getListCajeros() == null)
+            estaciones.setListCajeros(new ArrayList<>());
+        if (estaciones.getListCompraYventa() == null)
+            estaciones.setListCompraYventa(new ArrayList<>());
+        if (estaciones.getListCorresponsales() == null)
+            estaciones.setListCorresponsales(new ArrayList<>());
+        if (estaciones.getListTiendas() == null)
+            estaciones.setListTiendas(new ArrayList<>());
+        if (estaciones.getListPuntosPago() == null)
+            estaciones.setListPuntosPago(new ArrayList<>());
+        if (estaciones.getListMetodosPago() == null)
+            estaciones.setListMetodosPago(new ArrayList<>());
+        if (estaciones.getListMensajeria() == null)
+            estaciones.setListMensajeria(new ArrayList<>());
+
         helper = OpenHelperManager.getHelper(context, DataBaseHelper.class);
 
         setearChecbox();
@@ -192,7 +211,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             @Override
             public void onResponse(Call<List<AccesoriosYrepuestos>> call, Response<List<AccesoriosYrepuestos>> response) {
                 if (response.isSuccessful()) {
-                    listAccesorios =response.body();
+                    listAccesorios = response.body();
                     validateAccesoriosYRepuestos();
                 } else
                     Toast.makeText(context, "ERROR " + response.code(), Toast.LENGTH_SHORT).show();
@@ -212,7 +231,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             @Override
             public void onResponse(Call<List<CompraYventa>> call, Response<List<CompraYventa>> response) {
                 if (response.isSuccessful()) {
-                    listCompraYventa =  response.body();
+                    listCompraYventa = response.body();
                     validateCompraYventa();
                 }
             }
@@ -348,8 +367,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
         builder.setNeutralButton("Eliminar", (dialogInterface, i) -> {
-           estaciones.setSoat(null);
-           validateSoat();
+            estaciones.setSoat(null);
+            validateSoat();
         });
         builder.show();
     }
@@ -567,8 +586,10 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         estaciones.setTieneVentaLLantas(iEdsOtrosServiciosFragment.cbVentaLlantas().isChecked());
         estaciones.setTieneMecanicaGeneral(iEdsOtrosServiciosFragment.cbMecanicaGeneral().isChecked());
 
-        //Gson gson = new Gson();
-        //Log.e("EST", gson.toJson(estaciones));
+        Gson gson = new Gson();
+        Log.e("EST", gson.toJson(estaciones));
+
+        System.out.println(gson.toJson(estaciones));
 
         Call<ResponseServices> guardar = MedidorApiAdapter.getApiService().updateStationOtherServices(estaciones);
         guardar.enqueue(new Callback<ResponseServices>() {
@@ -580,7 +601,6 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
                     Navigation.findNavController(v).navigateUp();
                 } else {
                     Toast.makeText(context, "CODE " + response.code(), Toast.LENGTH_SHORT).show();
-
                 }
             }
 

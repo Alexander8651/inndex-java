@@ -197,9 +197,7 @@ public class DatosGeneralesFragment extends Fragment implements OnMapReadyCallba
     private void guardarCambios(View v) {
 
 
-                btn_listo.setOnClickListener(v1 ->{
-                    //dialog.dismiss();
-                });
+
 
 
         String nombre = nombreEds.getText().toString();

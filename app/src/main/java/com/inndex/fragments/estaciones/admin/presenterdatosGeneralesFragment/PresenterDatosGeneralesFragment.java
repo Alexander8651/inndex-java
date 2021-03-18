@@ -31,6 +31,9 @@ public class PresenterDatosGeneralesFragment implements IPresenterDataGeneralFra
     @Override
     public void actualizarDataGeneral(Estaciones estaciones, View view) {
 
+        Gson gson = new Gson();
+        Log.e("tag", gson.toJson(estaciones));
+
         Call<Estaciones> actualizarDataGeneral = MedidorApiAdapter.getApiService().updateStationGeneralData(estaciones);
         actualizarDataGeneral.enqueue(new Callback<Estaciones>() {
             @Override

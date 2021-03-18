@@ -98,7 +98,11 @@ public interface InndexApiServices {
 
     @POST(Constantes.POST_CONSULT_COUNT_BY_FILTERS)
     Call<Long> postQueryCountByFilters(
-            @Body List<EstacionesFiltros> filtros);
+            @Body List<EstacionesFiltros> filtros, @Query("latitud") double latitud, @Query("longitud") double longitud);
+
+    @POST(IApiUrlConstants.POST_CONSULT_ESTACIONES_BY_FILTER)
+    Call<List<Estaciones>> postQueryByFilters(
+            @Body List<EstacionesFiltros> filtros, @Query("latitud") double latitud, @Query("longitud") double longitud);
 
     //TANQUEADAS
     @POST(Constantes.POST_REGISTRAR_TANQUEADA)

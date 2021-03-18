@@ -11,6 +11,9 @@
     <dimen name="margin_left_imag_btn_refresh">15dp</dimen>
     <dimen name="elevation">50dp</dimen>
 
+    <dimen name="logo_inicio_width">120dp</dimen>
+    <dimen name="logo_inicio_height">60dp</dimen>
+
     <dimen name="margin_status_bar">28dp</dimen>
     <dimen name="height_toolbar">90dp</dimen>
 

@@ -116,7 +116,7 @@ public class MapService implements PasarUbicacion, GoogleMap.OnCameraMoveListene
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
             imapService.onRutaTrazada();
-            int padding = 50;
+            int padding = 200;
             /**create the bounds from latlngBuilder to set into map camera*/
             LatLngBounds bounds = builder.build();
             /**create the camera with bounds and padding to set into map*/

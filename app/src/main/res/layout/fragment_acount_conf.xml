@@ -23,8 +23,8 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:src="@drawable/infopersonal" />
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="start|center"
                 android:text="@string/informacion_personal"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -50,8 +50,8 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:src="@drawable/seguridad" />
 
             <TextView
@@ -60,33 +60,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="start|center"
                 android:text="@string/privacidad"
-                android:textSize="30sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimary" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/candado" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:gravity="start|center"
-                android:text="@string/seguridad"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -103,8 +77,8 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:src="@drawable/cerrar_sesion" />
 
             <TextView
@@ -113,7 +87,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="start|center"
                 android:text="@string/cerrar_sesion"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 

@@ -21,6 +21,7 @@ public interface IApiUrlConstants {
 
     //ESTACIONES
     String GET_ESTACIONES_NEAR_USER = "estaciones/getNearUser";
+    String POST_CONSULT_ESTACIONES_BY_FILTER = "estaciones/post_query_by_filters";
 
     //MENSAJERIA
     String GET_MENSAJERIA = "mensajeria/getAll";

@@ -58,12 +58,12 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:theme="@style/BlackSwitch" />
 
-            </RelativeLayout-->
+            </RelativeLayout>
 
-            <!--View
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/gris" /-->
+                android:background="@color/gris" />
 
             <RelativeLayout
                 android:id="@+id/rel_filter_tipo_combustible"
@@ -95,41 +95,6 @@
                     android:src="@drawable/ic_right" />
 
             </RelativeLayout>
-
-            <!--View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gris" />
-
-            <RelativeLayout
-                android:id="@+id/rel_filter_cerificados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_top_opcion_filtro"
-                android:paddingBottom="@dimen/padding_bottom_opcion_filtro">
-
-                <TextView
-                android:fontFamily="@font/roboto_light"
-                    android:id="@+id/tv_filtro_con_que_certificados"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/con_que_certificados_de_calidad"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_text_opt_filter" />
-
-                <ImageView
-                android:contentDescription="@string/mecanica_general"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_right" />
-
-            </RelativeLayout-->
 
             <View
                 android:layout_width="match_parent"
@@ -202,7 +167,7 @@
 
             </RelativeLayout>
 
-            <!--View
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/gris" />
@@ -236,7 +201,7 @@
                     android:hint="$"
                     android:inputType="number" />
 
-            </RelativeLayout-->
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -317,7 +282,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/gris" />
-
 
             <RelativeLayout
                 android:id="@+id/rel_filter_cajeros"
@@ -457,7 +421,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/gris" />
+                android:background="@color/gris" /-->
 
 
             <RelativeLayout
@@ -626,7 +590,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Baños públicos"
+                    android:text="@string/banios"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_text_opt_filter" />
 
@@ -782,7 +746,7 @@
         android:text="@string/filtrar"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="26sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <RelativeLayout

@@ -37,6 +37,7 @@ import com.inndex.R;
 import com.inndex.database.DataBaseHelper;
 import com.inndex.databinding.FragmentEstacionesMapBinding;
 import com.inndex.dto.distance.DistanceApiResponse;
+import com.inndex.dto.filtros.EstacionFiltrosListDto;
 import com.inndex.enums.EEvents;
 import com.inndex.model.Estaciones;
 import com.inndex.retrofit.MedidorApiAdapter;
@@ -84,6 +85,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
     private FragmentEstacionesMapBinding binding;
     private RelativeLayout status_api;
+    private EstacionFiltrosListDto estacionFiltrosListDto;
 
     public static EstacionesMapFragment newInstance(String param1, String param2) {
         EstacionesMapFragment fragment = new EstacionesMapFragment();
@@ -111,6 +113,14 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
         double latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
         double longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+
+        String filtrosDto = sharedPreferences.getString(Constantes.FILTROS_KEY, null);
+        Gson gson = new Gson();
+        if (filtrosDto == null) {
+            estacionFiltrosListDto = new EstacionFiltrosListDto();
+        } else {
+            estacionFiltrosListDto = gson.fromJson(filtrosDto, EstacionFiltrosListDto.class);
+        }
 
         if (latitud != 0 && longitud != 0) {
             myLocation = new LatLng(latitud, longitud);
@@ -247,25 +257,24 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
-        if (location == null) {
+        if (location == null || this.mapService == null) {
             Toast.makeText(getActivity(), "LOCATION NULL", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        getAllStations();
+        if (estaciones == null || estaciones.size() == 0 && estacionFiltrosListDto == null )
+            getAllStations();
         this.mapService.setMyLocation(location);
         this.myLocation = new LatLng(location.getLatitude(), location.getLongitude());
         if (!myLocationZoomed) {
             this.mapService.mostrarUbicacion();
             myLocationZoomed = true;
         }
-        if (location != null) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(Constantes.LATITUD_KEY, String.valueOf(location.getLatitude()));
-            editor.putString(Constantes.LONGITUD_KEY, String.valueOf(location.getLongitude()));
-            editor.apply();
-            editor.commit();
-        }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constantes.LATITUD_KEY, String.valueOf(location.getLatitude()));
+        editor.putString(Constantes.LONGITUD_KEY, String.valueOf(location.getLongitude()));
+        editor.apply();
+        editor.commit();
     }
 
     @Override
@@ -302,12 +311,10 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
             public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
                 if (response.isSuccessful()) {
                     DistanceApiResponse res = response.body();
-                    if (res != null) {
+                    if (res != null && res.getDistanceValue() != null) {
                         distancia = (float) res.getDistanceValue();
-                        openStationBottomSheet(estacion);
-                        status_api.setVisibility(View.GONE);
                     }
-
+                    openStationBottomSheet(estacion);
                 } else {
                     Log.e("RESPONSE", "NOT SUCCESSFULL " + response.code());
                     status_api.setVisibility(View.GONE);
@@ -319,7 +326,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                 Log.e("FAILURE", "EX " + t.getMessage());
             }
         });
-
     }
 
     private void openStationBottomSheet(Estaciones estacion) {
@@ -328,6 +334,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
         getEstacionById.enqueue(new Callback<Estaciones>() {
             @Override
             public void onResponse(Call<Estaciones> call, Response<Estaciones> response) {
+                status_api.setVisibility(View.GONE);
 
                 if (response.isSuccessful()) {
                     try {
@@ -353,6 +360,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
 
             @Override
             public void onFailure(Call<Estaciones> call, Throwable t) {
+                status_api.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "estación " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -378,51 +386,80 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
     private void getAllStations() {
-        try {
-            final Dao<Estaciones, Integer> dao = helper.getDaoEstaciones();
-            /*if (!(estaciones.size() > 0)) {
-                estaciones = dao.queryForAll();
-            }*/
-            if (estaciones.size() > 0 || myLocation == null)
-                return;
 
-            Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().getEstacionesNearUser(myLocation.latitude, myLocation.longitude);
-            status_api.setVisibility(View.VISIBLE);
-            callGetStations.enqueue(new Callback<List<Estaciones>>() {
-                @Override
-                public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
-                    status_api.setVisibility(View.GONE);
-                    if (response.isSuccessful()) {
-                        estaciones = response.body();
-                        Gson gson = new Gson();
-                        if (estaciones != null && estaciones.size() > 0) {
-                            for (int i = 0; i < estaciones.size(); i++) {
-                                estaciones.get(i).setJsonCombustibles(gson.toJson(estaciones.get(i).getListEstacionCombustibles()));
-                            }
-                            try {
-                                dao.create(estaciones);
-                                initCluster();
-                            } catch (SQLException e1) {
-                                Toast.makeText(getContext(), "Error en la base de datos.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
-                    }
-                }
+        if (estaciones.size() > 0 || myLocation == null)
+            return;
 
-                @Override
-                public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
-                    status_api.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
-                }
-            });
+        if (estacionFiltrosListDto != null && estacionFiltrosListDto.getListEstacionesFiltros() != null
+                && estacionFiltrosListDto.getListEstacionesFiltros().size() > 0) {
+            getAllStationsWithFilters();
+        } else
+            getAllStationsWithoutFilters();
 
-        } catch (SQLException ex) {
-            Toast.makeText(getContext(), "ERROR inicializando DAO.", Toast.LENGTH_SHORT).show();
-        }
 
     }
+
+    private void getAllStationsWithoutFilters() {
+
+        Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().getEstacionesNearUser(myLocation.latitude, myLocation.longitude);
+        status_api.setVisibility(View.VISIBLE);
+        callGetStations.enqueue(new Callback<List<Estaciones>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
+                status_api.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    onGetStationsResponse(response);
+                } else {
+                    Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
+                status_api.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getAllStationsWithFilters() {
+        if (estaciones.size() > 0 || myLocation == null)
+            return;
+
+        Call<List<Estaciones>> callGetStations = MedidorApiAdapter.getApiService().postQueryByFilters(estacionFiltrosListDto.getListEstacionesFiltros(),
+                myLocation.latitude, myLocation.longitude);
+        status_api.setVisibility(View.VISIBLE);
+        callGetStations.enqueue(new Callback<List<Estaciones>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Estaciones>> call, @NonNull Response<List<Estaciones>> response) {
+                status_api.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    onGetStationsResponse(response);
+                } else {
+                    Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Estaciones>> call, @NonNull Throwable t) {
+                status_api.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "NO SE PUDIERON DESCARGAR LAS ESTACIONES INTENTALO MAS TARDE.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void onGetStationsResponse(Response<List<Estaciones>> response) {
+        estaciones = response.body();
+        Gson gson = new Gson();
+        if (estaciones != null && estaciones.size() > 0) {
+            for (int i = 0; i < estaciones.size(); i++) {
+                estaciones.get(i).setJsonCombustibles(gson.toJson(estaciones.get(i).getListEstacionCombustibles()));
+            }
+            initCluster();
+        }
+    }
+
 
     private void checkGPSState() {
         if (!inndexLocationService.getLocationManager().isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -490,7 +527,6 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     public void onStart() {
         super.onStart();
     }
-
 
 
     private void initCluster() {

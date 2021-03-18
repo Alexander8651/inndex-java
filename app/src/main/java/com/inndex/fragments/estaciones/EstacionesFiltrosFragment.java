@@ -1,7 +1,9 @@
 package com.inndex.fragments.estaciones;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +13,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
 import com.inndex.R;
 import com.inndex.database.DataBaseHelper;
 import com.inndex.databinding.FragmentEstacionesFiltrosBinding;
+import com.inndex.dto.filtros.EstacionFiltrosListDto;
 import com.inndex.enums.EEstacionesFiltros;
 import com.inndex.model.Certificados;
 import com.inndex.model.MarcaVehiculos;
 import com.inndex.retrofit.MedidorApiAdapter;
 import com.inndex.to.EstacionesFiltros;
+import com.inndex.utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class EstacionesFiltrosFragment extends Fragment {
 
@@ -89,14 +98,16 @@ public class EstacionesFiltrosFragment extends Fragment {
     private NavController navController;
 
     private boolean[] checkedBrands;
-    private boolean[] checkedCertificados;
     private boolean[] checkedTipoCombustibles;
 
     private int opcionCalificacionSelected = -1;
     private int opcionDistanciaSelected = -1;
 
-    private List<Certificados> lCertificados;
-
+    private double latitud;
+    private double longitud;
+    private Gson gson;
+    private EstacionFiltrosListDto estacionFiltrosListDto;
+    SharedPreferences sharedPreferences;
     FragmentEstacionesFiltrosBinding binding;
 
     public EstacionesFiltrosFragment(DataBaseHelper helper) {
@@ -104,7 +115,6 @@ public class EstacionesFiltrosFragment extends Fragment {
         this.helper = helper;
         checkedBrands = null;
         checkedTipoCombustibles = null;
-        checkedCertificados = null;
     }
 
     public EstacionesFiltrosFragment() {
@@ -135,9 +145,42 @@ public class EstacionesFiltrosFragment extends Fragment {
         imgBack.setOnClickListener(v -> {
             navController.navigate(R.id.estacionesMapFragment);
         });
-        this.lEstacionesFiltros = new ArrayList<>();
-        initFilterViewEvents();
+
+        sharedPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+
+        latitud = Double.parseDouble(sharedPreferences.getString(Constantes.LATITUD_KEY, "0.0"));
+        longitud = Double.parseDouble(sharedPreferences.getString(Constantes.LONGITUD_KEY, "0.0"));
+
+        String filtrosDto = sharedPreferences.getString(Constantes.FILTROS_KEY, null);
+        gson = new Gson();
+        if (filtrosDto == null) {
+            estacionFiltrosListDto = new EstacionFiltrosListDto();
+            this.lEstacionesFiltros = new ArrayList<>();
+        } else {
+            estacionFiltrosListDto = gson.fromJson(filtrosDto, EstacionFiltrosListDto.class);
+            if (estacionFiltrosListDto != null)
+                this.lEstacionesFiltros = estacionFiltrosListDto.getListEstacionesFiltros();
+        }
+
         initFilterData();
+        initFilterViewEvents();
+        getFilterCountResult();
+        binding.btnFiltrarEstaciones.setOnClickListener(v ->
+                filtrarEstaciones()
+        );
+
+        ImageView imgMenu = binding.getRoot().findViewById(R.id.btnMenuToolbar);
+        imgMenu.setVisibility(View.VISIBLE);
+        PopupMenu popupMenu = new PopupMenu(requireContext(), imgMenu);
+        popupMenu.inflate(R.menu.menu_filtros);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.optEliminarFiltros) {
+                deleteFilters();
+            }
+            return false;
+        });
+        imgMenu.setOnClickListener(v -> popupMenu.show());
 
         return binding.getRoot();
     }
@@ -171,6 +214,61 @@ public class EstacionesFiltrosFragment extends Fragment {
 
     private void initFilterData() {
 
+        if (lEstacionesFiltros != null && lEstacionesFiltros.size() > 0) {
+
+            for (int i = 0; i < lEstacionesFiltros.size(); i++) {
+                Log.e("TAG",String.valueOf(lEstacionesFiltros.get(i).getId()));
+                if (lEstacionesFiltros.get(i) != null && lEstacionesFiltros.get(i).getId() != null)
+                    switch (EEstacionesFiltros.getEEstacionesFiltrosById(lEstacionesFiltros.get(i).getId())) {
+                        case ABIERTO_AHORA:
+                            break;
+                        case BANIOS:
+                            binding.swFilterBanios.setChecked(true);
+                            break;
+                        case CAJEROS:
+                            break;
+                        case CALIFICACION:
+                            break;
+                        case CORRESPONSALES:
+                            break;
+                        case DISTANCIA:
+                            break;
+                        case HOTELES:
+                            binding.swFilterHoteles.setChecked(true);
+                            break;
+                        case LAVADEROS:
+                            binding.swFilterLavaderos.setChecked(true);
+                            break;
+                        case LLANTERIA:
+                            binding.swFilterLlanterias.setChecked(true);
+                            break;
+                        case LUBRICANTES:
+                            binding.swFilterVentaLubricantes.setChecked(true);
+                            break;
+                        case MARCAS:
+                            break;
+                        case PUNTOS_PAGO:
+                            break;
+                        case RESTAURANTES:
+                            binding.swFilterRestaurantes.setChecked(true);
+                            break;
+                        case SOAT:
+                            binding.swFilterSoat.setChecked(true);
+                            break;
+                        case TIENDAS:
+                            break;
+                        case TIPO_COMBUSTIBLE:
+                            break;
+                        case PROMOCION:
+                            binding.swFilterPromocion.setChecked(true);
+                            break;
+                        default:
+                            break;
+                    }
+            }
+
+            initDistanceFilter();
+        }
     }
 
     private void setBooleanFilter(boolean b, Long filterId) {
@@ -298,22 +396,26 @@ public class EstacionesFiltrosFragment extends Fragment {
     private void getFilterCountResult() {
         if (this.lEstacionesFiltros != null && this.lEstacionesFiltros.size() > 0) {
             binding.statusApi.setVisibility(View.VISIBLE);
+            binding.btnFiltrarEstaciones.setClickable(false);
 
-            Call<Long> callPostQueryCountByFilter = MedidorApiAdapter.getApiService().postQueryCountByFilters(lEstacionesFiltros);
+            Call<Long> callPostQueryCountByFilter = MedidorApiAdapter.getApiService().postQueryCountByFilters(lEstacionesFiltros, latitud, longitud);
             callPostQueryCountByFilter.enqueue(new Callback<Long>() {
                 @Override
                 public void onResponse(Call<Long> call, Response<Long> response) {
                     binding.statusApi.setVisibility(View.GONE);
+                    binding.btnFiltrarEstaciones.setClickable(true);
+
                     if (response.isSuccessful()) {
 
                         Long responseCount = response.body();
-                        binding.btnFiltrarEstaciones.setText("VER RESULTADOS: " + responseCount);
+                        binding.btnFiltrarEstaciones.setText("Ver " + responseCount + " EDS");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Long> call, Throwable t) {
                     binding.statusApi.setVisibility(View.GONE);
+                    binding.btnFiltrarEstaciones.setClickable(true);
                     Toast.makeText(getActivity(), "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -321,7 +423,6 @@ public class EstacionesFiltrosFragment extends Fragment {
     }
 
     private void removeExistingFilter(Long filterId) {
-
         if (lEstacionesFiltros.size() > 0) {
             for (EstacionesFiltros filtro :
                     lEstacionesFiltros) {
@@ -334,7 +435,50 @@ public class EstacionesFiltrosFragment extends Fragment {
     }
 
     public void filtrarEstaciones() {
+
+        if (lEstacionesFiltros != null && lEstacionesFiltros.size() > 0) {
+            estacionFiltrosListDto = new EstacionFiltrosListDto(lEstacionesFiltros);
+            String filtros = gson.toJson(estacionFiltrosListDto);
+            sharedPreferences.edit().putString(Constantes.FILTROS_KEY, filtros).apply();
+        }
+        navController.navigate(R.id.estacionesMapFragment);
     }
 
+    private void deleteFilters() {
+        if (lEstacionesFiltros != null) {
+            lEstacionesFiltros.clear();
+            sharedPreferences.edit().putString(Constantes.FILTROS_KEY, null).apply();
+        }
+        binding.swFilterBanios.setChecked(false);
+        binding.swFilterHoteles.setChecked(false);
+        binding.swFilterLavaderos.setChecked(false);
+        binding.swFilterLlanterias.setChecked(false);
+        binding.swFilterVentaLubricantes.setChecked(false);
+        binding.swFilterRestaurantes.setChecked(false);
+        binding.swFilterSoat.setChecked(false);
+        binding.swFilterPromocion.setChecked(false);
+        initDistanceFilter();
+    }
 
+    private void initDistanceFilter() {
+
+        boolean filterAlreadyExists = false;
+        if (lEstacionesFiltros != null && lEstacionesFiltros.size() > 0) {
+
+            for (EstacionesFiltros filtro :
+                    lEstacionesFiltros) {
+
+                if (filtro != null && filtro.getId() != null && filtro.getId().equals(EEstacionesFiltros.DISTANCIA.getId())) {
+                    filterAlreadyExists = true;
+                    break;
+                }
+            }
+        }
+
+        if (!filterAlreadyExists) {
+            EstacionesFiltros filtroDistancia = new EstacionesFiltros();
+            filtroDistancia.setId(EEstacionesFiltros.DISTANCIA.getId());
+            lEstacionesFiltros.add(filtroDistancia);
+        }
+    }
 }

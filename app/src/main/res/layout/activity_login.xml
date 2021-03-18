@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivLogoName"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/logo_inicio_width"
+        android:layout_height="@dimen/logo_inicio_height"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo_inicio" />
 

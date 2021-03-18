@@ -17,9 +17,9 @@ public class Constantes {
 
     public static final String ESTACION_BUNDLE = "estacionIs";
 
-
     public static final String LATITUD_KEY = "latitud";
     public static final String LONGITUD_KEY = "longitud";
+    public static final String FILTROS_KEY = "filtros";
     public static final String SHARED_PREFERENCES_FILE_KEY = "inndex_preferences";
 
     //FORESQUARE
@@ -52,8 +52,6 @@ public class Constantes {
 
     //COMBUSTIBLES
     public static final String GET_COMBUSTIBLES_ALL = "combustibles/getAll";
-
-
 
     //PAIS
     public static final String GET_ALL_PAIS = "pais/getAll/";
@@ -104,6 +102,7 @@ public class Constantes {
     public static final String GET_PUNTOS_PAGO = "puntos-pago/getAll";
     public static final String GET_TIENDAS = "tiendas/getAll";
     public static final String GET_SOAT = "soat/getAll";
+    public static final String ADMIN_PHONENUMBER = "573194617069";
 
     public static int ROTATION = 0;
 

@@ -22,4 +22,7 @@
     <color name="sombra">#64000000</color>
     <color name="sombra_btn_back">#94000000</color>
     <color name="azul_texto_enlace">#0000FF</color>
+
+    <color name="green_whatsapp">#51B054</color>
+    <color name="green_whatsapp_light">#51B054</color>
 </resources>

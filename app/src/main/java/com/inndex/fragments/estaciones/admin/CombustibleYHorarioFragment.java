@@ -62,7 +62,11 @@ public class CombustibleYHorarioFragment extends Fragment {
                 estacionWithOnlyId = new Estaciones();
                 estacionWithOnlyId.setId(estacion.getId());
                 listHorarios = estacion.getListHorarios();
+                if(listHorarios == null)
+                    listHorarios = new ArrayList<>();
                 listEstacionCombustibles = estacion.getListEstacionCombustibles();
+                if(listEstacionCombustibles == null)
+                    listEstacionCombustibles = new ArrayList<>();
             }
         }
     }
