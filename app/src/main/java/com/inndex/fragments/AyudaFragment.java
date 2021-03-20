@@ -52,12 +52,9 @@ public class AyudaFragment extends Fragment {
 
         enviarCorreo.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setType("text/plain");
-            //intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getString(R.string.inndex_email)});
-            //requireActivity().startActivity(intent);
-            startActivity(Intent.createChooser(intent,
-                    "Send Email Using: "));
+            intent.setData(Uri.parse("mailto:" + getString(R.string.inndex_email))); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.inndex_email));
+            startActivity(intent);
         });
 
         relWhatsapp.setOnClickListener(v -> goToWhatsapp());

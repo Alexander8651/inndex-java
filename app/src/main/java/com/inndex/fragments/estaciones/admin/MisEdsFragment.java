@@ -75,10 +75,10 @@ public class MisEdsFragment extends Fragment implements IMisEdsFragment {
         btnSendEmail = root.findViewById(R.id.btnSendEmail);
         llSeparator = root.findViewById(R.id.separator);
         btnSendEmail.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getString(R.string.inndex_email)});
-            requireActivity().startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:" + getString(R.string.inndex_email))); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.inndex_email));
+            startActivity(intent);
         });
 
         relWhatsapp = root.findViewById(R.id.lay_whatsapp_ayuda);

@@ -58,39 +58,9 @@
         android:textSize="20sp"
         android:visibility="gone" />
 
-
-    <LinearLayout
+    <include
         android:id="@+id/separator"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <View
-            android:layout_width="160dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/gray_separator_services" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/separator_or"
-            android:textColor="@color/gray_separator_services"
-            android:textSize="25sp" />
-
-        <View
-            android:layout_width="160dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"
-            android:background="@color/gray_separator_services" />
-
-    </LinearLayout>
+        layout="@layout/separator_or" />
 
     <!-- Whatsapp -->
     <RelativeLayout

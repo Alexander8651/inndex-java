@@ -13,7 +13,6 @@
 
         <include layout="@layout/my_toolbar"/>
 
-
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
@@ -208,7 +207,7 @@
                         android:gravity="start|center"
                         android:hint="@string/tvModFecNacimiento"
                         android:padding="10dp"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 

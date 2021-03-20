@@ -66,10 +66,10 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
     private SharedPreferences myPreferences;
     private RelativeLayout imagenCarga;
 
-    private  static  final  int REQUEST_PERMISSION_CAMERA = 100;
-    private  static  final  int REQUEST_IMAGE_CAMERA = 101;
-    private  static  final  int REQUEST_PERMISSION_GALERY = 102;
-    private  static  final  int REQUEST_IMAGE_GALEY = 103;
+    private static final int REQUEST_PERMISSION_CAMERA = 100;
+    private static final int REQUEST_IMAGE_CAMERA = 101;
+    private static final int REQUEST_PERMISSION_GALERY = 102;
+    private static final int REQUEST_IMAGE_GALEY = 103;
     private ImageView img_eds;
 
 
@@ -99,58 +99,60 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
 
 
         myPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
-        int userID =  myPreferences.getInt(Constantes.DEFAULT_USER_ID, 0);
+        int userID = myPreferences.getInt(Constantes.DEFAULT_USER_ID, 0);
 
-        ipresenterEditAccount = new PesenterEditAccount(this, userID);
+        ipresenterEditAccount = new PesenterEditAccount(this, userID, requireContext());
 
+        TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
+        titulo.setText(getString(R.string.editar_perfil));
 
         btnBack = view.findViewById(R.id.btnBack);
 
-        btnBack.setOnClickListener(v ->{
+        btnBack.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
         });
 
-        btnGuardar.setOnClickListener(v->{
+        btnGuardar.setOnClickListener(v -> {
             ipresenterEditAccount.updateUserInfoAccount();
         });
 
-        img_eds.setOnClickListener( v ->{
-                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                popupMenu.inflate(R.menu.menufotoperfil);
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.camara:
+        img_eds.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+            popupMenu.inflate(R.menu.menufotoperfil);
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.camara:
 
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                                    if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-                                        irACamara();
-                                    } else {
-                                        ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
-                                    }
-                                }else{
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                                     irACamara();
-                                }
-                                return true;
-                            case R.id.galeria:
-
-                                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                                    if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                                        abrirGaleria();
-                                    }else {
-                                        ActivityCompat.requestPermissions((Activity) v.getContext(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
-                                    }
                                 } else {
-                                    abrirGaleria();
+                                    ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
                                 }
-                                return true;
-                            default:
-                                return  false;
-                        }
+                            } else {
+                                irACamara();
+                            }
+                            return true;
+                        case R.id.galeria:
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                                    abrirGaleria();
+                                } else {
+                                    ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
+                                }
+                            } else {
+                                abrirGaleria();
+                            }
+                            return true;
+                        default:
+                            return false;
                     }
-                });
+                }
+            });
         });
 
         //Cambiamos a masculino en negro
@@ -205,7 +207,7 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
 
 
     //Abrimos el calendario y obtenemos la fecha dada por el usuario
-    public  void abrirCalendario(){
+    public void abrirCalendario() {
         Calendar calendar = Calendar.getInstance();
         int anio = calendar.get(Calendar.YEAR);
         int mes = calendar.get(Calendar.MONTH);
@@ -214,15 +216,15 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         DatePickerDialog datePicker = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String fecha = dayOfMonth + "/" + (month+1) + "/" + year;
+                String fecha = dayOfMonth + "/" + (month + 1) + "/" + year;
                 tvFecNacimiento.setText(fecha);
             }
-        }, anio, mes,dia);
+        }, anio, mes, dia);
         datePicker.show();
     }
 
     //para recuperar el telefono mas el indicativo
-    private void getNumber(){
+    private void getNumber() {
         String fullNumber = ccp.getFullNumber() + etText.getText().toString();
     }
 
@@ -252,15 +254,20 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
     }
 
     @Override
-    public  TextView createTextViewBornAt() {
+    public TextView createTextViewBornAt() {
         return tvFecNacimiento;
     }
 
     @Override
     public Usuario updateUser() {
 
-        Usuario usuario = new Usuario(tvCorreo.getText().toString(), tvNumeroIdentidad.getText().toString(), tvName.getText().toString(),
-                tvApellidos.getText().toString(), etText.getText().toString(), tvFecNacimiento.getText().toString());
+        Usuario usuario;
+        if (tvCorreo.getText() == null || tvNumeroIdentidad.getText() == null || tvName.getText() == null ||
+                tvApellidos.getText() == null || etText.getText() == null || tvFecNacimiento.getText() == null)
+            usuario = null;
+        else
+            usuario = new Usuario(tvCorreo.getText().toString(), tvNumeroIdentidad.getText().toString(), tvName.getText().toString(),
+                    tvApellidos.getText().toString(), etText.getText().toString(), tvFecNacimiento.getText().toString());
         return usuario;
     }
 
@@ -284,10 +291,10 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
             }
         }
         //galeria
-        if (requestCode == REQUEST_PERMISSION_GALERY){
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_PERMISSION_GALERY) {
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 abrirGaleria();
-            } else{
+            } else {
                 Toast.makeText(view.getContext(), "Se necesitan los permisos", Toast.LENGTH_SHORT).show();
             }
         }
@@ -311,9 +318,9 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
             }
         }
 
-        if (requestCode == REQUEST_IMAGE_GALEY){
-            if (resultCode == Activity.RESULT_OK){
-                Uri uriGa =  data.getData();
+        if (requestCode == REQUEST_IMAGE_GALEY) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uriGa = data.getData();
                 img_eds.setImageURI(uriGa);
 
             } else {
@@ -324,22 +331,22 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
     }
 
     //va a la camara
-    private void irACamara(){
+    private void irACamara() {
         Intent camaraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camaraIntent, REQUEST_IMAGE_CAMERA);
     }
 
-    private void abrirGaleria(){
+    private void abrirGaleria() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent,REQUEST_IMAGE_GALEY);
+        startActivityForResult(intent, REQUEST_IMAGE_GALEY);
     }
 
 
     //convierte a base64
     String convertirImagenBase64(Bitmap userimage) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        userimage.compress(Bitmap.CompressFormat.JPEG , 100, baos);
+        userimage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         String encoded = Base64.encodeToString(data, Base64.DEFAULT);
         return encoded;

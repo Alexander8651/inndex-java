@@ -1,11 +1,13 @@
 package com.inndex.fragments.configuracion_cuenta.presenter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inndex.fragments.configuracion_cuenta.IeditAccout;
 import com.inndex.model.Usuario;
@@ -29,10 +31,12 @@ public class PesenterEditAccount implements IpresenterEditAccount {
     EditText numeroCelular;
     TextView fechaNacimiento;
     RelativeLayout imagenCarga;
+    private Context context;
 
-    public PesenterEditAccount(IeditAccout ieditAccout, int userID) {
+    public PesenterEditAccount(IeditAccout ieditAccout, int userID, Context context) {
         this.ieditAccout = ieditAccout;
         this.userID = userID;
+        this.context = context;
         setInfoUser();
         getUserInfoAccount();
     }
@@ -68,27 +72,28 @@ public class PesenterEditAccount implements IpresenterEditAccount {
                         name.setText(usuario.getNombres());
                     }
 
-                    if (usuario.getApellidos() != null){
+                    if (usuario.getApellidos() != null) {
                         apellidos.setText(usuario.getApellidos());
                     }
 
-                    if (usuario.getIdentificacion() != null){
+                    if (usuario.getIdentificacion() != null) {
                         numeroIdentidad.setText(String.valueOf(usuario.getIdentificacion()));
                     }
 
-                    if (usuario.getEmail() != null){
+                    if (usuario.getEmail() != null) {
                         correo.setText(usuario.getEmail());
                     }
 
-                    if (usuario.getCelular() != null){
+                    if (usuario.getCelular() != null) {
                         numeroCelular.setText(usuario.getCelular());
                     }
 
-                    if (usuario.getFechaNacimiento() != null){
+                    if (usuario.getFechaNacimiento() != null) {
                         fechaNacimiento.setText(usuario.getFechaNacimiento());
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 imagenCarga.setVisibility(View.GONE);
@@ -99,19 +104,23 @@ public class PesenterEditAccount implements IpresenterEditAccount {
     @Override
     public void updateUserInfoAccount() {
         Usuario usuario = ieditAccout.updateUser();
-        Call<Usuario> updateUserInfo = MedidorApiAdapter.getApiService().updateUser(Constantes.CONTENT_TYPE_JSON ,usuario);
+        if (usuario != null) {
+            Call<Usuario> updateUserInfo = MedidorApiAdapter.getApiService().updateUser(Constantes.CONTENT_TYPE_JSON, usuario);
 
-        updateUserInfo.enqueue(new Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                //Log.d("actualice", response.body().getNombres());
-            }
+            updateUserInfo.enqueue(new Callback<Usuario>() {
+                @Override
+                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                    //Log.d("actualice", response.body().getNombres());
+                }
 
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Usuario> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        } else {
+            Toast.makeText(context, "Por favor, Llenar todos los campos requeridos. ", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
