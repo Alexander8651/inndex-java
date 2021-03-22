@@ -42,6 +42,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -98,6 +99,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         obtenerSeguros();
         obtenerMetodosPago();
         obtenerMensajeria();
+        obtenerAccesoriosYRepuestos();
+        obtenerCompraYventa();
         iEdsOtrosServiciosFragment.botonGuardar().setOnClickListener(this::guardarCambios
         );
     }
@@ -143,7 +146,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             public void onResponse(Call<List<Tiendas>> call, Response<List<Tiendas>> response) {
                 if (response.isSuccessful()) {
                     tiendas = (ArrayList<Tiendas>) response.body();
-                    Collections.sort(tiendas, (b1, b2) -> b1.getNombre().compareTo(b2.getNombre()));
+                    if (tiendas != null)
+                        Collections.sort(tiendas, (b1, b2) -> Normalizer.normalize(b1.getNombre(), Normalizer.Form.NFD).compareTo(Normalizer.normalize(b2.getNombre(), Normalizer.Form.NFD)));
                     validateTiendas();
                 }
             }
@@ -163,6 +167,9 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             public void onResponse(Call<List<Soat>> call, Response<List<Soat>> response) {
                 if (response.isSuccessful()) {
                     soats = (ArrayList<Soat>) response.body();
+                    if (soats != null)
+                        Collections.sort(soats, (b1, b2) -> b1.getNombre().compareTo(b2.getNombre()));
+
                     validateSoat();
                 }
             }
@@ -179,6 +186,8 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
         try {
             Dao<MetodoPago, Long> metodoPagoDao = helper.getDaoMetodoPago();
             metodoPagoList = metodoPagoDao.queryForAll();
+            Collections.sort(metodoPagoList, (b1, b2) -> Normalizer.normalize(b1.getNombre(), Normalizer.Form.NFD).compareTo(Normalizer.normalize(b2.getNombre(), Normalizer.Form.NFD)));
+
             validateMetodosPago();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -232,6 +241,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             public void onResponse(Call<List<CompraYventa>> call, Response<List<CompraYventa>> response) {
                 if (response.isSuccessful()) {
                     listCompraYventa = response.body();
+                    Collections.sort(listCompraYventa, (b1, b2) -> Normalizer.normalize(b1.getNombre(), Normalizer.Form.NFD).compareTo(Normalizer.normalize(b2.getNombre(), Normalizer.Form.NFD)));
                     validateCompraYventa();
                 }
             }
@@ -450,7 +460,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
 
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
             estaciones.setListCompraYventa(adapter.obtenerListaCompraYventas());
-            validateMetodosPago();
+            validateCompraYventa();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
         }));
@@ -633,7 +643,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
     }
 
     private void validateAccesoriosYRepuestos() {
-        iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setText(context.getString(R.string.selecciona_los_cajeros_electronicos));
+        iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setText(context.getString(R.string.selecciona_accesorios_y_repuestos));
         if (estaciones.getListAccesoriosYrepuestos() != null && estaciones.getListAccesoriosYrepuestos().size() > 0) {
             iEdsOtrosServiciosFragment.tvAccesoriosSeleccionados().setText("");
             StringBuilder stringBuilder = new StringBuilder();

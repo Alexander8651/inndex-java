@@ -75,6 +75,7 @@
         <include layout="@layout/separator_or" />
 
         <LinearLayout
+            android:id="@+id/llGoogleLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"

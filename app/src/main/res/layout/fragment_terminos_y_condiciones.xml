@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.informacion.TerminosYCondicionesFragment">
 
     <include layout="@layout/my_toolbar" />
@@ -11,20 +11,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:layout_margin="16dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/headerTerminos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
                 android:fontFamily="@font/roboto_light"
+                android:textSize="20sp"
                 android:textStyle="bold">
-
             </TextView>
 
             <TextView
@@ -38,21 +38,22 @@
             <TextView
                 android:id="@+id/terminosPolitica"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/roboto_light"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_blue_light"
-                android:text="@string/pol_tica_de_tratamiento_de_datos_personales_pol_tica_de_privacidad"/>
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/pol_tica_de_tratamiento_de_datos_personales_pol_tica_de_privacidad"
+                android:textColor="@android:color/holo_blue_light" />
+
             <TextView
                 android:id="@+id/politicaAutorizacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_blue_light"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="@string/autorizacion_de_tratamiento_de_datos_personales_usuarios_inndez_company_s_a_s"/>
-
+                android:text="@string/autorizacion_de_tratamiento_de_datos_personales_usuarios_inndez_company_s_a_s"
+                android:textColor="@android:color/holo_blue_light" />
 
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

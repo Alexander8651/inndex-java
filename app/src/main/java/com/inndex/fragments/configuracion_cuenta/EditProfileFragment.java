@@ -37,6 +37,7 @@ import androidx.navigation.Navigation;
 
 import com.hbb20.CountryCodePicker;
 import com.inndex.R;
+import com.inndex.enums.EGenero;
 import com.inndex.fragments.configuracion_cuenta.presenter.IpresenterEditAccount;
 import com.inndex.fragments.configuracion_cuenta.presenter.PesenterEditAccount;
 import com.inndex.model.Usuario;
@@ -70,7 +71,9 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
     private static final int REQUEST_IMAGE_CAMERA = 101;
     private static final int REQUEST_PERMISSION_GALERY = 102;
     private static final int REQUEST_IMAGE_GALEY = 103;
-    private ImageView img_eds;
+    private ImageView imgPerfil;
+
+    private Integer genero = 0;
 
 
     @Override
@@ -95,8 +98,7 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         btnGuardar = view.findViewById(R.id.guardar_usuario);
         imagenCarga = view.findViewById(R.id.status_image);
 
-        img_eds = view.findViewById(R.id.imagen_perfil_editar);
-
+        imgPerfil = view.findViewById(R.id.imagen_perfil_editar);
 
         myPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
         int userID = myPreferences.getInt(Constantes.DEFAULT_USER_ID, 0);
@@ -116,72 +118,60 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
             ipresenterEditAccount.updateUserInfoAccount();
         });
 
-        img_eds.setOnClickListener(v -> {
+        imgPerfil.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
             popupMenu.inflate(R.menu.menufotoperfil);
             popupMenu.show();
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.camara:
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.camara:
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                                    irACamara();
-                                } else {
-                                    ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
-                                }
-                            } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                                 irACamara();
-                            }
-                            return true;
-                        case R.id.galeria:
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                                    abrirGaleria();
-                                } else {
-                                    ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
-                                }
                             } else {
-                                abrirGaleria();
+                                ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
                             }
-                            return true;
-                        default:
-                            return false;
-                    }
+                        } else {
+                            irACamara();
+                        }
+                        return true;
+                    case R.id.galeria:
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                                abrirGaleria();
+                            } else {
+                                ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
+                            }
+                        } else {
+                            abrirGaleria();
+                        }
+                        return true;
+                    default:
+                        return false;
                 }
             });
         });
 
         //Cambiamos a masculino en negro
-        btnMasculino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnMasculino.setOnClickListener(v -> {
+            genero = EGenero.MASCULINO.getId();
+            btnMasculino.setBackgroundColor(Color.BLACK);
+            btnMasculino.setTextColor(Color.WHITE);
+            btnFemenino.setBackgroundColor(Color.WHITE);
+            btnFemenino.setTextColor(Color.BLACK);
 
-                btnMasculino.setBackgroundColor(Color.BLACK);
-                btnMasculino.setTextColor(Color.WHITE);
-                btnFemenino.setBackgroundColor(Color.WHITE);
-                btnFemenino.setTextColor(Color.BLACK);
-
-            }
         });
 
         //Cambiamos a femenino en negro
-        btnFemenino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                btnFemenino.setBackgroundColor(Color.BLACK);
-                btnFemenino.setTextColor(Color.WHITE);
-                btnMasculino.setBackgroundColor(Color.WHITE);
-                btnMasculino.setTextColor(Color.BLACK);
-
-            }
+        btnFemenino.setOnClickListener(v -> {
+            genero = EGenero.FEMENINO.getId();
+            btnFemenino.setBackgroundColor(Color.BLACK);
+            btnFemenino.setTextColor(Color.WHITE);
+            btnMasculino.setBackgroundColor(Color.WHITE);
+            btnMasculino.setTextColor(Color.BLACK);
         });
-
-
 /*
         saveChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,7 +274,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         if (requestCode == REQUEST_PERMISSION_CAMERA) {
             if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 irACamara();
-
             } else {
                 Toast.makeText(view.getContext(), "Se necesitan los permisos", Toast.LENGTH_SHORT).show();
 
@@ -309,10 +298,7 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         if (requestCode == REQUEST_IMAGE_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCa = (Bitmap) data.getExtras().get("data");
-                img_eds.setImageBitmap(bitmapCa);
-
-                Log.i("TAG", "Result=>" + bitmapCa);
-
+                imgPerfil.setImageBitmap(bitmapCa);
             } else {
                 Toast.makeText(view.getContext(), "Se requieren los permisos", Toast.LENGTH_SHORT).show();
             }
@@ -321,8 +307,7 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         if (requestCode == REQUEST_IMAGE_GALEY) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uriGa = data.getData();
-                img_eds.setImageURI(uriGa);
-
+                imgPerfil.setImageURI(uriGa);
             } else {
                 Toast.makeText(view.getContext(), "No elegiste ninguna imagen", Toast.LENGTH_SHORT).show();
             }
@@ -341,7 +326,6 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_IMAGE_GALEY);
     }
-
 
     //convierte a base64
     String convertirImagenBase64(Bitmap userimage) {

@@ -16,9 +16,9 @@ public class PresenterMisEdsFragment implements IPresenterMisEdsFragment {
 
     ArrayList<Estaciones> estaciones;
     IMisEdsFragment iMisEdsFragment;
-    int userID;
+    long userID;
 
-    public PresenterMisEdsFragment( IMisEdsFragment iMisEdsFragment, int userID) {
+    public PresenterMisEdsFragment( IMisEdsFragment iMisEdsFragment, long userID) {
         this.iMisEdsFragment = iMisEdsFragment;
         this.userID = userID;
         obtenerEds();

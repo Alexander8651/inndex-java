@@ -62,7 +62,7 @@ public class EstacionesFavoritasFragment extends Fragment {
         rvFavoritas = root.findViewById(R.id.rvEstacionesFavoritas);
         try {
             getAllStations();
-            Log.d("estacionesss", estaciones.get(0).getNombre());
+            //Log.d("estacionesss", estaciones.get(0).getNombre());
 
             adapter = new EstacionFavoritaAdapter((ArrayList<Estaciones>) estaciones, requireActivity());
             rvFavoritas.setAdapter(adapter);

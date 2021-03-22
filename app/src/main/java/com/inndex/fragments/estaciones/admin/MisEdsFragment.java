@@ -49,7 +49,7 @@ public class MisEdsFragment extends Fragment implements IMisEdsFragment {
     private TextView tvInndexEmail;
     private Button btnSendEmail;
     private RelativeLayout relWhatsapp;
-    LinearLayout llSeparator;
+    RelativeLayout llSeparator;
 
     private MisEdsViewModel galleryViewModel;
 
@@ -96,7 +96,7 @@ public class MisEdsFragment extends Fragment implements IMisEdsFragment {
         mostarEstaciones();
 
         myPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
-        int userID = myPreferences.getInt(Constantes.DEFAULT_USER_ID, 0);
+        long userID = myPreferences.getLong(Constantes.DEFAULT_USER_ID, 0);
 
         iPresenterMisEdsFragment = new PresenterMisEdsFragment(this, userID);
 
@@ -114,7 +114,8 @@ public class MisEdsFragment extends Fragment implements IMisEdsFragment {
     }
 
     @Override
-    public AdapterMisEds crearAdater(ArrayList<Estaciones> estaciones) {
+    public AdapterMisEds crearAdater(List<Estaciones> estaciones) {
+        this.estaciones = estaciones;
         return new AdapterMisEds(estaciones, requireContext());
     }
 

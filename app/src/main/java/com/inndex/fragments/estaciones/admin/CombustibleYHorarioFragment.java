@@ -101,6 +101,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         cbGasoCorri.setOnCheckedChangeListener((v, b) -> {
             if (b) {
                 llGasoCorri.setVisibility(View.VISIBLE);
+                edtPrecioCorriente.requestFocus();
             } else {
                 llGasoCorri.setVisibility(View.GONE);
             }
@@ -109,6 +110,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         cbGasoExtra.setOnCheckedChangeListener((v, b) -> {
             if (b) {
                 llGasoExtra.setVisibility(View.VISIBLE);
+                edtPrecioExtra.requestFocus();
             } else {
                 llGasoExtra.setVisibility(View.GONE);
             }
@@ -117,6 +119,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         cbDiesel.setOnCheckedChangeListener((v, b) -> {
             if (b) {
                 llDiesel.setVisibility(View.VISIBLE);
+                edtPrecioDiesel.requestFocus();
             } else {
                 llDiesel.setVisibility(View.GONE);
             }
@@ -125,6 +128,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         cbBiodiesel.setOnCheckedChangeListener((v, b) -> {
             if (b) {
                 llBiodiesel.setVisibility(View.VISIBLE);
+                edtPrecioBioDiesel.requestFocus();
             } else {
                 llBiodiesel.setVisibility(View.GONE);
             }
@@ -133,6 +137,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         cbGnv.setOnCheckedChangeListener((v, b) -> {
             if (b) {
                 llGnv.setVisibility(View.VISIBLE);
+                edtPrecioGNV.requestFocus();
             } else {
                 llGnv.setVisibility(View.GONE);
             }
@@ -141,6 +146,7 @@ public class CombustibleYHorarioFragment extends Fragment {
         cbMaxProDiesel.setOnCheckedChangeListener((v, b) -> {
             if (b) {
                 llMaxProDiesel.setVisibility(View.VISIBLE);
+                edtPrecioMaxProDiesel.requestFocus();
             } else {
                 llMaxProDiesel.setVisibility(View.GONE);
             }

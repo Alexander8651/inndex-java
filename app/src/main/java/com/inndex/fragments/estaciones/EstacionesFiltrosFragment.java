@@ -164,6 +164,7 @@ public class EstacionesFiltrosFragment extends Fragment {
 
         initFilterData();
         initFilterViewEvents();
+        initDistanceFilter();
         getFilterCountResult();
         binding.btnFiltrarEstaciones.setOnClickListener(v ->
                 filtrarEstaciones()
@@ -217,7 +218,7 @@ public class EstacionesFiltrosFragment extends Fragment {
         if (lEstacionesFiltros != null && lEstacionesFiltros.size() > 0) {
 
             for (int i = 0; i < lEstacionesFiltros.size(); i++) {
-                Log.e("TAG",String.valueOf(lEstacionesFiltros.get(i).getId()));
+                Log.e("TAG", String.valueOf(lEstacionesFiltros.get(i).getId()));
                 if (lEstacionesFiltros.get(i) != null && lEstacionesFiltros.get(i).getId() != null)
                     switch (EEstacionesFiltros.getEEstacionesFiltrosById(lEstacionesFiltros.get(i).getId())) {
                         case ABIERTO_AHORA:
@@ -419,6 +420,8 @@ public class EstacionesFiltrosFragment extends Fragment {
                     Toast.makeText(getActivity(), "ERROR " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+        } else {
+            Toast.makeText(requireContext(), "Filtros vacios", Toast.LENGTH_SHORT).show();
         }
     }
 

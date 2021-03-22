@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/my_toolbar"/>
+        <include layout="@layout/my_toolbar" />
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -40,9 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Nombres"
-                    android:textColor="@color/colorPrimary"
-
-                    />
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:id="@+id/user_name_edit"
@@ -56,9 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Apellidos"
-                    android:textColor="@color/colorPrimary"
-
-                    />
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:id="@+id/etApellidos"
@@ -66,16 +62,13 @@
                     android:layout_height="wrap_content"
                     android:hint="Apellidos" />
 
-
                 <TextView
                     android:id="@+id/tvNumDeIdentidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Numero de identidad"
-                    android:textColor="@color/colorPrimary"
-
-                    />
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:id="@+id/etNumDeIdentidad"
@@ -83,23 +76,21 @@
                     android:layout_height="wrap_content"
                     android:hint="Numero de identidad" />
 
-
                 <TextView
                     android:id="@+id/tvEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Correo"
-                    android:textColor="@color/colorPrimary"
-
-                    />
+                    android:text="@string/email"
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="carlosalonsosolago@gmail.com" />
-
 
                 <TextView
                     android:id="@+id/tvPais"
@@ -110,7 +101,6 @@
                     android:textColor="@color/colorPrimary" />
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -236,11 +226,10 @@
                             android:id="@+id/btnMasculino"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/white"
+                            android:background="@color/white"
                             android:text="@string/tvMasculino"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -252,7 +241,7 @@
                             android:id="@+id/btnFemenino"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/white"
+                            android:background="@color/white"
                             android:text="@string/tvFemenino"
                             android:textColor="@color/colorPrimary" />
                     </LinearLayout>
@@ -290,8 +279,13 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/selector_buton_indications"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="@string/guardar_cambios"
-                    android:textSize="24sp" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -307,16 +301,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:alpha="0.4"/>
+            android:alpha="0.4"
+            android:background="@color/colorPrimary" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/speedometer"
             app:lottie_loop="true"
-            app:lottie_speed="2.5"/>
+            app:lottie_rawRes="@raw/speedometer"
+            app:lottie_speed="2.5" />
     </RelativeLayout>
 
 

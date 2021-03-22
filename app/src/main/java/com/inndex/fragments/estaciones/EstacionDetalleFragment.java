@@ -153,6 +153,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         tvCalificacion.setText(String.format(Locale.ENGLISH, "%.1f", estaciones.getCalificacion()));
         ratingBar.setRating((float) estaciones.getCalificacion());
 
+
         direccion.setText(estaciones.getDireccion());
         marca.setText(estaciones.getMarca());
         nombre.setText(estaciones.getNombre());

@@ -172,7 +172,8 @@
                     android:progressDrawable="@drawable/custom_rating_bar"
                     android:rating="2"
                     android:stepSize="0.1"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:isIndicator="true"/>
 
                 <TextView
                     android:id="@+id/tv_estacion_servicios_calificacion"
@@ -182,7 +183,7 @@
                     android:text="4.3"
                     android:textSize="25sp" />
 
-                <TextView
+                <!--TextView
                     android:id="@+id/tv_estacion_servicios_ver_opiniones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -190,7 +191,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:text="Ver opiniones"
                     android:textColor="@color/azul_texto_enlace"
-                    android:textSize="@dimen/text_combustibles_titulos" />
+                    android:textSize="@dimen/text_combustibles_titulos" /-->
 
                 <TextView
                     android:id="@+id/tv_estacion_servicios_calificar"

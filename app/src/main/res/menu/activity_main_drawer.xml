@@ -11,9 +11,9 @@
         android:id="@+id/opt_agregar_eds"
         android:title="@string/agregar_eds" />
 
-    <item
+    <!--item
         android:id="@+id/opt_mis_vehiculos"
-        android:title="@string/mis_veh_culos" />
+        android:title="@string/mis_veh_culos" /-->
 
     <item
         android:id="@+id/opt_compartir_app"

@@ -2,6 +2,7 @@ package com.inndex.fragments.configuracion_cuenta.presenterubicaciontexto;
 
 import android.content.Context;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inndex.enums.ETextos;
 import com.inndex.model.Estaciones;
@@ -35,26 +36,22 @@ public class PresenterUbicacionTexto implements IPresenterUbicacionTexto {
             @Override
             public void onResponse(Call<Textos> call, Response<Textos> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     bodyUbicacion = response.body().getTexto();
                     mostrarBodyUbicaciobText();
                 }
-
             }
 
             @Override
             public void onFailure(Call<Textos> call, Throwable t) {
-
+                Toast.makeText(context, "ERROR AL CONSULTAR TEXTO", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public void mostrarBodyUbicaciobText() {
-
         TextView body = iUbicacionTextoFragment.crearTextviewBody();
-
         body.setText(bodyUbicacion);
-
     }
 }
