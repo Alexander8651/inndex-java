@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.inndex.fragments.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_homeFragment_to_acountConfFragment"
             app:destination="@id/opt_configuracion" />
@@ -36,7 +36,7 @@
         android:id="@+id/opt_configuracion"
         android:name="com.inndex.fragments.configuracion_cuenta.AcountConfFragment"
         android:label="fragment_acount_conf"
-        tools:layout="@layout/fragment_acount_conf" >
+        tools:layout="@layout/fragment_acount_conf">
         <action
             android:id="@+id/action_opt_configuracion_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
@@ -58,7 +58,7 @@
         android:id="@+id/opt_mis_vehiculos"
         android:name="com.inndex.fragments.vehiculos.MisVehiculosFragment"
         android:label="fragment_mis_vehiculos"
-        tools:layout="@layout/fragment_mis_vehiculos" >
+        tools:layout="@layout/fragment_mis_vehiculos">
         <action
             android:id="@+id/action_misVehiculosFragment_to_agregarVehiculoFragment"
             app:destination="@id/agregarVehiculoFragment" />
@@ -77,7 +77,7 @@
         android:id="@+id/editarEdsFragment"
         android:name="com.inndex.fragments.estaciones.admin.EditarEdsFragment"
         android:label="fragment_editar_eds"
-        tools:layout="@layout/fragment_editar_eds" >
+        tools:layout="@layout/fragment_editar_eds">
         <action
             android:id="@+id/action_editarEdsFragment_to_datosGeneralesFragment"
             app:destination="@id/datosGeneralesFragment" />
@@ -95,7 +95,7 @@
         android:id="@+id/opt_administrar_eds"
         android:name="com.inndex.fragments.estaciones.admin.MisEdsFragment"
         android:label="fragment_mis_eds"
-        tools:layout="@layout/fragment_mis_eds" >
+        tools:layout="@layout/fragment_mis_eds">
         <action
             android:id="@+id/action_misEdsFragment_to_editarEdsFragment"
             app:destination="@id/editarEdsFragment" />
@@ -104,7 +104,7 @@
         android:id="@+id/editProfileFragment"
         android:name="com.inndex.fragments.configuracion_cuenta.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfileFragment_to_editPasswordFragment"
             app:destination="@id/editPasswordFragment" />
@@ -118,7 +118,7 @@
         android:id="@+id/promocionListFragment"
         android:name="com.inndex.fragments.promociones.PromocionListFragment"
         android:label="fragment_promocion_list"
-        tools:layout="@layout/fragment_promocion_list" >
+        tools:layout="@layout/fragment_promocion_list">
         <action
             android:id="@+id/action_promocionListFragment_to_promocionFormFragment"
             app:destination="@id/promocionFormFragment" />
@@ -137,7 +137,7 @@
         android:id="@+id/privacidadFragment"
         android:name="com.inndex.fragments.configuracion_cuenta.PrivacidadFragment"
         android:label="fragment_privacidad"
-        tools:layout="@layout/fragment_privacidad" >
+        tools:layout="@layout/fragment_privacidad">
         <action
             android:id="@+id/action_privacidadFragment_to_ubicacionTextoFragment"
             app:destination="@id/ubicacionTextoFragment" />
@@ -151,7 +151,7 @@
         android:id="@+id/informacionFragment2"
         android:name="com.inndex.fragments.informacion.InformacionFragment"
         android:label="fragment_informacion"
-        tools:layout="@layout/fragment_informacion" >
+        tools:layout="@layout/fragment_informacion">
         <action
             android:id="@+id/action_informacionFragment2_to_terminosYCondicionesFragment"
             app:destination="@id/terminosYCondicionesFragment" />
@@ -166,7 +166,7 @@
         android:id="@+id/terminosYCondicionesFragment"
         android:name="com.inndex.fragments.informacion.TerminosYCondicionesFragment"
         android:label="fragment_terminos_y_condiciones"
-        tools:layout="@layout/fragment_terminos_y_condiciones" >
+        tools:layout="@layout/fragment_terminos_y_condiciones">
         <action
             android:id="@+id/action_terminosYCondicionesFragment_to_politicaPrivacidadFragment"
             app:destination="@id/politicaPrivacidadFragment" />
@@ -178,7 +178,7 @@
         android:id="@+id/politicaPrivacidadFragment"
         android:name="com.inndex.fragments.informacion.PoliticaPrivacidadFragment"
         android:label="fragment_politica_privacidad"
-        tools:layout="@layout/fragment_politica_privacidad" >
+        tools:layout="@layout/fragment_politica_privacidad">
         <action
             android:id="@+id/action_politicaPrivacidadFragment_to_terminosYCondicionesFragment"
             app:destination="@id/terminosYCondicionesFragment" />
@@ -190,7 +190,7 @@
         android:id="@+id/autorizacionFragment"
         android:name="com.inndex.fragments.informacion.AutorizacionFragment"
         android:label="fragment_autorizacion"
-        tools:layout="@layout/fragment_autorizacion" >
+        tools:layout="@layout/fragment_autorizacion">
         <action
             android:id="@+id/action_autorizacionFragment_to_politicaPrivacidadFragment"
             app:destination="@id/politicaPrivacidadFragment" />
