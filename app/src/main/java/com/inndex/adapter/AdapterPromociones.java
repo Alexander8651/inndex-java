@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -14,9 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.inndex.R;
 import com.inndex.model.Promocion;
+import com.inndex.retrofit.MedidorApiAdapter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterPromociones extends RecyclerView.Adapter<AdapterPromociones.ViewHolder> {
 
@@ -55,18 +61,33 @@ public class AdapterPromociones extends RecyclerView.Adapter<AdapterPromociones.
             popupMenu.show();
 
             popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.opcion_1:
-
-                        return true;
-                    case R.id.opcion_2:
-
-
-                        return true;
-                    default:
-                        return false;
+                if (item.getItemId() == R.id.optEliminarPromocion) {
+                    deletePromocion(promocion);
                 }
+                return true;
             });
+        });
+    }
+
+    private void deletePromocion(Promocion promocion) {
+        Call<Promocion> callDeletePromocion = MedidorApiAdapter.getApiService().deletePromocion(promocion.getId());
+        callDeletePromocion.enqueue(new Callback<Promocion>() {
+            @Override
+            public void onResponse(Call<Promocion> call, Response<Promocion> response) {
+
+                if (response.isSuccessful()) {
+                    promocions.remove(promocion);
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "PROMOCION ELIMINADA EXITOSAMENTE" + response.code(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "ERROR ELIMINANDO LA PROMOCION " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Promocion> call, Throwable t) {
+                Toast.makeText(context, "ERROR ELIMINANDO LA PROMOCION ", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

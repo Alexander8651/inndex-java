@@ -86,10 +86,8 @@ public class EstacionesAdapter extends RecyclerView.Adapter<EstacionesAdapter.Es
         View root = holder.layCombustibles;
 
         if (estaciones.getListEstacionCombustibles() != null && estaciones.getListEstacionCombustibles().size() > 0) {
-            //holder.layCombustibles.setVisibility(View.VISIBLE);
-            //root.findViewById(R.id.lay_combustibles_list).setVisibility(View.VISIBLE);
-            TextView tvPreciosActualizados = root.findViewById(R.id.tv_estacion_servicios_precios_actualizados);
-            tvPreciosActualizados.setVisibility(View.GONE);
+            //TextView tvPreciosActualizados = root.findViewById(R.id.tv_estacion_servicios_precios_actualizados);
+            //tvPreciosActualizados.setVisibility(View.GONE);
             TextView nombreCombustible = null;
             TextView precioCombustible = null;
             for (EstacionCombustibles bomba : estaciones.getListEstacionCombustibles()) {

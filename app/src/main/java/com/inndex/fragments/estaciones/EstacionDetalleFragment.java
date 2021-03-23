@@ -21,6 +21,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -155,6 +156,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         tvCalificacion.setText(String.format(Locale.ENGLISH, "%.1f", estaciones.getCalificacion()));
         ratingBar.setRating((float) estaciones.getCalificacion());
 
+
         direccion.setText(estaciones.getDireccion());
         marca.setText(estaciones.getMarca());
         nombre.setText(estaciones.getNombre());
@@ -205,6 +207,9 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
 
             RecyclerView recyclerView = root.findViewById(R.id.rvPromocionesDetalle);
             PromocionesDetalleAdapter adapter = new PromocionesDetalleAdapter(estaciones.getListPromociones(), getContext());
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         } else {
             LinearLayout layout = root.findViewById(R.id.lay_promociones);

@@ -96,7 +96,7 @@ public class Constantes {
     public static final String ESTACION_SELECCIONADA_KEY = "estacionSeleccionada";
 
     public static final String GET_USER_INFO_BY_ID = "users/get-by-id";
-    public static final String UPDATE_USER = "users/update";
+    public static final String UPDATE_USER = "users/update-account-info";
     
     public static final String GET_BANCOS = "bancos/getAll";
     public static final String GET_PUNTOS_PAGO = "puntos-pago/getAll";

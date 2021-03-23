@@ -32,11 +32,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hbb20.CountryCodePicker;
 import com.inndex.R;
+import com.inndex.enums.EGenero;
 import com.inndex.fragments.configuracion_cuenta.presenter.IpresenterEditAccount;
 import com.inndex.fragments.configuracion_cuenta.presenter.PesenterEditAccount;
 import com.inndex.model.Usuario;
@@ -52,56 +56,60 @@ import static android.content.Context.MODE_PRIVATE;
 public class EditProfileFragment extends Fragment implements IeditAccout {
 
     private Button btnMasculino, btnFemenino, btnGuardar;
-    private EditText etText, etPassworDesa;
+    private EditText edtCelular, etPassworDesa;
     private LinearLayout navPassword;
     private CountryCodePicker ccp;
     private View view;
     private ImageButton btnBack;
-    private EditText tvName;
-    private EditText tvApellidos;
-    private EditText tvNumeroIdentidad;
-    private EditText tvCorreo;
+    private EditText edtName;
+    private EditText edtApellidos;
+    private EditText edtNumeroIdentidad;
+    private EditText edtCorreo;
     private TextView tvFecNacimiento;
     private IpresenterEditAccount ipresenterEditAccount;
     private SharedPreferences myPreferences;
-    private RelativeLayout imagenCarga;
 
     private static final int REQUEST_PERMISSION_CAMERA = 100;
     private static final int REQUEST_IMAGE_CAMERA = 101;
     private static final int REQUEST_PERMISSION_GALERY = 102;
     private static final int REQUEST_IMAGE_GALEY = 103;
-    private ImageView img_eds;
+    private ImageView imgPerfil;
 
+    private Integer genero = 0;
+    private Usuario currentUser;
+
+    private FirebaseAuth mAuth;
+    private RelativeLayout statusApi;
+    long userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
         ccp = view.findViewById(R.id.ccp);// Las banderas y sus indicativos
-        etText = view.findViewById(R.id.etCel);
+        edtCelular = view.findViewById(R.id.etCel);
 
         tvFecNacimiento = view.findViewById(R.id.tvFecNacimientoCapt);
         navPassword = view.findViewById(R.id.navPassword);
 
         etPassworDesa = view.findViewById(R.id.etPasswordDesa);
         etPassworDesa.setEnabled(false);
+        statusApi = view.findViewById(R.id.statusApi);
 
         btnMasculino = view.findViewById(R.id.btnMasculino);
         btnFemenino = view.findViewById(R.id.btnFemenino);
-        tvName = view.findViewById(R.id.user_name_edit);
-        tvApellidos = view.findViewById(R.id.etApellidos);
-        tvNumeroIdentidad = view.findViewById(R.id.etNumDeIdentidad);
-        tvCorreo = view.findViewById(R.id.etEmail);
+        edtName = view.findViewById(R.id.user_name_edit);
+        edtApellidos = view.findViewById(R.id.etApellidos);
+        edtNumeroIdentidad = view.findViewById(R.id.etNumDeIdentidad);
+        edtCorreo = view.findViewById(R.id.etEmail);
         btnGuardar = view.findViewById(R.id.guardar_usuario);
-        imagenCarga = view.findViewById(R.id.status_image);
 
-        img_eds = view.findViewById(R.id.imagen_perfil_editar);
-
+        imgPerfil = view.findViewById(R.id.imagen_perfil_editar);
 
         myPreferences = requireActivity().getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
-        int userID = myPreferences.getInt(Constantes.DEFAULT_USER_ID, 0);
+        userID = myPreferences.getLong(Constantes.DEFAULT_USER_ID, 0);
 
-        ipresenterEditAccount = new PesenterEditAccount(this, userID, requireContext());
+        ipresenterEditAccount = new PesenterEditAccount(this, userID, requireContext(), view);
 
         TextView titulo = view.findViewById(R.id.tv_toolbar_titulo);
         titulo.setText(getString(R.string.editar_perfil));
@@ -116,72 +124,41 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
             ipresenterEditAccount.updateUserInfoAccount();
         });
 
-        img_eds.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-            popupMenu.inflate(R.menu.menufotoperfil);
-            popupMenu.show();
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.camara:
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                                    irACamara();
-                                } else {
-                                    ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
-                                }
-                            } else {
-                                irACamara();
-                            }
-                            return true;
-                        case R.id.galeria:
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                                    abrirGaleria();
-                                } else {
-                                    ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
-                                }
-                            } else {
-                                abrirGaleria();
-                            }
-                            return true;
-                        default:
-                            return false;
+        mAuth = FirebaseAuth.getInstance();
+        String password = "Inndex2021%";
+        statusApi.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(getString(R.string.inndex_email), password)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    statusApi.setVisibility(View.GONE);
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        checkPermissions();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(requireContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        btnBack.callOnClick();
                     }
-                }
-            });
-        });
+                });
 
         //Cambiamos a masculino en negro
-        btnMasculino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                btnMasculino.setBackgroundColor(Color.BLACK);
-                btnMasculino.setTextColor(Color.WHITE);
-                btnFemenino.setBackgroundColor(Color.WHITE);
-                btnFemenino.setTextColor(Color.BLACK);
-
-            }
+        btnMasculino.setOnClickListener(v -> {
+            genero = EGenero.MASCULINO.getId();
+            btnMasculino.setBackgroundColor(Color.BLACK);
+            btnMasculino.setTextColor(Color.WHITE);
+            btnFemenino.setBackgroundColor(Color.WHITE);
+            btnFemenino.setTextColor(Color.BLACK);
         });
 
         //Cambiamos a femenino en negro
-        btnFemenino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                btnFemenino.setBackgroundColor(Color.BLACK);
-                btnFemenino.setTextColor(Color.WHITE);
-                btnMasculino.setBackgroundColor(Color.WHITE);
-                btnMasculino.setTextColor(Color.BLACK);
-
-            }
+        btnFemenino.setOnClickListener(v -> {
+            genero = EGenero.FEMENINO.getId();
+            btnFemenino.setBackgroundColor(Color.BLACK);
+            btnFemenino.setTextColor(Color.WHITE);
+            btnMasculino.setBackgroundColor(Color.WHITE);
+            btnMasculino.setTextColor(Color.BLACK);
         });
-
-
 /*
         saveChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,18 +170,12 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         });
 */
         //Captura el click de fecha de nacimiento
-        tvFecNacimiento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirCalendario();
-            }
-        });
+        tvFecNacimiento.setOnClickListener(v -> abrirCalendario());
 
         //navPassword.setOnClickListener(v ->
         //        Navigation.findNavController(v).navigate(R.id.action_editProfileFragment_to_editPasswordFragment));
         return view;
     }
-
 
     //Abrimos el calendario y obtenemos la fecha dada por el usuario
     public void abrirCalendario() {
@@ -213,44 +184,42 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         int mes = calendar.get(Calendar.MONTH);
         int dia = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePicker = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String fecha = dayOfMonth + "/" + (month + 1) + "/" + year;
-                tvFecNacimiento.setText(fecha);
-            }
+        DatePickerDialog datePicker = new DatePickerDialog(this.getContext(), (view, year, month, dayOfMonth) -> {
+            //String fecha = dayOfMonth + "/" + (month + 1) + "/" + year;
+            String fecha = year + "-" + dayOfMonth + "-" + (month + 1);
+            tvFecNacimiento.setText(fecha);
         }, anio, mes, dia);
         datePicker.show();
     }
 
     //para recuperar el telefono mas el indicativo
     private void getNumber() {
-        String fullNumber = ccp.getFullNumber() + etText.getText().toString();
+        String fullNumber = ccp.getFullNumber() + edtCelular.getText().toString();
     }
 
     @Override
     public EditText createTextViewName() {
-        return tvName;
+        return edtName;
     }
 
     @Override
     public EditText createTextViewLastName() {
-        return tvApellidos;
+        return edtApellidos;
     }
 
     @Override
     public EditText createTextViewId() {
-        return tvNumeroIdentidad;
+        return edtNumeroIdentidad;
     }
 
     @Override
     public EditText createTextViewEmail() {
-        return tvCorreo;
+        return edtCorreo;
     }
 
     @Override
     public EditText createTextViewCellphone() {
-        return etText;
+        return edtCelular;
     }
 
     @Override
@@ -262,18 +231,27 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
     public Usuario updateUser() {
 
         Usuario usuario;
-        if (tvCorreo.getText() == null || tvNumeroIdentidad.getText() == null || tvName.getText() == null ||
-                tvApellidos.getText() == null || etText.getText() == null || tvFecNacimiento.getText() == null)
-            usuario = null;
-        else
-            usuario = new Usuario(tvCorreo.getText().toString(), tvNumeroIdentidad.getText().toString(), tvName.getText().toString(),
-                    tvApellidos.getText().toString(), etText.getText().toString(), tvFecNacimiento.getText().toString());
+        usuario = new Usuario(edtCorreo.getText().toString(), edtNumeroIdentidad.getText().toString(), edtName.getText().toString(),
+                edtApellidos.getText().toString(), edtCelular.getText().toString(), tvFecNacimiento.getText().toString());
+        usuario.setId(userID);
+        if (genero > 0)
+            usuario.setGenero(genero);
         return usuario;
     }
 
     @Override
     public RelativeLayout imagenCarga() {
-        return imagenCarga;
+        return statusApi;
+    }
+
+    @Override
+    public Button getBtnMasculino() {
+        return btnMasculino;
+    }
+
+    @Override
+    public Button getBtnFemenino() {
+        return btnFemenino;
     }
 
 
@@ -282,23 +260,19 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //camara
         if (requestCode == REQUEST_PERMISSION_CAMERA) {
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                irACamara();
-
-            } else {
-                Toast.makeText(view.getContext(), "Se necesitan los permisos", Toast.LENGTH_SHORT).show();
-
+            if (!(permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Navigation.findNavController(view).navigateUp();
+                return;
             }
         }
         //galeria
         if (requestCode == REQUEST_PERMISSION_GALERY) {
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                abrirGaleria();
-            } else {
-                Toast.makeText(view.getContext(), "Se necesitan los permisos", Toast.LENGTH_SHORT).show();
+            if (!(permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Navigation.findNavController(view).navigateUp();
+                return;
             }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        initCameraAndGalleryButton();
     }
 
     @Override
@@ -309,10 +283,7 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         if (requestCode == REQUEST_IMAGE_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmapCa = (Bitmap) data.getExtras().get("data");
-                img_eds.setImageBitmap(bitmapCa);
-
-                Log.i("TAG", "Result=>" + bitmapCa);
-
+                imgPerfil.setImageBitmap(bitmapCa);
             } else {
                 Toast.makeText(view.getContext(), "Se requieren los permisos", Toast.LENGTH_SHORT).show();
             }
@@ -321,8 +292,7 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         if (requestCode == REQUEST_IMAGE_GALEY) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uriGa = data.getData();
-                img_eds.setImageURI(uriGa);
-
+                imgPerfil.setImageURI(uriGa);
             } else {
                 Toast.makeText(view.getContext(), "No elegiste ninguna imagen", Toast.LENGTH_SHORT).show();
             }
@@ -342,6 +312,42 @@ public class EditProfileFragment extends Fragment implements IeditAccout {
         startActivityForResult(intent, REQUEST_IMAGE_GALEY);
     }
 
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_CAMERA);
+        } else {
+            initCameraAndGalleryButton();
+        }
+    }
+
+    private void initCameraAndGalleryButton() {
+        imgPerfil.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(requireContext(), imgPerfil);
+            popupMenu.inflate(R.menu.menufotoperfil);
+            popupMenu.show();
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.camara) {
+                    if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        irACamara();
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
+                    }
+                    return true;
+                } else if (item.getItemId() == R.id.galeria) {
+
+                    if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        abrirGaleria();
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
+                    }
+                    return true;
+                }
+                return false;
+            });
+        });
+    }
 
     //convierte a base64
     String convertirImagenBase64(Bitmap userimage) {

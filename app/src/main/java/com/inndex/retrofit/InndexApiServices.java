@@ -36,6 +36,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -58,9 +59,11 @@ public interface InndexApiServices {
     @GET(Constantes.GET_USER_INFO_BY_ID)
     Call<Usuario> getUserInfoById(@Query("id") Long idUsuario);
 
-    @PUT(Constantes.UPDATE_USER)
-    Call<Usuario> updateUser(@Header("Content-Type") String headerContentType,
-                             @Body Usuario usuario);
+    @POST(Constantes.UPDATE_USER)
+    Call<Usuario> updateUser(@Body Usuario usuario);
+
+    @PUT(IApiUrlConstants.UPDATE_USER_ACCOUNT_STATE)
+    Call<Usuario> updateUserAccountState(@Body Usuario usuario);
 
     /**
      * ESTACIONES
@@ -76,6 +79,9 @@ public interface InndexApiServices {
 
     @GET(IApiUrlConstants.GET_ESTACIONES_NEAR_USER)
     Call<List<Estaciones>> getEstacionesNearUser(@Query("latitud") Double latitud, @Query("longitud") Double longitud);
+
+    @GET(IApiUrlConstants.GET_ESTACIONES_NEAR_USER_WITH_FUEL)
+    Call<List<Estaciones>> getEstacionesNearUserWithFuel(@Query("latitud") Double latitud, @Query("longitud") Double longitud);
 
     @POST(Constantes.POST_REGISTER_STATION)
     Call<ResponseServices> postRegisterStation(@Header("Content-Type") String headerContentType,
@@ -93,6 +99,10 @@ public interface InndexApiServices {
     Call<ResponseServices> updateStationOtherServices(
             @Body Estaciones estaciones);
 
+
+    /**
+     * VEHÍCULOS
+     */
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
     Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);
 
@@ -126,6 +136,9 @@ public interface InndexApiServices {
 
     @POST(IApiUrlConstants.POST_SAVE_PROMOCION)
     Call<Promocion> postSavePromocion(@Body Promocion promocion);
+
+    @DELETE(IApiUrlConstants.DELETE_PROMOCION)
+    Call<Promocion> deletePromocion(@Query("id") Long promocionId);
 
     /**
      * COMBUSTIBLES

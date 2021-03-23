@@ -115,13 +115,13 @@ public class PresenterPromocionForm implements IPresenterPromocionForm {
         PrecioOferta = iPromocionFormFragment.crearEditTextPresioOferta();
         DescripcionOferta = iPromocionFormFragment.crearEditTextDescripcionOferta();
 
-        if (!tituoOferta.getText().toString().isEmpty() &&
-                !PrecioOferta.getText().toString().isEmpty() &&
-                !DescripcionOferta.getText().toString().isEmpty()) {
+        if (!tituoOferta.getText().toString().isEmpty()) {
 
             promocion.setTitulo(tituoOferta.getText().toString());
-            promocion.setPrecio(Integer.valueOf(PrecioOferta.getText().toString()));
-            promocion.setDescripcion(DescripcionOferta.getText().toString());
+            String precioOferta = PrecioOferta.getText() != null ? PrecioOferta.getText().toString() : "";
+            if (precioOferta.length() > 0)
+                promocion.setPrecio(Integer.valueOf(PrecioOferta.getText() != null ? PrecioOferta.getText().toString() : ""));
+            promocion.setDescripcion(DescripcionOferta.getText() != null ? DescripcionOferta.getText().toString() : "");
             promocion.setActive(true);
             promocion.setEstaciones(estacion);
             Bitmap bitmap = iPromocionFormFragment.getBitmap();
@@ -135,7 +135,8 @@ public class PresenterPromocionForm implements IPresenterPromocionForm {
             uploadImageToFirebase();
 
         } else {
-            Toast.makeText(context, "Ingrese Todos los valores", Toast.LENGTH_SHORT).show();
+            tituoOferta.requestFocus();
+            Toast.makeText(context, "Ingrese Título", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -152,7 +153,7 @@ public class PresenterPromocionForm implements IPresenterPromocionForm {
 
         UploadTask uploadTask = imageRef.putBytes(byteBitmap);
 
-        Task<Uri> taskUri = uploadTask.continueWithTask(task -> {
+        uploadTask.continueWithTask(task -> {
 
             if (!task.isSuccessful()) {
                 Toast.makeText(context, "NO FUE POSIBLE SUBIR LA IMAGEN A NUESTROS SERVIDORES.", Toast.LENGTH_SHORT).show();
@@ -175,7 +176,7 @@ public class PresenterPromocionForm implements IPresenterPromocionForm {
                         if (response.isSuccessful()) {
                             Toast.makeText(context, "Información guardada de manera exitosa.", Toast.LENGTH_SHORT).show();
                             Bundle bundle = new Bundle();
-                            bundle.putParcelable(Constantes.ESTACION_BUNDLE,estacion);
+                            bundle.putParcelable(Constantes.ESTACION_BUNDLE, estacion);
                             Navigation.findNavController(view).navigate(R.id.promocionListFragment, bundle);
                         } else {
                             Toast.makeText(context, "Error " + response.code(), Toast.LENGTH_SHORT).show();

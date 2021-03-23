@@ -31,7 +31,6 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
     private TextView tvCompraYventaSeleccionados;
     private Estaciones estacion;
     private CardView cajeros, corresponsales, puntosPago, tiendasConvivencia, soat, cvMetodosPago, cvMensajeria;
-
     private Button guardarUsuario;
     private CheckBox restaurate, hotel, banios, lubricantes, llanteria, lavadero;
     private CheckBox cbFarmacia, cbServiteca;
@@ -72,7 +71,7 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         cvMetodosPago = root.findViewById(R.id.metodos_pago_otros_servicios);
         cvMensajeria = root.findViewById(R.id.cvMensajeria);
 
-           CardView  cvCompraYventa = root.findViewById(R.id.cvCompraYventa);
+        CardView cvCompraYventa = root.findViewById(R.id.cvCompraYventa);
         CardView cvAccesorios = root.findViewById(R.id.cvAccesorios);
 
         guardarUsuario = root.findViewById(R.id.guardar_usuario);
@@ -138,6 +137,12 @@ public class EdsOtrosServiciosFragment extends Fragment implements IEdsOtrosServ
         cvMensajeria.setOnClickListener(v -> {
             iPresenterEdsOtrosServicios.mostrarDialogoMensajeria();
         });
+        cvAccesorios.setOnClickListener(v ->
+                iPresenterEdsOtrosServicios.mostrarDialogoAccesorios()
+        );
+        cvCompraYventa.setOnClickListener(v ->
+                iPresenterEdsOtrosServicios.mostrarDialogoCompraYventa()
+        );
         return root;
     }
 

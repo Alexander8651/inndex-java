@@ -87,6 +87,8 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     private RelativeLayout status_api;
     private EstacionFiltrosListDto estacionFiltrosListDto;
 
+    boolean fragmentCreated = false;
+
     public static EstacionesMapFragment newInstance(String param1, String param2) {
         EstacionesMapFragment fragment = new EstacionesMapFragment();
         Bundle args = new Bundle();
@@ -97,13 +99,49 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fragmentCreated = true;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_estaciones_map, container, false);
+
+        /*if(!fragmentCreated) {
+            onCreate(savedInstanceState);
+            return null;
+        }*/
+        return inflater.inflate(R.layout.fragment_estaciones_map, container, false);
+    }
+
+    private void testDistanceApi() {
+        Call<DistanceApiResponse> getDistance = DistanceApiAdapter.getApiService().getDistanceBetween("10.465923313985513,-73.24876001986274",
+                "10.448584597414639,-73.28423192393828", Constantes.API_KEY_PLACES);
+        getDistance.enqueue(new Callback<DistanceApiResponse>() {
+            @Override
+            public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
+                Log.e("RESPONSE", "RES " + response.code());
+                if (response.isSuccessful()) {
+                    DistanceApiResponse res = response.body();
+                    if (res != null)
+                        Log.e("DIS", "DISTANMCE IS " + res.getDistanceValue());
+                    else
+                        Log.e("DIS", "SOMETHING HAPPEND");
+
+                } else {
+                    Log.e("RESPONSE", "NOT SUCCESSFULL " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DistanceApiResponse> call, Throwable t) {
+                Log.e("FAILURE", "EX " + t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
 
         status_api = v.findViewById(R.id.status_api);
 
@@ -185,41 +223,10 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
                 }
             });
         }
-        return v;
-    }
 
-    private void testDistanceApi() {
-        Call<DistanceApiResponse> getDistance = DistanceApiAdapter.getApiService().getDistanceBetween("10.465923313985513,-73.24876001986274",
-                "10.448584597414639,-73.28423192393828", Constantes.API_KEY_PLACES);
-        getDistance.enqueue(new Callback<DistanceApiResponse>() {
-            @Override
-            public void onResponse(Call<DistanceApiResponse> call, Response<DistanceApiResponse> response) {
-                Log.e("RESPONSE", "RES " + response.code());
-                if (response.isSuccessful()) {
-                    DistanceApiResponse res = response.body();
-                    if (res != null)
-                        Log.e("DIS", "DISTANMCE IS " + res.getDistanceValue());
-                    else
-                        Log.e("DIS", "SOMETHING HAPPEND");
-
-                } else {
-                    Log.e("RESPONSE", "NOT SUCCESSFULL " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DistanceApiResponse> call, Throwable t) {
-                Log.e("FAILURE", "EX " + t.getMessage());
-            }
-        });
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding = FragmentEstacionesMapBinding.bind(view);
-        binding.fabUbicacion.setOnClickListener(v -> mapService.mostrarUbicacion());
-        binding.fabNavegacion.setOnClickListener(v -> {
+        binding = FragmentEstacionesMapBinding.bind(v);
+        binding.fabUbicacion.setOnClickListener(v1 -> mapService.mostrarUbicacion());
+        binding.fabNavegacion.setOnClickListener(v2 -> {
             if (selectedPlace != null) {
                 gotToWaze(selectedPlace.getLatLng());
             } else if (estacionSeleccionada != null) {
@@ -234,6 +241,7 @@ public class EstacionesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.clear();
         mapService = new MapService(mMap, getContext(), this);
         if (estaciones.size() > 0) {
             initCluster();

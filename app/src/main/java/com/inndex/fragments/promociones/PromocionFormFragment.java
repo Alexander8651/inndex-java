@@ -35,6 +35,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -122,12 +123,9 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
         );
 
         mAuth = FirebaseAuth.getInstance();
-
-        String email = "inndexco@gmail.com";
         String password = "Inndex2021%";
-        //checkCameraPermissions();
         statusApi.setVisibility(View.VISIBLE);
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(getString(R.string.inndex_email), password)
                 .addOnCompleteListener(requireActivity(), task -> {
                     statusApi.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
@@ -272,26 +270,18 @@ public class PromocionFormFragment extends Fragment implements IPromocionFormFra
             popupMenu.setOnMenuItemClickListener(item -> {
 
                 if (item.getItemId() == R.id.camara) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                            irACamara();
-                        } else {
-
-                            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
-                        }
-                    } else {
+                    if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         irACamara();
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
                     }
                     return true;
                 } else if (item.getItemId() == R.id.galeria) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                            abrirGaleria();
-                        } else {
-                            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
-                        }
-                    } else {
+
+                    if (ActivityCompat.checkSelfPermission(agregar_foto_promocion.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         abrirGaleria();
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_GALERY);
                     }
                     return true;
                 }

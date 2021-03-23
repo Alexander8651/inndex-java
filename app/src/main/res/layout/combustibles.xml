@@ -188,14 +188,14 @@
 
     </HorizontalScrollView>
 
-    <TextView
+    <!--TextView
         android:fontFamily="@font/roboto_light"
         android:id="@+id/tv_estacion_servicios_precios_actualizados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Precios actualizados hace 2 dias"
         android:textAlignment="center"
-        android:textSize="@dimen/text_combustibles_titulos" />
+        android:textSize="@dimen/text_combustibles_titulos" /-->
 
     <View
         android:layout_width="match_parent"

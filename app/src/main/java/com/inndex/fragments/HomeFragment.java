@@ -22,7 +22,6 @@ import com.inndex.shared.SharedViewModel;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel mViewModel;
     private NavController navController;
 
     private BottomNavigationView bottomNavigationView;
@@ -39,9 +38,25 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.home_fragment, container, false);
+
+        return inflater.inflate(R.layout.home_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
         layButtonsStationSelected = v.findViewById(R.id.lay_buttons_station_selected);
         bottomNavigationView = v.findViewById(R.id.bottomNavigation);
         //layLista = v.findViewById(R.id.lay_lista);
@@ -55,14 +70,6 @@ public class HomeFragment extends Fragment {
         layBtnIndicaciones.setOnClickListener(view -> {
             sharedViewModel.setHomeEvents(EEvents.DRAW_ROUTE.getId());
         });
-        //layBtnReclamarAhora = v.findViewById(R.id.lay_btn_reclamar_ahora);
-
-        return v;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(requireActivity(), R.id.fragContentApp);
         //navController.navigate(R.id.estacionesMapFragment);
         NavigationUI.setupWithNavController(bottomNavigationView,
@@ -86,8 +93,6 @@ public class HomeFragment extends Fragment {
                             break;
                     }
                 });
-
-
     }
 
 }

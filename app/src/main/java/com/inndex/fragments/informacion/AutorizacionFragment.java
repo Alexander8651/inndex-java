@@ -48,8 +48,6 @@ public class AutorizacionFragment extends Fragment implements IAutorizacionFragm
 
         autorizacionPolitica.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_autorizacionFragment_to_politicaPrivacidadFragment));
         autorizacionTerminos.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_informacionFragment2_to_terminosYCondicionesFragment));
-
-
         return root;
     }
 

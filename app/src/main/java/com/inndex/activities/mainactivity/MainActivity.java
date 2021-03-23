@@ -1,12 +1,19 @@
 package com.inndex.activities.mainactivity;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -48,13 +55,32 @@ public class MainActivity extends AppCompatActivity {
         String email = preferences.getString("email", "");
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navigationView, navController);
-        //navigationView.setNavigationItemSelectedListener(this);
 
+        Menu menu = navigationView.getMenu();
+
+        for (int i = 0; i < menu.size(); i++) {
+            if(menu.getItem(i).getItemId() == R.id.opt_compartir_app){
+                menu.getItem(i).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        shareApp();
+                        return false;
+                    }
+                });
+            }
+        }
+
+
+        //navigationView.setNavigationItemSelectedListener(this);
+        /*navigationView.setNavigationItemSelectedListener(menuItem -> {
+            Log.e("TAG", menuItem.getTitle().toString());
+            if (menuItem.getItemId() == R.id.opt_compartir_app)
+
+            return true;
+        });*/
         model = new ViewModelProvider(this).get(SharedViewModel.class);
         model.getEvents().observe(this, i -> {
 
@@ -67,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         model.getEditarEstacionEvent().observe(this, estacion -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("estacionIs", estacion);
-            navController.navigate(R.id.opt_agregar_eds  ,bundle);
+            navController.navigate(R.id.opt_agregar_eds, bundle);
         });
 
         TextView tvNombres = navigationView.getHeaderView(0).findViewById(R.id.tvUsuario);
@@ -80,11 +106,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.e("BACK","PRESSED");
         if (isEstacionesMapFragmentVisible) {
             model.setHomeEvents(EEvents.BACK_BUTTON_PRESSED.getId());
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void shareApp() {
+        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+        String shareMessage= "\nLet me recommend you this application\n\n";
+        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + appPackageName +"\n\n";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+        startActivity(Intent.createChooser(shareIntent, "choose one"));
     }
 
 }

@@ -9,17 +9,30 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.inndex.R;
 import com.inndex.activities.mainactivity.MainActivity;
+import com.inndex.constantes.ISecurityConstants;
 import com.inndex.database.DataBaseHelper;
 import com.inndex.model.Estados;
 import com.inndex.model.LineasVehiculos;
@@ -42,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     public static final int LOCATION_REQUEST_CODE = 1;
 
+    public static final int GOOGLE_SIGN_IN = 2;
+
     private Dao<Vehiculo, Integer> daoUsuarioModeloCarros;
     private Dao<LineasVehiculos, Integer> daoModeloCarros;
 
@@ -63,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         etEmail.setTypeface(light);
         etPassword = findViewById(R.id.etPassword);
         etPassword.setTypeface(light);
+        LinearLayout llGoogleLogin = findViewById(R.id.llGoogleLogin);
         Button btnIngresar = findViewById(R.id.btnIngresar);
         btnIngresar.setTypeface(bold);
 
@@ -95,11 +111,58 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        llGoogleLogin.setOnClickListener(v -> checkLogin());
+
         TextView tvRecordar = findViewById(R.id.tvRecordar);
         tvRecordar.setTypeface(bold);
         tvRecordar.setOnClickListener(view -> {
         });
         myPreferences = getSharedPreferences(Constantes.SHARED_PREFERENCES_FILE_KEY, MODE_PRIVATE);
+    }
+
+    private void checkLogin() {
+        GoogleSignInAccount signIn = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
+        if (signIn!= null) {
+
+        } else {
+            logInWithGoogle();
+        }
+    }
+
+    private void logInWithGoogle() {
+        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(ISecurityConstants.GOOGLE_SIGN_IN_OAUTH2_KEY).requestEmail().build();
+        GoogleSignInClient client = GoogleSignIn.getClient(this, options);
+
+        startActivityForResult(client.getSignInIntent(), GOOGLE_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GOOGLE_SIGN_IN) {
+
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            GoogleSignInAccount account = null;
+            try {
+                account = task.getResult(ApiException.class);
+                if (account != null) {
+                    Log.e("1", account.getDisplayName());
+                    Log.e("2", account.getEmail());
+                    Log.e("3", account.getFamilyName());
+                    Log.e("4", account.getPhotoUrl().toString());
+                    Log.e("5", account.getGivenName());
+                    Log.e("6", account.getId());
+                    Log.e("7", account.getIdToken());
+                }
+            } catch (ApiException e) {
+                Toast.makeText(this, "NO FUE POSIBLE INICIAR SESIÓN CON GOOGLE", Toast.LENGTH_SHORT).show();
+                Log.e("ex", e.getMessage());
+            }
+
+
+        }
     }
 
     private void login(Usuario user) {
@@ -127,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
         infoUsuario.putBoolean(Constantes.SESION_ACTIVE, true);
         infoUsuario.putString("email", user.getEmail());
         infoUsuario.putString("nombres", user.getNombres());
-        infoUsuario.putInt(Constantes.DEFAULT_USER_ID, user.getId());
+        infoUsuario.putLong(Constantes.DEFAULT_USER_ID, user.getId());
         infoUsuario.putString("celular", user.getCelular());
         infoUsuario.putString("apellidos", user.getApellidos());
 

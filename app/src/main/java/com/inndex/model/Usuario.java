@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
 
     @DatabaseField
-    private int id;
+    private long id;
     @DatabaseField
     private String email;
     @DatabaseField
@@ -31,9 +31,15 @@ public class Usuario implements Serializable {
     @DatabaseField
     private Integer genero;
 
+    private Integer estadoCuenta;
+
 
     //Formato: yyyy-MM-dd
     private String fechaNacimiento;
+
+    public Usuario(long id) {
+        this.id = id;
+    }
 
     public Usuario(String email, String identificacion, String nombres, String apellidos, String celular, String fechaNacimiento) {
         this.email = email;
@@ -47,11 +53,11 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -141,5 +147,13 @@ public class Usuario implements Serializable {
 
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Integer getEstadoCuenta() {
+        return estadoCuenta;
+    }
+
+    public void setEstadoCuenta(Integer estadoCuenta) {
+        this.estadoCuenta = estadoCuenta;
     }
 }

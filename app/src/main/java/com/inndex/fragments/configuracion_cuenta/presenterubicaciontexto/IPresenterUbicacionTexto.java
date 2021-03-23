@@ -4,4 +4,5 @@ public interface IPresenterUbicacionTexto {
 
     void obtenerBodyUbicaciobText();
     void mostrarBodyUbicaciobText();
+
 }

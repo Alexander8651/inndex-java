@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
     android:orientation="horizontal"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginTop="10dp">
 
     <ImageView
         android:id="@+id/fotoPromocion"
@@ -23,7 +23,6 @@
             android:id="@+id/tituloPromocion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Soat con descuento"
             android:textSize="20sp"
             android:fontFamily="@font/roboto_regular"
             android:textStyle="bold"/>
@@ -32,7 +31,6 @@
             android:id="@+id/precioPromocion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$232,000"
             android:textColor="@color/gris_menu_main"
             android:fontFamily="@font/roboto_light"/>
 

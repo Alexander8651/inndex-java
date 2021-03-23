@@ -6,6 +6,7 @@ public interface IApiUrlConstants {
     String POST_SAVE_PROMOCION = "promociones/save";
     String GET_PROMOCIONES_BY_ID = "promociones/getById";
     String GET_PROMOCIONES_BY_ESTACION_ID = "promociones/getByEstacionId";
+    String DELETE_PROMOCION = "promociones";
 
     // ESTACION COMBUSTIBLES
     String POST_SAVE_ALL_ESTACION_COMBUSTIBLE = "estaciones/update-fuel";
@@ -22,6 +23,7 @@ public interface IApiUrlConstants {
     //ESTACIONES
     String GET_ESTACIONES_NEAR_USER = "estaciones/getNearUser";
     String POST_CONSULT_ESTACIONES_BY_FILTER = "estaciones/post_query_by_filters";
+    String GET_ESTACIONES_NEAR_USER_WITH_FUEL = "estaciones/getNearUserWithFuel";
 
     //MENSAJERIA
     String GET_MENSAJERIA = "mensajeria/getAll";
@@ -34,5 +36,8 @@ public interface IApiUrlConstants {
 
     //COMPRA Y VENTA
     String GET_COMPRA_Y_VENTA = "compra-y-venta/getAll";
+
+    //USUARIOS
+    String UPDATE_USER_ACCOUNT_STATE = "users/update-account-state";
 
 }
