@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.e("BACK","PRESSED");
         if (isEstacionesMapFragmentVisible) {
             model.setHomeEvents(EEvents.BACK_BUTTON_PRESSED.getId());
         } else {

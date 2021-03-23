@@ -62,7 +62,10 @@ public class EditarEdsFragment extends Fragment {
         titulo.setText(R.string.editar_eds);
 
         btnBack.setOnClickListener(v ->
-                Navigation.findNavController(v).navigateUp()
+                {
+                    Navigation.findNavController(v).navigateUp();
+                    //Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_homeFragment);
+                }
         );
         llDatosGenerales.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_editarEdsFragment_to_datosGeneralesFragment, bundle);
