@@ -2,16 +2,17 @@ package com.inndex.fragments.configuracion_cuenta.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
+import com.inndex.enums.EGenero;
 import com.inndex.fragments.configuracion_cuenta.IeditAccout;
 import com.inndex.model.Usuario;
-import com.inndex.retrofit.InndexApiServices;
 import com.inndex.retrofit.MedidorApiAdapter;
 import com.inndex.utils.Constantes;
 
@@ -23,7 +24,7 @@ public class PesenterEditAccount implements IpresenterEditAccount {
 
     private IeditAccout ieditAccout;
     private SharedPreferences myPreferences;
-    private int userID;
+    private long userID;
     EditText name;
     EditText apellidos;
     EditText numeroIdentidad;
@@ -32,11 +33,13 @@ public class PesenterEditAccount implements IpresenterEditAccount {
     TextView fechaNacimiento;
     RelativeLayout imagenCarga;
     private Context context;
+    View root;
 
-    public PesenterEditAccount(IeditAccout ieditAccout, int userID, Context context) {
+    public PesenterEditAccount(IeditAccout ieditAccout, long userID, Context context, View root) {
         this.ieditAccout = ieditAccout;
         this.userID = userID;
         this.context = context;
+        this.root = root;
         setInfoUser();
         getUserInfoAccount();
     }
@@ -65,31 +68,33 @@ public class PesenterEditAccount implements IpresenterEditAccount {
 
                 if (response.isSuccessful()) {
                     imagenCarga.setVisibility(View.GONE);
-
                     Usuario usuario = response.body();
-
-                    if (usuario.getNombres() != null) {
-                        name.setText(usuario.getNombres());
-                    }
-
-                    if (usuario.getApellidos() != null) {
-                        apellidos.setText(usuario.getApellidos());
-                    }
-
-                    if (usuario.getIdentificacion() != null) {
-                        numeroIdentidad.setText(String.valueOf(usuario.getIdentificacion()));
-                    }
-
-                    if (usuario.getEmail() != null) {
-                        correo.setText(usuario.getEmail());
-                    }
-
-                    if (usuario.getCelular() != null) {
-                        numeroCelular.setText(usuario.getCelular());
-                    }
-
-                    if (usuario.getFechaNacimiento() != null) {
-                        fechaNacimiento.setText(usuario.getFechaNacimiento());
+                    if (usuario != null) {
+                        if (usuario.getNombres() != null) {
+                            name.setText(usuario.getNombres());
+                        }
+                        if (usuario.getApellidos() != null) {
+                            apellidos.setText(usuario.getApellidos());
+                        }
+                        if (usuario.getIdentificacion() != null) {
+                            numeroIdentidad.setText(String.valueOf(usuario.getIdentificacion()));
+                        }
+                        if (usuario.getEmail() != null) {
+                            correo.setText(usuario.getEmail());
+                        }
+                        if (usuario.getCelular() != null) {
+                            numeroCelular.setText(usuario.getCelular());
+                        }
+                        if (usuario.getFechaNacimiento() != null) {
+                            fechaNacimiento.setText(usuario.getFechaNacimiento());
+                        }
+                        Integer genero = usuario.getGenero();
+                        if (genero != null) {
+                            if (EGenero.MASCULINO.getId().equals(genero))
+                                ieditAccout.getBtnMasculino().callOnClick();
+                            if (EGenero.FEMENINO.getId().equals(genero))
+                                ieditAccout.getBtnFemenino().callOnClick();
+                        }
                     }
                 }
             }
@@ -105,17 +110,22 @@ public class PesenterEditAccount implements IpresenterEditAccount {
     public void updateUserInfoAccount() {
         Usuario usuario = ieditAccout.updateUser();
         if (usuario != null) {
-            Call<Usuario> updateUserInfo = MedidorApiAdapter.getApiService().updateUser(Constantes.CONTENT_TYPE_JSON, usuario);
+            Call<Usuario> updateUserInfo = MedidorApiAdapter.getApiService().updateUser(usuario);
 
             updateUserInfo.enqueue(new Callback<Usuario>() {
                 @Override
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                    //Log.d("actualice", response.body().getNombres());
+
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "INFORMACIÓN ACTUALIZADA DE MANERA EXITOSA.", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(root).navigateUp();
+                    } else
+                        Toast.makeText(context, "ERROR ACTUALIZANDO INFORMACIÓN " + response.code(), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Call<Usuario> call, Throwable t) {
-
+                    Toast.makeText(context, "ERROR ACTUALIZANDO IONFORMACIÓN " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

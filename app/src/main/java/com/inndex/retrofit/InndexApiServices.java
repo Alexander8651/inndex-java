@@ -59,9 +59,8 @@ public interface InndexApiServices {
     @GET(Constantes.GET_USER_INFO_BY_ID)
     Call<Usuario> getUserInfoById(@Query("id") Long idUsuario);
 
-    @PUT(Constantes.UPDATE_USER)
-    Call<Usuario> updateUser(@Header("Content-Type") String headerContentType,
-                             @Body Usuario usuario);
+    @POST(Constantes.UPDATE_USER)
+    Call<Usuario> updateUser(@Body Usuario usuario);
 
     @PUT(IApiUrlConstants.UPDATE_USER_ACCOUNT_STATE)
     Call<Usuario> updateUserAccountState(@Body Usuario usuario);
@@ -102,7 +101,7 @@ public interface InndexApiServices {
 
 
     /**
-     *  VEHÍCULOS
+     * VEHÍCULOS
      */
     @GET(Constantes.GET_VEHICLES_BY_USER_ID)
     Call<List<Vehiculo>> getVehiclesByUser(@Query("idUsuario") Long idUsuario);

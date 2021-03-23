@@ -29,6 +29,27 @@
                 android:paddingTop="15dp"
                 android:paddingRight="15dp">
 
+                <RelativeLayout
+                    android:id="@+id/statusApi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0.4"
+                        android:background="@color/colorPrimary" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/speedometer"
+                        app:lottie_speed="2.5" />
+                </RelativeLayout>
+
                 <ImageView
                     android:id="@+id/imagen_perfil_editar"
                     android:layout_width="50dp"
@@ -90,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="false"
                     android:focusable="false"
+                    android:enabled="false"
                     android:hint="carlosalonsosolago@gmail.com" />
 
                 <TextView
@@ -290,28 +312,7 @@
             </LinearLayout>
 
         </ScrollView>
+
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/status_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.4"
-            android:background="@color/colorPrimary" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/speedometer"
-            app:lottie_speed="2.5" />
-    </RelativeLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
