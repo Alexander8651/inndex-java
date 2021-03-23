@@ -19,6 +19,14 @@ public class EstacionCalificacion implements Serializable {
     public EstacionCalificacion() {
     }
 
+    public EstacionCalificacion(Long id, Integer calificacion, String comentario, Usuario usuario, Estaciones estaciones) {
+        this.id = id;
+        this.calificacion = calificacion;
+        this.comentario = comentario;
+        this.usuario = usuario;
+        this.estaciones = estaciones;
+    }
+
     public Long getId() {
         return id;
     }

@@ -68,6 +68,7 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
     private LatLng myPosition;
 
     private ImageView menuDetalle;
+    TextView tv_estacion_servicios_calificar;
 
     IPresenterDetalles iPresenterDetalles;
     RelativeLayout status_api;
@@ -109,8 +110,9 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         final TextView tvDistancia = root.findViewById(R.id.tv_estacion_servicios_distancia);
         final ImageView botonBack = root.findViewById(R.id.botonbackdetallebomba);
         final ImageView imgDrawRoute = root.findViewById(R.id.estaciones_servicios_route);
+        tv_estacion_servicios_calificar = root.findViewById(R.id.tv_estacion_servicios_calificar);
 
-        iPresenterDetalles = new PresenterDetalles(this, requireContext(), this.sharedViewModel);
+        iPresenterDetalles = new PresenterDetalles(this, requireContext(), this.sharedViewModel, estaciones);
 
         menuDetalle = root.findViewById(R.id.menuDetalleEstacion);
 
@@ -191,6 +193,9 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
             distancia = distancia / 1000;
             tvDistancia.setText(String.format(Locale.ENGLISH, "%.2f km", distancia));
         }
+
+        tv_estacion_servicios_calificar.setOnClickListener(v ->iPresenterDetalles.dialogCalificar());
+
         return root;
     }
 
@@ -1309,4 +1314,6 @@ public class EstacionDetalleFragment extends Fragment implements IEstacionDetall
         super.onViewCreated(view, savedInstanceState);
         model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
     }
+
+
 }

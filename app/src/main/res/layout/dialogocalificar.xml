@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="30dp">
+        <TextView
+            android:id="@+id/textviewtituloeds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="EDS la esperanza"
+            android:gravity="center_horizontal"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray_separator_services"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <RatingBar
+            android:id="@+id/rat_bar_estacion_servicios_calificacion_calificar"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/tv_estacion_servicios_calificacion"
+            android:numStars="5"
+            android:progressDrawable="@drawable/custom_rating_bar"
+            android:stepSize="0.1"
+            android:clickable="false"
+            android:layout_gravity="center_horizontal"/>
+
+        <EditText
+            android:id="@+id/comentarioCalificacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:hint="Escribe tu comentario"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCalificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/quantum_black_100"
+                android:text="Calificar"
+                android:textAllCaps="false"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorAccent"
+                android:text="Cancelar"
+                android:layout_marginTop="10dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

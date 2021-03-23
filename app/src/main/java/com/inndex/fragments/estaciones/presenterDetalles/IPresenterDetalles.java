@@ -8,5 +8,9 @@ public interface IPresenterDetalles {
 
     void editarEDS(Estaciones estacion);
 
+    void dialogCalificar();
+
+
+
 }
 
