@@ -67,8 +67,7 @@ public class BancosEdsotrosServiciosAdapter extends RecyclerView.Adapter<BancosE
 
             if (!exists && b){
                 bancosEstacion.add(bancoSelected);
-            } else 
-            {
+            } else{
                 bancosEstacion.remove(positionInBancosEstacion);
             }
 

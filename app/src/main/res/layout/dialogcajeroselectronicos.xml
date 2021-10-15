@@ -13,6 +13,6 @@
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="22"
-            tools:listitem="@layout/itemcajero" />
+            tools:listitem="@layout/itemselectable" />
 
 </LinearLayout>

@@ -282,6 +282,7 @@ public class PresenterEdsOtrsServiciosFragment implements IPresenterEdsOtrosServ
             validateCajeros();
         });
         builder.setNegativeButton("Cancelar", ((dialogInterface, i) -> {
+            dialogInterface.dismiss();
         }));
         builder.show();
     }
